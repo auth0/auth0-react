@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Auth0 React</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.7/auth0-spa-js.production.js"></script>
+  <script src="auth0-react.js"></script>
+  <script type="text/babel">
+    const { Auth0Provider, useAuth0 } = reactAuth0;
+    const { useState, useEffect } = React;
+
+    const App = () => {
+      const client = useAuth0();
+      const [ isAuthenticated, setIsAuthenticated ]  = useState(false);
+
+      useEffect(() => {
+        (async () => {
+          if (/[?&#]code=[^&]+/.test(window.location.search)) {
+            await client.handleRedirectCallback();
+            history.replaceState({}, document.title, window.location.pathname);
+          }
+          const isAuthenticated = await client.isAuthenticated();
+          setIsAuthenticated(isAuthenticated);
+        })();
+      }, []);
+
+      return (
+          isAuthenticated ?
+              <button onClick={() => client.logout({ returnTo: window.location.origin })}>logout</button> :
+              <button onClick={() => client.loginWithRedirect()}>Login</button>
+      )
+    };
+
+    ReactDOM.render((<Auth0Provider
+      domain="brucke.auth0.com"
+      client_id="wLSIP47wM39wKdDmOj6Zb5eSEw3JVhVp"
+      redirect_uri={window.location.origin}
+    >
+      <App/>
+    </Auth0Provider>), document.getElementById('app'));
+  </script>
+</body>
+</html>
