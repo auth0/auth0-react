@@ -1,0 +1,56 @@
+{
+  "author": "Auth0",
+  "name": "@auth0/auth0-react",
+  "version": "0.0.0",
+  "description": "Auth0 SDK for React applications",
+  "keywords": [
+    "auth0",
+    "login",
+    "Authorization Code Grant Flow",
+    "PKCE",
+    "Single Page Application authentication",
+    "SPA authentication",
+    "react"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "main": "dist/auth0-react.cjs.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/auth0-react.esm.js",
+  "scripts": {
+    "build": "rollup -c --environment NODE_ENV:production",
+    "start": "rollup -cw"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auth0/auth0-react.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/auth0/auth0-react/issues"
+  },
+  "homepage": "https://github.com/auth0/auth0-react#readme",
+  "devDependencies": {
+    "@auth0/auth0-spa-js": "^1.7.0",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rollup": "^2.7.2",
+    "rollup-plugin-delete": "^1.2.0",
+    "rollup-plugin-livereload": "^1.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "@auth0/auth0-spa-js": "^1.7.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
