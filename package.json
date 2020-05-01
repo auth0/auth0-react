@@ -21,7 +21,8 @@
   "module": "dist/auth0-react.esm.js",
   "scripts": {
     "build": "rollup -c --environment NODE_ENV:production",
-    "start": "rollup -cw"
+    "start": "rollup -cw",
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -34,10 +35,15 @@
   "homepage": "https://github.com/auth0/auth0-react#readme",
   "devDependencies": {
     "@auth0/auth0-spa-js": "^1.7.0",
+    "@testing-library/react-hooks": "^3.2.1",
+    "@types/jest": "^25.2.1",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
+    "jest": "^25.5.2",
+    "jest-junit": "^10.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
     "rollup": "^2.7.2",
     "rollup-plugin-delete": "^1.2.0",
     "rollup-plugin-livereload": "^1.2.0",
@@ -45,6 +51,7 @@
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript2": "^0.27.0",
+    "ts-jest": "^25.4.0",
     "tslib": "^1.11.1",
     "typescript": "^3.8.3"
   },
