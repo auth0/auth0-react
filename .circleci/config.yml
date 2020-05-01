@@ -15,6 +15,7 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
+      - run: npm run build
 
 workflows:
   Build and Test:
