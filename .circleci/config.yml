@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: 
+          keys:
             - dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run: npm ci
       - save_cache:
@@ -15,9 +15,6 @@ jobs:
           paths:
             - ~/.npm
             - ~/.cache
-      # build
-      # test
-      # store artifacts
 
 workflows:
   Build and Test:
