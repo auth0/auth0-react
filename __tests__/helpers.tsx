@@ -7,7 +7,7 @@ export const createWrapper = ({
   domain = '__test_domain__',
 }: Partial<Auth0ClientOptions> = {}) => ({
   children,
-}: PropsWithChildren<{}>) => (
+}: PropsWithChildren<{}>): JSX.Element => (
   <Auth0Provider domain={domain} client_id={client_id}>
     {children}
   </Auth0Provider>
