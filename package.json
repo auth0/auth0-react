@@ -20,8 +20,7 @@
   "types": "dist/index.d.ts",
   "module": "dist/auth0-react.esm.js",
   "scripts": {
-    "build": "npm run lint && rollup -c --environment NODE_ENV:production",
-    "lint": "eslint --ext=tsx ./src ./__tests__",
+    "build": "rollup -c --environment NODE_ENV:production",
     "start": "rollup -cw",
     "test": "jest --coverage"
   },
@@ -40,10 +39,6 @@
     "@types/jest": "^25.2.1",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
-    "@typescript-eslint/eslint-plugin": "^2.30.0",
-    "@typescript-eslint/parser": "^2.30.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.19.0",
     "husky": "^4.2.5",
     "jest": "^25.5.2",
     "jest-junit": "^10.0.0",
