@@ -5,7 +5,7 @@ module.exports = {
   preset: 'ts-jest',
   reporters: [
     'default',
-    ['jest-junit', { outputDirectory: 'test-results/jest' }]
+    ['jest-junit', { outputDirectory: 'test-results/jest' }],
   ],
-  testRegex: '/__tests__/.+test\.tsx?$'
+  testRegex: '/__tests__/.+test.tsx?$',
 };

@@ -12,7 +12,7 @@ const input = 'src/index.tsx';
 const globals = {
   react: 'React',
   'react-dom': 'ReactDOM',
-  '@auth0/auth0-spa-js': 'createAuth0Client'
+  '@auth0/auth0-spa-js': 'createAuth0Client',
 };
 const plugins = [
   del({ targets: 'dist/*', runOnce: true }),
@@ -34,48 +34,52 @@ export default [
     ],
     plugins: [
       ...plugins,
-      ...(isProduction ? [] : [
-        serve({
-          contentBase: ['dist', 'static'],
-          open: true,
-          port: 3000,
-        }),
-        livereload()
-      ]),
+      ...(isProduction
+        ? []
+        : [
+            serve({
+              contentBase: ['dist', 'static'],
+              open: true,
+              port: 3000,
+            }),
+            livereload(),
+          ]),
     ],
   },
-  ...(isProduction ? [
-    {
-      input,
-      output: [
+  ...(isProduction
+    ? [
         {
-          name,
-          file: 'dist/auth0-react.min.js',
-          format: 'umd',
-          globals,
-          sourcemap: true,
+          input,
+          output: [
+            {
+              name,
+              file: 'dist/auth0-react.min.js',
+              format: 'umd',
+              globals,
+              sourcemap: true,
+            },
+          ],
+          plugins: [...plugins, terser()],
         },
-      ],
-      plugins: [ ...plugins, terser() ],
-    },
-    {
-      input,
-      output: {
-        name,
-        file: pkg.main,
-        format: 'cjs',
-        sourcemap: true,
-      },
-      plugins
-    },
-    {
-      input,
-      output: {
-        file: pkg.module,
-        format: 'esm',
-        sourcemap: true,
-      },
-      plugins
-    }
-  ] : [])
+        {
+          input,
+          output: {
+            name,
+            file: pkg.main,
+            format: 'cjs',
+            sourcemap: true,
+          },
+          plugins,
+        },
+        {
+          input,
+          output: {
+            file: pkg.module,
+            format: 'esm',
+            sourcemap: true,
+          },
+          plugins,
+        },
+      ]
+    : []),
 ];
