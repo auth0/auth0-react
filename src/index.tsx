@@ -1,2 +1,2 @@
-export { default as Auth0Provider } from './auth0-provider';
-export { default as useAuth0 } from './use-auth0';
+export { default as AuthProvider } from './auth-provider';
+export { default as useAuth } from './use-auth';
