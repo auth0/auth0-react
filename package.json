@@ -20,6 +20,7 @@
   "types": "dist/index.d.ts",
   "module": "dist/auth0-react.esm.js",
   "scripts": {
+    "prepare": "rollup -c --environment NODE_ENV:production",
     "build": "npm run lint && rollup -c --environment NODE_ENV:production",
     "lint": "eslint --ext=tsx ./src ./__tests__",
     "start": "rollup -cw",
