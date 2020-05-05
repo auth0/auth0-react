@@ -6,12 +6,12 @@ export interface AuthContextInterface extends AuthState {
   /**
    * Login in with a redirect.
    */
-  login: (options: RedirectLoginOptions) => Promise<void>;
+  login: (options?: RedirectLoginOptions) => Promise<void>;
 
   /**
    * Logout.
    */
-  logout: (options: LogoutOptions) => void;
+  logout: (options?: LogoutOptions) => void;
 }
 
 const stub = (): never => {

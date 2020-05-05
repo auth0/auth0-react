@@ -8,5 +8,4 @@ export interface AuthState {
 export const initialAuthState: AuthState = {
   isAuthenticated: false,
   isLoading: true, // TODO: SSR support
-  user: null,
 };

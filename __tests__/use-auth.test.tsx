@@ -2,14 +2,14 @@ import useAuth from '../src/use-auth';
 import { renderHook } from '@testing-library/react-hooks';
 import { createWrapper } from './helpers';
 
-jest.mock('@auth0/auth0-spa-js');
-
 describe('useAuth', () => {
-  it('should provide the auth context', () => {
+  it('should provide the auth context', async () => {
     const wrapper = createWrapper();
     const {
       result: { current },
+      waitForNextUpdate,
     } = renderHook(useAuth, { wrapper });
+    await waitForNextUpdate();
     expect(current).toBeDefined();
   });
 

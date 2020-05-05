@@ -19,7 +19,5 @@ export function authReducer(state: AuthState, action: Action): AuthState {
         isLoading: false,
         error: action.error,
       };
-    default:
-      return state;
   }
 }

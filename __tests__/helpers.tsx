@@ -5,10 +5,11 @@ import AuthProvider from '../src/auth-provider';
 export const createWrapper = ({
   client_id = '__test_client_id__',
   domain = '__test_domain__',
+  ...opts
 }: Partial<Auth0ClientOptions> = {}) => ({
   children,
 }: PropsWithChildren<{}>): JSX.Element => (
-  <AuthProvider domain={domain} client_id={client_id}>
+  <AuthProvider domain={domain} client_id={client_id} {...opts}>
     {children}
   </AuthProvider>
 );

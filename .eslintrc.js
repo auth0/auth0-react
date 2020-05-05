@@ -20,4 +20,12 @@ module.exports = {
   rules: {
     '@typescript-eslint/camelcase': 'off',
   },
+  overrides: [
+    {
+      files: ['*.test.tsx'],
+      rules: {
+        '@typescript-eslint/ban-ts-ignore': 'off',
+      },
+    },
+  ],
 };
