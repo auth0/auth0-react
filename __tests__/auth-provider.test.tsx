@@ -63,9 +63,7 @@ describe('AuthProvider', () => {
       () => useContext(Auth0Context),
       { wrapper }
     );
-    expect(result.current.isLoading).toBe(true);
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
     expect(getTokenSilently).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(true);
     expect(result.current.user).toBe('__test_user__');
@@ -78,9 +76,7 @@ describe('AuthProvider', () => {
       () => useContext(Auth0Context),
       { wrapper }
     );
-    expect(result.current.isLoading).toBe(true);
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
     expect(getTokenSilently).toHaveBeenCalled();
     expect(result.current.error).toBeUndefined();
     expect(result.current.isAuthenticated).toBe(false);
@@ -93,9 +89,7 @@ describe('AuthProvider', () => {
       () => useContext(Auth0Context),
       { wrapper }
     );
-    expect(result.current.isLoading).toBe(true);
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
     expect(getTokenSilently).toHaveBeenCalled();
     expect(result.current.error).toStrictEqual({ error: '__test_error__' });
     expect(result.current.isAuthenticated).toBe(false);
@@ -111,13 +105,10 @@ describe('AuthProvider', () => {
       'https://www.example.com/?code=__test_code__&state=__test_state__'
     );
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
-    expect(result.current.isLoading).toBe(true);
+    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
     expect(handleRedirectCallback).toHaveBeenCalled();
     expect(window.location.href).toBe('https://www.example.com/');
   });
@@ -130,9 +121,7 @@ describe('AuthProvider', () => {
       () => useContext(Auth0Context),
       { wrapper }
     );
-    expect(result.current.isLoading).toBe(true);
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
     expect(handleRedirectCallback).toHaveBeenCalled();
     expect(result.current.error).toStrictEqual('__test_error__');
   });
@@ -148,13 +137,10 @@ describe('AuthProvider', () => {
     const wrapper = createWrapper({
       onRedirectCallback,
     });
-    const { waitForNextUpdate, result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
-    expect(result.current.isLoading).toBe(true);
+    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
     expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar' });
   });
 
