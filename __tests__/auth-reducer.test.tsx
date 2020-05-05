@@ -1,14 +1,14 @@
-import { authReducer } from '../src/auth-reducer';
+import { reducer } from '../src/reducer';
 import { initialAuthState } from '../src/auth-state';
 
-describe('authReducer', () => {
+describe('reducer', () => {
   it('should initialise when authenticated', async () => {
     const payload = {
       isAuthenticated: true,
       user: 'Bob',
     };
     expect(
-      authReducer(initialAuthState, { type: 'INITIALISED', ...payload })
+      reducer(initialAuthState, { type: 'INITIALISED', ...payload })
     ).toEqual({
       ...initialAuthState,
       isLoading: false,
@@ -21,7 +21,7 @@ describe('authReducer', () => {
       isAuthenticated: false,
     };
     expect(
-      authReducer(initialAuthState, { type: 'INITIALISED', ...payload })
+      reducer(initialAuthState, { type: 'INITIALISED', ...payload })
     ).toEqual({
       ...initialAuthState,
       isLoading: false,
@@ -33,9 +33,7 @@ describe('authReducer', () => {
     const payload = {
       error: new Error('__test_error__'),
     };
-    expect(
-      authReducer(initialAuthState, { type: 'ERROR', ...payload })
-    ).toEqual({
+    expect(reducer(initialAuthState, { type: 'ERROR', ...payload })).toEqual({
       ...initialAuthState,
       isLoading: false,
       ...payload,

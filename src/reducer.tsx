@@ -1,10 +1,10 @@
 import { AuthState } from './auth-state';
 
-export type Action =
+type Action =
   | { type: 'INITIALISED'; isAuthenticated: boolean; user?: unknown }
   | { type: 'ERROR'; error: Error };
 
-export function authReducer(state: AuthState, action: Action): AuthState {
+export const reducer = (state: AuthState, action: Action): AuthState => {
   switch (action.type) {
     case 'INITIALISED':
       return {
@@ -20,4 +20,4 @@ export function authReducer(state: AuthState, action: Action): AuthState {
         error: action.error,
       };
   }
-}
+};

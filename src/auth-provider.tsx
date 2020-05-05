@@ -7,7 +7,7 @@ import React, {
 import { Auth0Client, Auth0ClientOptions } from '@auth0/auth0-spa-js';
 import AuthContext from './auth-context';
 import { AppState, defaultOnRedirectCallback, hasAuthParams } from './utils';
-import { authReducer } from './auth-reducer';
+import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
 
 interface AuthProviderOptions extends PropsWithChildren<Auth0ClientOptions> {
@@ -20,7 +20,7 @@ const AuthProvider = ({
   ...opts
 }: AuthProviderOptions): JSX.Element => {
   const [client] = useState(() => new Auth0Client(opts));
-  const [state, dispatch] = useReducer(authReducer, initialAuthState);
+  const [state, dispatch] = useReducer(reducer, initialAuthState);
 
   useEffect(() => {
     (async (): Promise<void> => {
