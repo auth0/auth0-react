@@ -7,7 +7,7 @@ Auth0 SDK for React Applications.
 
 ### Early Access
 
-**@auth0/auth0-react** is in _Early Access_ in order to get feedback to shape it's design. That means:
+**@auth0/auth0-react** is in _Early Access_ in order to get feedback to shape its design. That means:
 
 - It is under active development so breaking changes are expected and we will do our best to communicate them.
 - This is a private preview to Auth0 employees only.
@@ -21,7 +21,6 @@ Auth0 SDK for React Applications.
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
 - [Support + Feedback](#support--feedback)
-- [Frequently Asked Questions](#frequently-asked-questions)
 - [Vulnerability Reporting](#vulnerability-reporting)
 - [What is Auth0](#what-is-auth0)
 - [License](#license)
@@ -39,29 +38,29 @@ npm install react react-dom @auth0/auth0-spa-js auth0/auth0-react
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { AuthProvider } from '@auth0/use-auth0';
+import { AuthProvider } from '@auth0/auth0-react';
 
 ReactDOM.render(
   <AuthProvider
-    domain={YOUR_AUTH0_DOMAIN}
-    client_id={YOUR_AUTH0_CLIENT_ID}
+    domain="YOUR_AUTH0_DOMAIN"
+    client_id="YOUR_AUTH0_CLIENT_ID"
     redirect_uri={window.location.origin}
   >
     <App />
   </AuthProvider>,
-  document.getElementById('root')
+  document.getElementById('app')
 );
 ```
 
 ```js
 // src/App.js
 import React from 'react';
-import { useAuth0 } from '@auth0/use-auth0';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
-  const { loading, isAuthenticated, user, login, logout } = useAuth0();
+  const { isLoading, isAuthenticated, user, login, logout } = useAuth0();
 
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
   if (isAuthenticated) {
@@ -109,7 +108,3 @@ Auth0 helps you to easily:
 ## License
 
 This project is licensed under the MIT license. See the [LICENSE](https://github.com/auth0/auth0-react/blob/master/LICENSE) file for more info.
-
-```
-
-```
