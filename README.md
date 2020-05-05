@@ -31,7 +31,7 @@ Auth0 SDK for React Applications.
 npm install react react-dom @auth0/auth0-spa-js auth0/auth0-react
 ```
 
-## Getting started
+## Getting Started
 
 ```js
 // src/index.js
