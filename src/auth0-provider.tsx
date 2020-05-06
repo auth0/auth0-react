@@ -5,7 +5,7 @@ import React, {
   useState,
 } from 'react';
 import { Auth0Client, Auth0ClientOptions } from '@auth0/auth0-spa-js';
-import AuthContext from './auth-context';
+import Auth0Context from './auth0-context';
 import { AppState, defaultOnRedirectCallback, hasAuthParams } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
@@ -14,7 +14,7 @@ interface AuthProviderOptions extends PropsWithChildren<Auth0ClientOptions> {
   onRedirectCallback?: (appState: AppState) => void;
 }
 
-const AuthProvider = ({
+const Auth0Provider = ({
   children,
   onRedirectCallback = defaultOnRedirectCallback,
   ...opts
@@ -45,7 +45,7 @@ const AuthProvider = ({
   }, [client, onRedirectCallback]);
 
   return (
-    <AuthContext.Provider
+    <Auth0Context.Provider
       value={{
         ...state,
         login: (opts): Promise<void> => client.loginWithRedirect(opts),
@@ -53,8 +53,8 @@ const AuthProvider = ({
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </Auth0Context.Provider>
   );
 };
 
-export default AuthProvider;
+export default Auth0Provider;

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import Auth0Context from '../src/auth-context';
+import Auth0Context from '../src/auth0-context';
 import { renderHook } from '@testing-library/react-hooks';
 import {
   Auth0Client,
@@ -18,8 +18,8 @@ import {
 } from '@auth0/auth0-spa-js';
 import { createWrapper } from './helpers';
 
-describe('AuthProvider', () => {
-  it('should provide the AuthProvider result', async () => {
+describe('Auth0Provider', () => {
+  it('should provide the Auth0Provider result', async () => {
     const wrapper = createWrapper();
     const { result, waitForNextUpdate } = renderHook(
       () => useContext(Auth0Context),

@@ -23,10 +23,10 @@
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.7/auth0-spa-js.production.js"></script>
     <script src="auth0-react.js"></script>
     <script type="text/babel">
-      const { AuthProvider, useAuth } = reactAuth0;
+      const { Auth0Provider, useAuth0 } = reactAuth0;
 
       const App = () => {
-        const { isAuthenticated, isLoading, login, logout } = useAuth();
+        const { isAuthenticated, isLoading, login, logout } = useAuth0();
 
         if (isLoading) {
           return <div>loading...</div>;
@@ -40,13 +40,13 @@
       };
 
       ReactDOM.render(
-        <AuthProvider
+        <Auth0Provider
           domain="brucke.auth0.com"
           client_id="wLSIP47wM39wKdDmOj6Zb5eSEw3JVhVp"
           redirect_uri={window.location.origin}
         >
           <App />
-        </AuthProvider>,
+        </Auth0Provider>,
         document.getElementById('app')
       );
     </script>
