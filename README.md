@@ -28,7 +28,7 @@ Auth0 SDK for React Applications.
 ## Installation
 
 ```bash
-npm install react react-dom @auth0/auth0-spa-js auth0/auth0-react
+npm install @auth0/auth0-spa-js auth0/auth0-react
 ```
 
 ## Getting Started

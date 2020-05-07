@@ -171,4 +171,18 @@ describe('Auth0Provider', () => {
       returnTo: '__return_to__',
     });
   });
+
+  it('should provide a getToken method', async () => {
+    getTokenSilently.mockResolvedValue('token');
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.getToken).toBeInstanceOf(Function);
+    const token = await result.current.getToken();
+    expect(getTokenSilently).toHaveBeenCalled();
+    expect(token).toBe('token');
+  });
 });

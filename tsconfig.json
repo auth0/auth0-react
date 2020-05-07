@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es6", "dom"],
     "jsx": "react",
     "declaration": true,
-    "declarationDir": "./dist/typings",
+    "declarationDir": "./dist",
     "declarationMap": true,
     "sourceMap": true,
     "strict": true,
@@ -17,5 +14,6 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "include": ["src"]
 }
