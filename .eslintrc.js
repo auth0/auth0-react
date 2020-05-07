@@ -15,8 +15,17 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
   ],
   rules: {
     '@typescript-eslint/camelcase': 'off',
   },
+  overrides: [
+    {
+      files: ['*.test.tsx'],
+      rules: {
+        '@typescript-eslint/ban-ts-ignore': 'off',
+      },
+    },
+  ],
 };

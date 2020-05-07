@@ -24,35 +24,18 @@
     <script src="auth0-react.js"></script>
     <script type="text/babel">
       const { Auth0Provider, useAuth0 } = reactAuth0;
-      const { useState, useEffect } = React;
 
       const App = () => {
-        const client = useAuth0();
-        const [isAuthenticated, setIsAuthenticated] = useState(false);
+        const { isAuthenticated, isLoading, login, logout } = useAuth0();
 
-        useEffect(() => {
-          (async () => {
-            if (/[?&#]code=[^&]+/.test(window.location.search)) {
-              await client.handleRedirectCallback();
-              history.replaceState(
-                {},
-                document.title,
-                window.location.pathname
-              );
-            }
-            const isAuthenticated = await client.isAuthenticated();
-            setIsAuthenticated(isAuthenticated);
-          })();
-        }, []);
+        if (isLoading) {
+          return <div>loading...</div>;
+        }
 
         return isAuthenticated ? (
-          <button
-            onClick={() => client.logout({ returnTo: window.location.origin })}
-          >
-            logout
-          </button>
+          <button onClick={() => logout()}>logout</button>
         ) : (
-          <button onClick={() => client.loginWithRedirect()}>Login</button>
+          <button onClick={() => login()}>Login</button>
         );
       };
 

@@ -38,16 +38,16 @@ npm install react react-dom @auth0/auth0-spa-js auth0/auth0-react
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { AuthProvider } from '@auth0/auth0-react';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 ReactDOM.render(
-  <AuthProvider
+  <Auth0Provider
     domain="YOUR_AUTH0_DOMAIN"
     client_id="YOUR_AUTH0_CLIENT_ID"
     redirect_uri={window.location.origin}
   >
     <App />
-  </AuthProvider>,
+  </Auth0Provider>,
   document.getElementById('app')
 );
 ```
