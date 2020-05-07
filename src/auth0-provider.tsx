@@ -48,6 +48,8 @@ const Auth0Provider = ({
     <Auth0Context.Provider
       value={{
         ...state,
+        getToken: (opts): Promise<{ [key: string]: unknown }> =>
+          client.getTokenSilently(opts),
         login: (opts): Promise<void> => client.loginWithRedirect(opts),
         logout: (opts): void => client.logout(opts),
       }}

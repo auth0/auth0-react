@@ -1,13 +1,11 @@
-export const handleRedirectCallback = jest
-  .fn()
-  .mockResolvedValue({ appState: {} });
+export const handleRedirectCallback = jest.fn(() => ({ appState: {} }));
 export const getTokenSilently = jest.fn();
 export const getUser = jest.fn();
-export const isAuthenticated = jest.fn().mockResolvedValue(false);
+export const isAuthenticated = jest.fn(() => false);
 export const loginWithRedirect = jest.fn();
 export const logout = jest.fn();
 
-export const Auth0Client = jest.fn().mockImplementation(() => {
+export const Auth0Client = jest.fn(() => {
   return {
     handleRedirectCallback,
     getTokenSilently,
