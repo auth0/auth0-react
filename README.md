@@ -84,6 +84,8 @@ export default App;
 
 ## Advanced Use Cases
 
+### Class Components
+
 Use the `withAuth0` higher order component to add the `auth` property to Class components:
 
 ```jsx
@@ -100,6 +102,8 @@ class Profile extends Component {
 export default withAuth0(Profile);
 ```
 
+### Protecting Routes
+
 Protect a route component using the `withLoginRequired` higher order component. Visits to this route when unauthenticated will redirect the user to the login page and back to this page after login:
 
 ```jsx
@@ -110,6 +114,8 @@ const PrivateRoute = () => <div>Private</div>;
 
 export default withLoginRequired(PrivateRoute);
 ```
+
+### Access an API
 
 Use a protected API with an Access Token:
 
