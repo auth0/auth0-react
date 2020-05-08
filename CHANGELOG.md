@@ -4,7 +4,7 @@
 
 **Added**
 
-- [SDK-1580][sdk-1581] Add withAuth and withLoginProvided [\#7](https://github.com/auth0/auth0-react/pull/7) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- [SDK-1580][sdk-1581] Add withAuth and withLoginRequired [\#7](https://github.com/auth0/auth0-react/pull/7) ([adamjmcgrath](https://github.com/adamjmcgrath))
 - [SDK-1583] Setup basic README for Early Access [\#6](https://github.com/auth0/auth0-react/pull/6) ([adamjmcgrath](https://github.com/adamjmcgrath))
 - [SDK-1577][sdk-1578] Add login functionality [\#5](https://github.com/auth0/auth0-react/pull/5) ([adamjmcgrath](https://github.com/adamjmcgrath))
 - [SDK-1576] Linting [\#4](https://github.com/auth0/auth0-react/pull/4) ([adamjmcgrath](https://github.com/adamjmcgrath))
