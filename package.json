@@ -1,7 +1,7 @@
 {
   "author": "Auth0",
   "name": "@auth0/auth0-react",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Auth0 SDK for React applications",
   "keywords": [
     "auth0",
@@ -23,7 +23,8 @@
     "build": "npm run lint && rollup -c --environment NODE_ENV:production",
     "lint": "eslint --ext=tsx ./src ./__tests__",
     "start": "rollup -cw",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "prepack": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
