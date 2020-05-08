@@ -19,6 +19,7 @@ Auth0 SDK for React Applications.
 
 - [Installation](#installation)
 - [Getting Started](#getting-started)
+- [Advanced Use Cases](#advanced-use-cases)
 - [Contributing](#contributing)
 - [Support + Feedback](#support--feedback)
 - [Vulnerability Reporting](#vulnerability-reporting)
@@ -28,17 +29,19 @@ Auth0 SDK for React Applications.
 ## Installation
 
 ```bash
-npm install @auth0/auth0-spa-js auth0/auth0-react
+npm install @auth0/auth0-spa-js https://github.com/auth0/auth0-react/releases/download/0.1.0/auth0-auth0-react-js-0.1.0.tgz
 ```
 
 ## Getting Started
 
-```js
+Configure the SDK by wrapping your application in `Auth0Provider`:
+
+```jsx
 // src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import { Auth0Provider } from '@auth0/auth0-react';
+import App from './App';
 
 ReactDOM.render(
   <Auth0Provider
@@ -52,7 +55,9 @@ ReactDOM.render(
 );
 ```
 
-```js
+Use the `useAuth0` hook in your components to access authentication state (`isLoading`, `isAuthenticated` and `user`) and authentication methods (`login` and `logout`):
+
+```jsx
 // src/App.js
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -75,6 +80,79 @@ function App() {
 }
 
 export default App;
+```
+
+## Advanced Use Cases
+
+### Class Components
+
+Use the `withAuth0` higher order component to add the `auth` property to Class components:
+
+```jsx
+import React, { Component } from 'react';
+import { withAuth0 } from '@auth0/auth0-react';
+
+class Profile extends Component {
+  render() {
+    const { user } = this.props.auth;
+    return <div>Hello {user.name}</div>;
+  }
+}
+
+export default withAuth0(Profile);
+```
+
+### Protecting Routes
+
+Protect a route component using the `withLoginRequired` higher order component. Visits to this route when unauthenticated will redirect the user to the login page and back to this page after login:
+
+```jsx
+import React from 'react';
+import { withLoginRequired } from '@auth0/auth0-react';
+
+const PrivateRoute = () => <div>Private</div>;
+
+export default withLoginRequired(PrivateRoute);
+```
+
+### Access an API
+
+Use a protected API with an Access Token:
+
+```jsx
+import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const Posts = () => {
+  const { getToken } = useAuth0();
+  const [posts, setPosts] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const token = await getToken();
+      const response = await fetch('https://api.example.com/posts', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setPosts(await response.json());
+    })();
+  }, [getToken]);
+
+  if (!posts) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <ul>
+      {posts.map((post, index) => {
+        return <li key={index}>{post}</li>;
+      })}
+    </ul>
+  );
+};
+
+export default Posts;
 ```
 
 ## Contributing

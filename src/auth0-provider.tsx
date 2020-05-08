@@ -10,7 +10,8 @@ import { AppState, defaultOnRedirectCallback, hasAuthParams } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
 
-interface AuthProviderOptions extends PropsWithChildren<Auth0ClientOptions> {
+export interface Auth0ProviderOptions
+  extends PropsWithChildren<Auth0ClientOptions> {
   onRedirectCallback?: (appState: AppState) => void;
 }
 
@@ -18,7 +19,7 @@ const Auth0Provider = ({
   children,
   onRedirectCallback = defaultOnRedirectCallback,
   ...opts
-}: AuthProviderOptions): JSX.Element => {
+}: Auth0ProviderOptions): JSX.Element => {
   const [client] = useState(() => new Auth0Client(opts));
   const [state, dispatch] = useReducer(reducer, initialAuthState);
 
