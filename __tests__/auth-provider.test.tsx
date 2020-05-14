@@ -83,7 +83,7 @@ describe('Auth0Provider', () => {
   });
 
   it('should handle other errors when getting token', async () => {
-    getTokenSilently.mockRejectedValue({ error: '__test_error__' });
+    getTokenSilently.mockRejectedValue({ error_description: '__test_error__' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -91,7 +91,9 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(getTokenSilently).toHaveBeenCalled();
-    expect(result.current.error).toStrictEqual({ error: '__test_error__' });
+    expect(() => {
+      throw result.current.error;
+    }).toThrowError('__test_error__');
     expect(result.current.isAuthenticated).toBe(false);
   });
 
@@ -115,7 +117,7 @@ describe('Auth0Provider', () => {
 
   it('should handle redirect callback errors', async () => {
     window.history.pushState({}, document.title, '/?error=__test_error__');
-    handleRedirectCallback.mockRejectedValue('__test_error__');
+    handleRedirectCallback.mockRejectedValue(new Error('__test_error__'));
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -123,7 +125,9 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(handleRedirectCallback).toHaveBeenCalled();
-    expect(result.current.error).toStrictEqual('__test_error__');
+    expect(() => {
+      throw result.current.error;
+    }).toThrowError('__test_error__');
   });
 
   it('should handle redirect and call a custom handler', async () => {
