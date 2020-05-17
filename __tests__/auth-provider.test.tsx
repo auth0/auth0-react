@@ -1,16 +1,22 @@
 import { useContext } from 'react';
 import Auth0Context from '../src/auth0-context';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import {
   Auth0Client,
   // @ts-ignore
   getTokenSilently,
   // @ts-ignore
+  getTokenWithPopup,
+  // @ts-ignore
   isAuthenticated,
   // @ts-ignore
   getUser,
   // @ts-ignore
+  getIdTokenClaims,
+  // @ts-ignore
   handleRedirectCallback,
+  // @ts-ignore
+  loginWithPopup,
   // @ts-ignore
   loginWithRedirect,
   // @ts-ignore
@@ -148,6 +154,50 @@ describe('Auth0Provider', () => {
     expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar' });
   });
 
+  it('should login with a popup', async () => {
+    isAuthenticated.mockResolvedValue(false);
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.isAuthenticated).toBe(false);
+    isAuthenticated.mockResolvedValue(true);
+    act(() => {
+      result.current.loginWithPopup();
+    });
+    expect(result.current.isLoading).toBe(true);
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBe(false);
+    expect(loginWithPopup).toHaveBeenCalled();
+    expect(result.current.isAuthenticated).toBe(true);
+  });
+
+  it('should handle errors when logging in with a popup', async () => {
+    isAuthenticated.mockResolvedValue(false);
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.isAuthenticated).toBe(false);
+    isAuthenticated.mockResolvedValue(false);
+    loginWithPopup.mockRejectedValue(new Error('__test_error__'));
+    act(() => {
+      result.current.loginWithPopup();
+    });
+    expect(result.current.isLoading).toBe(true);
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBe(false);
+    expect(loginWithPopup).toHaveBeenCalled();
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(() => {
+      throw result.current.error;
+    }).toThrowError('__test_error__');
+  });
+
   it('should provide a login method', async () => {
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
@@ -188,5 +238,33 @@ describe('Auth0Provider', () => {
     const token = await result.current.getToken();
     expect(getTokenSilently).toHaveBeenCalled();
     expect(token).toBe('token');
+  });
+
+  it('should provide a getTokenWithPopup method', async () => {
+    getTokenWithPopup.mockResolvedValue('token');
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.getTokenWithPopup).toBeInstanceOf(Function);
+    const token = await result.current.getTokenWithPopup();
+    expect(getTokenWithPopup).toHaveBeenCalled();
+    expect(token).toBe('token');
+  });
+
+  it('should provide a getIdTokenClaims method', async () => {
+    getIdTokenClaims.mockResolvedValue({ claim: '__test_claim__' });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.getIdTokenClaims).toBeInstanceOf(Function);
+    const claims = await result.current.getIdTokenClaims();
+    expect(getIdTokenClaims).toHaveBeenCalled();
+    expect(claims).toStrictEqual({ claim: '__test_claim__' });
   });
 });
