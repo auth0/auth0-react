@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/auth0/auth0-react#readme",
   "devDependencies": {
-    "@auth0/auth0-spa-js": "^1.7.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.4",
     "@testing-library/react-hooks": "^3.2.1",
@@ -68,7 +68,6 @@
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
-    "@auth0/auth0-spa-js": "^1.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -76,5 +75,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "dependencies": {
+    "@auth0/auth0-spa-js": "^1.8.1"
   }
 }
