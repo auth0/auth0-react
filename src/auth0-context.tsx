@@ -10,9 +10,7 @@ export interface Auth0ContextInterface extends AuthState {
   /**
    * Get an access token.
    */
-  getToken: (
-    options?: GetTokenSilentlyOptions
-  ) => Promise<{ [key: string]: unknown }>;
+  getToken: (options?: GetTokenSilentlyOptions) => Promise<string>;
 
   /**
    * Login in with a redirect.

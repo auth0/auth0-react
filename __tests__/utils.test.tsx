@@ -1,4 +1,8 @@
-import { defaultOnRedirectCallback, hasAuthParams } from '../src/utils';
+import {
+  defaultOnRedirectCallback,
+  hasAuthParams,
+  loginError,
+} from '../src/utils';
 
 describe('utils hasAuthParams', () => {
   it('should recognise the code param', async () => {
@@ -45,5 +49,26 @@ describe('utils defaultOnRedirectCallback', () => {
     );
     defaultOnRedirectCallback({ redirectTo: '/foo' });
     expect(window.location.href).toBe('https://www.example.com/foo');
+  });
+});
+
+describe('utils loginError', () => {
+  it('should return the original error', async () => {
+    const error = new Error('__test_error__');
+    expect(loginError(error)).toBe(error);
+  });
+
+  it('should convert an OAuth error to a JS error', async () => {
+    const error = { error_description: '__test_error__' };
+    expect(() => {
+      throw loginError(error);
+    }).toThrowError('__test_error__');
+  });
+
+  it('should convert a ProgressEvent error to a JS error', async () => {
+    const error = new ProgressEvent('error');
+    expect(() => {
+      throw loginError(error);
+    }).toThrowError('Login failed');
   });
 });

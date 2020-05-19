@@ -6,7 +6,12 @@ import React, {
 } from 'react';
 import { Auth0Client, Auth0ClientOptions } from '@auth0/auth0-spa-js';
 import Auth0Context from './auth0-context';
-import { AppState, defaultOnRedirectCallback, hasAuthParams } from './utils';
+import {
+  AppState,
+  defaultOnRedirectCallback,
+  loginError,
+  hasAuthParams,
+} from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
 
@@ -37,7 +42,7 @@ const Auth0Provider = ({
         dispatch({ type: 'INITIALISED', isAuthenticated, user });
       } catch (error) {
         if (error.error !== 'login_required') {
-          dispatch({ type: 'ERROR', error });
+          dispatch({ type: 'ERROR', error: loginError(error) });
         } else {
           dispatch({ type: 'INITIALISED', isAuthenticated: false });
         }
@@ -49,8 +54,7 @@ const Auth0Provider = ({
     <Auth0Context.Provider
       value={{
         ...state,
-        getToken: (opts): Promise<{ [key: string]: unknown }> =>
-          client.getTokenSilently(opts),
+        getToken: (opts): Promise<string> => client.getTokenSilently(opts),
         login: (opts): Promise<void> => client.loginWithRedirect(opts),
         logout: (opts): void => client.logout(opts),
       }}
