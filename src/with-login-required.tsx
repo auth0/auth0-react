@@ -15,7 +15,7 @@ const withLoginRequired = <P extends object>(
     }
     (async (): Promise<void> => {
       await login({
-        appState: { redirectTo: window.location.pathname },
+        appState: { returnTo: window.location.pathname },
       });
     })();
   }, [isLoading, isAuthenticated, login]);

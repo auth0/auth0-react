@@ -47,7 +47,7 @@ describe('utils defaultOnRedirectCallback', () => {
     expect(window.location.href).toBe(
       'https://www.example.com/?code=__test_code__&state=__test_state__'
     );
-    defaultOnRedirectCallback({ redirectTo: '/foo' });
+    defaultOnRedirectCallback({ returnTo: '/foo' });
     expect(window.location.href).toBe('https://www.example.com/foo');
   });
 });

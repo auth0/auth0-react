@@ -24,18 +24,48 @@
     <script src="auth0-react.js"></script>
     <script type="text/babel">
       const { Auth0Provider, useAuth0 } = reactAuth0;
+      const { useState } = React;
 
       const App = () => {
-        const { isAuthenticated, isLoading, login, logout } = useAuth0();
+        const {
+          isAuthenticated,
+          isLoading,
+          getIdTokenClaims,
+          getToken,
+          getTokenWithPopup,
+          login,
+          loginWithPopup,
+          logout,
+        } = useAuth0();
+        const [token, setToken] = useState(null);
+        const [claims, setClaims] = useState(null);
 
         if (isLoading) {
           return <div>loading...</div>;
         }
 
         return isAuthenticated ? (
-          <button onClick={() => logout()}>logout</button>
+          <div>
+            <button onClick={() => logout()}>logout</button>
+            <button onClick={async () => setToken(await getToken())}>
+              Get token
+            </button>
+            <button onClick={async () => setToken(await getTokenWithPopup())}>
+              Get token with popup
+            </button>
+            <button onClick={async () => setClaims(await getIdTokenClaims())}>
+              Get id_token claims
+            </button>
+            {token && <pre>access_token: {token}</pre>}
+            {claims && (
+              <pre>id_token_claims: {JSON.stringify(claims, null, 2)}</pre>
+            )}
+          </div>
         ) : (
-          <button onClick={() => login()}>Login</button>
+          <div>
+            <button onClick={() => login()}>Login</button>
+            <button onClick={() => loginWithPopup()}>Login with popup</button>
+          </div>
         );
       };
 
