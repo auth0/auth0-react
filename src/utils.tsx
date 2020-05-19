@@ -2,7 +2,7 @@ const CODE_RE = /[?&]code=[^&]+/;
 const ERROR_RE = /[?&]error=[^&]+/;
 
 export type AppState = {
-  redirectTo?: string;
+  returnTo?: string;
   [key: string]: unknown;
 };
 
@@ -13,7 +13,7 @@ export const defaultOnRedirectCallback = (appState?: AppState): void => {
   window.history.replaceState(
     {},
     document.title,
-    appState?.redirectTo || window.location.pathname
+    appState?.returnTo || window.location.pathname
   );
 };
 
