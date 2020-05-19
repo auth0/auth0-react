@@ -30,10 +30,10 @@ Auth0 SDK for React Applications.
 
 For Early Access, download the binary from the releases page: [auth0-auth0-react-0.1.0.tgz](https://github.com/auth0/auth0-react/releases/download/v0.1.0/auth0-auth0-react-0.1.0.tgz).
 
-Then install it from the folder you downloaded it to, along with a copy of `@auth0/auth0-spa-js`:
+Then install it from the folder you downloaded it to:
 
 ```bash
-npm install @auth0/auth0-spa-js ~/Downloads/auth0-auth0-react-0.1.0.tgz
+npm install ~/Downloads/auth0-auth0-react-0.1.0.tgz
 ```
 
 ## Getting Started
@@ -94,7 +94,7 @@ export default App;
 
 ### Class Components
 
-Use the `withAuth0` higher order component to add the `auth` property to Class components:
+Use the `withAuth0` higher order component to add the `auth0` property to Class components:
 
 ```jsx
 import React, { Component } from 'react';
@@ -102,7 +102,7 @@ import { withAuth0 } from '@auth0/auth0-react';
 
 class Profile extends Component {
   render() {
-    const { user } = this.props.auth;
+    const { user } = this.props.auth0;
     return <div>Hello {user.name}</div>;
   }
 }
