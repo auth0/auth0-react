@@ -7,7 +7,7 @@ describe('withAuth0', () => {
   it('should wrap a class component', () => {
     class MyComponent extends Component<WithAuth0Props> {
       render(): JSX.Element {
-        return <>hasAuth: {`${!!this.props.auth}`}</>;
+        return <>hasAuth: {`${!!this.props.auth0}`}</>;
       }
     }
     const WrappedComponent = withAuth0(MyComponent);
