@@ -1,12 +1,12 @@
-export const handleRedirectCallback = jest.fn(() => ({ appState: {} }));
-export const getTokenSilently = jest.fn();
-export const getTokenWithPopup = jest.fn();
-export const getUser = jest.fn();
-export const getIdTokenClaims = jest.fn();
-export const isAuthenticated = jest.fn(() => false);
-export const loginWithPopup = jest.fn();
-export const loginWithRedirect = jest.fn();
-export const logout = jest.fn();
+const handleRedirectCallback = jest.fn(() => ({ appState: {} }));
+const getTokenSilently = jest.fn();
+const getTokenWithPopup = jest.fn();
+const getUser = jest.fn();
+const getIdTokenClaims = jest.fn();
+const isAuthenticated = jest.fn(() => false);
+const loginWithPopup = jest.fn();
+const loginWithRedirect = jest.fn();
+const logout = jest.fn();
 
 export const Auth0Client = jest.fn(() => {
   return {

@@ -1,28 +1,11 @@
 import { useContext } from 'react';
+import { mocked } from 'ts-jest/utils';
 import Auth0Context from '../src/auth0-context';
 import { renderHook, act } from '@testing-library/react-hooks';
-import {
-  Auth0Client,
-  // @ts-ignore
-  getTokenSilently,
-  // @ts-ignore
-  getTokenWithPopup,
-  // @ts-ignore
-  isAuthenticated,
-  // @ts-ignore
-  getUser,
-  // @ts-ignore
-  getIdTokenClaims,
-  // @ts-ignore
-  handleRedirectCallback,
-  // @ts-ignore
-  loginWithPopup,
-  // @ts-ignore
-  loginWithRedirect,
-  // @ts-ignore
-  logout,
-} from '@auth0/auth0-spa-js';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import { createWrapper } from './helpers';
+
+const clientMock = mocked(new Auth0Client({ client_id: '', domain: '' }));
 
 describe('Auth0Provider', () => {
   it('should provide the Auth0Provider result', async () => {
@@ -57,46 +40,50 @@ describe('Auth0Provider', () => {
     expect(result.current.isLoading).toBe(true);
     await waitForNextUpdate();
     expect(result.current.isLoading).toBe(false);
-    expect(getTokenSilently).toHaveBeenCalled();
+    expect(clientMock.getTokenSilently).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(false);
   });
 
   it('should get token silently when logged in', async () => {
-    isAuthenticated.mockResolvedValue(true);
-    getUser.mockResolvedValue('__test_user__');
+    clientMock.isAuthenticated.mockResolvedValue(true);
+    clientMock.getUser.mockResolvedValue('__test_user__');
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(getTokenSilently).toHaveBeenCalled();
+    expect(clientMock.getTokenSilently).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(true);
     expect(result.current.user).toBe('__test_user__');
   });
 
   it('should handle login_required errors when getting token', async () => {
-    getTokenSilently.mockRejectedValue({ error: 'login_required' });
+    clientMock.getTokenSilently.mockRejectedValue({
+      error: 'login_required',
+    });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(getTokenSilently).toHaveBeenCalled();
+    expect(clientMock.getTokenSilently).toHaveBeenCalled();
     expect(result.current.error).toBeUndefined();
     expect(result.current.isAuthenticated).toBe(false);
   });
 
   it('should handle other errors when getting token', async () => {
-    getTokenSilently.mockRejectedValue({ error_description: '__test_error__' });
+    clientMock.getTokenSilently.mockRejectedValue({
+      error_description: '__test_error__',
+    });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(getTokenSilently).toHaveBeenCalled();
+    expect(clientMock.getTokenSilently).toHaveBeenCalled();
     expect(() => {
       throw result.current.error;
     }).toThrowError('__test_error__');
@@ -117,20 +104,22 @@ describe('Auth0Provider', () => {
       wrapper,
     });
     await waitForNextUpdate();
-    expect(handleRedirectCallback).toHaveBeenCalled();
+    expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
     expect(window.location.href).toBe('https://www.example.com/');
   });
 
   it('should handle redirect callback errors', async () => {
     window.history.pushState({}, document.title, '/?error=__test_error__');
-    handleRedirectCallback.mockRejectedValue(new Error('__test_error__'));
+    clientMock.handleRedirectCallback.mockRejectedValue(
+      new Error('__test_error__')
+    );
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(handleRedirectCallback).toHaveBeenCalled();
+    expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
     expect(() => {
       throw result.current.error;
     }).toThrowError('__test_error__');
@@ -142,7 +131,9 @@ describe('Auth0Provider', () => {
       document.title,
       '/?code=__test_code__&state=__test_state__'
     );
-    handleRedirectCallback.mockResolvedValue({ appState: { foo: 'bar' } });
+    clientMock.handleRedirectCallback.mockResolvedValue({
+      appState: { foo: 'bar' },
+    });
     const onRedirectCallback = jest.fn();
     const wrapper = createWrapper({
       onRedirectCallback,
@@ -155,7 +146,7 @@ describe('Auth0Provider', () => {
   });
 
   it('should login with a popup', async () => {
-    isAuthenticated.mockResolvedValue(false);
+    clientMock.isAuthenticated.mockResolvedValue(false);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -163,19 +154,19 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.isAuthenticated).toBe(false);
-    isAuthenticated.mockResolvedValue(true);
+    clientMock.isAuthenticated.mockResolvedValue(true);
     act(() => {
       result.current.loginWithPopup();
     });
     expect(result.current.isLoading).toBe(true);
     await waitForNextUpdate();
     expect(result.current.isLoading).toBe(false);
-    expect(loginWithPopup).toHaveBeenCalled();
+    expect(clientMock.loginWithPopup).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(true);
   });
 
   it('should handle errors when logging in with a popup', async () => {
-    isAuthenticated.mockResolvedValue(false);
+    clientMock.isAuthenticated.mockResolvedValue(false);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -183,15 +174,15 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.isAuthenticated).toBe(false);
-    isAuthenticated.mockResolvedValue(false);
-    loginWithPopup.mockRejectedValue(new Error('__test_error__'));
+    clientMock.isAuthenticated.mockResolvedValue(false);
+    clientMock.loginWithPopup.mockRejectedValue(new Error('__test_error__'));
     act(() => {
       result.current.loginWithPopup();
     });
     expect(result.current.isLoading).toBe(true);
     await waitForNextUpdate();
     expect(result.current.isLoading).toBe(false);
-    expect(loginWithPopup).toHaveBeenCalled();
+    expect(clientMock.loginWithPopup).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(false);
     expect(() => {
       throw result.current.error;
@@ -207,7 +198,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(result.current.login).toBeInstanceOf(Function);
     await result.current.login({ redirect_uri: '__redirect_uri__' });
-    expect(loginWithRedirect).toHaveBeenCalledWith({
+    expect(clientMock.loginWithRedirect).toHaveBeenCalledWith({
       redirect_uri: '__redirect_uri__',
     });
   });
@@ -221,13 +212,13 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(result.current.logout).toBeInstanceOf(Function);
     await result.current.logout({ returnTo: '__return_to__' });
-    expect(logout).toHaveBeenCalledWith({
+    expect(clientMock.logout).toHaveBeenCalledWith({
       returnTo: '__return_to__',
     });
   });
 
   it('should provide a getToken method', async () => {
-    getTokenSilently.mockResolvedValue('token');
+    clientMock.getTokenSilently.mockResolvedValue('token');
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -236,12 +227,12 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(result.current.getToken).toBeInstanceOf(Function);
     const token = await result.current.getToken();
-    expect(getTokenSilently).toHaveBeenCalled();
+    expect(clientMock.getTokenSilently).toHaveBeenCalled();
     expect(token).toBe('token');
   });
 
   it('should provide a getTokenWithPopup method', async () => {
-    getTokenWithPopup.mockResolvedValue('token');
+    clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -250,12 +241,15 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(result.current.getTokenWithPopup).toBeInstanceOf(Function);
     const token = await result.current.getTokenWithPopup();
-    expect(getTokenWithPopup).toHaveBeenCalled();
+    expect(clientMock.getTokenWithPopup).toHaveBeenCalled();
     expect(token).toBe('token');
   });
 
   it('should provide a getIdTokenClaims method', async () => {
-    getIdTokenClaims.mockResolvedValue({ claim: '__test_claim__' });
+    clientMock.getIdTokenClaims.mockResolvedValue({
+      claim: '__test_claim__',
+      __raw: '__test_raw_token__',
+    });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -264,7 +258,10 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(result.current.getIdTokenClaims).toBeInstanceOf(Function);
     const claims = await result.current.getIdTokenClaims();
-    expect(getIdTokenClaims).toHaveBeenCalled();
-    expect(claims).toStrictEqual({ claim: '__test_claim__' });
+    expect(clientMock.getIdTokenClaims).toHaveBeenCalled();
+    expect(claims).toStrictEqual({
+      claim: '__test_claim__',
+      __raw: '__test_raw_token__',
+    });
   });
 });
