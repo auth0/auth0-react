@@ -163,6 +163,8 @@ const Posts = () => {
 export default Posts;
 ```
 
+See more examples in [EXAMPLES.md](./EXAMPLES.md)
+
 ## Contributing
 
 We appreciate feedback and contribution to this repo! Before you get started, please see the following:
