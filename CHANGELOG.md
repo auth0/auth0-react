@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.2.0](https://github.com/auth0/auth0-react/tree/v0.2.0) (2020-05-20)
+
+**Added**
+
+- [SDK-1642] Add missing methods from SPA JS [\#11](https://github.com/auth0/auth0-react/pull/11) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- [SDK-1582] Normalize the auth0 error and add error handling to the basic example [\#10](https://github.com/auth0/auth0-react/pull/10) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+**Changed**
+
+- Rename auth prop to prevent clashes and align with public api [\#14](https://github.com/auth0/auth0-react/pull/14) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Bundle SPA JS with the SDK for easier install [\#13](https://github.com/auth0/auth0-react/pull/13) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v0.1.0](https://github.com/auth0/auth0-react/tree/v0.1.0) (2020-05-08)
 
 **Added**
