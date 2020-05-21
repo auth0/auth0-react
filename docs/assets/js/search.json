@@ -1536,13 +1536,37 @@
     },
     {
       "id": 198,
+      "kind": 2048,
+      "name": "readJson",
+      "url": "classes/localstoragecache.html#readjson",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "LocalStorageCache"
+    },
+    {
+      "id": 199,
+      "kind": 2048,
+      "name": "writeJson",
+      "url": "classes/localstoragecache.html#writejson",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "LocalStorageCache"
+    },
+    {
+      "id": 200,
+      "kind": 2048,
+      "name": "stripData",
+      "url": "classes/localstoragecache.html#stripdata",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "LocalStorageCache"
+    },
+    {
+      "id": 201,
       "kind": 128,
       "name": "InMemoryCache",
       "url": "classes/inmemorycache.html",
       "classes": "tsd-kind-class"
     },
     {
-      "id": 199,
+      "id": 202,
       "kind": 1024,
       "name": "enclosedCache",
       "url": "classes/inmemorycache.html#enclosedcache",
@@ -1550,28 +1574,28 @@
       "parent": "InMemoryCache"
     },
     {
-      "id": 200,
+      "id": 203,
       "kind": 32,
       "name": "keyPrefix",
       "url": "globals.html#keyprefix",
       "classes": "tsd-kind-variable"
     },
     {
-      "id": 201,
+      "id": 204,
       "kind": 64,
       "name": "createKey",
       "url": "globals.html#createkey",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 202,
+      "id": 205,
       "kind": 4194304,
       "name": "CachePayload",
       "url": "globals.html#cachepayload",
       "classes": "tsd-kind-type-alias"
     },
     {
-      "id": 203,
+      "id": 206,
       "kind": 65536,
       "name": "__type",
       "url": "globals.html#cachepayload.__type",
@@ -1579,7 +1603,7 @@
       "parent": "CachePayload"
     },
     {
-      "id": 204,
+      "id": 207,
       "kind": 32,
       "name": "body",
       "url": "globals.html#cachepayload.__type.body",
@@ -1587,7 +1611,7 @@
       "parent": "CachePayload.__type"
     },
     {
-      "id": 205,
+      "id": 208,
       "kind": 32,
       "name": "expiresAt",
       "url": "globals.html#cachepayload.__type.expiresat",
@@ -1595,21 +1619,21 @@
       "parent": "CachePayload.__type"
     },
     {
-      "id": 206,
+      "id": 209,
       "kind": 64,
       "name": "wrapCacheEntry",
       "url": "globals.html#wrapcacheentry",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 207,
+      "id": 210,
       "kind": 256,
       "name": "ClientStorageOptions",
       "url": "interfaces/clientstorageoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 208,
+      "id": 211,
       "kind": 1024,
       "name": "daysUntilExpire",
       "url": "interfaces/clientstorageoptions.html#daysuntilexpire",
@@ -1617,42 +1641,42 @@
       "parent": "ClientStorageOptions"
     },
     {
-      "id": 209,
+      "id": 212,
       "kind": 64,
       "name": "getAllKeys",
       "url": "globals.html#getallkeys",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 210,
+      "id": 213,
       "kind": 64,
       "name": "get",
       "url": "globals.html#get",
       "classes": "tsd-kind-function tsd-has-type-parameter"
     },
     {
-      "id": 211,
+      "id": 214,
       "kind": 64,
       "name": "save",
       "url": "globals.html#save",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 212,
+      "id": 215,
       "kind": 64,
       "name": "remove",
       "url": "globals.html#remove",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 213,
+      "id": 216,
       "kind": 256,
       "name": "Transaction",
       "url": "interfaces/transaction.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 214,
+      "id": 217,
       "kind": 1024,
       "name": "nonce",
       "url": "interfaces/transaction.html#nonce",
@@ -1660,7 +1684,7 @@
       "parent": "Transaction"
     },
     {
-      "id": 215,
+      "id": 218,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/transaction.html#scope",
@@ -1668,7 +1692,7 @@
       "parent": "Transaction"
     },
     {
-      "id": 216,
+      "id": 219,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/transaction.html#audience",
@@ -1676,7 +1700,7 @@
       "parent": "Transaction"
     },
     {
-      "id": 217,
+      "id": 220,
       "kind": 1024,
       "name": "appState",
       "url": "interfaces/transaction.html#appstate",
@@ -1684,7 +1708,7 @@
       "parent": "Transaction"
     },
     {
-      "id": 218,
+      "id": 221,
       "kind": 1024,
       "name": "code_verifier",
       "url": "interfaces/transaction.html#code_verifier",
@@ -1692,7 +1716,7 @@
       "parent": "Transaction"
     },
     {
-      "id": 219,
+      "id": 222,
       "kind": 1024,
       "name": "redirect_uri",
       "url": "interfaces/transaction.html#redirect_uri",
@@ -1700,21 +1724,29 @@
       "parent": "Transaction"
     },
     {
-      "id": 220,
+      "id": 223,
       "kind": 256,
       "name": "Transactions",
       "url": "interfaces/transactions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 221,
+      "id": 224,
       "kind": 128,
       "name": "TransactionManager",
       "url": "classes/transactionmanager.html",
       "classes": "tsd-kind-class"
     },
     {
-      "id": 222,
+      "id": 225,
+      "kind": 1024,
+      "name": "transactions",
+      "url": "classes/transactionmanager.html#transactions",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "TransactionManager"
+    },
+    {
+      "id": 226,
       "kind": 512,
       "name": "constructor",
       "url": "classes/transactionmanager.html#constructor",
@@ -1722,7 +1754,7 @@
       "parent": "TransactionManager"
     },
     {
-      "id": 223,
+      "id": 227,
       "kind": 2048,
       "name": "create",
       "url": "classes/transactionmanager.html#create",
@@ -1730,7 +1762,7 @@
       "parent": "TransactionManager"
     },
     {
-      "id": 224,
+      "id": 228,
       "kind": 2048,
       "name": "get",
       "url": "classes/transactionmanager.html#get",
@@ -1738,7 +1770,7 @@
       "parent": "TransactionManager"
     },
     {
-      "id": 225,
+      "id": 229,
       "kind": 2048,
       "name": "remove",
       "url": "classes/transactionmanager.html#remove",
@@ -1746,49 +1778,49 @@
       "parent": "TransactionManager"
     },
     {
-      "id": 226,
+      "id": 230,
       "kind": 32,
       "name": "COOKIE_KEY",
       "url": "globals.html#cookie_key",
       "classes": "tsd-kind-variable"
     },
     {
-      "id": 227,
+      "id": 231,
       "kind": 64,
       "name": "getTransactionKey",
       "url": "globals.html#gettransactionkey",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 228,
+      "id": 232,
       "kind": 64,
       "name": "isNumber",
       "url": "globals.html#isnumber",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 229,
+      "id": 233,
       "kind": 32,
       "name": "idTokendecoded",
       "url": "globals.html#idtokendecoded",
       "classes": "tsd-kind-variable"
     },
     {
-      "id": 230,
+      "id": 234,
       "kind": 64,
       "name": "verify",
       "url": "globals.html#verify",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 231,
+      "id": 235,
       "kind": 128,
       "name": "GenericError",
       "url": "classes/genericerror.html",
       "classes": "tsd-kind-class"
     },
     {
-      "id": 232,
+      "id": 236,
       "kind": 512,
       "name": "constructor",
       "url": "classes/genericerror.html#constructor",
@@ -1796,7 +1828,7 @@
       "parent": "GenericError"
     },
     {
-      "id": 233,
+      "id": 237,
       "kind": 1024,
       "name": "error",
       "url": "classes/genericerror.html#error",
@@ -1804,7 +1836,7 @@
       "parent": "GenericError"
     },
     {
-      "id": 234,
+      "id": 238,
       "kind": 1024,
       "name": "error_description",
       "url": "classes/genericerror.html#error_description",
@@ -1812,7 +1844,7 @@
       "parent": "GenericError"
     },
     {
-      "id": 235,
+      "id": 239,
       "kind": 1024,
       "name": "name",
       "url": "classes/genericerror.html#name",
@@ -1820,7 +1852,7 @@
       "parent": "GenericError"
     },
     {
-      "id": 236,
+      "id": 240,
       "kind": 1024,
       "name": "message",
       "url": "classes/genericerror.html#message",
@@ -1828,7 +1860,7 @@
       "parent": "GenericError"
     },
     {
-      "id": 237,
+      "id": 241,
       "kind": 1024,
       "name": "stack",
       "url": "classes/genericerror.html#stack",
@@ -1836,7 +1868,7 @@
       "parent": "GenericError"
     },
     {
-      "id": 238,
+      "id": 242,
       "kind": 1024,
       "name": "Error",
       "url": "classes/genericerror.html#error-1",
@@ -1844,14 +1876,14 @@
       "parent": "GenericError"
     },
     {
-      "id": 239,
+      "id": 243,
       "kind": 128,
       "name": "AuthenticationError",
       "url": "classes/authenticationerror.html",
       "classes": "tsd-kind-class"
     },
     {
-      "id": 240,
+      "id": 244,
       "kind": 512,
       "name": "constructor",
       "url": "classes/authenticationerror.html#constructor",
@@ -1859,7 +1891,7 @@
       "parent": "AuthenticationError"
     },
     {
-      "id": 241,
+      "id": 245,
       "kind": 1024,
       "name": "state",
       "url": "classes/authenticationerror.html#state",
@@ -1867,7 +1899,7 @@
       "parent": "AuthenticationError"
     },
     {
-      "id": 242,
+      "id": 246,
       "kind": 1024,
       "name": "appState",
       "url": "classes/authenticationerror.html#appstate",
@@ -1875,7 +1907,7 @@
       "parent": "AuthenticationError"
     },
     {
-      "id": 243,
+      "id": 247,
       "kind": 1024,
       "name": "error",
       "url": "classes/authenticationerror.html#error",
@@ -1883,7 +1915,7 @@
       "parent": "AuthenticationError"
     },
     {
-      "id": 244,
+      "id": 248,
       "kind": 1024,
       "name": "error_description",
       "url": "classes/authenticationerror.html#error_description",
@@ -1891,7 +1923,7 @@
       "parent": "AuthenticationError"
     },
     {
-      "id": 245,
+      "id": 249,
       "kind": 1024,
       "name": "name",
       "url": "classes/authenticationerror.html#name",
@@ -1899,7 +1931,7 @@
       "parent": "AuthenticationError"
     },
     {
-      "id": 246,
+      "id": 250,
       "kind": 1024,
       "name": "message",
       "url": "classes/authenticationerror.html#message",
@@ -1907,7 +1939,7 @@
       "parent": "AuthenticationError"
     },
     {
-      "id": 247,
+      "id": 251,
       "kind": 1024,
       "name": "stack",
       "url": "classes/authenticationerror.html#stack",
@@ -1915,14 +1947,62 @@
       "parent": "AuthenticationError"
     },
     {
-      "id": 248,
+      "id": 252,
       "kind": 128,
       "name": "Auth0Client",
       "url": "classes/auth0client.html",
       "classes": "tsd-kind-class"
     },
     {
-      "id": 249,
+      "id": 253,
+      "kind": 1024,
+      "name": "cache",
+      "url": "classes/auth0client.html#cache",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 254,
+      "kind": 1024,
+      "name": "transactionManager",
+      "url": "classes/auth0client.html#transactionmanager",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 255,
+      "kind": 1024,
+      "name": "domainUrl",
+      "url": "classes/auth0client.html#domainurl",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 256,
+      "kind": 1024,
+      "name": "tokenIssuer",
+      "url": "classes/auth0client.html#tokenissuer",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 257,
+      "kind": 1024,
+      "name": "defaultScope",
+      "url": "classes/auth0client.html#defaultscope",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 258,
+      "kind": 1024,
+      "name": "scope",
+      "url": "classes/auth0client.html#scope",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 259,
       "kind": 1024,
       "name": "cacheLocation",
       "url": "classes/auth0client.html#cachelocation",
@@ -1930,7 +2010,15 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 250,
+      "id": 260,
+      "kind": 1024,
+      "name": "worker",
+      "url": "classes/auth0client.html#worker",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 261,
       "kind": 512,
       "name": "constructor",
       "url": "classes/auth0client.html#constructor",
@@ -1938,7 +2026,55 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 251,
+      "id": 262,
+      "kind": 1024,
+      "name": "options",
+      "url": "classes/auth0client.html#options",
+      "classes": "tsd-kind-property tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 263,
+      "kind": 2048,
+      "name": "_url",
+      "url": "classes/auth0client.html#_url",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 264,
+      "kind": 2048,
+      "name": "_getParams",
+      "url": "classes/auth0client.html#_getparams",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 265,
+      "kind": 2048,
+      "name": "_authorizeUrl",
+      "url": "classes/auth0client.html#_authorizeurl",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 266,
+      "kind": 2048,
+      "name": "_verifyIdToken",
+      "url": "classes/auth0client.html#_verifyidtoken",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 267,
+      "kind": 2048,
+      "name": "_parseNumber",
+      "url": "classes/auth0client.html#_parsenumber",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 268,
       "kind": 2048,
       "name": "buildAuthorizeUrl",
       "url": "classes/auth0client.html#buildauthorizeurl",
@@ -1946,7 +2082,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 252,
+      "id": 269,
       "kind": 2048,
       "name": "loginWithPopup",
       "url": "classes/auth0client.html#loginwithpopup",
@@ -1954,7 +2090,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 253,
+      "id": 270,
       "kind": 2048,
       "name": "getUser",
       "url": "classes/auth0client.html#getuser",
@@ -1962,7 +2098,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 254,
+      "id": 271,
       "kind": 2048,
       "name": "getIdTokenClaims",
       "url": "classes/auth0client.html#getidtokenclaims",
@@ -1970,7 +2106,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 255,
+      "id": 272,
       "kind": 2048,
       "name": "loginWithRedirect",
       "url": "classes/auth0client.html#loginwithredirect",
@@ -1978,7 +2114,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 256,
+      "id": 273,
       "kind": 2048,
       "name": "handleRedirectCallback",
       "url": "classes/auth0client.html#handleredirectcallback",
@@ -1986,7 +2122,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 257,
+      "id": 274,
       "kind": 2048,
       "name": "getTokenSilently",
       "url": "classes/auth0client.html#gettokensilently",
@@ -1994,7 +2130,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 258,
+      "id": 275,
       "kind": 2048,
       "name": "getTokenWithPopup",
       "url": "classes/auth0client.html#gettokenwithpopup",
@@ -2002,7 +2138,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 259,
+      "id": 276,
       "kind": 2048,
       "name": "isAuthenticated",
       "url": "classes/auth0client.html#isauthenticated",
@@ -2010,7 +2146,7 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 260,
+      "id": 277,
       "kind": 2048,
       "name": "logout",
       "url": "classes/auth0client.html#logout",
@@ -2018,14 +2154,30 @@
       "parent": "Auth0Client"
     },
     {
-      "id": 261,
+      "id": 278,
+      "kind": 2048,
+      "name": "_getTokenFromIFrame",
+      "url": "classes/auth0client.html#_gettokenfromiframe",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 279,
+      "kind": 2048,
+      "name": "_getTokenUsingRefreshToken",
+      "url": "classes/auth0client.html#_gettokenusingrefreshtoken",
+      "classes": "tsd-kind-method tsd-parent-kind-class tsd-is-private",
+      "parent": "Auth0Client"
+    },
+    {
+      "id": 280,
       "kind": 128,
       "name": "default",
       "url": "classes/default.html",
       "classes": "tsd-kind-class"
     },
     {
-      "id": 262,
+      "id": 281,
       "kind": 2048,
       "name": "postMessage",
       "url": "classes/default.html#postmessage",
@@ -2033,7 +2185,7 @@
       "parent": "default"
     },
     {
-      "id": 263,
+      "id": 282,
       "kind": 64,
       "name": "createAuth0Client",
       "url": "globals.html#createauth0client",
@@ -2044,534 +2196,572 @@
     "version": "2.3.8",
     "fields": ["name", "parent"],
     "fieldVectors": [
-      ["name/0", [0, 38.75]],
+      ["name/0", [0, 39.442]],
       ["parent/0", []],
-      ["name/1", [1, 37.079]],
-      ["parent/1", [0, 3.245]],
-      ["name/2", [2, 40.757]],
-      ["parent/2", [0, 3.245]],
-      ["name/3", [3, 43.27]],
-      ["parent/3", [0, 3.245]],
-      ["name/4", [4, 43.27]],
-      ["parent/4", [0, 3.245]],
-      ["name/5", [5, 43.27]],
+      ["name/1", [1, 37.772]],
+      ["parent/1", [0, 3.355]],
+      ["name/2", [2, 41.449]],
+      ["parent/2", [0, 3.355]],
+      ["name/3", [3, 43.962]],
+      ["parent/3", [0, 3.355]],
+      ["name/4", [4, 43.962]],
+      ["parent/4", [0, 3.355]],
+      ["name/5", [5, 43.962]],
       ["parent/5", []],
-      ["name/6", [2, 40.757]],
-      ["parent/6", [5, 3.623]],
-      ["name/7", [3, 43.27]],
-      ["parent/7", [5, 3.623]],
-      ["name/8", [6, 31.374]],
+      ["name/6", [2, 41.449]],
+      ["parent/6", [5, 3.739]],
+      ["name/7", [3, 43.962]],
+      ["parent/7", [5, 3.739]],
+      ["name/8", [6, 32.066]],
       ["parent/8", []],
-      ["name/9", [7, 51.743]],
-      ["parent/9", [6, 2.627]],
-      ["name/10", [8, 34.397]],
-      ["parent/10", [9, 4.333]],
-      ["name/11", [10, 46.634]],
-      ["parent/11", [6, 2.627]],
-      ["name/12", [8, 34.397]],
-      ["parent/12", [11, 4.333]],
-      ["name/13", [12, 46.634]],
-      ["parent/13", [6, 2.627]],
-      ["name/14", [8, 34.397]],
-      ["parent/14", [13, 4.333]],
-      ["name/15", [14, 51.743]],
-      ["parent/15", [6, 2.627]],
-      ["name/16", [8, 34.397]],
-      ["parent/16", [15, 4.333]],
-      ["name/17", [16, 46.634]],
-      ["parent/17", [6, 2.627]],
-      ["name/18", [8, 34.397]],
-      ["parent/18", [17, 4.333]],
-      ["name/19", [18, 46.634]],
-      ["parent/19", [6, 2.627]],
-      ["name/20", [8, 34.397]],
-      ["parent/20", [19, 4.333]],
-      ["name/21", [1, 37.079]],
-      ["parent/21", [6, 2.627]],
-      ["name/22", [2, 40.757]],
-      ["parent/22", [6, 2.627]],
-      ["name/23", [3, 43.27]],
-      ["parent/23", [6, 2.627]],
-      ["name/24", [4, 43.27]],
-      ["parent/24", [6, 2.627]],
-      ["name/25", [20, 51.743]],
+      ["name/9", [7, 52.435]],
+      ["parent/9", [6, 2.728]],
+      ["name/10", [8, 35.089]],
+      ["parent/10", [9, 4.46]],
+      ["name/11", [10, 47.327]],
+      ["parent/11", [6, 2.728]],
+      ["name/12", [8, 35.089]],
+      ["parent/12", [11, 4.46]],
+      ["name/13", [12, 47.327]],
+      ["parent/13", [6, 2.728]],
+      ["name/14", [8, 35.089]],
+      ["parent/14", [13, 4.46]],
+      ["name/15", [14, 52.435]],
+      ["parent/15", [6, 2.728]],
+      ["name/16", [8, 35.089]],
+      ["parent/16", [15, 4.46]],
+      ["name/17", [16, 47.327]],
+      ["parent/17", [6, 2.728]],
+      ["name/18", [8, 35.089]],
+      ["parent/18", [17, 4.46]],
+      ["name/19", [18, 47.327]],
+      ["parent/19", [6, 2.728]],
+      ["name/20", [8, 35.089]],
+      ["parent/20", [19, 4.46]],
+      ["name/21", [1, 37.772]],
+      ["parent/21", [6, 2.728]],
+      ["name/22", [2, 41.449]],
+      ["parent/22", [6, 2.728]],
+      ["name/23", [3, 43.962]],
+      ["parent/23", [6, 2.728]],
+      ["name/24", [4, 43.962]],
+      ["parent/24", [6, 2.728]],
+      ["name/25", [20, 52.435]],
       ["parent/25", []],
-      ["name/26", [21, 51.743]],
+      ["name/26", [21, 52.435]],
       ["parent/26", []],
-      ["name/27", [22, 51.743]],
+      ["name/27", [22, 52.435]],
       ["parent/27", []],
-      ["name/28", [23, 37.079]],
+      ["name/28", [23, 37.772]],
       ["parent/28", []],
-      ["name/29", [8, 34.397]],
-      ["parent/29", [23, 3.105]],
-      ["name/30", [24, 46.634]],
-      ["parent/30", [25, 4.333]],
-      ["name/31", [26, 51.743]],
+      ["name/29", [8, 35.089]],
+      ["parent/29", [23, 3.213]],
+      ["name/30", [24, 47.327]],
+      ["parent/30", [25, 4.46]],
+      ["name/31", [26, 52.435]],
       ["parent/31", []],
-      ["name/32", [27, 51.743]],
+      ["name/32", [27, 52.435]],
       ["parent/32", []],
-      ["name/33", [28, 51.743]],
+      ["name/33", [28, 52.435]],
       ["parent/33", []],
-      ["name/34", [29, 51.743]],
+      ["name/34", [29, 52.435]],
       ["parent/34", []],
-      ["name/35", [30, 51.743]],
+      ["name/35", [30, 52.435]],
       ["parent/35", []],
-      ["name/36", [31, 24.662]],
+      ["name/36", [31, 25.355]],
       ["parent/36", []],
-      ["name/37", [32, 51.743]],
-      ["parent/37", [31, 2.065]],
-      ["name/38", [33, 46.634]],
-      ["parent/38", [31, 2.065]],
-      ["name/39", [34, 46.634]],
-      ["parent/39", [31, 2.065]],
-      ["name/40", [35, 38.75]],
-      ["parent/40", [31, 2.065]],
-      ["name/41", [36, 38.75]],
-      ["parent/41", [31, 2.065]],
-      ["name/42", [37, 46.634]],
-      ["parent/42", [31, 2.065]],
-      ["name/43", [38, 40.757]],
-      ["parent/43", [31, 2.065]],
-      ["name/44", [39, 46.634]],
-      ["parent/44", [31, 2.065]],
-      ["name/45", [40, 46.634]],
-      ["parent/45", [31, 2.065]],
-      ["name/46", [41, 40.757]],
-      ["parent/46", [31, 2.065]],
-      ["name/47", [42, 38.75]],
-      ["parent/47", [31, 2.065]],
-      ["name/48", [43, 38.75]],
-      ["parent/48", [31, 2.065]],
-      ["name/49", [44, 38.75]],
-      ["parent/49", [31, 2.065]],
-      ["name/50", [45, 38.75]],
-      ["parent/50", [31, 2.065]],
-      ["name/51", [46, 38.75]],
-      ["parent/51", [31, 2.065]],
-      ["name/52", [47, 38.75]],
-      ["parent/52", [31, 2.065]],
-      ["name/53", [48, 38.75]],
-      ["parent/53", [31, 2.065]],
-      ["name/54", [49, 31.374]],
-      ["parent/54", [31, 2.065]],
-      ["name/55", [50, 31.374]],
-      ["parent/55", [31, 2.065]],
-      ["name/56", [51, 38.75]],
-      ["parent/56", [31, 2.065]],
-      ["name/57", [52, 51.743]],
-      ["parent/57", [31, 2.065]],
-      ["name/58", [53, 51.743]],
+      ["name/37", [32, 52.435]],
+      ["parent/37", [31, 2.157]],
+      ["name/38", [33, 47.327]],
+      ["parent/38", [31, 2.157]],
+      ["name/39", [34, 47.327]],
+      ["parent/39", [31, 2.157]],
+      ["name/40", [35, 39.442]],
+      ["parent/40", [31, 2.157]],
+      ["name/41", [36, 39.442]],
+      ["parent/41", [31, 2.157]],
+      ["name/42", [37, 47.327]],
+      ["parent/42", [31, 2.157]],
+      ["name/43", [38, 41.449]],
+      ["parent/43", [31, 2.157]],
+      ["name/44", [39, 47.327]],
+      ["parent/44", [31, 2.157]],
+      ["name/45", [40, 47.327]],
+      ["parent/45", [31, 2.157]],
+      ["name/46", [41, 41.449]],
+      ["parent/46", [31, 2.157]],
+      ["name/47", [42, 39.442]],
+      ["parent/47", [31, 2.157]],
+      ["name/48", [43, 39.442]],
+      ["parent/48", [31, 2.157]],
+      ["name/49", [44, 39.442]],
+      ["parent/49", [31, 2.157]],
+      ["name/50", [45, 39.442]],
+      ["parent/50", [31, 2.157]],
+      ["name/51", [46, 39.442]],
+      ["parent/51", [31, 2.157]],
+      ["name/52", [47, 39.442]],
+      ["parent/52", [31, 2.157]],
+      ["name/53", [48, 39.442]],
+      ["parent/53", [31, 2.157]],
+      ["name/54", [49, 31.232]],
+      ["parent/54", [31, 2.157]],
+      ["name/55", [50, 32.066]],
+      ["parent/55", [31, 2.157]],
+      ["name/56", [51, 39.442]],
+      ["parent/56", [31, 2.157]],
+      ["name/57", [52, 52.435]],
+      ["parent/57", [31, 2.157]],
+      ["name/58", [53, 52.435]],
       ["parent/58", []],
-      ["name/59", [54, 46.634]],
+      ["name/59", [54, 47.327]],
       ["parent/59", []],
-      ["name/60", [55, 51.743]],
-      ["parent/60", [54, 3.905]],
-      ["name/61", [56, 51.743]],
+      ["name/60", [55, 52.435]],
+      ["parent/60", [54, 4.026]],
+      ["name/61", [56, 52.435]],
       ["parent/61", []],
-      ["name/62", [57, 51.743]],
+      ["name/62", [57, 52.435]],
       ["parent/62", []],
-      ["name/63", [58, 51.743]],
+      ["name/63", [58, 52.435]],
       ["parent/63", []],
-      ["name/64", [41, 40.757]],
+      ["name/64", [41, 41.449]],
       ["parent/64", []],
-      ["name/65", [59, 51.743]],
-      ["parent/65", [41, 3.413]],
-      ["name/66", [60, 25.593]],
+      ["name/65", [59, 47.327]],
+      ["parent/65", [41, 3.526]],
+      ["name/66", [60, 26.285]],
       ["parent/66", []],
-      ["name/67", [33, 46.634]],
-      ["parent/67", [60, 2.143]],
-      ["name/68", [34, 46.634]],
-      ["parent/68", [60, 2.143]],
-      ["name/69", [35, 38.75]],
-      ["parent/69", [60, 2.143]],
-      ["name/70", [36, 38.75]],
-      ["parent/70", [60, 2.143]],
-      ["name/71", [37, 46.634]],
-      ["parent/71", [60, 2.143]],
-      ["name/72", [38, 40.757]],
-      ["parent/72", [60, 2.143]],
-      ["name/73", [39, 46.634]],
-      ["parent/73", [60, 2.143]],
-      ["name/74", [40, 46.634]],
-      ["parent/74", [60, 2.143]],
-      ["name/75", [41, 40.757]],
-      ["parent/75", [60, 2.143]],
-      ["name/76", [42, 38.75]],
-      ["parent/76", [60, 2.143]],
-      ["name/77", [43, 38.75]],
-      ["parent/77", [60, 2.143]],
-      ["name/78", [44, 38.75]],
-      ["parent/78", [60, 2.143]],
-      ["name/79", [45, 38.75]],
-      ["parent/79", [60, 2.143]],
-      ["name/80", [46, 38.75]],
-      ["parent/80", [60, 2.143]],
-      ["name/81", [47, 38.75]],
-      ["parent/81", [60, 2.143]],
-      ["name/82", [48, 38.75]],
-      ["parent/82", [60, 2.143]],
-      ["name/83", [49, 31.374]],
-      ["parent/83", [60, 2.143]],
-      ["name/84", [50, 31.374]],
-      ["parent/84", [60, 2.143]],
-      ["name/85", [51, 38.75]],
-      ["parent/85", [60, 2.143]],
-      ["name/86", [61, 29.056]],
+      ["name/67", [33, 47.327]],
+      ["parent/67", [60, 2.236]],
+      ["name/68", [34, 47.327]],
+      ["parent/68", [60, 2.236]],
+      ["name/69", [35, 39.442]],
+      ["parent/69", [60, 2.236]],
+      ["name/70", [36, 39.442]],
+      ["parent/70", [60, 2.236]],
+      ["name/71", [37, 47.327]],
+      ["parent/71", [60, 2.236]],
+      ["name/72", [38, 41.449]],
+      ["parent/72", [60, 2.236]],
+      ["name/73", [39, 47.327]],
+      ["parent/73", [60, 2.236]],
+      ["name/74", [40, 47.327]],
+      ["parent/74", [60, 2.236]],
+      ["name/75", [41, 41.449]],
+      ["parent/75", [60, 2.236]],
+      ["name/76", [42, 39.442]],
+      ["parent/76", [60, 2.236]],
+      ["name/77", [43, 39.442]],
+      ["parent/77", [60, 2.236]],
+      ["name/78", [44, 39.442]],
+      ["parent/78", [60, 2.236]],
+      ["name/79", [45, 39.442]],
+      ["parent/79", [60, 2.236]],
+      ["name/80", [46, 39.442]],
+      ["parent/80", [60, 2.236]],
+      ["name/81", [47, 39.442]],
+      ["parent/81", [60, 2.236]],
+      ["name/82", [48, 39.442]],
+      ["parent/82", [60, 2.236]],
+      ["name/83", [49, 31.232]],
+      ["parent/83", [60, 2.236]],
+      ["name/84", [50, 32.066]],
+      ["parent/84", [60, 2.236]],
+      ["name/85", [51, 39.442]],
+      ["parent/85", [60, 2.236]],
+      ["name/86", [61, 29.748]],
       ["parent/86", []],
-      ["name/87", [36, 38.75]],
-      ["parent/87", [61, 2.433]],
-      ["name/88", [23, 37.079]],
-      ["parent/88", [61, 2.433]],
-      ["name/89", [62, 51.743]],
-      ["parent/89", [61, 2.433]],
-      ["name/90", [42, 38.75]],
-      ["parent/90", [61, 2.433]],
-      ["name/91", [43, 38.75]],
-      ["parent/91", [61, 2.433]],
-      ["name/92", [44, 38.75]],
-      ["parent/92", [61, 2.433]],
-      ["name/93", [45, 38.75]],
-      ["parent/93", [61, 2.433]],
-      ["name/94", [46, 38.75]],
-      ["parent/94", [61, 2.433]],
-      ["name/95", [47, 38.75]],
-      ["parent/95", [61, 2.433]],
-      ["name/96", [48, 38.75]],
-      ["parent/96", [61, 2.433]],
-      ["name/97", [49, 31.374]],
-      ["parent/97", [61, 2.433]],
-      ["name/98", [50, 31.374]],
-      ["parent/98", [61, 2.433]],
-      ["name/99", [51, 38.75]],
-      ["parent/99", [61, 2.433]],
-      ["name/100", [63, 46.634]],
+      ["name/87", [36, 39.442]],
+      ["parent/87", [61, 2.53]],
+      ["name/88", [23, 37.772]],
+      ["parent/88", [61, 2.53]],
+      ["name/89", [62, 52.435]],
+      ["parent/89", [61, 2.53]],
+      ["name/90", [42, 39.442]],
+      ["parent/90", [61, 2.53]],
+      ["name/91", [43, 39.442]],
+      ["parent/91", [61, 2.53]],
+      ["name/92", [44, 39.442]],
+      ["parent/92", [61, 2.53]],
+      ["name/93", [45, 39.442]],
+      ["parent/93", [61, 2.53]],
+      ["name/94", [46, 39.442]],
+      ["parent/94", [61, 2.53]],
+      ["name/95", [47, 39.442]],
+      ["parent/95", [61, 2.53]],
+      ["name/96", [48, 39.442]],
+      ["parent/96", [61, 2.53]],
+      ["name/97", [49, 31.232]],
+      ["parent/97", [61, 2.53]],
+      ["name/98", [50, 32.066]],
+      ["parent/98", [61, 2.53]],
+      ["name/99", [51, 39.442]],
+      ["parent/99", [61, 2.53]],
+      ["name/100", [63, 47.327]],
       ["parent/100", []],
-      ["name/101", [23, 37.079]],
-      ["parent/101", [63, 3.905]],
-      ["name/102", [64, 31.374]],
+      ["name/101", [23, 37.772]],
+      ["parent/101", [63, 4.026]],
+      ["name/102", [64, 32.066]],
       ["parent/102", []],
-      ["name/103", [42, 38.75]],
-      ["parent/103", [64, 2.627]],
-      ["name/104", [43, 38.75]],
-      ["parent/104", [64, 2.627]],
-      ["name/105", [44, 38.75]],
-      ["parent/105", [64, 2.627]],
-      ["name/106", [45, 38.75]],
-      ["parent/106", [64, 2.627]],
-      ["name/107", [46, 38.75]],
-      ["parent/107", [64, 2.627]],
-      ["name/108", [47, 38.75]],
-      ["parent/108", [64, 2.627]],
-      ["name/109", [48, 38.75]],
-      ["parent/109", [64, 2.627]],
-      ["name/110", [49, 31.374]],
-      ["parent/110", [64, 2.627]],
-      ["name/111", [50, 31.374]],
-      ["parent/111", [64, 2.627]],
-      ["name/112", [51, 38.75]],
-      ["parent/112", [64, 2.627]],
-      ["name/113", [65, 43.27]],
+      ["name/103", [42, 39.442]],
+      ["parent/103", [64, 2.728]],
+      ["name/104", [43, 39.442]],
+      ["parent/104", [64, 2.728]],
+      ["name/105", [44, 39.442]],
+      ["parent/105", [64, 2.728]],
+      ["name/106", [45, 39.442]],
+      ["parent/106", [64, 2.728]],
+      ["name/107", [46, 39.442]],
+      ["parent/107", [64, 2.728]],
+      ["name/108", [47, 39.442]],
+      ["parent/108", [64, 2.728]],
+      ["name/109", [48, 39.442]],
+      ["parent/109", [64, 2.728]],
+      ["name/110", [49, 31.232]],
+      ["parent/110", [64, 2.728]],
+      ["name/111", [50, 32.066]],
+      ["parent/111", [64, 2.728]],
+      ["name/112", [51, 39.442]],
+      ["parent/112", [64, 2.728]],
+      ["name/113", [65, 43.962]],
       ["parent/113", []],
-      ["name/114", [66, 46.634]],
-      ["parent/114", [65, 3.623]],
-      ["name/115", [67, 51.743]],
-      ["parent/115", [65, 3.623]],
-      ["name/116", [68, 43.27]],
+      ["name/114", [66, 47.327]],
+      ["parent/114", [65, 3.739]],
+      ["name/115", [67, 52.435]],
+      ["parent/115", [65, 3.739]],
+      ["name/116", [68, 43.962]],
       ["parent/116", []],
-      ["name/117", [49, 31.374]],
-      ["parent/117", [68, 3.623]],
-      ["name/118", [50, 31.374]],
-      ["parent/118", [68, 3.623]],
-      ["name/119", [69, 40.757]],
+      ["name/117", [49, 31.232]],
+      ["parent/117", [68, 3.739]],
+      ["name/118", [50, 32.066]],
+      ["parent/118", [68, 3.739]],
+      ["name/119", [69, 41.449]],
       ["parent/119", []],
-      ["name/120", [49, 31.374]],
-      ["parent/120", [69, 3.413]],
-      ["name/121", [50, 31.374]],
-      ["parent/121", [69, 3.413]],
-      ["name/122", [70, 37.079]],
+      ["name/120", [49, 31.232]],
+      ["parent/120", [69, 3.526]],
+      ["name/121", [50, 32.066]],
+      ["parent/121", [69, 3.526]],
+      ["name/122", [70, 37.772]],
       ["parent/122", []],
-      ["name/123", [71, 51.743]],
-      ["parent/123", [70, 3.105]],
-      ["name/124", [36, 38.75]],
-      ["parent/124", [70, 3.105]],
-      ["name/125", [49, 31.374]],
-      ["parent/125", [70, 3.105]],
-      ["name/126", [50, 31.374]],
-      ["parent/126", [70, 3.105]],
-      ["name/127", [66, 46.634]],
-      ["parent/127", [70, 3.105]],
-      ["name/128", [72, 31.374]],
+      ["name/123", [71, 52.435]],
+      ["parent/123", [70, 3.213]],
+      ["name/124", [36, 39.442]],
+      ["parent/124", [70, 3.213]],
+      ["name/125", [49, 31.232]],
+      ["parent/125", [70, 3.213]],
+      ["name/126", [50, 32.066]],
+      ["parent/126", [70, 3.213]],
+      ["name/127", [66, 47.327]],
+      ["parent/127", [70, 3.213]],
+      ["name/128", [72, 32.066]],
       ["parent/128", []],
-      ["name/129", [42, 38.75]],
-      ["parent/129", [72, 2.627]],
-      ["name/130", [43, 38.75]],
-      ["parent/130", [72, 2.627]],
-      ["name/131", [44, 38.75]],
-      ["parent/131", [72, 2.627]],
-      ["name/132", [45, 38.75]],
-      ["parent/132", [72, 2.627]],
-      ["name/133", [46, 38.75]],
-      ["parent/133", [72, 2.627]],
-      ["name/134", [47, 38.75]],
-      ["parent/134", [72, 2.627]],
-      ["name/135", [48, 38.75]],
-      ["parent/135", [72, 2.627]],
-      ["name/136", [49, 31.374]],
-      ["parent/136", [72, 2.627]],
-      ["name/137", [50, 31.374]],
-      ["parent/137", [72, 2.627]],
-      ["name/138", [51, 38.75]],
-      ["parent/138", [72, 2.627]],
-      ["name/139", [73, 38.75]],
+      ["name/129", [42, 39.442]],
+      ["parent/129", [72, 2.728]],
+      ["name/130", [43, 39.442]],
+      ["parent/130", [72, 2.728]],
+      ["name/131", [44, 39.442]],
+      ["parent/131", [72, 2.728]],
+      ["name/132", [45, 39.442]],
+      ["parent/132", [72, 2.728]],
+      ["name/133", [46, 39.442]],
+      ["parent/133", [72, 2.728]],
+      ["name/134", [47, 39.442]],
+      ["parent/134", [72, 2.728]],
+      ["name/135", [48, 39.442]],
+      ["parent/135", [72, 2.728]],
+      ["name/136", [49, 31.232]],
+      ["parent/136", [72, 2.728]],
+      ["name/137", [50, 32.066]],
+      ["parent/137", [72, 2.728]],
+      ["name/138", [51, 39.442]],
+      ["parent/138", [72, 2.728]],
+      ["name/139", [73, 39.442]],
       ["parent/139", []],
-      ["name/140", [24, 46.634]],
-      ["parent/140", [73, 3.245]],
-      ["name/141", [35, 38.75]],
-      ["parent/141", [73, 3.245]],
-      ["name/142", [74, 51.743]],
-      ["parent/142", [73, 3.245]],
-      ["name/143", [75, 51.743]],
-      ["parent/143", [73, 3.245]],
-      ["name/144", [38, 40.757]],
+      ["name/140", [24, 47.327]],
+      ["parent/140", [73, 3.355]],
+      ["name/141", [35, 39.442]],
+      ["parent/141", [73, 3.355]],
+      ["name/142", [74, 52.435]],
+      ["parent/142", [73, 3.355]],
+      ["name/143", [75, 52.435]],
+      ["parent/143", [73, 3.355]],
+      ["name/144", [38, 41.449]],
       ["parent/144", []],
-      ["name/145", [69, 40.757]],
+      ["name/145", [69, 41.449]],
       ["parent/145", []],
-      ["name/146", [76, 51.743]],
+      ["name/146", [76, 52.435]],
       ["parent/146", []],
-      ["name/147", [77, 51.743]],
+      ["name/147", [77, 52.435]],
       ["parent/147", []],
-      ["name/148", [78, 51.743]],
+      ["name/148", [78, 52.435]],
       ["parent/148", []],
-      ["name/149", [79, 43.27]],
+      ["name/149", [79, 43.962]],
       ["parent/149", []],
-      ["name/150", [1, 37.079]],
-      ["parent/150", [79, 3.623]],
-      ["name/151", [80, 43.27]],
-      ["parent/151", [79, 3.623]],
-      ["name/152", [81, 51.743]],
+      ["name/150", [1, 37.772]],
+      ["parent/150", [79, 3.739]],
+      ["name/151", [80, 43.962]],
+      ["parent/151", [79, 3.739]],
+      ["name/152", [81, 52.435]],
       ["parent/152", []],
-      ["name/153", [82, 51.743]],
+      ["name/153", [82, 52.435]],
       ["parent/153", []],
-      ["name/154", [83, 51.743]],
+      ["name/154", [83, 52.435]],
       ["parent/154", []],
-      ["name/155", [84, 51.743]],
+      ["name/155", [84, 52.435]],
       ["parent/155", []],
-      ["name/156", [85, 51.743]],
+      ["name/156", [85, 52.435]],
       ["parent/156", []],
-      ["name/157", [86, 51.743]],
+      ["name/157", [86, 52.435]],
       ["parent/157", []],
-      ["name/158", [87, 51.743]],
+      ["name/158", [87, 52.435]],
       ["parent/158", []],
-      ["name/159", [88, 51.743]],
+      ["name/159", [88, 52.435]],
       ["parent/159", []],
-      ["name/160", [89, 51.743]],
+      ["name/160", [89, 52.435]],
       ["parent/160", []],
-      ["name/161", [90, 51.743]],
+      ["name/161", [90, 52.435]],
       ["parent/161", []],
-      ["name/162", [91, 51.743]],
+      ["name/162", [91, 52.435]],
       ["parent/162", []],
-      ["name/163", [92, 51.743]],
+      ["name/163", [92, 52.435]],
       ["parent/163", []],
-      ["name/164", [93, 51.743]],
+      ["name/164", [93, 52.435]],
       ["parent/164", []],
-      ["name/165", [94, 51.743]],
+      ["name/165", [94, 52.435]],
       ["parent/165", []],
-      ["name/166", [95, 51.743]],
+      ["name/166", [95, 52.435]],
       ["parent/166", []],
-      ["name/167", [96, 51.743]],
+      ["name/167", [96, 52.435]],
       ["parent/167", []],
-      ["name/168", [97, 51.743]],
+      ["name/168", [97, 52.435]],
       ["parent/168", []],
-      ["name/169", [98, 51.743]],
+      ["name/169", [98, 52.435]],
       ["parent/169", []],
-      ["name/170", [99, 51.743]],
+      ["name/170", [99, 52.435]],
       ["parent/170", []],
-      ["name/171", [100, 51.743]],
+      ["name/171", [100, 52.435]],
       ["parent/171", []],
-      ["name/172", [101, 51.743]],
+      ["name/172", [101, 52.435]],
       ["parent/172", []],
-      ["name/173", [102, 51.743]],
+      ["name/173", [102, 52.435]],
       ["parent/173", []],
-      ["name/174", [103, 40.757]],
+      ["name/174", [103, 41.449]],
       ["parent/174", []],
-      ["name/175", [50, 31.374]],
-      ["parent/175", [103, 3.413]],
-      ["name/176", [49, 31.374]],
-      ["parent/176", [103, 3.413]],
-      ["name/177", [35, 38.75]],
-      ["parent/177", [103, 3.413]],
-      ["name/178", [104, 40.757]],
+      ["name/175", [50, 32.066]],
+      ["parent/175", [103, 3.526]],
+      ["name/176", [49, 31.232]],
+      ["parent/176", [103, 3.526]],
+      ["name/177", [35, 39.442]],
+      ["parent/177", [103, 3.526]],
+      ["name/178", [104, 41.449]],
       ["parent/178", []],
-      ["name/179", [105, 51.743]],
-      ["parent/179", [104, 3.413]],
-      ["name/180", [4, 43.27]],
-      ["parent/180", [104, 3.413]],
-      ["name/181", [106, 33.284]],
+      ["name/179", [105, 52.435]],
+      ["parent/179", [104, 3.526]],
+      ["name/180", [4, 43.962]],
+      ["parent/180", [104, 3.526]],
+      ["name/181", [106, 33.977]],
       ["parent/181", []],
-      ["name/182", [107, 51.743]],
-      ["parent/182", [106, 2.787]],
-      ["name/183", [108, 51.743]],
-      ["parent/183", [106, 2.787]],
-      ["name/184", [109, 51.743]],
-      ["parent/184", [106, 2.787]],
-      ["name/185", [104, 40.757]],
-      ["parent/185", [106, 2.787]],
-      ["name/186", [50, 31.374]],
-      ["parent/186", [106, 2.787]],
-      ["name/187", [49, 31.374]],
-      ["parent/187", [106, 2.787]],
-      ["name/188", [35, 38.75]],
-      ["parent/188", [106, 2.787]],
-      ["name/189", [110, 51.743]],
-      ["parent/189", [106, 2.787]],
-      ["name/190", [111, 40.757]],
+      ["name/182", [107, 52.435]],
+      ["parent/182", [106, 2.89]],
+      ["name/183", [108, 52.435]],
+      ["parent/183", [106, 2.89]],
+      ["name/184", [109, 52.435]],
+      ["parent/184", [106, 2.89]],
+      ["name/185", [104, 41.449]],
+      ["parent/185", [106, 2.89]],
+      ["name/186", [50, 32.066]],
+      ["parent/186", [106, 2.89]],
+      ["name/187", [49, 31.232]],
+      ["parent/187", [106, 2.89]],
+      ["name/188", [35, 39.442]],
+      ["parent/188", [106, 2.89]],
+      ["name/189", [110, 52.435]],
+      ["parent/189", [106, 2.89]],
+      ["name/190", [111, 41.449]],
       ["parent/190", []],
-      ["name/191", [112, 43.27]],
-      ["parent/191", [111, 3.413]],
-      ["name/192", [113, 40.757]],
-      ["parent/192", [111, 3.413]],
-      ["name/193", [114, 46.634]],
-      ["parent/193", [111, 3.413]],
-      ["name/194", [115, 40.757]],
+      ["name/191", [112, 43.962]],
+      ["parent/191", [111, 3.526]],
+      ["name/192", [113, 41.449]],
+      ["parent/192", [111, 3.526]],
+      ["name/193", [114, 47.327]],
+      ["parent/193", [111, 3.526]],
+      ["name/194", [115, 36.341]],
       ["parent/194", []],
-      ["name/195", [112, 43.27]],
-      ["parent/195", [115, 3.413]],
-      ["name/196", [113, 40.757]],
-      ["parent/196", [115, 3.413]],
-      ["name/197", [114, 46.634]],
-      ["parent/197", [115, 3.413]],
-      ["name/198", [116, 46.634]],
-      ["parent/198", []],
-      ["name/199", [117, 51.743]],
-      ["parent/199", [116, 3.905]],
-      ["name/200", [118, 51.743]],
-      ["parent/200", []],
-      ["name/201", [119, 51.743]],
+      ["name/195", [112, 43.962]],
+      ["parent/195", [115, 3.091]],
+      ["name/196", [113, 41.449]],
+      ["parent/196", [115, 3.091]],
+      ["name/197", [114, 47.327]],
+      ["parent/197", [115, 3.091]],
+      ["name/198", [116, 52.435]],
+      ["parent/198", [115, 3.091]],
+      ["name/199", [117, 52.435]],
+      ["parent/199", [115, 3.091]],
+      ["name/200", [118, 52.435]],
+      ["parent/200", [115, 3.091]],
+      ["name/201", [119, 47.327]],
       ["parent/201", []],
-      ["name/202", [120, 46.634]],
-      ["parent/202", []],
-      ["name/203", [8, 34.397]],
-      ["parent/203", [120, 3.905]],
-      ["name/204", [121, 51.743]],
-      ["parent/204", [122, 3.905]],
-      ["name/205", [123, 51.743]],
-      ["parent/205", [122, 3.905]],
-      ["name/206", [124, 51.743]],
-      ["parent/206", []],
-      ["name/207", [125, 46.634]],
-      ["parent/207", []],
-      ["name/208", [126, 51.743]],
-      ["parent/208", [125, 3.905]],
-      ["name/209", [127, 51.743]],
+      ["name/202", [120, 52.435]],
+      ["parent/202", [119, 4.026]],
+      ["name/203", [121, 52.435]],
+      ["parent/203", []],
+      ["name/204", [122, 52.435]],
+      ["parent/204", []],
+      ["name/205", [123, 47.327]],
+      ["parent/205", []],
+      ["name/206", [8, 35.089]],
+      ["parent/206", [123, 4.026]],
+      ["name/207", [124, 52.435]],
+      ["parent/207", [125, 4.026]],
+      ["name/208", [126, 52.435]],
+      ["parent/208", [125, 4.026]],
+      ["name/209", [127, 52.435]],
       ["parent/209", []],
-      ["name/210", [113, 40.757]],
+      ["name/210", [128, 47.327]],
       ["parent/210", []],
-      ["name/211", [112, 43.27]],
-      ["parent/211", []],
-      ["name/212", [128, 46.634]],
+      ["name/211", [129, 52.435]],
+      ["parent/211", [128, 4.026]],
+      ["name/212", [130, 52.435]],
       ["parent/212", []],
-      ["name/213", [129, 35.648]],
+      ["name/213", [113, 41.449]],
       ["parent/213", []],
-      ["name/214", [130, 51.743]],
-      ["parent/214", [129, 2.985]],
-      ["name/215", [49, 31.374]],
-      ["parent/215", [129, 2.985]],
-      ["name/216", [50, 31.374]],
-      ["parent/216", [129, 2.985]],
-      ["name/217", [23, 37.079]],
-      ["parent/217", [129, 2.985]],
-      ["name/218", [131, 51.743]],
-      ["parent/218", [129, 2.985]],
-      ["name/219", [36, 38.75]],
-      ["parent/219", [129, 2.985]],
-      ["name/220", [132, 51.743]],
-      ["parent/220", []],
-      ["name/221", [133, 38.75]],
-      ["parent/221", []],
-      ["name/222", [134, 40.757]],
-      ["parent/222", [133, 3.245]],
-      ["name/223", [135, 51.743]],
-      ["parent/223", [133, 3.245]],
-      ["name/224", [113, 40.757]],
-      ["parent/224", [133, 3.245]],
-      ["name/225", [128, 46.634]],
-      ["parent/225", [133, 3.245]],
-      ["name/226", [136, 51.743]],
-      ["parent/226", []],
-      ["name/227", [137, 51.743]],
-      ["parent/227", []],
-      ["name/228", [138, 51.743]],
-      ["parent/228", []],
-      ["name/229", [139, 51.743]],
-      ["parent/229", []],
-      ["name/230", [140, 51.743]],
+      ["name/214", [112, 43.962]],
+      ["parent/214", []],
+      ["name/215", [131, 47.327]],
+      ["parent/215", []],
+      ["name/216", [132, 36.341]],
+      ["parent/216", []],
+      ["name/217", [133, 52.435]],
+      ["parent/217", [132, 3.091]],
+      ["name/218", [49, 31.232]],
+      ["parent/218", [132, 3.091]],
+      ["name/219", [50, 32.066]],
+      ["parent/219", [132, 3.091]],
+      ["name/220", [23, 37.772]],
+      ["parent/220", [132, 3.091]],
+      ["name/221", [134, 52.435]],
+      ["parent/221", [132, 3.091]],
+      ["name/222", [36, 39.442]],
+      ["parent/222", [132, 3.091]],
+      ["name/223", [135, 47.327]],
+      ["parent/223", []],
+      ["name/224", [136, 36.341]],
+      ["parent/224", []],
+      ["name/225", [135, 47.327]],
+      ["parent/225", [136, 3.091]],
+      ["name/226", [137, 41.449]],
+      ["parent/226", [136, 3.091]],
+      ["name/227", [138, 52.435]],
+      ["parent/227", [136, 3.091]],
+      ["name/228", [113, 41.449]],
+      ["parent/228", [136, 3.091]],
+      ["name/229", [131, 47.327]],
+      ["parent/229", [136, 3.091]],
+      ["name/230", [139, 52.435]],
       ["parent/230", []],
-      ["name/231", [141, 34.397]],
+      ["name/231", [140, 52.435]],
       ["parent/231", []],
-      ["name/232", [134, 40.757]],
-      ["parent/232", [141, 2.88]],
-      ["name/233", [1, 37.079]],
-      ["parent/233", [141, 2.88]],
-      ["name/234", [80, 43.27]],
-      ["parent/234", [141, 2.88]],
-      ["name/235", [142, 46.634]],
-      ["parent/235", [141, 2.88]],
-      ["name/236", [143, 46.634]],
-      ["parent/236", [141, 2.88]],
-      ["name/237", [144, 46.634]],
-      ["parent/237", [141, 2.88]],
-      ["name/238", [1, 37.079]],
-      ["parent/238", [141, 2.88]],
-      ["name/239", [145, 33.284]],
-      ["parent/239", []],
-      ["name/240", [134, 40.757]],
-      ["parent/240", [145, 2.787]],
-      ["name/241", [146, 51.743]],
-      ["parent/241", [145, 2.787]],
-      ["name/242", [23, 37.079]],
-      ["parent/242", [145, 2.787]],
-      ["name/243", [1, 37.079]],
-      ["parent/243", [145, 2.787]],
-      ["name/244", [80, 43.27]],
-      ["parent/244", [145, 2.787]],
-      ["name/245", [142, 46.634]],
-      ["parent/245", [145, 2.787]],
-      ["name/246", [143, 46.634]],
-      ["parent/246", [145, 2.787]],
-      ["name/247", [144, 46.634]],
-      ["parent/247", [145, 2.787]],
-      ["name/248", [147, 29.77]],
-      ["parent/248", []],
-      ["name/249", [38, 40.757]],
-      ["parent/249", [147, 2.493]],
-      ["name/250", [134, 40.757]],
-      ["parent/250", [147, 2.493]],
-      ["name/251", [148, 51.743]],
-      ["parent/251", [147, 2.493]],
-      ["name/252", [16, 46.634]],
-      ["parent/252", [147, 2.493]],
-      ["name/253", [149, 51.743]],
-      ["parent/253", [147, 2.493]],
-      ["name/254", [12, 46.634]],
-      ["parent/254", [147, 2.493]],
-      ["name/255", [150, 51.743]],
-      ["parent/255", [147, 2.493]],
-      ["name/256", [151, 51.743]],
-      ["parent/256", [147, 2.493]],
-      ["name/257", [152, 51.743]],
-      ["parent/257", [147, 2.493]],
-      ["name/258", [10, 46.634]],
-      ["parent/258", [147, 2.493]],
-      ["name/259", [2, 40.757]],
-      ["parent/259", [147, 2.493]],
-      ["name/260", [18, 46.634]],
-      ["parent/260", [147, 2.493]],
-      ["name/261", [153, 46.634]],
-      ["parent/261", []],
-      ["name/262", [154, 51.743]],
-      ["parent/262", [153, 3.905]],
-      ["name/263", [155, 51.743]],
-      ["parent/263", []]
+      ["name/232", [141, 52.435]],
+      ["parent/232", []],
+      ["name/233", [142, 52.435]],
+      ["parent/233", []],
+      ["name/234", [143, 52.435]],
+      ["parent/234", []],
+      ["name/235", [144, 35.089]],
+      ["parent/235", []],
+      ["name/236", [137, 41.449]],
+      ["parent/236", [144, 2.985]],
+      ["name/237", [1, 37.772]],
+      ["parent/237", [144, 2.985]],
+      ["name/238", [80, 43.962]],
+      ["parent/238", [144, 2.985]],
+      ["name/239", [145, 47.327]],
+      ["parent/239", [144, 2.985]],
+      ["name/240", [146, 47.327]],
+      ["parent/240", [144, 2.985]],
+      ["name/241", [147, 47.327]],
+      ["parent/241", [144, 2.985]],
+      ["name/242", [1, 37.772]],
+      ["parent/242", [144, 2.985]],
+      ["name/243", [148, 33.977]],
+      ["parent/243", []],
+      ["name/244", [137, 41.449]],
+      ["parent/244", [148, 2.89]],
+      ["name/245", [149, 52.435]],
+      ["parent/245", [148, 2.89]],
+      ["name/246", [23, 37.772]],
+      ["parent/246", [148, 2.89]],
+      ["name/247", [1, 37.772]],
+      ["parent/247", [148, 2.89]],
+      ["name/248", [80, 43.962]],
+      ["parent/248", [148, 2.89]],
+      ["name/249", [145, 47.327]],
+      ["parent/249", [148, 2.89]],
+      ["name/250", [146, 47.327]],
+      ["parent/250", [148, 2.89]],
+      ["name/251", [147, 47.327]],
+      ["parent/251", [148, 2.89]],
+      ["name/252", [150, 22.991]],
+      ["parent/252", []],
+      ["name/253", [151, 52.435]],
+      ["parent/253", [150, 1.956]],
+      ["name/254", [136, 36.341]],
+      ["parent/254", [150, 1.956]],
+      ["name/255", [152, 52.435]],
+      ["parent/255", [150, 1.956]],
+      ["name/256", [153, 52.435]],
+      ["parent/256", [150, 1.956]],
+      ["name/257", [59, 47.327]],
+      ["parent/257", [150, 1.956]],
+      ["name/258", [49, 31.232]],
+      ["parent/258", [150, 1.956]],
+      ["name/259", [38, 41.449]],
+      ["parent/259", [150, 1.956]],
+      ["name/260", [154, 52.435]],
+      ["parent/260", [150, 1.956]],
+      ["name/261", [137, 41.449]],
+      ["parent/261", [150, 1.956]],
+      ["name/262", [155, 52.435]],
+      ["parent/262", [150, 1.956]],
+      ["name/263", [156, 52.435]],
+      ["parent/263", [150, 1.956]],
+      ["name/264", [157, 52.435]],
+      ["parent/264", [150, 1.956]],
+      ["name/265", [158, 52.435]],
+      ["parent/265", [150, 1.956]],
+      ["name/266", [159, 52.435]],
+      ["parent/266", [150, 1.956]],
+      ["name/267", [160, 52.435]],
+      ["parent/267", [150, 1.956]],
+      ["name/268", [161, 52.435]],
+      ["parent/268", [150, 1.956]],
+      ["name/269", [16, 47.327]],
+      ["parent/269", [150, 1.956]],
+      ["name/270", [162, 52.435]],
+      ["parent/270", [150, 1.956]],
+      ["name/271", [12, 47.327]],
+      ["parent/271", [150, 1.956]],
+      ["name/272", [163, 52.435]],
+      ["parent/272", [150, 1.956]],
+      ["name/273", [164, 52.435]],
+      ["parent/273", [150, 1.956]],
+      ["name/274", [165, 52.435]],
+      ["parent/274", [150, 1.956]],
+      ["name/275", [10, 47.327]],
+      ["parent/275", [150, 1.956]],
+      ["name/276", [2, 41.449]],
+      ["parent/276", [150, 1.956]],
+      ["name/277", [18, 47.327]],
+      ["parent/277", [150, 1.956]],
+      ["name/278", [166, 52.435]],
+      ["parent/278", [150, 1.956]],
+      ["name/279", [167, 52.435]],
+      ["parent/279", [150, 1.956]],
+      ["name/280", [168, 47.327]],
+      ["parent/280", []],
+      ["name/281", [169, 52.435]],
+      ["parent/281", [168, 4.026]],
+      ["name/282", [170, 52.435]],
+      ["parent/282", []]
     ],
     "invertedIndex": [
       [
@@ -2586,10 +2776,26 @@
             "18": {},
             "20": {},
             "29": {},
-            "203": {}
+            "206": {}
           },
           "parent": {}
         }
+      ],
+      ["_authorizeurl", { "_index": 158, "name": { "265": {} }, "parent": {} }],
+      ["_getparams", { "_index": 157, "name": { "264": {} }, "parent": {} }],
+      [
+        "_gettokenfromiframe",
+        { "_index": 166, "name": { "278": {} }, "parent": {} }
+      ],
+      [
+        "_gettokenusingrefreshtoken",
+        { "_index": 167, "name": { "279": {} }, "parent": {} }
+      ],
+      ["_parsenumber", { "_index": 160, "name": { "267": {} }, "parent": {} }],
+      ["_url", { "_index": 156, "name": { "263": {} }, "parent": {} }],
+      [
+        "_verifyidtoken",
+        { "_index": 159, "name": { "266": {} }, "parent": {} }
       ],
       ["access_token", { "_index": 108, "name": { "183": {} }, "parent": {} }],
       [
@@ -2613,7 +2819,7 @@
         "appstate",
         {
           "_index": 23,
-          "name": { "28": {}, "88": {}, "101": {}, "217": {}, "242": {} },
+          "name": { "28": {}, "88": {}, "101": {}, "220": {}, "246": {} },
           "parent": { "29": {} }
         }
       ],
@@ -2633,7 +2839,7 @@
             "137": {},
             "175": {},
             "186": {},
-            "216": {}
+            "219": {}
           },
           "parent": {}
         }
@@ -2642,13 +2848,9 @@
       [
         "auth0client",
         {
-          "_index": 147,
-          "name": { "248": {} },
+          "_index": 150,
+          "name": { "252": {} },
           "parent": {
-            "249": {},
-            "250": {},
-            "251": {},
-            "252": {},
             "253": {},
             "254": {},
             "255": {},
@@ -2656,7 +2858,26 @@
             "257": {},
             "258": {},
             "259": {},
-            "260": {}
+            "260": {},
+            "261": {},
+            "262": {},
+            "263": {},
+            "264": {},
+            "265": {},
+            "266": {},
+            "267": {},
+            "268": {},
+            "269": {},
+            "270": {},
+            "271": {},
+            "272": {},
+            "273": {},
+            "274": {},
+            "275": {},
+            "276": {},
+            "277": {},
+            "278": {},
+            "279": {}
           }
         }
       ],
@@ -2765,17 +2986,17 @@
       [
         "authenticationerror",
         {
-          "_index": 145,
-          "name": { "239": {} },
+          "_index": 148,
+          "name": { "243": {} },
           "parent": {
-            "240": {},
-            "241": {},
-            "242": {},
-            "243": {},
             "244": {},
             "245": {},
             "246": {},
-            "247": {}
+            "247": {},
+            "248": {},
+            "249": {},
+            "250": {},
+            "251": {}
           }
         }
       ],
@@ -2791,15 +3012,16 @@
           "parent": { "1": {}, "2": {}, "3": {}, "4": {} }
         }
       ],
-      ["body", { "_index": 121, "name": { "204": {} }, "parent": {} }],
+      ["body", { "_index": 124, "name": { "207": {} }, "parent": {} }],
       [
         "buffertobase64urlencoded",
         { "_index": 94, "name": { "165": {} }, "parent": {} }
       ],
       [
         "buildauthorizeurl",
-        { "_index": 148, "name": { "251": {} }, "parent": {} }
+        { "_index": 161, "name": { "268": {} }, "parent": {} }
       ],
+      ["cache", { "_index": 151, "name": { "253": {} }, "parent": {} }],
       [
         "cache_location_local_storage",
         { "_index": 77, "name": { "147": {} }, "parent": {} }
@@ -2837,17 +3059,17 @@
         "cachelocation",
         {
           "_index": 38,
-          "name": { "43": {}, "72": {}, "144": {}, "249": {} },
+          "name": { "43": {}, "72": {}, "144": {}, "259": {} },
           "parent": {}
         }
       ],
       [
         "cachepayload",
-        { "_index": 120, "name": { "202": {} }, "parent": { "203": {} } }
+        { "_index": 123, "name": { "205": {} }, "parent": { "206": {} } }
       ],
       [
         "cachepayload.__type",
-        { "_index": 122, "name": {}, "parent": { "204": {}, "205": {} } }
+        { "_index": 125, "name": {}, "parent": { "207": {}, "208": {} } }
       ],
       ["children", { "_index": 52, "name": { "57": {} }, "parent": {} }],
       ["claims", { "_index": 105, "name": { "179": {} }, "parent": {} }],
@@ -2865,10 +3087,10 @@
       ],
       [
         "clientstorageoptions",
-        { "_index": 125, "name": { "207": {} }, "parent": { "208": {} } }
+        { "_index": 128, "name": { "210": {} }, "parent": { "211": {} } }
       ],
       ["code_re", { "_index": 21, "name": { "26": {} }, "parent": {} }],
-      ["code_verifier", { "_index": 131, "name": { "218": {} }, "parent": {} }],
+      ["code_verifier", { "_index": 134, "name": { "221": {} }, "parent": {} }],
       [
         "connection",
         {
@@ -2880,22 +3102,22 @@
       [
         "constructor",
         {
-          "_index": 134,
-          "name": { "222": {}, "232": {}, "240": {}, "250": {} },
+          "_index": 137,
+          "name": { "226": {}, "236": {}, "244": {}, "261": {} },
           "parent": {}
         }
       ],
-      ["cookie_key", { "_index": 136, "name": { "226": {} }, "parent": {} }],
-      ["create", { "_index": 135, "name": { "223": {} }, "parent": {} }],
+      ["cookie_key", { "_index": 139, "name": { "230": {} }, "parent": {} }],
+      ["create", { "_index": 138, "name": { "227": {} }, "parent": {} }],
       [
         "createabortcontroller",
         { "_index": 81, "name": { "152": {} }, "parent": {} }
       ],
       [
         "createauth0client",
-        { "_index": 155, "name": { "263": {} }, "parent": {} }
+        { "_index": 170, "name": { "282": {} }, "parent": {} }
       ],
-      ["createkey", { "_index": 119, "name": { "201": {} }, "parent": {} }],
+      ["createkey", { "_index": 122, "name": { "204": {} }, "parent": {} }],
       [
         "createqueryparams",
         { "_index": 89, "name": { "160": {} }, "parent": {} }
@@ -2906,7 +3128,7 @@
       ],
       [
         "daysuntilexpire",
-        { "_index": 126, "name": { "208": {} }, "parent": {} }
+        { "_index": 129, "name": { "211": {} }, "parent": {} }
       ],
       ["decode", { "_index": 88, "name": { "159": {} }, "parent": {} }],
       ["decodeb64", { "_index": 92, "name": { "163": {} }, "parent": {} }],
@@ -2920,7 +3142,7 @@
       ],
       [
         "default",
-        { "_index": 153, "name": { "261": {} }, "parent": { "262": {} } }
+        { "_index": 168, "name": { "280": {} }, "parent": { "281": {} } }
       ],
       [
         "defaultonredirectcallback",
@@ -2930,7 +3152,10 @@
         "defaultonredirecting",
         { "_index": 57, "name": { "62": {} }, "parent": {} }
       ],
-      ["defaultscope", { "_index": 59, "name": { "65": {} }, "parent": {} }],
+      [
+        "defaultscope",
+        { "_index": 59, "name": { "65": {}, "257": {} }, "parent": {} }
+      ],
       [
         "display",
         {
@@ -2943,7 +3168,8 @@
         "domain",
         { "_index": 33, "name": { "38": {}, "67": {} }, "parent": {} }
       ],
-      ["enclosedcache", { "_index": 117, "name": { "199": {} }, "parent": {} }],
+      ["domainurl", { "_index": 152, "name": { "255": {} }, "parent": {} }],
+      ["enclosedcache", { "_index": 120, "name": { "202": {} }, "parent": {} }],
       ["encode", { "_index": 87, "name": { "158": {} }, "parent": {} }],
       [
         "error",
@@ -2953,9 +3179,9 @@
             "1": {},
             "21": {},
             "150": {},
-            "233": {},
-            "238": {},
-            "243": {}
+            "237": {},
+            "242": {},
+            "247": {}
           },
           "parent": {}
         }
@@ -2964,13 +3190,13 @@
         "error_description",
         {
           "_index": 80,
-          "name": { "151": {}, "234": {}, "244": {} },
+          "name": { "151": {}, "238": {}, "248": {} },
           "parent": {}
         }
       ],
       ["error_re", { "_index": 22, "name": { "27": {} }, "parent": {} }],
       ["expires_in", { "_index": 109, "name": { "184": {} }, "parent": {} }],
-      ["expiresat", { "_index": 123, "name": { "205": {} }, "parent": {} }],
+      ["expiresat", { "_index": 126, "name": { "208": {} }, "parent": {} }],
       ["federated", { "_index": 74, "name": { "142": {} }, "parent": {} }],
       [
         "fetchwithtimeout",
@@ -2980,16 +3206,16 @@
       [
         "genericerror",
         {
-          "_index": 141,
-          "name": { "231": {} },
+          "_index": 144,
+          "name": { "235": {} },
           "parent": {
-            "232": {},
-            "233": {},
-            "234": {},
-            "235": {},
             "236": {},
             "237": {},
-            "238": {}
+            "238": {},
+            "239": {},
+            "240": {},
+            "241": {},
+            "242": {}
           }
         }
       ],
@@ -2997,11 +3223,11 @@
         "get",
         {
           "_index": 113,
-          "name": { "192": {}, "196": {}, "210": {}, "224": {} },
+          "name": { "192": {}, "196": {}, "213": {}, "228": {} },
           "parent": {}
         }
       ],
-      ["getallkeys", { "_index": 127, "name": { "209": {} }, "parent": {} }],
+      ["getallkeys", { "_index": 130, "name": { "212": {} }, "parent": {} }],
       ["getcrypto", { "_index": 100, "name": { "171": {} }, "parent": {} }],
       [
         "getcryptosubtle",
@@ -3009,7 +3235,7 @@
       ],
       [
         "getidtokenclaims",
-        { "_index": 12, "name": { "13": {}, "254": {} }, "parent": {} }
+        { "_index": 12, "name": { "13": {}, "271": {} }, "parent": {} }
       ],
       [
         "getidtokenclaimsoptions",
@@ -3023,7 +3249,7 @@
       ["gettoken", { "_index": 7, "name": { "9": {} }, "parent": {} }],
       [
         "gettokensilently",
-        { "_index": 152, "name": { "257": {} }, "parent": {} }
+        { "_index": 165, "name": { "274": {} }, "parent": {} }
       ],
       [
         "gettokensilentlyoptions",
@@ -3035,7 +3261,7 @@
       ],
       [
         "gettokenwithpopup",
-        { "_index": 10, "name": { "11": {}, "258": {} }, "parent": {} }
+        { "_index": 10, "name": { "11": {}, "275": {} }, "parent": {} }
       ],
       [
         "gettokenwithpopupoptions",
@@ -3058,9 +3284,9 @@
       ],
       [
         "gettransactionkey",
-        { "_index": 137, "name": { "227": {} }, "parent": {} }
+        { "_index": 140, "name": { "231": {} }, "parent": {} }
       ],
-      ["getuser", { "_index": 149, "name": { "253": {} }, "parent": {} }],
+      ["getuser", { "_index": 162, "name": { "270": {} }, "parent": {} }],
       [
         "getuseroptions",
         {
@@ -3071,7 +3297,7 @@
       ],
       [
         "handleredirectcallback",
-        { "_index": 151, "name": { "256": {} }, "parent": {} }
+        { "_index": 164, "name": { "273": {} }, "parent": {} }
       ],
       ["hasauthparams", { "_index": 26, "name": { "31": {} }, "parent": {} }],
       [
@@ -3093,7 +3319,7 @@
       ],
       [
         "idtokendecoded",
-        { "_index": 139, "name": { "229": {} }, "parent": {} }
+        { "_index": 142, "name": { "233": {} }, "parent": {} }
       ],
       ["ignorecache", { "_index": 71, "name": { "123": {} }, "parent": {} }],
       [
@@ -3102,13 +3328,13 @@
       ],
       [
         "inmemorycache",
-        { "_index": 116, "name": { "198": {} }, "parent": { "199": {} } }
+        { "_index": 119, "name": { "201": {} }, "parent": { "202": {} } }
       ],
       [
         "isauthenticated",
         {
           "_index": 2,
-          "name": { "2": {}, "6": {}, "22": {}, "259": {} },
+          "name": { "2": {}, "6": {}, "22": {}, "276": {} },
           "parent": {}
         }
       ],
@@ -3116,12 +3342,12 @@
         "isloading",
         { "_index": 3, "name": { "3": {}, "7": {}, "23": {} }, "parent": {} }
       ],
-      ["isnumber", { "_index": 138, "name": { "228": {} }, "parent": {} }],
+      ["isnumber", { "_index": 141, "name": { "232": {} }, "parent": {} }],
       [
         "issuer",
         { "_index": 34, "name": { "39": {}, "68": {} }, "parent": {} }
       ],
-      ["keyprefix", { "_index": 118, "name": { "200": {} }, "parent": {} }],
+      ["keyprefix", { "_index": 121, "name": { "203": {} }, "parent": {} }],
       [
         "leeway",
         { "_index": 37, "name": { "42": {}, "71": {} }, "parent": {} }
@@ -3132,7 +3358,14 @@
         {
           "_index": 115,
           "name": { "194": {} },
-          "parent": { "195": {}, "196": {}, "197": {} }
+          "parent": {
+            "195": {},
+            "196": {},
+            "197": {},
+            "198": {},
+            "199": {},
+            "200": {}
+          }
         }
       ],
       ["login", { "_index": 14, "name": { "15": {} }, "parent": {} }],
@@ -3147,15 +3380,15 @@
       ["loginerror", { "_index": 28, "name": { "33": {} }, "parent": {} }],
       [
         "loginwithpopup",
-        { "_index": 16, "name": { "17": {}, "252": {} }, "parent": {} }
+        { "_index": 16, "name": { "17": {}, "269": {} }, "parent": {} }
       ],
       [
         "loginwithredirect",
-        { "_index": 150, "name": { "255": {} }, "parent": {} }
+        { "_index": 163, "name": { "272": {} }, "parent": {} }
       ],
       [
         "logout",
-        { "_index": 18, "name": { "19": {}, "260": {} }, "parent": {} }
+        { "_index": 18, "name": { "19": {}, "277": {} }, "parent": {} }
       ],
       [
         "logoutoptions",
@@ -3175,7 +3408,7 @@
       ],
       [
         "message",
-        { "_index": 143, "name": { "236": {}, "246": {} }, "parent": {} }
+        { "_index": 146, "name": { "240": {}, "250": {} }, "parent": {} }
       ],
       [
         "missing_refresh_token_error_message",
@@ -3183,15 +3416,16 @@
       ],
       [
         "name",
-        { "_index": 142, "name": { "235": {}, "245": {} }, "parent": {} }
+        { "_index": 145, "name": { "239": {}, "249": {} }, "parent": {} }
       ],
-      ["nonce", { "_index": 130, "name": { "214": {} }, "parent": {} }],
+      ["nonce", { "_index": 133, "name": { "217": {} }, "parent": {} }],
       ["oauthtoken", { "_index": 99, "name": { "170": {} }, "parent": {} }],
       [
         "onredirectcallback",
         { "_index": 32, "name": { "37": {} }, "parent": {} }
       ],
       ["openpopup", { "_index": 84, "name": { "155": {} }, "parent": {} }],
+      ["options", { "_index": 155, "name": { "262": {} }, "parent": {} }],
       [
         "parsequeryresult",
         { "_index": 82, "name": { "153": {} }, "parent": {} }
@@ -3224,7 +3458,7 @@
           }
         }
       ],
-      ["postmessage", { "_index": 154, "name": { "262": {} }, "parent": {} }],
+      ["postmessage", { "_index": 169, "name": { "281": {} }, "parent": {} }],
       [
         "prompt",
         {
@@ -3233,11 +3467,12 @@
           "parent": {}
         }
       ],
+      ["readjson", { "_index": 116, "name": { "198": {} }, "parent": {} }],
       [
         "redirect_uri",
         {
           "_index": 36,
-          "name": { "41": {}, "70": {}, "87": {}, "124": {}, "219": {} },
+          "name": { "41": {}, "70": {}, "87": {}, "124": {}, "222": {} },
           "parent": {}
         }
       ],
@@ -3271,7 +3506,7 @@
       ["refresh_token", { "_index": 110, "name": { "189": {} }, "parent": {} }],
       [
         "remove",
-        { "_index": 128, "name": { "212": {}, "225": {} }, "parent": {} }
+        { "_index": 131, "name": { "215": {}, "229": {} }, "parent": {} }
       ],
       [
         "returnto",
@@ -3283,7 +3518,7 @@
         "save",
         {
           "_index": 112,
-          "name": { "191": {}, "195": {}, "211": {} },
+          "name": { "191": {}, "195": {}, "214": {} },
           "parent": {}
         }
       ],
@@ -3302,7 +3537,8 @@
             "136": {},
             "176": {},
             "187": {},
-            "215": {}
+            "218": {},
+            "258": {}
           },
           "parent": {}
         }
@@ -3311,9 +3547,10 @@
       ["sha256", { "_index": 90, "name": { "161": {} }, "parent": {} }],
       [
         "stack",
-        { "_index": 144, "name": { "237": {}, "247": {} }, "parent": {} }
+        { "_index": 147, "name": { "241": {}, "251": {} }, "parent": {} }
       ],
-      ["state", { "_index": 146, "name": { "241": {} }, "parent": {} }],
+      ["state", { "_index": 149, "name": { "245": {} }, "parent": {} }],
+      ["stripdata", { "_index": 118, "name": { "200": {} }, "parent": {} }],
       ["stub", { "_index": 20, "name": { "25": {} }, "parent": {} }],
       ["switchfetch", { "_index": 96, "name": { "167": {} }, "parent": {} }],
       [
@@ -3328,30 +3565,34 @@
         "timeoutinseconds",
         { "_index": 66, "name": { "114": {}, "127": {} }, "parent": {} }
       ],
+      ["tokenissuer", { "_index": 153, "name": { "256": {} }, "parent": {} }],
       [
         "transaction",
         {
-          "_index": 129,
-          "name": { "213": {} },
+          "_index": 132,
+          "name": { "216": {} },
           "parent": {
-            "214": {},
-            "215": {},
-            "216": {},
             "217": {},
             "218": {},
-            "219": {}
+            "219": {},
+            "220": {},
+            "221": {},
+            "222": {}
           }
         }
       ],
       [
         "transactionmanager",
         {
-          "_index": 133,
-          "name": { "221": {} },
-          "parent": { "222": {}, "223": {}, "224": {}, "225": {} }
+          "_index": 136,
+          "name": { "224": {}, "254": {} },
+          "parent": { "225": {}, "226": {}, "227": {}, "228": {}, "229": {} }
         }
       ],
-      ["transactions", { "_index": 132, "name": { "220": {} }, "parent": {} }],
+      [
+        "transactions",
+        { "_index": 135, "name": { "223": {}, "225": {} }, "parent": {} }
+      ],
       [
         "ui_locales",
         {
@@ -3374,7 +3615,7 @@
         "validatecrypto",
         { "_index": 102, "name": { "173": {} }, "parent": {} }
       ],
-      ["verify", { "_index": 140, "name": { "230": {} }, "parent": {} }],
+      ["verify", { "_index": 143, "name": { "234": {} }, "parent": {} }],
       ["withauth0", { "_index": 56, "name": { "61": {} }, "parent": {} }],
       [
         "withauth0props",
@@ -3384,7 +3625,12 @@
         "withloginrequired",
         { "_index": 58, "name": { "63": {} }, "parent": {} }
       ],
-      ["wrapcacheentry", { "_index": 124, "name": { "206": {} }, "parent": {} }]
+      ["worker", { "_index": 154, "name": { "260": {} }, "parent": {} }],
+      [
+        "wrapcacheentry",
+        { "_index": 127, "name": { "209": {} }, "parent": {} }
+      ],
+      ["writejson", { "_index": 117, "name": { "199": {} }, "parent": {} }]
     ],
     "pipeline": []
   }
