@@ -1,10 +1,15 @@
 # Examples
 
+1. [Protecting a route in a `react-router-dom` app](#1-protecting-a-route-in-a--react-router-dom--app)
+2. [Protecting a route in a Gatsby app](#2-protecting-a-route-in-a-gatsby-app)
+3. [Protecting a route in a Next.js app (in SPA mode)](#3-protecting-a-route-in-a-nextjs-app--in-spa-mode-)
+4. [Create a `useApi` hook for accessing protected APIs with an access token.](#4-create-a--useapi--hook-for-accessing-protected-apis-with-an-access-token)
+
 ## 1. Protecting a route in a `react-router-dom` app
 
 So that we can access the router `history` outside of the `Router` component you need to [create your own history object](https://github.com/ReactTraining/react-router/blob/master/FAQ.md#how-do-i-access-the-history-object-outside-of-components). We can reference this object from the `Auth0Provider`'s `onRedirectCallback`.
 
-We can then use the `withLoginRequired` HOC to create a `ProtectedRoute` component that redirects anonymous users to the login page, before returning them to the protected route:
+We can then use the `withLoginRequired` HOC (Higher Order Component) to create a `ProtectedRoute` component that redirects anonymous users to the login page, before returning them to the protected route:
 
 ```jsx
 import React from 'react';
@@ -20,6 +25,7 @@ const ProtectedRoute = ({ component, ...args }) => (
 );
 
 const onRedirectCallback = (appState) => {
+  // Use the router's history module to replace the url
   history.replace(appState?.redirectTo || window.location.pathname);
 };
 
@@ -55,6 +61,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { navigate } from 'gatsby';
 
 const onRedirectCallback = (appState) => {
+  // Use Gatsby's navigate method to replace the url
   navigate(appState?.redirectTo || '/', { replace: true });
 };
 
@@ -72,7 +79,7 @@ export const wrapRootElement = ({ element }) => {
 };
 ```
 
-Create a page that you want to be protected, eg a profile page, and wrap it in the `withLoginRequired` HOC:
+Create a page that you want to be protected, e.g. a profile page, and wrap it in the `withLoginRequired` HOC:
 
 ```jsx
 // src/pages/profile.js
@@ -89,6 +96,7 @@ const Profile = () => {
   );
 };
 
+// Wrap the component in the withLoginRequired handler
 export default withLoginRequired(Profile);
 ```
 
@@ -106,6 +114,7 @@ import Router from 'next/router';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const onRedirectCallback = (appState) => {
+  // Use Next.js's Router.replace method to replace the url
   Router.replace(appState?.redirectTo || '/');
 };
 
@@ -128,7 +137,7 @@ class MyApp extends App {
 export default MyApp;
 ```
 
-Create a page that you want to be protected, eg a profile page, and wrap it in the `withLoginRequired` HOC:
+Create a page that you want to be protected, e.g. a profile page, and wrap it in the `withLoginRequired` HOC:
 
 ```jsx
 // pages/profile.js
@@ -145,6 +154,7 @@ const Profile = () => {
   );
 };
 
+// Wrap the component in the withLoginRequired handler
 export default withLoginRequired(Profile);
 ```
 
@@ -175,6 +185,7 @@ export const useApi = (url, options = {}) => {
           ...fetchOptions,
           headers: {
             ...fetchOptions.headers,
+            // Add the Authorization header to the existing headers
             Authorization: `Bearer ${accessToken}`,
           },
         });
