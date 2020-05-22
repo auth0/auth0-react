@@ -26,7 +26,7 @@ const ProtectedRoute = ({ component, ...args }) => (
 
 const onRedirectCallback = (appState) => {
   // Use the router's history module to replace the url
-  history.replace(appState?.redirectTo || window.location.pathname);
+  history.replace(appState?.returnTo || window.location.pathname);
 };
 
 export default function App() {
@@ -37,6 +37,7 @@ export default function App() {
       redirect_uri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
+      {/* Don't forget to add the history to your router */}
       <Router history={history}>
         <Switch>
           <Route path="/" exact />
@@ -62,7 +63,7 @@ import { navigate } from 'gatsby';
 
 const onRedirectCallback = (appState) => {
   // Use Gatsby's navigate method to replace the url
-  navigate(appState?.redirectTo || '/', { replace: true });
+  navigate(appState?.returnTo || '/', { replace: true });
 };
 
 export const wrapRootElement = ({ element }) => {
@@ -115,7 +116,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 
 const onRedirectCallback = (appState) => {
   // Use Next.js's Router.replace method to replace the url
-  Router.replace(appState?.redirectTo || '/');
+  Router.replace(appState?.returnTo || '/');
 };
 
 class MyApp extends App {
