@@ -28,9 +28,18 @@ export interface RedirectLoginOptions extends BaseLoginOptions {
   fragment?: string;
 }
 
+/**
+ * Contains the authenticated state and authentication methods provided by the `useAuth0` hook.
+ */
 export interface Auth0ContextInterface extends AuthState {
   /**
-   * Get an access token.
+   * ```js
+   * const token = await getToken(options);
+   * ```
+   *
+   * If there's a valid token stored, return it. Otherwise, get one from the authorize server.
+   *
+   * See: [Auth0Client#getTokenSilently](https://auth0.github.io/auth0-spa-js/classes/auth0client.html#gettokensilently)
    */
   getAccessTokenSilently: (
     options?: GetTokenSilentlyOptions
