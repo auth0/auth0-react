@@ -851,23 +851,23 @@
     },
     {
       "id": 107,
-      "kind": 32,
-      "name": "Auth0Context",
-      "url": "globals.html#auth0context",
-      "classes": "tsd-kind-variable"
+      "kind": 4194304,
+      "name": "GetTokenOptions",
+      "url": "globals.html#gettokenoptions",
+      "classes": "tsd-kind-type-alias"
     },
     {
       "id": 108,
-      "kind": 32,
-      "name": "CODE_RE",
-      "url": "globals.html#code_re",
-      "classes": "tsd-kind-variable"
+      "kind": 4194304,
+      "name": "LoginOptions",
+      "url": "globals.html#loginoptions",
+      "classes": "tsd-kind-type-alias"
     },
     {
       "id": 109,
       "kind": 32,
-      "name": "ERROR_RE",
-      "url": "globals.html#error_re",
+      "name": "Auth0Context",
+      "url": "globals.html#auth0context",
       "classes": "tsd-kind-variable"
     },
     {
@@ -1508,7 +1508,7 @@
           }
         }
       ],
-      ["auth0context", { "_index": 58, "name": { "107": {} }, "parent": {} }],
+      ["auth0context", { "_index": 60, "name": { "109": {} }, "parent": {} }],
       [
         "auth0contextinterface",
         {
@@ -1612,7 +1612,6 @@
           "parent": {}
         }
       ],
-      ["code_re", { "_index": 59, "name": { "108": {} }, "parent": {} }],
       [
         "connection",
         {
@@ -1643,7 +1642,6 @@
         { "_index": 9, "name": { "11": {}, "116": {} }, "parent": {} }
       ],
       ["error", { "_index": 1, "name": { "1": {}, "103": {} }, "parent": {} }],
-      ["error_re", { "_index": 60, "name": { "109": {} }, "parent": {} }],
       ["federated", { "_index": 42, "name": { "86": {} }, "parent": {} }],
       ["fragment", { "_index": 29, "name": { "33": {} }, "parent": {} }],
       [
@@ -1659,6 +1657,10 @@
         }
       ],
       ["gettoken", { "_index": 45, "name": { "91": {} }, "parent": {} }],
+      [
+        "gettokenoptions",
+        { "_index": 58, "name": { "107": {} }, "parent": {} }
+      ],
       [
         "gettokensilentlyoptions",
         {
@@ -1733,6 +1735,7 @@
           "parent": {}
         }
       ],
+      ["loginoptions", { "_index": 59, "name": { "108": {} }, "parent": {} }],
       ["loginwithpopup", { "_index": 54, "name": { "99": {} }, "parent": {} }],
       ["logout", { "_index": 56, "name": { "101": {} }, "parent": {} }],
       [
