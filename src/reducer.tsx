@@ -1,11 +1,11 @@
-import { AuthState } from './auth-state';
+import { AuthState, User } from './auth-state';
 
 type Action =
   | { type: 'LOGIN_POPUP_STARTED' }
   | {
       type: 'INITIALISED' | 'LOGIN_POPUP_COMPLETE';
       isAuthenticated: boolean;
-      user?: unknown;
+      user?: User;
     }
   | { type: 'ERROR'; error: Error };
 

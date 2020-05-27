@@ -3,7 +3,7 @@ const ERROR_RE = /[?&]error=[^&]+/;
 
 export type AppState = {
   returnTo?: string;
-  [key: string]: unknown;
+  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
 export const hasAuthParams = (searchParams = window.location.search): boolean =>
