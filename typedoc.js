@@ -22,5 +22,4 @@ module.exports = {
   hideGenerator: true,
   ignoreCompilerErrors: true,
   theme: 'minimal',
-  // entryPoint: 'Auth0ContextInterface',
 };
