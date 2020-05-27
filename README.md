@@ -118,9 +118,12 @@ Protect a route component using the `withLoginRequired` higher order component. 
 import React from 'react';
 import { withLoginRequired } from '@auth0/auth0-react';
 
+// Show a message while the user waits to be redirected to the login page.
+const Redirecting = () => <div>Redirecting you to the login page...</div>;
+
 const PrivateRoute = () => <div>Private</div>;
 
-export default withLoginRequired(PrivateRoute);
+export default withLoginRequired(PrivateRoute, Redirecting);
 ```
 
 ### Access an API
