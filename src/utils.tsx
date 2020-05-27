@@ -1,4 +1,11 @@
+/**
+ * @ignore
+ */
 const CODE_RE = /[?&]code=[^&]+/;
+
+/**
+ * @ignore
+ */
 const ERROR_RE = /[?&]error=[^&]+/;
 
 export type AppState = {
@@ -6,6 +13,9 @@ export type AppState = {
   [key: string]: unknown;
 };
 
+/**
+ * @ignore
+ */
 export const hasAuthParams = (searchParams = window.location.search): boolean =>
   CODE_RE.test(searchParams) || ERROR_RE.test(searchParams);
 
@@ -17,6 +27,9 @@ export const defaultOnRedirectCallback = (appState?: AppState): void => {
   );
 };
 
+/**
+ * @ignore
+ */
 export const loginError = (
   error: Error | { error_description: string } | ProgressEvent
 ): Error =>

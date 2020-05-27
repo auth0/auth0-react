@@ -24,7 +24,7 @@
     "lint": "eslint --ext=tsx ./src ./__tests__",
     "start": "rollup -cw",
     "test": "jest --coverage",
-    "docs": " typedoc -out docs src node_modules/@auth0/auth0-spa-js/src --ignoreCompilerErrors",
+    "docs": "typedoc --options typedoc.js src node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
     "prepack": "npm run test && npm run build"
   },
   "repository": {
