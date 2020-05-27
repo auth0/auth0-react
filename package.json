@@ -77,6 +77,6 @@
     }
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.8.1"
+    "@auth0/auth0-spa-js": "^1.8.2"
   }
 }

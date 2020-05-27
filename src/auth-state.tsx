@@ -7,5 +7,6 @@ export interface AuthState {
 
 export const initialAuthState: AuthState = {
   isAuthenticated: false,
-  isLoading: true, // TODO: SSR support
+  // In SSR mode the library will never check the session, so loading should be initialised as false
+  isLoading: typeof window !== 'undefined',
 };
