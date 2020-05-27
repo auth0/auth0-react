@@ -1,8 +1,10 @@
+export type User = any; // eslint-disable-line @typescript-eslint/no-explicit-any
+
 export interface AuthState {
   error?: Error;
   isAuthenticated: boolean;
   isLoading: boolean;
-  user?: unknown;
+  user?: User;
 }
 
 export const initialAuthState: AuthState = {
