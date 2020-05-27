@@ -4,22 +4,29 @@ import {
   GetTokenWithPopupOptions,
   IdToken,
   LogoutOptions,
+  PopupConfigOptions,
   PopupLoginOptions,
   RedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
 
+export type GetTokenOptions = GetTokenSilentlyOptions;
+export type LoginOptions = RedirectLoginOptions;
+
 export interface Auth0ContextInterface extends AuthState {
   /**
    * Get an access token.
    */
-  getToken: (options?: GetTokenSilentlyOptions) => Promise<string>;
+  getToken: (options?: GetTokenOptions) => Promise<string>;
 
   /**
    * Get an access token interactively.
    */
-  getTokenWithPopup: (options?: GetTokenWithPopupOptions) => Promise<string>;
+  getTokenWithPopup: (
+    options?: GetTokenWithPopupOptions,
+    config?: PopupConfigOptions
+  ) => Promise<string>;
 
   /**
    * Returns all claims from the id_token if available.
@@ -29,12 +36,15 @@ export interface Auth0ContextInterface extends AuthState {
   /**
    * Login in with a redirect.
    */
-  login: (options?: RedirectLoginOptions) => Promise<void>;
+  login: (options?: LoginOptions) => Promise<void>;
 
   /**
    * Login in with a popup.
    */
-  loginWithPopup: (options?: PopupLoginOptions) => Promise<void>;
+  loginWithPopup: (
+    options?: PopupLoginOptions,
+    config?: PopupConfigOptions
+  ) => Promise<void>;
 
   /**
    * Logout.
