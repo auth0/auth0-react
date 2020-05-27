@@ -64,11 +64,14 @@ export interface Auth0ContextInterface extends AuthState {
   logout: (options?: LogoutOptions) => void;
 }
 
+/**
+ * @ignore
+ */
 const stub = (): never => {
   throw new Error('You forgot to wrap your component in <Auth0Provider>.');
 };
 
-export default createContext<Auth0ContextInterface>({
+const Auth0Context = createContext<Auth0ContextInterface>({
   ...initialAuthState,
   getAccessTokenSilently: stub,
   getAccessTokenWithPopup: stub,
@@ -77,3 +80,5 @@ export default createContext<Auth0ContextInterface>({
   loginWithPopup: stub,
   logout: stub,
 });
+
+export default Auth0Context;
