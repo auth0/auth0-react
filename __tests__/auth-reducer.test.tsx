@@ -11,7 +11,7 @@ describe('reducer', () => {
       reducer(initialAuthState, { type: 'INITIALISED', ...payload })
     ).toEqual({
       ...initialAuthState,
-      isReady: true,
+      isLoading: false,
       ...payload,
     });
   });
@@ -24,7 +24,7 @@ describe('reducer', () => {
       reducer(initialAuthState, { type: 'INITIALISED', ...payload })
     ).toEqual({
       ...initialAuthState,
-      isReady: true,
+      isLoading: false,
       ...payload,
     });
   });
@@ -35,7 +35,7 @@ describe('reducer', () => {
     };
     expect(reducer(initialAuthState, { type: 'ERROR', ...payload })).toEqual({
       ...initialAuthState,
-      isReady: true,
+      isLoading: false,
       ...payload,
     });
   });

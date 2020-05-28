@@ -59,7 +59,7 @@ ReactDOM.render(
 );
 ```
 
-Use the `useAuth0` hook in your components to access authentication state (`isReady`, `isAuthenticated` and `user`) and authentication methods (`loginWithRedirect` and `logout`):
+Use the `useAuth0` hook in your components to access authentication state (`isLoading`, `isAuthenticated` and `user`) and authentication methods (`loginWithRedirect` and `logout`):
 
 ```jsx
 // src/App.js
@@ -68,7 +68,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
   const {
-    isReady,
+    isLoading,
     isAuthenticated,
     error,
     user,
@@ -76,7 +76,7 @@ function App() {
     logout,
   } = useAuth0();
 
-  if (!isReady) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
   if (error) {

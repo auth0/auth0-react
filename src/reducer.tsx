@@ -14,7 +14,7 @@ export const reducer = (state: AuthState, action: Action): AuthState => {
     case 'LOGIN_POPUP_STARTED':
       return {
         ...state,
-        isReady: false,
+        isLoading: true,
       };
     case 'LOGIN_POPUP_COMPLETE':
     case 'INITIALISED':
@@ -22,12 +22,12 @@ export const reducer = (state: AuthState, action: Action): AuthState => {
         ...state,
         isAuthenticated: action.isAuthenticated,
         user: action.user,
-        isReady: true,
+        isLoading: false,
       };
     case 'ERROR':
       return {
         ...state,
-        isReady: true,
+        isLoading: false,
         error: action.error,
       };
   }
