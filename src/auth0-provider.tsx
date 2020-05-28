@@ -71,12 +71,14 @@ const Auth0Provider = ({
     <Auth0Context.Provider
       value={{
         ...state,
-        getToken: (opts): Promise<string> => client.getTokenSilently(opts),
-        getTokenWithPopup: (opts): Promise<string> =>
+        getAccessTokenSilently: (opts): Promise<string> =>
+          client.getTokenSilently(opts),
+        getAccessTokenWithPopup: (opts): Promise<string> =>
           client.getTokenWithPopup(opts),
         getIdTokenClaims: (opts): Promise<IdToken> =>
           client.getIdTokenClaims(opts),
-        login: (opts): Promise<void> => client.loginWithRedirect(opts),
+        loginWithRedirect: (opts): Promise<void> =>
+          client.loginWithRedirect(opts),
         loginWithPopup: (opts): Promise<void> => loginWithPopup(opts),
         logout: (opts): void => client.logout(opts),
       }}

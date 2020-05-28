@@ -19,7 +19,7 @@ Auth0 SDK for React Applications.
 
 - [Installation](#installation)
 - [Getting Started](#getting-started)
-- [Advanced Use Cases](#advanced-use-cases)
+- [Other Use Cases](#other-use-cases)
 - [Contributing](#contributing)
 - [Support + Feedback](#support--feedback)
 - [Vulnerability Reporting](#vulnerability-reporting)
@@ -59,7 +59,7 @@ ReactDOM.render(
 );
 ```
 
-Use the `useAuth0` hook in your components to access authentication state (`isLoading`, `isAuthenticated` and `user`) and authentication methods (`login` and `logout`):
+Use the `useAuth0` hook in your components to access authentication state (`isLoading`, `isAuthenticated` and `user`) and authentication methods (`loginWithRedirect` and `logout`):
 
 ```jsx
 // src/App.js
@@ -67,7 +67,14 @@ import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
-  const { isLoading, isAuthenticated, error, user, login, logout } = useAuth0();
+  const {
+    isLoading,
+    isAuthenticated,
+    error,
+    user,
+    loginWithRedirect,
+    logout,
+  } = useAuth0();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -83,14 +90,14 @@ function App() {
       </div>
     );
   } else {
-    return <button onClick={login}>Log in</button>;
+    return <button onClick={loginWithRedirect}>Log in</button>;
   }
 }
 
 export default App;
 ```
 
-## Advanced Use Cases
+## Other Use Cases
 
 ### Class Components
 
@@ -112,18 +119,18 @@ export default withAuth0(Profile);
 
 ### Protecting Routes
 
-Protect a route component using the `withLoginRequired` higher order component. Visits to this route when unauthenticated will redirect the user to the login page and back to this page after login:
+Protect a route component using the `withAuthenticationRequired` higher order component. Visits to this route when unauthenticated will redirect the user to the login page and back to this page after login:
 
 ```jsx
 import React from 'react';
-import { withLoginRequired } from '@auth0/auth0-react';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 
 // Show a message while the user waits to be redirected to the login page.
 const Redirecting = () => <div>Redirecting you to the login page...</div>;
 
 const PrivateRoute = () => <div>Private</div>;
 
-export default withLoginRequired(PrivateRoute, Redirecting);
+export default withAuthenticationRequired(PrivateRoute, Redirecting);
 ```
 
 ### Access an API
@@ -135,12 +142,15 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Posts = () => {
-  const { getToken } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const token = await getToken();
+      const token = await getAccessTokenSilently({
+        audience: 'https://api.example.com/',
+        scope: 'read:posts',
+      });
       const response = await fetch('https://api.example.com/posts', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -148,7 +158,7 @@ const Posts = () => {
       });
       setPosts(await response.json());
     })();
-  }, [getToken]);
+  }, [getAccessTokenSilently]);
 
   if (!posts) {
     return <div>Loading...</div>;

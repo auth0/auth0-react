@@ -31,9 +31,9 @@
           isAuthenticated,
           isLoading,
           getIdTokenClaims,
-          getToken,
-          getTokenWithPopup,
-          login,
+          getAccessTokenSilently,
+          getAccessTokenWithPopup,
+          loginWithRedirect,
           loginWithPopup,
           logout,
         } = useAuth0();
@@ -47,10 +47,14 @@
         return isAuthenticated ? (
           <div>
             <button onClick={() => logout()}>logout</button>
-            <button onClick={async () => setToken(await getToken())}>
-              Get token
+            <button
+              onClick={async () => setToken(await getAccessTokenSilently())}
+            >
+              Get access token
             </button>
-            <button onClick={async () => setToken(await getTokenWithPopup())}>
+            <button
+              onClick={async () => setToken(await getAccessTokenWithPopup())}
+            >
               Get token with popup
             </button>
             <button onClick={async () => setClaims(await getIdTokenClaims())}>
@@ -63,7 +67,9 @@
           </div>
         ) : (
           <div>
-            <button onClick={() => login()}>Login</button>
+            <button onClick={() => loginWithRedirect()}>
+              Login with redirect
+            </button>
             <button onClick={() => loginWithPopup()}>Login with popup</button>
           </div>
         );

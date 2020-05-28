@@ -196,8 +196,10 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(result.current.login).toBeInstanceOf(Function);
-    await result.current.login({ redirect_uri: '__redirect_uri__' });
+    expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    await result.current.loginWithRedirect({
+      redirect_uri: '__redirect_uri__',
+    });
     expect(clientMock.loginWithRedirect).toHaveBeenCalledWith({
       redirect_uri: '__redirect_uri__',
     });
@@ -217,7 +219,7 @@ describe('Auth0Provider', () => {
     });
   });
 
-  it('should provide a getToken method', async () => {
+  it('should provide a getAccessTokenSilently method', async () => {
     clientMock.getTokenSilently.mockResolvedValue('token');
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
@@ -225,13 +227,13 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(result.current.getToken).toBeInstanceOf(Function);
-    const token = await result.current.getToken();
+    expect(result.current.getAccessTokenSilently).toBeInstanceOf(Function);
+    const token = await result.current.getAccessTokenSilently();
     expect(clientMock.getTokenSilently).toHaveBeenCalled();
     expect(token).toBe('token');
   });
 
-  it('should provide a getTokenWithPopup method', async () => {
+  it('should provide a getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
@@ -239,8 +241,8 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(result.current.getTokenWithPopup).toBeInstanceOf(Function);
-    const token = await result.current.getTokenWithPopup();
+    expect(result.current.getAccessTokenWithPopup).toBeInstanceOf(Function);
+    const token = await result.current.getAccessTokenWithPopup();
     expect(clientMock.getTokenWithPopup).toHaveBeenCalled();
     expect(token).toBe('token');
   });

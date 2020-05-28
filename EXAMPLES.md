@@ -9,19 +9,19 @@
 
 So that we can access the router `history` outside of the `Router` component you need to [create your own history object](https://github.com/ReactTraining/react-router/blob/master/FAQ.md#how-do-i-access-the-history-object-outside-of-components). We can reference this object from the `Auth0Provider`'s `onRedirectCallback`.
 
-We can then use the `withLoginRequired` HOC (Higher Order Component) to create a `ProtectedRoute` component that redirects anonymous users to the login page, before returning them to the protected route:
+We can then use the `withAuthenticationRequired` HOC (Higher Order Component) to create a `ProtectedRoute` component that redirects anonymous users to the login page, before returning them to the protected route:
 
 ```jsx
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import { Auth0Provider, withLoginRequired } from '@auth0/auth0-react';
+import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import { createBrowserHistory } from 'history';
 import Profile from './Profile';
 
 export const history = createBrowserHistory();
 
 const ProtectedRoute = ({ component, ...args }) => (
-  <Route component={withLoginRequired(component)} {...args} />
+  <Route component={withAuthenticationRequired(component)} {...args} />
 );
 
 const onRedirectCallback = (appState) => {
@@ -80,12 +80,12 @@ export const wrapRootElement = ({ element }) => {
 };
 ```
 
-Create a page that you want to be protected, e.g. a profile page, and wrap it in the `withLoginRequired` HOC:
+Create a page that you want to be protected, e.g. a profile page, and wrap it in the `withAuthenticationRequired` HOC:
 
 ```jsx
 // src/pages/profile.js
 import React from 'react';
-import { useAuth0, withLoginRequired } from '@auth0/auth0-react';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 
 const Profile = () => {
   const { user } = useAuth0();
@@ -97,8 +97,8 @@ const Profile = () => {
   );
 };
 
-// Wrap the component in the withLoginRequired handler
-export default withLoginRequired(Profile);
+// Wrap the component in the withAuthenticationRequired handler
+export default withAuthenticationRequired(Profile);
 ```
 
 ## 3. Protecting a route in a Next.js app (in SPA mode)
@@ -138,12 +138,12 @@ class MyApp extends App {
 export default MyApp;
 ```
 
-Create a page that you want to be protected, e.g. a profile page, and wrap it in the `withLoginRequired` HOC:
+Create a page that you want to be protected, e.g. a profile page, and wrap it in the `withAuthenticationRequired` HOC:
 
 ```jsx
 // pages/profile.js
 import React from 'react';
-import { useAuth0, withLoginRequired } from '@auth0/auth0-react';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 
 const Profile = () => {
   const { user } = useAuth0();
@@ -155,8 +155,8 @@ const Profile = () => {
   );
 };
 
-// Wrap the component in the withLoginRequired handler
-export default withLoginRequired(Profile);
+// Wrap the component in the withAuthenticationRequired handler
+export default withAuthenticationRequired(Profile);
 ```
 
 ## 4. Create a `useApi` hook for accessing protected APIs with an access token.
@@ -181,7 +181,7 @@ export const useApi = (url, options = {}) => {
     (async () => {
       try {
         const { audience, scope, ...fetchOptions } = options;
-        const accessToken = await getToken({ audience, scope });
+        const accessToken = await getAccessTokenSilently({ audience, scope });
         const res = await fetch(url, {
           ...fetchOptions,
           headers: {
