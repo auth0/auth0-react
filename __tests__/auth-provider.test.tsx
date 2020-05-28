@@ -37,9 +37,9 @@ describe('Auth0Provider', () => {
       () => useContext(Auth0Context),
       { wrapper }
     );
-    expect(result.current.isLoading).toBe(true);
+    expect(result.current.isReady).toBe(false);
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isReady).toBe(true);
     expect(clientMock.getTokenSilently).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(false);
   });
@@ -158,9 +158,9 @@ describe('Auth0Provider', () => {
     act(() => {
       result.current.loginWithPopup();
     });
-    expect(result.current.isLoading).toBe(true);
+    expect(result.current.isReady).toBe(false);
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isReady).toBe(true);
     expect(clientMock.loginWithPopup).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(true);
   });
@@ -179,9 +179,9 @@ describe('Auth0Provider', () => {
     act(() => {
       result.current.loginWithPopup();
     });
-    expect(result.current.isLoading).toBe(true);
+    expect(result.current.isReady).toBe(false);
     await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isReady).toBe(true);
     expect(clientMock.loginWithPopup).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(false);
     expect(() => {

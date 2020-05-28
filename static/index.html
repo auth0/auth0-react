@@ -29,7 +29,7 @@
       const App = () => {
         const {
           isAuthenticated,
-          isLoading,
+          isReady,
           getIdTokenClaims,
           getAccessTokenSilently,
           getAccessTokenWithPopup,
@@ -40,7 +40,7 @@
         const [token, setToken] = useState(null);
         const [claims, setClaims] = useState(null);
 
-        if (isLoading) {
+        if (!isReady) {
           return <div>loading...</div>;
         }
 

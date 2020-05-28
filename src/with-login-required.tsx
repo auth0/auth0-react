@@ -7,10 +7,10 @@ const withAuthenticationRequired = <P extends object>(
   Component: ComponentType<P>,
   onRedirecting: () => JSX.Element = defaultOnRedirecting
 ): FC<P> => (props: P): JSX.Element => {
-  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, isReady, loginWithRedirect } = useAuth0();
 
   useEffect(() => {
-    if (isLoading || isAuthenticated) {
+    if (!isReady || isAuthenticated) {
       return;
     }
     (async (): Promise<void> => {
@@ -18,7 +18,7 @@ const withAuthenticationRequired = <P extends object>(
         appState: { returnTo: window.location.pathname },
       });
     })();
-  }, [isLoading, isAuthenticated, loginWithRedirect]);
+  }, [isReady, isAuthenticated, loginWithRedirect]);
 
   return isAuthenticated ? <Component {...props} /> : onRedirecting();
 };

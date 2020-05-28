@@ -12,10 +12,10 @@ describe('In a Node SSR environment', () => {
     const wrapper = createWrapper();
     const {
       result: {
-        current: { isLoading, isAuthenticated, user, loginWithRedirect },
+        current: { isReady, isAuthenticated, user, loginWithRedirect },
       },
     } = renderHook(useAuth0, { wrapper });
-    expect(isLoading).toBeFalsy();
+    expect(isReady).toBeTruthy();
     expect(isAuthenticated).toBeFalsy();
     expect(user).toBeUndefined();
     await expect(loginWithRedirect).rejects.toThrowError(
