@@ -12,12 +12,14 @@ describe('In a Node SSR environment', () => {
     const wrapper = createWrapper();
     const {
       result: {
-        current: { isLoading, isAuthenticated, user, login },
+        current: { isLoading, isAuthenticated, user, loginWithRedirect },
       },
     } = renderHook(useAuth0, { wrapper });
     expect(isLoading).toBeFalsy();
     expect(isAuthenticated).toBeFalsy();
     expect(user).toBeUndefined();
-    await expect(login).rejects.toThrowError('window is not defined');
+    await expect(loginWithRedirect).rejects.toThrowError(
+      'window is not defined'
+    );
   });
 });
