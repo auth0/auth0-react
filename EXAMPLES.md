@@ -166,16 +166,19 @@ export default withAuthenticationRequired(Profile);
 import { useEffect, useState } from 'react';
 
 export const useApi = (url, options = {}) => {
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [response, setResponse] = useState(true);
+  const { getAccessToken } = useAuth0();
+  const [state, setState] = useState({
+    error: null,
+    loading: true,
+    data: null,
+  });
   const [refreshIndex, setRefreshIndex] = useState(0);
 
   useEffect(() => {
     (async () => {
       try {
         const { audience, scope, ...fetchOptions } = options;
-        const accessToken = await getToken({ audience, scope });
+        const accessToken = await getAccessToken({ audience, scope });
         const res = await fetch(url, {
           ...fetchOptions,
           headers: {
@@ -184,20 +187,24 @@ export const useApi = (url, options = {}) => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setResponse(await res.json());
-        setError(null);
-      } catch (e) {
-        setError(e);
-      } finally {
-        setLoading(false);
+        setState({
+          ...state,
+          data: await res.json(),
+          error: null,
+          loading: false,
+        });
+      } catch (error) {
+        setState({
+          ...state,
+          error,
+          loading: false,
+        });
       }
     })();
   }, [refreshIndex]);
 
   return {
-    loading,
-    error,
-    response,
+    ...state,
     refresh: () => setRefreshIndex(refreshIndex + 1),
   };
 };
@@ -215,7 +222,7 @@ export const Profile = () => {
     scope: 'read:users',
   };
   const { login, getTokenWithPopup } = useAuth0();
-  const { loading, error, refresh, response: users } = useApi(
+  const { loading, error, refresh, data: users } = useApi(
     'https://api.example.com/users',
     opts
   );
