@@ -1,9 +1,9 @@
 # Examples
 
-1. [Protecting a route in a `react-router-dom` app](#1-protecting-a-route-in-a--react-router-dom--app)
+1. [Protecting a route in a `react-router-dom` app](#1-protecting-a-route-in-a-react-router-dom-app)
 2. [Protecting a route in a Gatsby app](#2-protecting-a-route-in-a-gatsby-app)
-3. [Protecting a route in a Next.js app (in SPA mode)](#3-protecting-a-route-in-a-nextjs-app--in-spa-mode-)
-4. [Create a `useApi` hook for accessing protected APIs with an access token.](#4-create-a--useapi--hook-for-accessing-protected-apis-with-an-access-token)
+3. [Protecting a route in a Next.js app (in SPA mode)](#3-protecting-a-route-in-a-nextjs-app-in-spa-mode)
+4. [Create a `useApi` hook for accessing protected APIs with an access token.](#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token)
 
 ## 1. Protecting a route in a `react-router-dom` app
 
@@ -33,8 +33,8 @@ export default function App() {
   return (
     <Auth0Provider
       domain="YOUR_AUTH0_DOMAIN"
-      client_id="YOUR_AUTH0_CLIENT_ID"
-      redirect_uri={window.location.origin}
+      clientId="YOUR_AUTH0_CLIENT_ID"
+      redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
       {/* Don't forget to add the history to your router */}
@@ -70,8 +70,8 @@ export const wrapRootElement = ({ element }) => {
   return (
     <Auth0Provider
       domain="YOUR_AUTH0_DOMAIN"
-      client_id="YOUR_AUTH0_CLIENT_ID"
-      redirect_uri={window.location.origin}
+      clientId="YOUR_AUTH0_CLIENT_ID"
+      redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
       {element}
@@ -125,8 +125,8 @@ class MyApp extends App {
     return (
       <Auth0Provider
         domain="YOUR_AUTH0_DOMAIN"
-        client_id="YOUR_AUTH0_CLIENT_ID"
-        redirect_uri={typeof window !== 'undefined' && window.location.origin}
+        clientId="YOUR_AUTH0_CLIENT_ID"
+        redirectUri={typeof window !== 'undefined' && window.location.origin}
         onRedirectCallback={onRedirectCallback}
       >
         <Component {...pageProps} />
@@ -164,20 +164,17 @@ export default withAuthenticationRequired(Profile);
 ```js
 // use-api.js
 import { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 
 export const useApi = (url, options = {}) => {
-  const { isAuthenticated } = useAuth0();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [response, setResponse] = useState(true);
+  const { getAccessTokenSilently } = useAuth0();
+  const [state, setState] = useState({
+    error: null,
+    loading: true,
+    data: null,
+  });
+  const [refreshIndex, setRefreshIndex] = useState(0);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      setLoading(false);
-      setError(new Error('The user is not signed in'));
-      return;
-    }
     (async () => {
       try {
         const { audience, scope, ...fetchOptions } = options;
@@ -190,19 +187,25 @@ export const useApi = (url, options = {}) => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setResponse(await res.json());
+        setState({
+          ...state,
+          data: await res.json(),
+          error: null,
+          loading: false,
+        });
       } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
+        setState({
+          ...state,
+          error,
+          loading: false,
+        });
       }
     })();
-  }, []);
+  }, [refreshIndex]);
 
   return {
-    loading,
-    error,
-    response,
+    ...state,
+    refresh: () => setRefreshIndex(refreshIndex + 1),
   };
 };
 ```
@@ -214,17 +217,31 @@ Then use it for accessing protected APIs from your components:
 import { useApi } from './use-api';
 
 export const Profile = () => {
-  const { loading, error, response: users } = useApi(
+  const opts = {
+    audience: 'https://api.example.com/',
+    scope: 'read:users',
+  };
+  const { login, getTokenWithPopup } = useAuth0();
+  const { loading, error, refresh, data: users } = useApi(
     'https://api.example.com/users',
-    {
-      audience: 'https://api.example.com/',
-      scope: 'read:users',
-    }
+    opts
   );
+  const getTokenAndTryAgain = async () => {
+    await getTokenWithPopup(opts);
+    refresh();
+  };
   if (loading) {
     return <div>Loading...</div>;
   }
   if (error) {
+    if (error.error === 'login_required') {
+      return <button onClick={() => login(opts)}>Login</button>;
+    }
+    if (error.error === 'consent_required') {
+      return (
+        <button onClick={getTokenAndTryAgain}>Consent to reading users</button>
+      );
+    }
     return <div>Oops {error.message}</div>;
   }
   return (

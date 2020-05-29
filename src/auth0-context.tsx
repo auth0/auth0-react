@@ -1,14 +1,32 @@
 import {
+  BaseLoginOptions,
   GetIdTokenClaimsOptions,
   GetTokenSilentlyOptions,
   GetTokenWithPopupOptions,
   IdToken,
   LogoutOptions,
   PopupLoginOptions,
-  RedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
+
+export interface RedirectLoginOptions extends BaseLoginOptions {
+  /**
+   * The URL where Auth0 will redirect your browser to with
+   * the authentication result. It must be whitelisted in
+   * the "Allowed Callback URLs" field in your Auth0 Application's
+   * settings.
+   */
+  redirectUri?: string;
+  /**
+   * Used to store state before doing the redirect
+   */
+  appState?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  /**
+   * Used to add to the URL fragment before redirecting
+   */
+  fragment?: string;
+}
 
 export interface Auth0ContextInterface extends AuthState {
   /**

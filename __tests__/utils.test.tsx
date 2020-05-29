@@ -2,6 +2,8 @@ import {
   defaultOnRedirectCallback,
   hasAuthParams,
   loginError,
+  OAuthError,
+  tokenError,
 } from '../src/utils';
 
 describe('utils hasAuthParams', () => {
@@ -52,17 +54,20 @@ describe('utils defaultOnRedirectCallback', () => {
   });
 });
 
-describe('utils loginError', () => {
+describe('utils error', () => {
   it('should return the original error', async () => {
     const error = new Error('__test_error__');
     expect(loginError(error)).toBe(error);
   });
 
-  it('should convert an OAuth error to a JS error', async () => {
-    const error = { error_description: '__test_error__' };
+  it('should convert OAuth error data to an OAuth JS error', async () => {
+    const error = {
+      error: '__test_error__',
+      error_description: '__test_error_description__',
+    };
     expect(() => {
-      throw loginError(error);
-    }).toThrowError('__test_error__');
+      throw tokenError(error);
+    }).toThrow(OAuthError);
   });
 
   it('should convert a ProgressEvent error to a JS error', async () => {
@@ -70,5 +75,21 @@ describe('utils loginError', () => {
     expect(() => {
       throw loginError(error);
     }).toThrowError('Login failed');
+  });
+
+  it('should produce an OAuth JS error with error_description properties', async () => {
+    const error = new OAuthError(
+      '__test_error__',
+      '__test_error_description__'
+    );
+    expect(error.error).toBe('__test_error__');
+    expect(error.error_description).toBe('__test_error_description__');
+    expect(error.message).toBe('__test_error_description__');
+  });
+
+  it('should produce an OAuth JS error with error properties', async () => {
+    const error = new OAuthError('__test_error__');
+    expect(error.error).toBe('__test_error__');
+    expect(error.message).toBe('__test_error__');
   });
 });

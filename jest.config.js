@@ -9,6 +9,13 @@ module.exports = {
   ],
   testURL: 'https://www.example.com/',
   testRegex: '/__tests__/.+test.tsx?$',
+  globals: {
+    'ts-jest': {
+      tsConfig: {
+        target: 'es6',
+      },
+    },
+  },
   coverageThreshold: {
     global: {
       branches: 100,
