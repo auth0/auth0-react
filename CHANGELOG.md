@@ -1,5 +1,16 @@
 # Change Log
 
+## [v0.3.0](https://github.com/auth0/auth0-react/tree/v0.3.0) (2020-05-29)
+
+**Added**
+
+- [SDK-1641] Add SSR support [\#17](https://github.com/auth0/auth0-react/pull/17) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+**Breaking Changes**
+
+- [SDK-1694] Camel case props [\#22](https://github.com/auth0/auth0-react/pull/22) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- [SDK-1693] Renames some init props [\#21](https://github.com/auth0/auth0-react/pull/21) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v0.2.0](https://github.com/auth0/auth0-react/tree/v0.2.0) (2020-05-20)
 
 **Added**

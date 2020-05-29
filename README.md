@@ -28,12 +28,12 @@ Auth0 SDK for React Applications.
 
 ## Installation
 
-For Early Access, download the binary from the releases page: [auth0-auth0-react-0.2.0.tgz](https://github.com/auth0/auth0-react/releases/download/v0.2.0/auth0-auth0-react-0.2.0.tgz).
+For Early Access, download the binary from the releases page: [auth0-auth0-react-0.3.0.tgz](https://github.com/auth0/auth0-react/releases/download/v0.3.0/auth0-auth0-react-0.3.0.tgz).
 
 Then install it from the folder you downloaded it to:
 
 ```bash
-npm install ~/Downloads/auth0-auth0-react-0.2.0.tgz
+npm install ~/Downloads/auth0-auth0-react-0.3.0.tgz
 ```
 
 ## Getting Started
