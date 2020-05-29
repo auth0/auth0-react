@@ -84,7 +84,8 @@ describe('Auth0Provider', () => {
 
   it('should handle other errors when getting token', async () => {
     clientMock.getTokenSilently.mockRejectedValue({
-      error_description: '__test_error__',
+      error: '__test_error__',
+      error_description: '__test_error_description__',
     });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
@@ -95,7 +96,7 @@ describe('Auth0Provider', () => {
     expect(clientMock.getTokenSilently).toHaveBeenCalled();
     expect(() => {
       throw result.current.error;
-    }).toThrowError('__test_error__');
+    }).toThrowError('__test_error_description__');
     expect(result.current.isAuthenticated).toBe(false);
   });
 

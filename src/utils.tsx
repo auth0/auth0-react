@@ -23,15 +23,15 @@ export const defaultOnRedirectCallback = (appState?: AppState): void => {
 };
 
 export class OAuthError extends Error {
-  constructor(public error: string, public error_description: string) {
-    super(error_description);
+  constructor(public error: string, public error_description?: string) {
+    super(error_description || error);
   }
 }
 
 const normalizeErrorFn = (fallbackMessage: string) => (
-  error: Error | { error: string; error_description: string } | ProgressEvent
+  error: Error | { error: string; error_description?: string } | ProgressEvent
 ): Error => {
-  if ('error_description' in error) {
+  if ('error' in error) {
     return new OAuthError(error.error, error.error_description);
   }
   if (error instanceof Error) {
