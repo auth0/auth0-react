@@ -166,7 +166,7 @@ export default withAuthenticationRequired(Profile);
 import { useEffect, useState } from 'react';
 
 export const useApi = (url, options = {}) => {
-  const { getAccessToken } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
   const [state, setState] = useState({
     error: null,
     loading: true,
@@ -178,7 +178,7 @@ export const useApi = (url, options = {}) => {
     (async () => {
       try {
         const { audience, scope, ...fetchOptions } = options;
-        const accessToken = await getAccessToken({ audience, scope });
+        const accessToken = await getAccessTokenSilently({ audience, scope });
         const res = await fetch(url, {
           ...fetchOptions,
           headers: {
