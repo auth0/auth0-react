@@ -18,6 +18,7 @@ import {
   defaultOnRedirectCallback,
   loginError,
   hasAuthParams,
+  wrappedGetToken,
 } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
@@ -170,6 +171,7 @@ const Auth0Provider = ({
       await client.loginWithPopup(options);
     } catch (error) {
       dispatch({ type: 'ERROR', error: loginError(error) });
+      return;
     }
     const isAuthenticated = await client.isAuthenticated();
     const user = isAuthenticated && (await client.getUser());
@@ -180,10 +182,8 @@ const Auth0Provider = ({
     <Auth0Context.Provider
       value={{
         ...state,
-        getAccessTokenSilently: (opts): Promise<string> =>
-          client.getTokenSilently(opts),
-        getAccessTokenWithPopup: (opts): Promise<string> =>
-          client.getTokenWithPopup(opts),
+        getAccessTokenSilently: wrappedGetToken(client.getTokenSilently),
+        getAccessTokenWithPopup: wrappedGetToken(client.getTokenWithPopup),
         getIdTokenClaims: (opts): Promise<IdToken> =>
           client.getIdTokenClaims(opts),
         loginWithRedirect: (opts): Promise<void> =>

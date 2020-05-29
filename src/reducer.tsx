@@ -23,6 +23,7 @@ export const reducer = (state: AuthState, action: Action): AuthState => {
         isAuthenticated: action.isAuthenticated,
         user: action.user,
         isLoading: false,
+        error: undefined,
       };
     case 'ERROR':
       return {

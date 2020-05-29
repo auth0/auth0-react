@@ -242,6 +242,19 @@ describe('Auth0Provider', () => {
     expect(token).toBe('token');
   });
 
+  it('should normalize errors from getAccessTokenSilently method', async () => {
+    clientMock.getTokenSilently.mockRejectedValue(new ProgressEvent('error'));
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.getAccessTokenSilently).rejects.toThrowError(
+      'Get access token failed'
+    );
+  });
+
   it('should provide a getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
@@ -254,6 +267,19 @@ describe('Auth0Provider', () => {
     const token = await result.current.getAccessTokenWithPopup();
     expect(clientMock.getTokenWithPopup).toHaveBeenCalled();
     expect(token).toBe('token');
+  });
+
+  it('should normalize errors from getAccessTokenWithPopup method', async () => {
+    clientMock.getTokenWithPopup.mockRejectedValue(new ProgressEvent('error'));
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.getAccessTokenWithPopup).rejects.toThrowError(
+      'Get access token failed'
+    );
   });
 
   it('should provide a getIdTokenClaims method', async () => {

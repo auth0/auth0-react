@@ -164,24 +164,18 @@ export default withAuthenticationRequired(Profile);
 ```js
 // use-api.js
 import { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 
 export const useApi = (url, options = {}) => {
-  const { isAuthenticated } = useAuth0();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState(true);
+  const [refreshIndex, setRefreshIndex] = useState(0);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      setLoading(false);
-      setError(new Error('The user is not signed in'));
-      return;
-    }
     (async () => {
       try {
         const { audience, scope, ...fetchOptions } = options;
-        const accessToken = await getAccessTokenSilently({ audience, scope });
+        const accessToken = await getToken({ audience, scope });
         const res = await fetch(url, {
           ...fetchOptions,
           headers: {
@@ -191,18 +185,20 @@ export const useApi = (url, options = {}) => {
           },
         });
         setResponse(await res.json());
-      } catch (error) {
-        setError(error);
+        setError(null);
+      } catch (e) {
+        setError(e);
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [refreshIndex]);
 
   return {
     loading,
     error,
     response,
+    refresh: () => setRefreshIndex(refreshIndex + 1),
   };
 };
 ```
@@ -214,17 +210,31 @@ Then use it for accessing protected APIs from your components:
 import { useApi } from './use-api';
 
 export const Profile = () => {
-  const { loading, error, response: users } = useApi(
+  const opts = {
+    audience: 'https://api.example.com/',
+    scope: 'read:users',
+  };
+  const { login, getTokenWithPopup } = useAuth0();
+  const { loading, error, refresh, response: users } = useApi(
     'https://api.example.com/users',
-    {
-      audience: 'https://api.example.com/',
-      scope: 'read:users',
-    }
+    opts
   );
+  const getTokenAndTryAgain = async () => {
+    await getTokenWithPopup(opts);
+    refresh();
+  };
   if (loading) {
     return <div>Loading...</div>;
   }
   if (error) {
+    if (error.error === 'login_required') {
+      return <button onClick={() => login(opts)}>Login</button>;
+    }
+    if (error.error === 'consent_required') {
+      return (
+        <button onClick={getTokenAndTryAgain}>Consent to reading users</button>
+      );
+    }
     return <div>Oops {error.message}</div>;
   }
   return (
