@@ -13,7 +13,7 @@ describe('withAuthenticationRequired', () => {
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent);
     render(
-      <Auth0Provider client_id="__test_client_id__" domain="__test_domain__">
+      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
         <WrappedComponent />
       </Auth0Provider>
     );
@@ -28,7 +28,7 @@ describe('withAuthenticationRequired', () => {
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent);
     render(
-      <Auth0Provider client_id="__test_client_id__" domain="__test_domain__">
+      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
         <WrappedComponent />
       </Auth0Provider>
     );
@@ -47,7 +47,7 @@ describe('withAuthenticationRequired', () => {
       OnRedirecting
     );
     render(
-      <Auth0Provider client_id="__test_client_id__" domain="__test_domain__">
+      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
         <WrappedComponent />
       </Auth0Provider>
     );

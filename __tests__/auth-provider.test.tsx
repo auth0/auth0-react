@@ -20,14 +20,23 @@ describe('Auth0Provider', () => {
 
   it('should configure an instance of the Auth0Client', async () => {
     const opts = {
-      client_id: 'foo',
+      clientId: 'foo',
       domain: 'bar',
+      redirectUri: 'baz',
+      maxAge: 'qux',
+      extra_param: '__test_extra_param__',
     };
     const wrapper = createWrapper(opts);
     const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    expect(Auth0Client).toHaveBeenCalledWith(opts);
+    expect(Auth0Client).toHaveBeenCalledWith({
+      client_id: 'foo',
+      domain: 'bar',
+      redirect_uri: 'baz',
+      max_age: 'qux',
+      extra_param: '__test_extra_param__',
+    });
     await waitForNextUpdate();
   });
 
@@ -198,7 +207,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
     await result.current.loginWithRedirect({
-      redirect_uri: '__redirect_uri__',
+      redirectUri: '__redirect_uri__',
     });
     expect(clientMock.loginWithRedirect).toHaveBeenCalledWith({
       redirect_uri: '__redirect_uri__',

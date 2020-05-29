@@ -33,8 +33,8 @@ export default function App() {
   return (
     <Auth0Provider
       domain="YOUR_AUTH0_DOMAIN"
-      client_id="YOUR_AUTH0_CLIENT_ID"
-      redirect_uri={window.location.origin}
+      clientId="YOUR_AUTH0_CLIENT_ID"
+      redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
       {/* Don't forget to add the history to your router */}
@@ -70,8 +70,8 @@ export const wrapRootElement = ({ element }) => {
   return (
     <Auth0Provider
       domain="YOUR_AUTH0_DOMAIN"
-      client_id="YOUR_AUTH0_CLIENT_ID"
-      redirect_uri={window.location.origin}
+      clientId="YOUR_AUTH0_CLIENT_ID"
+      redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
       {element}
@@ -125,8 +125,8 @@ class MyApp extends App {
     return (
       <Auth0Provider
         domain="YOUR_AUTH0_DOMAIN"
-        client_id="YOUR_AUTH0_CLIENT_ID"
-        redirect_uri={typeof window !== 'undefined' && window.location.origin}
+        clientId="YOUR_AUTH0_CLIENT_ID"
+        redirectUri={typeof window !== 'undefined' && window.location.origin}
         onRedirectCallback={onRedirectCallback}
       >
         <Component {...pageProps} />
