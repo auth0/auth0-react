@@ -7,6 +7,9 @@ export interface AuthState {
   user?: User;
 }
 
+/**
+ * @ignore
+ */
 export const initialAuthState: AuthState = {
   isAuthenticated: false,
   // In SSR mode the library will never check the session, so loading should be initialised as false

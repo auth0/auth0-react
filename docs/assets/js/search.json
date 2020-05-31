@@ -7,7 +7,6 @@
     "512": "Constructor",
     "1024": "Property",
     "65536": "Type literal",
-    "2097152": "Object literal",
     "4194304": "Type alias"
   },
   "rows": [
@@ -54,41 +53,18 @@
       "id": 5,
       "kind": 4194304,
       "name": "User",
-      "url": "globals.html#user",
+      "url": "index.html#user",
       "classes": "tsd-kind-type-alias"
     },
     {
       "id": 6,
-      "kind": 2097152,
-      "name": "initialAuthState",
-      "url": "globals.html#initialauthstate",
-      "classes": "tsd-kind-object-literal"
-    },
-    {
-      "id": 7,
-      "kind": 32,
-      "name": "isAuthenticated",
-      "url": "globals.html#initialauthstate.isauthenticated",
-      "classes": "tsd-kind-variable tsd-parent-kind-object-literal",
-      "parent": "initialAuthState"
-    },
-    {
-      "id": 8,
-      "kind": 32,
-      "name": "isLoading",
-      "url": "globals.html#initialauthstate.isloading",
-      "classes": "tsd-kind-variable tsd-parent-kind-object-literal",
-      "parent": "initialAuthState"
-    },
-    {
-      "id": 9,
       "kind": 256,
       "name": "AdvancedOptions",
       "url": "interfaces/advancedoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 10,
+      "id": 7,
       "kind": 1024,
       "name": "defaultScope",
       "url": "interfaces/advancedoptions.html#defaultscope",
@@ -96,14 +72,14 @@
       "parent": "AdvancedOptions"
     },
     {
-      "id": 11,
+      "id": 8,
       "kind": 256,
       "name": "Auth0ClientOptions",
       "url": "interfaces/auth0clientoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 12,
+      "id": 9,
       "kind": 1024,
       "name": "domain",
       "url": "interfaces/auth0clientoptions.html#domain",
@@ -111,7 +87,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 13,
+      "id": 10,
       "kind": 1024,
       "name": "issuer",
       "url": "interfaces/auth0clientoptions.html#issuer",
@@ -119,7 +95,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 14,
+      "id": 11,
       "kind": 1024,
       "name": "client_id",
       "url": "interfaces/auth0clientoptions.html#client_id",
@@ -127,7 +103,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 15,
+      "id": 12,
       "kind": 1024,
       "name": "redirect_uri",
       "url": "interfaces/auth0clientoptions.html#redirect_uri",
@@ -135,7 +111,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 16,
+      "id": 13,
       "kind": 1024,
       "name": "leeway",
       "url": "interfaces/auth0clientoptions.html#leeway",
@@ -143,7 +119,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 17,
+      "id": 14,
       "kind": 1024,
       "name": "cacheLocation",
       "url": "interfaces/auth0clientoptions.html#cachelocation",
@@ -151,7 +127,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 18,
+      "id": 15,
       "kind": 1024,
       "name": "useRefreshTokens",
       "url": "interfaces/auth0clientoptions.html#userefreshtokens",
@@ -159,7 +135,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 19,
+      "id": 16,
       "kind": 1024,
       "name": "authorizeTimeoutInSeconds",
       "url": "interfaces/auth0clientoptions.html#authorizetimeoutinseconds",
@@ -167,7 +143,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 20,
+      "id": 17,
       "kind": 1024,
       "name": "advancedOptions",
       "url": "interfaces/auth0clientoptions.html#advancedoptions",
@@ -175,7 +151,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 21,
+      "id": 18,
       "kind": 1024,
       "name": "display",
       "url": "interfaces/auth0clientoptions.html#display",
@@ -183,7 +159,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 22,
+      "id": 19,
       "kind": 1024,
       "name": "prompt",
       "url": "interfaces/auth0clientoptions.html#prompt",
@@ -191,7 +167,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 23,
+      "id": 20,
       "kind": 1024,
       "name": "max_age",
       "url": "interfaces/auth0clientoptions.html#max_age",
@@ -199,7 +175,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 24,
+      "id": 21,
       "kind": 1024,
       "name": "ui_locales",
       "url": "interfaces/auth0clientoptions.html#ui_locales",
@@ -207,7 +183,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 25,
+      "id": 22,
       "kind": 1024,
       "name": "id_token_hint",
       "url": "interfaces/auth0clientoptions.html#id_token_hint",
@@ -215,7 +191,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 26,
+      "id": 23,
       "kind": 1024,
       "name": "login_hint",
       "url": "interfaces/auth0clientoptions.html#login_hint",
@@ -223,7 +199,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 27,
+      "id": 24,
       "kind": 1024,
       "name": "acr_values",
       "url": "interfaces/auth0clientoptions.html#acr_values",
@@ -231,7 +207,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 28,
+      "id": 25,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/auth0clientoptions.html#scope",
@@ -239,7 +215,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 29,
+      "id": 26,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/auth0clientoptions.html#audience",
@@ -247,7 +223,7 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 30,
+      "id": 27,
       "kind": 1024,
       "name": "connection",
       "url": "interfaces/auth0clientoptions.html#connection",
@@ -255,14 +231,14 @@
       "parent": "Auth0ClientOptions"
     },
     {
-      "id": 31,
+      "id": 28,
       "kind": 256,
       "name": "RedirectLoginOptions",
       "url": "interfaces/redirectloginoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 32,
+      "id": 29,
       "kind": 1024,
       "name": "redirect_uri",
       "url": "interfaces/redirectloginoptions.html#redirect_uri",
@@ -270,7 +246,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 33,
+      "id": 30,
       "kind": 1024,
       "name": "appState",
       "url": "interfaces/redirectloginoptions.html#appstate",
@@ -278,7 +254,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 34,
+      "id": 31,
       "kind": 1024,
       "name": "fragment",
       "url": "interfaces/redirectloginoptions.html#fragment",
@@ -286,7 +262,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 35,
+      "id": 32,
       "kind": 1024,
       "name": "display",
       "url": "interfaces/redirectloginoptions.html#display",
@@ -294,7 +270,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 36,
+      "id": 33,
       "kind": 1024,
       "name": "prompt",
       "url": "interfaces/redirectloginoptions.html#prompt",
@@ -302,7 +278,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 37,
+      "id": 34,
       "kind": 1024,
       "name": "max_age",
       "url": "interfaces/redirectloginoptions.html#max_age",
@@ -310,7 +286,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 38,
+      "id": 35,
       "kind": 1024,
       "name": "ui_locales",
       "url": "interfaces/redirectloginoptions.html#ui_locales",
@@ -318,7 +294,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 39,
+      "id": 36,
       "kind": 1024,
       "name": "id_token_hint",
       "url": "interfaces/redirectloginoptions.html#id_token_hint",
@@ -326,7 +302,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 40,
+      "id": 37,
       "kind": 1024,
       "name": "login_hint",
       "url": "interfaces/redirectloginoptions.html#login_hint",
@@ -334,7 +310,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 41,
+      "id": 38,
       "kind": 1024,
       "name": "acr_values",
       "url": "interfaces/redirectloginoptions.html#acr_values",
@@ -342,7 +318,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 42,
+      "id": 39,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/redirectloginoptions.html#scope",
@@ -350,7 +326,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 43,
+      "id": 40,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/redirectloginoptions.html#audience",
@@ -358,7 +334,7 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 44,
+      "id": 41,
       "kind": 1024,
       "name": "connection",
       "url": "interfaces/redirectloginoptions.html#connection",
@@ -366,14 +342,14 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 45,
+      "id": 42,
       "kind": 256,
       "name": "RedirectLoginResult",
       "url": "interfaces/redirectloginresult.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 46,
+      "id": 43,
       "kind": 1024,
       "name": "appState",
       "url": "interfaces/redirectloginresult.html#appstate",
@@ -381,14 +357,14 @@
       "parent": "RedirectLoginResult"
     },
     {
-      "id": 47,
+      "id": 44,
       "kind": 256,
       "name": "PopupLoginOptions",
       "url": "interfaces/popuploginoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 48,
+      "id": 45,
       "kind": 1024,
       "name": "display",
       "url": "interfaces/popuploginoptions.html#display",
@@ -396,7 +372,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 49,
+      "id": 46,
       "kind": 1024,
       "name": "prompt",
       "url": "interfaces/popuploginoptions.html#prompt",
@@ -404,7 +380,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 50,
+      "id": 47,
       "kind": 1024,
       "name": "max_age",
       "url": "interfaces/popuploginoptions.html#max_age",
@@ -412,7 +388,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 51,
+      "id": 48,
       "kind": 1024,
       "name": "ui_locales",
       "url": "interfaces/popuploginoptions.html#ui_locales",
@@ -420,7 +396,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 52,
+      "id": 49,
       "kind": 1024,
       "name": "id_token_hint",
       "url": "interfaces/popuploginoptions.html#id_token_hint",
@@ -428,7 +404,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 53,
+      "id": 50,
       "kind": 1024,
       "name": "login_hint",
       "url": "interfaces/popuploginoptions.html#login_hint",
@@ -436,7 +412,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 54,
+      "id": 51,
       "kind": 1024,
       "name": "acr_values",
       "url": "interfaces/popuploginoptions.html#acr_values",
@@ -444,7 +420,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 55,
+      "id": 52,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/popuploginoptions.html#scope",
@@ -452,7 +428,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 56,
+      "id": 53,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/popuploginoptions.html#audience",
@@ -460,7 +436,7 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 57,
+      "id": 54,
       "kind": 1024,
       "name": "connection",
       "url": "interfaces/popuploginoptions.html#connection",
@@ -468,14 +444,14 @@
       "parent": "PopupLoginOptions"
     },
     {
-      "id": 58,
+      "id": 55,
       "kind": 256,
       "name": "PopupConfigOptions",
       "url": "interfaces/popupconfigoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 59,
+      "id": 56,
       "kind": 1024,
       "name": "timeoutInSeconds",
       "url": "interfaces/popupconfigoptions.html#timeoutinseconds",
@@ -483,7 +459,7 @@
       "parent": "PopupConfigOptions"
     },
     {
-      "id": 60,
+      "id": 57,
       "kind": 1024,
       "name": "popup",
       "url": "interfaces/popupconfigoptions.html#popup",
@@ -491,14 +467,14 @@
       "parent": "PopupConfigOptions"
     },
     {
-      "id": 61,
+      "id": 58,
       "kind": 256,
       "name": "GetUserOptions",
       "url": "interfaces/getuseroptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 62,
+      "id": 59,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/getuseroptions.html#scope",
@@ -506,7 +482,7 @@
       "parent": "GetUserOptions"
     },
     {
-      "id": 63,
+      "id": 60,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/getuseroptions.html#audience",
@@ -514,14 +490,14 @@
       "parent": "GetUserOptions"
     },
     {
-      "id": 64,
+      "id": 61,
       "kind": 256,
       "name": "GetIdTokenClaimsOptions",
       "url": "interfaces/getidtokenclaimsoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 65,
+      "id": 62,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/getidtokenclaimsoptions.html#scope",
@@ -529,7 +505,7 @@
       "parent": "GetIdTokenClaimsOptions"
     },
     {
-      "id": 66,
+      "id": 63,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/getidtokenclaimsoptions.html#audience",
@@ -537,14 +513,14 @@
       "parent": "GetIdTokenClaimsOptions"
     },
     {
-      "id": 67,
+      "id": 64,
       "kind": 256,
       "name": "GetTokenSilentlyOptions",
       "url": "interfaces/gettokensilentlyoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 68,
+      "id": 65,
       "kind": 1024,
       "name": "ignoreCache",
       "url": "interfaces/gettokensilentlyoptions.html#ignorecache",
@@ -552,7 +528,7 @@
       "parent": "GetTokenSilentlyOptions"
     },
     {
-      "id": 69,
+      "id": 66,
       "kind": 1024,
       "name": "redirect_uri",
       "url": "interfaces/gettokensilentlyoptions.html#redirect_uri",
@@ -560,7 +536,7 @@
       "parent": "GetTokenSilentlyOptions"
     },
     {
-      "id": 70,
+      "id": 67,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/gettokensilentlyoptions.html#scope",
@@ -568,7 +544,7 @@
       "parent": "GetTokenSilentlyOptions"
     },
     {
-      "id": 71,
+      "id": 68,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/gettokensilentlyoptions.html#audience",
@@ -576,7 +552,7 @@
       "parent": "GetTokenSilentlyOptions"
     },
     {
-      "id": 72,
+      "id": 69,
       "kind": 1024,
       "name": "timeoutInSeconds",
       "url": "interfaces/gettokensilentlyoptions.html#timeoutinseconds",
@@ -584,14 +560,14 @@
       "parent": "GetTokenSilentlyOptions"
     },
     {
-      "id": 73,
+      "id": 70,
       "kind": 256,
       "name": "GetTokenWithPopupOptions",
       "url": "interfaces/gettokenwithpopupoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 74,
+      "id": 71,
       "kind": 1024,
       "name": "display",
       "url": "interfaces/gettokenwithpopupoptions.html#display",
@@ -599,7 +575,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 75,
+      "id": 72,
       "kind": 1024,
       "name": "prompt",
       "url": "interfaces/gettokenwithpopupoptions.html#prompt",
@@ -607,7 +583,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 76,
+      "id": 73,
       "kind": 1024,
       "name": "max_age",
       "url": "interfaces/gettokenwithpopupoptions.html#max_age",
@@ -615,7 +591,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 77,
+      "id": 74,
       "kind": 1024,
       "name": "ui_locales",
       "url": "interfaces/gettokenwithpopupoptions.html#ui_locales",
@@ -623,7 +599,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 78,
+      "id": 75,
       "kind": 1024,
       "name": "id_token_hint",
       "url": "interfaces/gettokenwithpopupoptions.html#id_token_hint",
@@ -631,7 +607,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 79,
+      "id": 76,
       "kind": 1024,
       "name": "login_hint",
       "url": "interfaces/gettokenwithpopupoptions.html#login_hint",
@@ -639,7 +615,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 80,
+      "id": 77,
       "kind": 1024,
       "name": "acr_values",
       "url": "interfaces/gettokenwithpopupoptions.html#acr_values",
@@ -647,7 +623,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 81,
+      "id": 78,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/gettokenwithpopupoptions.html#scope",
@@ -655,7 +631,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 82,
+      "id": 79,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/gettokenwithpopupoptions.html#audience",
@@ -663,7 +639,7 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 83,
+      "id": 80,
       "kind": 1024,
       "name": "connection",
       "url": "interfaces/gettokenwithpopupoptions.html#connection",
@@ -671,14 +647,14 @@
       "parent": "GetTokenWithPopupOptions"
     },
     {
-      "id": 84,
+      "id": 81,
       "kind": 256,
       "name": "LogoutOptions",
       "url": "interfaces/logoutoptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 85,
+      "id": 82,
       "kind": 1024,
       "name": "returnTo",
       "url": "interfaces/logoutoptions.html#returnto",
@@ -686,7 +662,7 @@
       "parent": "LogoutOptions"
     },
     {
-      "id": 86,
+      "id": 83,
       "kind": 1024,
       "name": "client_id",
       "url": "interfaces/logoutoptions.html#client_id",
@@ -694,7 +670,7 @@
       "parent": "LogoutOptions"
     },
     {
-      "id": 87,
+      "id": 84,
       "kind": 1024,
       "name": "federated",
       "url": "interfaces/logoutoptions.html#federated",
@@ -702,7 +678,7 @@
       "parent": "LogoutOptions"
     },
     {
-      "id": 88,
+      "id": 85,
       "kind": 1024,
       "name": "localOnly",
       "url": "interfaces/logoutoptions.html#localonly",
@@ -710,21 +686,21 @@
       "parent": "LogoutOptions"
     },
     {
-      "id": 89,
+      "id": 86,
       "kind": 4194304,
       "name": "CacheLocation",
-      "url": "globals.html#cachelocation",
+      "url": "index.html#cachelocation",
       "classes": "tsd-kind-type-alias"
     },
     {
-      "id": 90,
+      "id": 87,
       "kind": 4194304,
       "name": "getIdTokenClaimsOptions",
-      "url": "globals.html#getidtokenclaimsoptions",
+      "url": "index.html#getidtokenclaimsoptions",
       "classes": "tsd-kind-type-alias"
     },
     {
-      "id": 91,
+      "id": 88,
       "kind": 1024,
       "name": "redirectUri",
       "url": "interfaces/redirectloginoptions.html#redirecturi",
@@ -732,14 +708,14 @@
       "parent": "RedirectLoginOptions"
     },
     {
-      "id": 92,
+      "id": 89,
       "kind": 256,
       "name": "Auth0ContextInterface",
       "url": "interfaces/auth0contextinterface.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 93,
+      "id": 90,
       "kind": 1024,
       "name": "getAccessTokenSilently",
       "url": "interfaces/auth0contextinterface.html#getaccesstokensilently",
@@ -747,7 +723,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 94,
+      "id": 91,
       "kind": 65536,
       "name": "__type",
       "url": "interfaces/auth0contextinterface.html#getaccesstokensilently.__type",
@@ -755,7 +731,7 @@
       "parent": "Auth0ContextInterface.getAccessTokenSilently"
     },
     {
-      "id": 95,
+      "id": 92,
       "kind": 1024,
       "name": "getAccessTokenWithPopup",
       "url": "interfaces/auth0contextinterface.html#getaccesstokenwithpopup",
@@ -763,7 +739,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 96,
+      "id": 93,
       "kind": 65536,
       "name": "__type",
       "url": "interfaces/auth0contextinterface.html#getaccesstokenwithpopup.__type-1",
@@ -771,7 +747,7 @@
       "parent": "Auth0ContextInterface.getAccessTokenWithPopup"
     },
     {
-      "id": 97,
+      "id": 94,
       "kind": 1024,
       "name": "getIdTokenClaims",
       "url": "interfaces/auth0contextinterface.html#getidtokenclaims",
@@ -779,7 +755,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 98,
+      "id": 95,
       "kind": 65536,
       "name": "__type",
       "url": "interfaces/auth0contextinterface.html#getidtokenclaims.__type-2",
@@ -787,7 +763,7 @@
       "parent": "Auth0ContextInterface.getIdTokenClaims"
     },
     {
-      "id": 99,
+      "id": 96,
       "kind": 1024,
       "name": "loginWithRedirect",
       "url": "interfaces/auth0contextinterface.html#loginwithredirect",
@@ -795,7 +771,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 100,
+      "id": 97,
       "kind": 65536,
       "name": "__type",
       "url": "interfaces/auth0contextinterface.html#loginwithredirect.__type-4",
@@ -803,7 +779,7 @@
       "parent": "Auth0ContextInterface.loginWithRedirect"
     },
     {
-      "id": 101,
+      "id": 98,
       "kind": 1024,
       "name": "loginWithPopup",
       "url": "interfaces/auth0contextinterface.html#loginwithpopup",
@@ -811,7 +787,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 102,
+      "id": 99,
       "kind": 65536,
       "name": "__type",
       "url": "interfaces/auth0contextinterface.html#loginwithpopup.__type-3",
@@ -819,7 +795,7 @@
       "parent": "Auth0ContextInterface.loginWithPopup"
     },
     {
-      "id": 103,
+      "id": 100,
       "kind": 1024,
       "name": "logout",
       "url": "interfaces/auth0contextinterface.html#logout",
@@ -827,7 +803,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 104,
+      "id": 101,
       "kind": 65536,
       "name": "__type",
       "url": "interfaces/auth0contextinterface.html#logout.__type-5",
@@ -835,7 +811,7 @@
       "parent": "Auth0ContextInterface.logout"
     },
     {
-      "id": 105,
+      "id": 102,
       "kind": 1024,
       "name": "error",
       "url": "interfaces/auth0contextinterface.html#error",
@@ -843,7 +819,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 106,
+      "id": 103,
       "kind": 1024,
       "name": "isAuthenticated",
       "url": "interfaces/auth0contextinterface.html#isauthenticated",
@@ -851,7 +827,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 107,
+      "id": 104,
       "kind": 1024,
       "name": "isLoading",
       "url": "interfaces/auth0contextinterface.html#isloading",
@@ -859,7 +835,7 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 108,
+      "id": 105,
       "kind": 1024,
       "name": "user",
       "url": "interfaces/auth0contextinterface.html#user",
@@ -867,21 +843,21 @@
       "parent": "Auth0ContextInterface"
     },
     {
-      "id": 109,
+      "id": 106,
       "kind": 32,
       "name": "Auth0Context",
-      "url": "globals.html#auth0context",
+      "url": "index.html#auth0context",
       "classes": "tsd-kind-variable"
     },
     {
-      "id": 110,
+      "id": 107,
       "kind": 128,
       "name": "OAuthError",
       "url": "classes/oautherror.html",
       "classes": "tsd-kind-class"
     },
     {
-      "id": 111,
+      "id": 108,
       "kind": 512,
       "name": "constructor",
       "url": "classes/oautherror.html#constructor",
@@ -889,7 +865,7 @@
       "parent": "OAuthError"
     },
     {
-      "id": 112,
+      "id": 109,
       "kind": 1024,
       "name": "error",
       "url": "classes/oautherror.html#error",
@@ -897,7 +873,7 @@
       "parent": "OAuthError"
     },
     {
-      "id": 113,
+      "id": 110,
       "kind": 1024,
       "name": "error_description",
       "url": "classes/oautherror.html#error_description",
@@ -905,7 +881,7 @@
       "parent": "OAuthError"
     },
     {
-      "id": 114,
+      "id": 111,
       "kind": 1024,
       "name": "name",
       "url": "classes/oautherror.html#name",
@@ -913,7 +889,7 @@
       "parent": "OAuthError"
     },
     {
-      "id": 115,
+      "id": 112,
       "kind": 1024,
       "name": "message",
       "url": "classes/oautherror.html#message",
@@ -921,7 +897,7 @@
       "parent": "OAuthError"
     },
     {
-      "id": 116,
+      "id": 113,
       "kind": 1024,
       "name": "stack",
       "url": "classes/oautherror.html#stack",
@@ -929,7 +905,7 @@
       "parent": "OAuthError"
     },
     {
-      "id": 117,
+      "id": 114,
       "kind": 1024,
       "name": "Error",
       "url": "classes/oautherror.html#error-1",
@@ -937,63 +913,22 @@
       "parent": "OAuthError"
     },
     {
-      "id": 118,
-      "kind": 32,
-      "name": "CODE_RE",
-      "url": "globals.html#code_re",
-      "classes": "tsd-kind-variable"
-    },
-    {
-      "id": 119,
-      "kind": 32,
-      "name": "ERROR_RE",
-      "url": "globals.html#error_re",
-      "classes": "tsd-kind-variable"
-    },
-    {
-      "id": 120,
-      "kind": 64,
-      "name": "hasAuthParams",
-      "url": "globals.html#hasauthparams",
-      "classes": "tsd-kind-function"
-    },
-    {
-      "id": 121,
-      "kind": 64,
-      "name": "normalizeErrorFn",
-      "url": "globals.html#normalizeerrorfn",
-      "classes": "tsd-kind-function"
-    },
-    {
-      "id": 122,
-      "kind": 32,
-      "name": "loginError",
-      "url": "globals.html#loginerror",
-      "classes": "tsd-kind-variable"
-    },
-    {
-      "id": 123,
-      "kind": 32,
-      "name": "tokenError",
-      "url": "globals.html#tokenerror",
-      "classes": "tsd-kind-variable"
-    },
-    {
-      "id": 124,
-      "kind": 64,
-      "name": "wrappedGetToken",
-      "url": "globals.html#wrappedgettoken",
-      "classes": "tsd-kind-function"
-    },
-    {
-      "id": 125,
+      "id": 115,
       "kind": 256,
       "name": "Auth0ProviderOptions",
       "url": "interfaces/auth0provideroptions.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 126,
+      "id": 116,
+      "kind": 1024,
+      "name": "children",
+      "url": "interfaces/auth0provideroptions.html#children",
+      "classes": "tsd-kind-property tsd-parent-kind-interface",
+      "parent": "Auth0ProviderOptions"
+    },
+    {
+      "id": 117,
       "kind": 1024,
       "name": "onRedirectCallback",
       "url": "interfaces/auth0provideroptions.html#onredirectcallback",
@@ -1001,7 +936,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 127,
+      "id": 118,
       "kind": 1024,
       "name": "domain",
       "url": "interfaces/auth0provideroptions.html#domain",
@@ -1009,7 +944,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 128,
+      "id": 119,
       "kind": 1024,
       "name": "issuer",
       "url": "interfaces/auth0provideroptions.html#issuer",
@@ -1017,7 +952,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 129,
+      "id": 120,
       "kind": 1024,
       "name": "clientId",
       "url": "interfaces/auth0provideroptions.html#clientid",
@@ -1025,7 +960,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 130,
+      "id": 121,
       "kind": 1024,
       "name": "redirectUri",
       "url": "interfaces/auth0provideroptions.html#redirecturi",
@@ -1033,7 +968,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 131,
+      "id": 122,
       "kind": 1024,
       "name": "leeway",
       "url": "interfaces/auth0provideroptions.html#leeway",
@@ -1041,7 +976,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 132,
+      "id": 123,
       "kind": 1024,
       "name": "cacheLocation",
       "url": "interfaces/auth0provideroptions.html#cachelocation",
@@ -1049,7 +984,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 133,
+      "id": 124,
       "kind": 1024,
       "name": "useRefreshTokens",
       "url": "interfaces/auth0provideroptions.html#userefreshtokens",
@@ -1057,7 +992,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 134,
+      "id": 125,
       "kind": 1024,
       "name": "authorizeTimeoutInSeconds",
       "url": "interfaces/auth0provideroptions.html#authorizetimeoutinseconds",
@@ -1065,7 +1000,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 135,
+      "id": 126,
       "kind": 1024,
       "name": "advancedOptions",
       "url": "interfaces/auth0provideroptions.html#advancedoptions",
@@ -1073,7 +1008,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 136,
+      "id": 127,
       "kind": 1024,
       "name": "maxAge",
       "url": "interfaces/auth0provideroptions.html#maxage",
@@ -1081,7 +1016,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 137,
+      "id": 128,
       "kind": 1024,
       "name": "scope",
       "url": "interfaces/auth0provideroptions.html#scope",
@@ -1089,7 +1024,7 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 138,
+      "id": 129,
       "kind": 1024,
       "name": "audience",
       "url": "interfaces/auth0provideroptions.html#audience",
@@ -1097,80 +1032,51 @@
       "parent": "Auth0ProviderOptions"
     },
     {
-      "id": 139,
-      "kind": 1024,
-      "name": "children",
-      "url": "interfaces/auth0provideroptions.html#children",
-      "classes": "tsd-kind-property tsd-parent-kind-interface tsd-is-inherited",
-      "parent": "Auth0ProviderOptions"
-    },
-    {
-      "id": 140,
+      "id": 130,
       "kind": 4194304,
       "name": "AppState",
-      "url": "globals.html#appstate",
+      "url": "index.html#appstate",
       "classes": "tsd-kind-type-alias"
     },
     {
-      "id": 141,
+      "id": 131,
       "kind": 65536,
       "name": "__type",
-      "url": "globals.html#appstate.__type",
+      "url": "index.html#appstate.__type",
       "classes": "tsd-kind-type-literal tsd-parent-kind-type-alias",
       "parent": "AppState"
     },
     {
-      "id": 142,
+      "id": 132,
       "kind": 32,
       "name": "returnTo",
-      "url": "globals.html#appstate.__type.returnto",
+      "url": "index.html#appstate.__type.returnto",
       "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
       "parent": "AppState.__type"
     },
     {
-      "id": 143,
-      "kind": 64,
-      "name": "toAuth0ClientOptions",
-      "url": "globals.html#toauth0clientoptions",
-      "classes": "tsd-kind-function"
-    },
-    {
-      "id": 144,
-      "kind": 64,
-      "name": "toAuth0LoginRedirectOptions",
-      "url": "globals.html#toauth0loginredirectoptions",
-      "classes": "tsd-kind-function"
-    },
-    {
-      "id": 145,
-      "kind": 64,
-      "name": "defaultOnRedirectCallback",
-      "url": "globals.html#defaultonredirectcallback",
-      "classes": "tsd-kind-function"
-    },
-    {
-      "id": 146,
+      "id": 133,
       "kind": 64,
       "name": "Auth0Provider",
-      "url": "globals.html#auth0provider",
+      "url": "index.html#auth0provider",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 147,
+      "id": 134,
       "kind": 64,
       "name": "useAuth0",
-      "url": "globals.html#useauth0",
+      "url": "index.html#useauth0",
       "classes": "tsd-kind-function"
     },
     {
-      "id": 148,
+      "id": 135,
       "kind": 256,
       "name": "WithAuth0Props",
       "url": "interfaces/withauth0props.html",
       "classes": "tsd-kind-interface"
     },
     {
-      "id": 149,
+      "id": 136,
       "kind": 1024,
       "name": "auth0",
       "url": "interfaces/withauth0props.html#auth0",
@@ -1178,24 +1084,17 @@
       "parent": "WithAuth0Props"
     },
     {
-      "id": 150,
+      "id": 137,
       "kind": 64,
       "name": "withAuth0",
-      "url": "globals.html#withauth0",
+      "url": "index.html#withauth0",
       "classes": "tsd-kind-function tsd-has-type-parameter"
     },
     {
-      "id": 151,
-      "kind": 64,
-      "name": "defaultOnRedirecting",
-      "url": "globals.html#defaultonredirecting",
-      "classes": "tsd-kind-function"
-    },
-    {
-      "id": 152,
+      "id": 138,
       "kind": 64,
       "name": "withAuthenticationRequired",
-      "url": "globals.html#withauthenticationrequired",
+      "url": "index.html#withauthenticationrequired",
       "classes": "tsd-kind-function tsd-has-type-parameter"
     }
   ],
@@ -1203,326 +1102,298 @@
     "version": "2.3.8",
     "fields": ["name", "parent"],
     "fieldVectors": [
-      ["name/0", [0, 33.322]],
+      ["name/0", [0, 32.369]],
       ["parent/0", []],
-      ["name/1", [1, 35.329]],
-      ["parent/1", [0, 2.948]],
-      ["name/2", [2, 37.842]],
-      ["parent/2", [0, 2.948]],
-      ["name/3", [3, 37.842]],
-      ["parent/3", [0, 2.948]],
-      ["name/4", [4, 37.842]],
-      ["parent/4", [0, 2.948]],
-      ["name/5", [4, 37.842]],
+      ["name/1", [1, 34.376]],
+      ["parent/1", [0, 2.97]],
+      ["name/2", [2, 40.254]],
+      ["parent/2", [0, 2.97]],
+      ["name/3", [3, 40.254]],
+      ["parent/3", [0, 2.97]],
+      ["name/4", [4, 36.889]],
+      ["parent/4", [0, 2.97]],
+      ["name/5", [4, 36.889]],
       ["parent/5", []],
-      ["name/6", [5, 37.842]],
+      ["name/6", [5, 34.376]],
       ["parent/6", []],
-      ["name/7", [2, 37.842]],
-      ["parent/7", [5, 3.347]],
-      ["name/8", [3, 37.842]],
-      ["parent/8", [5, 3.347]],
-      ["name/9", [6, 35.329]],
-      ["parent/9", []],
-      ["name/10", [7, 46.315]],
-      ["parent/10", [6, 3.125]],
-      ["name/11", [8, 20.165]],
-      ["parent/11", []],
-      ["name/12", [9, 41.207]],
-      ["parent/12", [8, 1.784]],
-      ["name/13", [10, 41.207]],
-      ["parent/13", [8, 1.784]],
-      ["name/14", [11, 41.207]],
-      ["parent/14", [8, 1.784]],
-      ["name/15", [12, 37.842]],
-      ["parent/15", [8, 1.784]],
-      ["name/16", [13, 41.207]],
-      ["parent/16", [8, 1.784]],
-      ["name/17", [14, 37.842]],
-      ["parent/17", [8, 1.784]],
-      ["name/18", [15, 41.207]],
-      ["parent/18", [8, 1.784]],
-      ["name/19", [16, 41.207]],
-      ["parent/19", [8, 1.784]],
-      ["name/20", [6, 35.329]],
-      ["parent/20", [8, 1.784]],
-      ["name/21", [17, 35.329]],
-      ["parent/21", [8, 1.784]],
-      ["name/22", [18, 35.329]],
-      ["parent/22", [8, 1.784]],
-      ["name/23", [19, 35.329]],
-      ["parent/23", [8, 1.784]],
-      ["name/24", [20, 35.329]],
-      ["parent/24", [8, 1.784]],
-      ["name/25", [21, 35.329]],
-      ["parent/25", [8, 1.784]],
-      ["name/26", [22, 35.329]],
-      ["parent/26", [8, 1.784]],
-      ["name/27", [23, 35.329]],
-      ["parent/27", [8, 1.784]],
-      ["name/28", [24, 28.969]],
-      ["parent/28", [8, 1.784]],
-      ["name/29", [25, 28.969]],
-      ["parent/29", [8, 1.784]],
-      ["name/30", [26, 35.329]],
-      ["parent/30", [8, 1.784]],
-      ["name/31", [27, 22.961]],
-      ["parent/31", []],
-      ["name/32", [12, 37.842]],
-      ["parent/32", [27, 2.031]],
-      ["name/33", [28, 35.329]],
-      ["parent/33", [27, 2.031]],
-      ["name/34", [29, 46.315]],
-      ["parent/34", [27, 2.031]],
-      ["name/35", [17, 35.329]],
-      ["parent/35", [27, 2.031]],
-      ["name/36", [18, 35.329]],
-      ["parent/36", [27, 2.031]],
-      ["name/37", [19, 35.329]],
-      ["parent/37", [27, 2.031]],
-      ["name/38", [20, 35.329]],
-      ["parent/38", [27, 2.031]],
-      ["name/39", [21, 35.329]],
-      ["parent/39", [27, 2.031]],
-      ["name/40", [22, 35.329]],
-      ["parent/40", [27, 2.031]],
-      ["name/41", [23, 35.329]],
-      ["parent/41", [27, 2.031]],
-      ["name/42", [24, 28.969]],
-      ["parent/42", [27, 2.031]],
-      ["name/43", [25, 28.969]],
-      ["parent/43", [27, 2.031]],
-      ["name/44", [26, 35.329]],
-      ["parent/44", [27, 2.031]],
-      ["name/45", [30, 41.207]],
-      ["parent/45", []],
-      ["name/46", [28, 35.329]],
-      ["parent/46", [30, 3.645]],
-      ["name/47", [31, 25.946]],
-      ["parent/47", []],
-      ["name/48", [17, 35.329]],
-      ["parent/48", [31, 2.295]],
-      ["name/49", [18, 35.329]],
-      ["parent/49", [31, 2.295]],
-      ["name/50", [19, 35.329]],
-      ["parent/50", [31, 2.295]],
-      ["name/51", [20, 35.329]],
-      ["parent/51", [31, 2.295]],
-      ["name/52", [21, 35.329]],
-      ["parent/52", [31, 2.295]],
-      ["name/53", [22, 35.329]],
-      ["parent/53", [31, 2.295]],
-      ["name/54", [23, 35.329]],
-      ["parent/54", [31, 2.295]],
-      ["name/55", [24, 28.969]],
-      ["parent/55", [31, 2.295]],
-      ["name/56", [25, 28.969]],
-      ["parent/56", [31, 2.295]],
-      ["name/57", [26, 35.329]],
-      ["parent/57", [31, 2.295]],
-      ["name/58", [32, 37.842]],
+      ["name/7", [6, 45.362]],
+      ["parent/7", [5, 3.155]],
+      ["name/8", [7, 19.212]],
+      ["parent/8", []],
+      ["name/9", [8, 40.254]],
+      ["parent/9", [7, 1.763]],
+      ["name/10", [9, 40.254]],
+      ["parent/10", [7, 1.763]],
+      ["name/11", [10, 40.254]],
+      ["parent/11", [7, 1.763]],
+      ["name/12", [11, 36.889]],
+      ["parent/12", [7, 1.763]],
+      ["name/13", [12, 40.254]],
+      ["parent/13", [7, 1.763]],
+      ["name/14", [13, 36.889]],
+      ["parent/14", [7, 1.763]],
+      ["name/15", [14, 40.254]],
+      ["parent/15", [7, 1.763]],
+      ["name/16", [15, 40.254]],
+      ["parent/16", [7, 1.763]],
+      ["name/17", [5, 34.376]],
+      ["parent/17", [7, 1.763]],
+      ["name/18", [16, 34.376]],
+      ["parent/18", [7, 1.763]],
+      ["name/19", [17, 34.376]],
+      ["parent/19", [7, 1.763]],
+      ["name/20", [18, 34.376]],
+      ["parent/20", [7, 1.763]],
+      ["name/21", [19, 34.376]],
+      ["parent/21", [7, 1.763]],
+      ["name/22", [20, 34.376]],
+      ["parent/22", [7, 1.763]],
+      ["name/23", [21, 34.376]],
+      ["parent/23", [7, 1.763]],
+      ["name/24", [22, 34.376]],
+      ["parent/24", [7, 1.763]],
+      ["name/25", [23, 28.016]],
+      ["parent/25", [7, 1.763]],
+      ["name/26", [24, 28.016]],
+      ["parent/26", [7, 1.763]],
+      ["name/27", [25, 34.376]],
+      ["parent/27", [7, 1.763]],
+      ["name/28", [26, 22.008]],
+      ["parent/28", []],
+      ["name/29", [11, 36.889]],
+      ["parent/29", [26, 2.02]],
+      ["name/30", [27, 34.376]],
+      ["parent/30", [26, 2.02]],
+      ["name/31", [28, 45.362]],
+      ["parent/31", [26, 2.02]],
+      ["name/32", [16, 34.376]],
+      ["parent/32", [26, 2.02]],
+      ["name/33", [17, 34.376]],
+      ["parent/33", [26, 2.02]],
+      ["name/34", [18, 34.376]],
+      ["parent/34", [26, 2.02]],
+      ["name/35", [19, 34.376]],
+      ["parent/35", [26, 2.02]],
+      ["name/36", [20, 34.376]],
+      ["parent/36", [26, 2.02]],
+      ["name/37", [21, 34.376]],
+      ["parent/37", [26, 2.02]],
+      ["name/38", [22, 34.376]],
+      ["parent/38", [26, 2.02]],
+      ["name/39", [23, 28.016]],
+      ["parent/39", [26, 2.02]],
+      ["name/40", [24, 28.016]],
+      ["parent/40", [26, 2.02]],
+      ["name/41", [25, 34.376]],
+      ["parent/41", [26, 2.02]],
+      ["name/42", [29, 40.254]],
+      ["parent/42", []],
+      ["name/43", [27, 34.376]],
+      ["parent/43", [29, 3.694]],
+      ["name/44", [30, 24.993]],
+      ["parent/44", []],
+      ["name/45", [16, 34.376]],
+      ["parent/45", [30, 2.294]],
+      ["name/46", [17, 34.376]],
+      ["parent/46", [30, 2.294]],
+      ["name/47", [18, 34.376]],
+      ["parent/47", [30, 2.294]],
+      ["name/48", [19, 34.376]],
+      ["parent/48", [30, 2.294]],
+      ["name/49", [20, 34.376]],
+      ["parent/49", [30, 2.294]],
+      ["name/50", [21, 34.376]],
+      ["parent/50", [30, 2.294]],
+      ["name/51", [22, 34.376]],
+      ["parent/51", [30, 2.294]],
+      ["name/52", [23, 28.016]],
+      ["parent/52", [30, 2.294]],
+      ["name/53", [24, 28.016]],
+      ["parent/53", [30, 2.294]],
+      ["name/54", [25, 34.376]],
+      ["parent/54", [30, 2.294]],
+      ["name/55", [31, 36.889]],
+      ["parent/55", []],
+      ["name/56", [32, 40.254]],
+      ["parent/56", [31, 3.385]],
+      ["name/57", [33, 45.362]],
+      ["parent/57", [31, 3.385]],
+      ["name/58", [34, 36.889]],
       ["parent/58", []],
-      ["name/59", [33, 41.207]],
-      ["parent/59", [32, 3.347]],
-      ["name/60", [34, 46.315]],
-      ["parent/60", [32, 3.347]],
-      ["name/61", [35, 37.842]],
+      ["name/59", [23, 28.016]],
+      ["parent/59", [34, 3.385]],
+      ["name/60", [24, 28.016]],
+      ["parent/60", [34, 3.385]],
+      ["name/61", [35, 34.376]],
       ["parent/61", []],
-      ["name/62", [24, 28.969]],
-      ["parent/62", [35, 3.347]],
-      ["name/63", [25, 28.969]],
-      ["parent/63", [35, 3.347]],
-      ["name/64", [36, 35.329]],
+      ["name/62", [23, 28.016]],
+      ["parent/62", [35, 3.155]],
+      ["name/63", [24, 28.016]],
+      ["parent/63", [35, 3.155]],
+      ["name/64", [36, 30.698]],
       ["parent/64", []],
-      ["name/65", [24, 28.969]],
-      ["parent/65", [36, 3.125]],
-      ["name/66", [25, 28.969]],
-      ["parent/66", [36, 3.125]],
-      ["name/67", [37, 31.652]],
-      ["parent/67", []],
-      ["name/68", [38, 46.315]],
-      ["parent/68", [37, 2.8]],
-      ["name/69", [12, 37.842]],
-      ["parent/69", [37, 2.8]],
-      ["name/70", [24, 28.969]],
-      ["parent/70", [37, 2.8]],
-      ["name/71", [25, 28.969]],
-      ["parent/71", [37, 2.8]],
-      ["name/72", [33, 41.207]],
-      ["parent/72", [37, 2.8]],
-      ["name/73", [39, 25.946]],
-      ["parent/73", []],
-      ["name/74", [17, 35.329]],
-      ["parent/74", [39, 2.295]],
-      ["name/75", [18, 35.329]],
-      ["parent/75", [39, 2.295]],
-      ["name/76", [19, 35.329]],
-      ["parent/76", [39, 2.295]],
-      ["name/77", [20, 35.329]],
-      ["parent/77", [39, 2.295]],
-      ["name/78", [21, 35.329]],
-      ["parent/78", [39, 2.295]],
-      ["name/79", [22, 35.329]],
-      ["parent/79", [39, 2.295]],
-      ["name/80", [23, 35.329]],
-      ["parent/80", [39, 2.295]],
-      ["name/81", [24, 28.969]],
-      ["parent/81", [39, 2.295]],
-      ["name/82", [25, 28.969]],
-      ["parent/82", [39, 2.295]],
-      ["name/83", [26, 35.329]],
-      ["parent/83", [39, 2.295]],
-      ["name/84", [40, 33.322]],
-      ["parent/84", []],
-      ["name/85", [41, 41.207]],
-      ["parent/85", [40, 2.948]],
-      ["name/86", [11, 41.207]],
-      ["parent/86", [40, 2.948]],
-      ["name/87", [42, 46.315]],
-      ["parent/87", [40, 2.948]],
-      ["name/88", [43, 46.315]],
-      ["parent/88", [40, 2.948]],
-      ["name/89", [14, 37.842]],
+      ["name/65", [37, 45.362]],
+      ["parent/65", [36, 2.817]],
+      ["name/66", [11, 36.889]],
+      ["parent/66", [36, 2.817]],
+      ["name/67", [23, 28.016]],
+      ["parent/67", [36, 2.817]],
+      ["name/68", [24, 28.016]],
+      ["parent/68", [36, 2.817]],
+      ["name/69", [32, 40.254]],
+      ["parent/69", [36, 2.817]],
+      ["name/70", [38, 24.993]],
+      ["parent/70", []],
+      ["name/71", [16, 34.376]],
+      ["parent/71", [38, 2.294]],
+      ["name/72", [17, 34.376]],
+      ["parent/72", [38, 2.294]],
+      ["name/73", [18, 34.376]],
+      ["parent/73", [38, 2.294]],
+      ["name/74", [19, 34.376]],
+      ["parent/74", [38, 2.294]],
+      ["name/75", [20, 34.376]],
+      ["parent/75", [38, 2.294]],
+      ["name/76", [21, 34.376]],
+      ["parent/76", [38, 2.294]],
+      ["name/77", [22, 34.376]],
+      ["parent/77", [38, 2.294]],
+      ["name/78", [23, 28.016]],
+      ["parent/78", [38, 2.294]],
+      ["name/79", [24, 28.016]],
+      ["parent/79", [38, 2.294]],
+      ["name/80", [25, 34.376]],
+      ["parent/80", [38, 2.294]],
+      ["name/81", [39, 32.369]],
+      ["parent/81", []],
+      ["name/82", [40, 40.254]],
+      ["parent/82", [39, 2.97]],
+      ["name/83", [10, 40.254]],
+      ["parent/83", [39, 2.97]],
+      ["name/84", [41, 45.362]],
+      ["parent/84", [39, 2.97]],
+      ["name/85", [42, 45.362]],
+      ["parent/85", [39, 2.97]],
+      ["name/86", [13, 36.889]],
+      ["parent/86", []],
+      ["name/87", [35, 34.376]],
+      ["parent/87", []],
+      ["name/88", [43, 40.254]],
+      ["parent/88", [26, 2.02]],
+      ["name/89", [44, 24.993]],
       ["parent/89", []],
-      ["name/90", [36, 35.329]],
-      ["parent/90", []],
-      ["name/91", [44, 41.207]],
-      ["parent/91", [27, 2.031]],
-      ["name/92", [45, 25.946]],
-      ["parent/92", []],
-      ["name/93", [46, 46.315]],
-      ["parent/93", [45, 2.295]],
-      ["name/94", [47, 30.22]],
-      ["parent/94", [48, 4.097]],
-      ["name/95", [49, 46.315]],
-      ["parent/95", [45, 2.295]],
-      ["name/96", [47, 30.22]],
-      ["parent/96", [50, 4.097]],
-      ["name/97", [51, 46.315]],
-      ["parent/97", [45, 2.295]],
-      ["name/98", [47, 30.22]],
-      ["parent/98", [52, 4.097]],
-      ["name/99", [53, 46.315]],
-      ["parent/99", [45, 2.295]],
-      ["name/100", [47, 30.22]],
-      ["parent/100", [54, 4.097]],
-      ["name/101", [55, 46.315]],
-      ["parent/101", [45, 2.295]],
-      ["name/102", [47, 30.22]],
-      ["parent/102", [56, 4.097]],
-      ["name/103", [57, 46.315]],
-      ["parent/103", [45, 2.295]],
-      ["name/104", [47, 30.22]],
-      ["parent/104", [58, 4.097]],
-      ["name/105", [1, 35.329]],
-      ["parent/105", [45, 2.295]],
-      ["name/106", [2, 37.842]],
-      ["parent/106", [45, 2.295]],
-      ["name/107", [3, 37.842]],
-      ["parent/107", [45, 2.295]],
-      ["name/108", [4, 37.842]],
-      ["parent/108", [45, 2.295]],
-      ["name/109", [59, 46.315]],
-      ["parent/109", []],
-      ["name/110", [60, 28.969]],
-      ["parent/110", []],
-      ["name/111", [61, 46.315]],
-      ["parent/111", [60, 2.563]],
-      ["name/112", [1, 35.329]],
-      ["parent/112", [60, 2.563]],
-      ["name/113", [62, 46.315]],
-      ["parent/113", [60, 2.563]],
-      ["name/114", [63, 46.315]],
-      ["parent/114", [60, 2.563]],
-      ["name/115", [64, 46.315]],
-      ["parent/115", [60, 2.563]],
-      ["name/116", [65, 46.315]],
-      ["parent/116", [60, 2.563]],
-      ["name/117", [1, 35.329]],
-      ["parent/117", [60, 2.563]],
-      ["name/118", [66, 46.315]],
-      ["parent/118", []],
-      ["name/119", [67, 46.315]],
-      ["parent/119", []],
-      ["name/120", [68, 46.315]],
-      ["parent/120", []],
-      ["name/121", [69, 46.315]],
-      ["parent/121", []],
-      ["name/122", [70, 46.315]],
-      ["parent/122", []],
-      ["name/123", [71, 46.315]],
-      ["parent/123", []],
-      ["name/124", [72, 46.315]],
-      ["parent/124", []],
-      ["name/125", [73, 22.961]],
-      ["parent/125", []],
-      ["name/126", [74, 46.315]],
-      ["parent/126", [73, 2.031]],
-      ["name/127", [9, 41.207]],
-      ["parent/127", [73, 2.031]],
-      ["name/128", [10, 41.207]],
-      ["parent/128", [73, 2.031]],
-      ["name/129", [75, 46.315]],
-      ["parent/129", [73, 2.031]],
-      ["name/130", [44, 41.207]],
-      ["parent/130", [73, 2.031]],
-      ["name/131", [13, 41.207]],
-      ["parent/131", [73, 2.031]],
-      ["name/132", [14, 37.842]],
-      ["parent/132", [73, 2.031]],
-      ["name/133", [15, 41.207]],
-      ["parent/133", [73, 2.031]],
-      ["name/134", [16, 41.207]],
-      ["parent/134", [73, 2.031]],
-      ["name/135", [6, 35.329]],
-      ["parent/135", [73, 2.031]],
-      ["name/136", [76, 46.315]],
-      ["parent/136", [73, 2.031]],
-      ["name/137", [24, 28.969]],
-      ["parent/137", [73, 2.031]],
-      ["name/138", [25, 28.969]],
-      ["parent/138", [73, 2.031]],
-      ["name/139", [77, 46.315]],
-      ["parent/139", [73, 2.031]],
-      ["name/140", [28, 35.329]],
-      ["parent/140", []],
-      ["name/141", [47, 30.22]],
-      ["parent/141", [28, 3.125]],
-      ["name/142", [41, 41.207]],
-      ["parent/142", [78, 4.097]],
-      ["name/143", [79, 46.315]],
-      ["parent/143", []],
-      ["name/144", [80, 46.315]],
-      ["parent/144", []],
-      ["name/145", [81, 46.315]],
-      ["parent/145", []],
-      ["name/146", [82, 46.315]],
-      ["parent/146", []],
-      ["name/147", [83, 46.315]],
-      ["parent/147", []],
-      ["name/148", [84, 41.207]],
-      ["parent/148", []],
-      ["name/149", [85, 46.315]],
-      ["parent/149", [84, 3.645]],
-      ["name/150", [86, 46.315]],
-      ["parent/150", []],
-      ["name/151", [87, 46.315]],
-      ["parent/151", []],
-      ["name/152", [88, 46.315]],
-      ["parent/152", []]
+      ["name/90", [45, 45.362]],
+      ["parent/90", [44, 2.294]],
+      ["name/91", [46, 29.267]],
+      ["parent/91", [47, 4.163]],
+      ["name/92", [48, 45.362]],
+      ["parent/92", [44, 2.294]],
+      ["name/93", [46, 29.267]],
+      ["parent/93", [49, 4.163]],
+      ["name/94", [50, 45.362]],
+      ["parent/94", [44, 2.294]],
+      ["name/95", [46, 29.267]],
+      ["parent/95", [51, 4.163]],
+      ["name/96", [52, 45.362]],
+      ["parent/96", [44, 2.294]],
+      ["name/97", [46, 29.267]],
+      ["parent/97", [53, 4.163]],
+      ["name/98", [54, 45.362]],
+      ["parent/98", [44, 2.294]],
+      ["name/99", [46, 29.267]],
+      ["parent/99", [55, 4.163]],
+      ["name/100", [56, 45.362]],
+      ["parent/100", [44, 2.294]],
+      ["name/101", [46, 29.267]],
+      ["parent/101", [57, 4.163]],
+      ["name/102", [1, 34.376]],
+      ["parent/102", [44, 2.294]],
+      ["name/103", [2, 40.254]],
+      ["parent/103", [44, 2.294]],
+      ["name/104", [3, 40.254]],
+      ["parent/104", [44, 2.294]],
+      ["name/105", [4, 36.889]],
+      ["parent/105", [44, 2.294]],
+      ["name/106", [58, 45.362]],
+      ["parent/106", []],
+      ["name/107", [59, 28.016]],
+      ["parent/107", []],
+      ["name/108", [60, 45.362]],
+      ["parent/108", [59, 2.571]],
+      ["name/109", [1, 34.376]],
+      ["parent/109", [59, 2.571]],
+      ["name/110", [61, 45.362]],
+      ["parent/110", [59, 2.571]],
+      ["name/111", [62, 45.362]],
+      ["parent/111", [59, 2.571]],
+      ["name/112", [63, 45.362]],
+      ["parent/112", [59, 2.571]],
+      ["name/113", [64, 45.362]],
+      ["parent/113", [59, 2.571]],
+      ["name/114", [1, 34.376]],
+      ["parent/114", [59, 2.571]],
+      ["name/115", [65, 22.008]],
+      ["parent/115", []],
+      ["name/116", [66, 45.362]],
+      ["parent/116", [65, 2.02]],
+      ["name/117", [67, 45.362]],
+      ["parent/117", [65, 2.02]],
+      ["name/118", [8, 40.254]],
+      ["parent/118", [65, 2.02]],
+      ["name/119", [9, 40.254]],
+      ["parent/119", [65, 2.02]],
+      ["name/120", [68, 45.362]],
+      ["parent/120", [65, 2.02]],
+      ["name/121", [43, 40.254]],
+      ["parent/121", [65, 2.02]],
+      ["name/122", [12, 40.254]],
+      ["parent/122", [65, 2.02]],
+      ["name/123", [13, 36.889]],
+      ["parent/123", [65, 2.02]],
+      ["name/124", [14, 40.254]],
+      ["parent/124", [65, 2.02]],
+      ["name/125", [15, 40.254]],
+      ["parent/125", [65, 2.02]],
+      ["name/126", [5, 34.376]],
+      ["parent/126", [65, 2.02]],
+      ["name/127", [69, 45.362]],
+      ["parent/127", [65, 2.02]],
+      ["name/128", [23, 28.016]],
+      ["parent/128", [65, 2.02]],
+      ["name/129", [24, 28.016]],
+      ["parent/129", [65, 2.02]],
+      ["name/130", [27, 34.376]],
+      ["parent/130", []],
+      ["name/131", [46, 29.267]],
+      ["parent/131", [27, 3.155]],
+      ["name/132", [40, 40.254]],
+      ["parent/132", [70, 4.163]],
+      ["name/133", [71, 45.362]],
+      ["parent/133", []],
+      ["name/134", [72, 45.362]],
+      ["parent/134", []],
+      ["name/135", [73, 40.254]],
+      ["parent/135", []],
+      ["name/136", [74, 45.362]],
+      ["parent/136", [73, 3.694]],
+      ["name/137", [75, 45.362]],
+      ["parent/137", []],
+      ["name/138", [76, 45.362]],
+      ["parent/138", []]
     ],
     "invertedIndex": [
       [
         "__type",
         {
-          "_index": 47,
+          "_index": 46,
           "name": {
-            "94": {},
-            "96": {},
-            "98": {},
-            "100": {},
-            "102": {},
-            "104": {},
-            "141": {}
+            "91": {},
+            "93": {},
+            "95": {},
+            "97": {},
+            "99": {},
+            "101": {},
+            "131": {}
           },
           "parent": {}
         }
@@ -1530,55 +1401,58 @@
       [
         "acr_values",
         {
-          "_index": 23,
-          "name": { "27": {}, "41": {}, "54": {}, "80": {} },
+          "_index": 22,
+          "name": { "24": {}, "38": {}, "51": {}, "77": {} },
           "parent": {}
         }
       ],
       [
         "advancedoptions",
         {
-          "_index": 6,
-          "name": { "9": {}, "20": {}, "135": {} },
-          "parent": { "10": {} }
+          "_index": 5,
+          "name": { "6": {}, "17": {}, "126": {} },
+          "parent": { "7": {} }
         }
       ],
       [
         "appstate",
         {
-          "_index": 28,
-          "name": { "33": {}, "46": {}, "140": {} },
-          "parent": { "141": {} }
+          "_index": 27,
+          "name": { "30": {}, "43": {}, "130": {} },
+          "parent": { "131": {} }
         }
       ],
       [
         "appstate.__type",
-        { "_index": 78, "name": {}, "parent": { "142": {} } }
+        { "_index": 70, "name": {}, "parent": { "132": {} } }
       ],
       [
         "audience",
         {
-          "_index": 25,
+          "_index": 24,
           "name": {
-            "29": {},
-            "43": {},
-            "56": {},
+            "26": {},
+            "40": {},
+            "53": {},
+            "60": {},
             "63": {},
-            "66": {},
-            "71": {},
-            "82": {},
-            "138": {}
+            "68": {},
+            "79": {},
+            "129": {}
           },
           "parent": {}
         }
       ],
-      ["auth0", { "_index": 85, "name": { "149": {} }, "parent": {} }],
+      ["auth0", { "_index": 74, "name": { "136": {} }, "parent": {} }],
       [
         "auth0clientoptions",
         {
-          "_index": 8,
-          "name": { "11": {} },
+          "_index": 7,
+          "name": { "8": {} },
           "parent": {
+            "9": {},
+            "10": {},
+            "11": {},
             "12": {},
             "13": {},
             "14": {},
@@ -1594,84 +1468,81 @@
             "24": {},
             "25": {},
             "26": {},
-            "27": {},
-            "28": {},
-            "29": {},
-            "30": {}
+            "27": {}
           }
         }
       ],
-      ["auth0context", { "_index": 59, "name": { "109": {} }, "parent": {} }],
+      ["auth0context", { "_index": 58, "name": { "106": {} }, "parent": {} }],
       [
         "auth0contextinterface",
         {
-          "_index": 45,
-          "name": { "92": {} },
+          "_index": 44,
+          "name": { "89": {} },
           "parent": {
-            "93": {},
-            "95": {},
-            "97": {},
-            "99": {},
-            "101": {},
+            "90": {},
+            "92": {},
+            "94": {},
+            "96": {},
+            "98": {},
+            "100": {},
+            "102": {},
             "103": {},
-            "105": {},
-            "106": {},
-            "107": {},
-            "108": {}
+            "104": {},
+            "105": {}
           }
         }
       ],
       [
         "auth0contextinterface.getaccesstokensilently",
-        { "_index": 48, "name": {}, "parent": { "94": {} } }
+        { "_index": 47, "name": {}, "parent": { "91": {} } }
       ],
       [
         "auth0contextinterface.getaccesstokenwithpopup",
-        { "_index": 50, "name": {}, "parent": { "96": {} } }
+        { "_index": 49, "name": {}, "parent": { "93": {} } }
       ],
       [
         "auth0contextinterface.getidtokenclaims",
-        { "_index": 52, "name": {}, "parent": { "98": {} } }
+        { "_index": 51, "name": {}, "parent": { "95": {} } }
       ],
       [
         "auth0contextinterface.loginwithpopup",
-        { "_index": 56, "name": {}, "parent": { "102": {} } }
+        { "_index": 55, "name": {}, "parent": { "99": {} } }
       ],
       [
         "auth0contextinterface.loginwithredirect",
-        { "_index": 54, "name": {}, "parent": { "100": {} } }
+        { "_index": 53, "name": {}, "parent": { "97": {} } }
       ],
       [
         "auth0contextinterface.logout",
-        { "_index": 58, "name": {}, "parent": { "104": {} } }
+        { "_index": 57, "name": {}, "parent": { "101": {} } }
       ],
-      ["auth0provider", { "_index": 82, "name": { "146": {} }, "parent": {} }],
+      ["auth0provider", { "_index": 71, "name": { "133": {} }, "parent": {} }],
       [
         "auth0provideroptions",
         {
-          "_index": 73,
-          "name": { "125": {} },
+          "_index": 65,
+          "name": { "115": {} },
           "parent": {
+            "116": {},
+            "117": {},
+            "118": {},
+            "119": {},
+            "120": {},
+            "121": {},
+            "122": {},
+            "123": {},
+            "124": {},
+            "125": {},
             "126": {},
             "127": {},
             "128": {},
-            "129": {},
-            "130": {},
-            "131": {},
-            "132": {},
-            "133": {},
-            "134": {},
-            "135": {},
-            "136": {},
-            "137": {},
-            "138": {},
-            "139": {}
+            "129": {}
           }
         }
       ],
       [
         "authorizetimeoutinseconds",
-        { "_index": 16, "name": { "19": {}, "134": {} }, "parent": {} }
+        { "_index": 15, "name": { "16": {}, "125": {} }, "parent": {} }
       ],
       [
         "authstate",
@@ -1684,245 +1555,225 @@
       [
         "cachelocation",
         {
-          "_index": 14,
-          "name": { "17": {}, "89": {}, "132": {} },
+          "_index": 13,
+          "name": { "14": {}, "86": {}, "123": {} },
           "parent": {}
         }
       ],
-      ["children", { "_index": 77, "name": { "139": {} }, "parent": {} }],
+      ["children", { "_index": 66, "name": { "116": {} }, "parent": {} }],
       [
         "client_id",
-        { "_index": 11, "name": { "14": {}, "86": {} }, "parent": {} }
+        { "_index": 10, "name": { "11": {}, "83": {} }, "parent": {} }
       ],
-      ["clientid", { "_index": 75, "name": { "129": {} }, "parent": {} }],
-      ["code_re", { "_index": 66, "name": { "118": {} }, "parent": {} }],
+      ["clientid", { "_index": 68, "name": { "120": {} }, "parent": {} }],
       [
         "connection",
         {
-          "_index": 26,
-          "name": { "30": {}, "44": {}, "57": {}, "83": {} },
+          "_index": 25,
+          "name": { "27": {}, "41": {}, "54": {}, "80": {} },
           "parent": {}
         }
       ],
-      ["constructor", { "_index": 61, "name": { "111": {} }, "parent": {} }],
-      [
-        "defaultonredirectcallback",
-        { "_index": 81, "name": { "145": {} }, "parent": {} }
-      ],
-      [
-        "defaultonredirecting",
-        { "_index": 87, "name": { "151": {} }, "parent": {} }
-      ],
-      ["defaultscope", { "_index": 7, "name": { "10": {} }, "parent": {} }],
+      ["constructor", { "_index": 60, "name": { "108": {} }, "parent": {} }],
+      ["defaultscope", { "_index": 6, "name": { "7": {} }, "parent": {} }],
       [
         "display",
         {
-          "_index": 17,
-          "name": { "21": {}, "35": {}, "48": {}, "74": {} },
+          "_index": 16,
+          "name": { "18": {}, "32": {}, "45": {}, "71": {} },
           "parent": {}
         }
       ],
-      [
-        "domain",
-        { "_index": 9, "name": { "12": {}, "127": {} }, "parent": {} }
-      ],
+      ["domain", { "_index": 8, "name": { "9": {}, "118": {} }, "parent": {} }],
       [
         "error",
         {
           "_index": 1,
-          "name": { "1": {}, "105": {}, "112": {}, "117": {} },
+          "name": { "1": {}, "102": {}, "109": {}, "114": {} },
           "parent": {}
         }
       ],
       [
         "error_description",
-        { "_index": 62, "name": { "113": {} }, "parent": {} }
+        { "_index": 61, "name": { "110": {} }, "parent": {} }
       ],
-      ["error_re", { "_index": 67, "name": { "119": {} }, "parent": {} }],
-      ["federated", { "_index": 42, "name": { "87": {} }, "parent": {} }],
-      ["fragment", { "_index": 29, "name": { "34": {} }, "parent": {} }],
+      ["federated", { "_index": 41, "name": { "84": {} }, "parent": {} }],
+      ["fragment", { "_index": 28, "name": { "31": {} }, "parent": {} }],
       [
         "getaccesstokensilently",
-        { "_index": 46, "name": { "93": {} }, "parent": {} }
+        { "_index": 45, "name": { "90": {} }, "parent": {} }
       ],
       [
         "getaccesstokenwithpopup",
-        { "_index": 49, "name": { "95": {} }, "parent": {} }
+        { "_index": 48, "name": { "92": {} }, "parent": {} }
       ],
       [
         "getidtokenclaims",
-        { "_index": 51, "name": { "97": {} }, "parent": {} }
+        { "_index": 50, "name": { "94": {} }, "parent": {} }
       ],
       [
         "getidtokenclaimsoptions",
         {
-          "_index": 36,
-          "name": { "64": {}, "90": {} },
-          "parent": { "65": {}, "66": {} }
+          "_index": 35,
+          "name": { "61": {}, "87": {} },
+          "parent": { "62": {}, "63": {} }
         }
       ],
       [
         "gettokensilentlyoptions",
         {
-          "_index": 37,
-          "name": { "67": {} },
-          "parent": { "68": {}, "69": {}, "70": {}, "71": {}, "72": {} }
+          "_index": 36,
+          "name": { "64": {} },
+          "parent": { "65": {}, "66": {}, "67": {}, "68": {}, "69": {} }
         }
       ],
       [
         "gettokenwithpopupoptions",
         {
-          "_index": 39,
-          "name": { "73": {} },
+          "_index": 38,
+          "name": { "70": {} },
           "parent": {
+            "71": {},
+            "72": {},
+            "73": {},
             "74": {},
             "75": {},
             "76": {},
             "77": {},
             "78": {},
             "79": {},
-            "80": {},
-            "81": {},
-            "82": {},
-            "83": {}
+            "80": {}
           }
         }
       ],
       [
         "getuseroptions",
-        { "_index": 35, "name": { "61": {} }, "parent": { "62": {}, "63": {} } }
+        { "_index": 34, "name": { "58": {} }, "parent": { "59": {}, "60": {} } }
       ],
-      ["hasauthparams", { "_index": 68, "name": { "120": {} }, "parent": {} }],
       [
         "id_token_hint",
         {
-          "_index": 21,
-          "name": { "25": {}, "39": {}, "52": {}, "78": {} },
+          "_index": 20,
+          "name": { "22": {}, "36": {}, "49": {}, "75": {} },
           "parent": {}
         }
       ],
-      ["ignorecache", { "_index": 38, "name": { "68": {} }, "parent": {} }],
-      [
-        "initialauthstate",
-        { "_index": 5, "name": { "6": {} }, "parent": { "7": {}, "8": {} } }
-      ],
+      ["ignorecache", { "_index": 37, "name": { "65": {} }, "parent": {} }],
       [
         "isauthenticated",
-        { "_index": 2, "name": { "2": {}, "7": {}, "106": {} }, "parent": {} }
+        { "_index": 2, "name": { "2": {}, "103": {} }, "parent": {} }
       ],
       [
         "isloading",
-        { "_index": 3, "name": { "3": {}, "8": {}, "107": {} }, "parent": {} }
+        { "_index": 3, "name": { "3": {}, "104": {} }, "parent": {} }
       ],
       [
         "issuer",
-        { "_index": 10, "name": { "13": {}, "128": {} }, "parent": {} }
+        { "_index": 9, "name": { "10": {}, "119": {} }, "parent": {} }
       ],
       [
         "leeway",
-        { "_index": 13, "name": { "16": {}, "131": {} }, "parent": {} }
+        { "_index": 12, "name": { "13": {}, "122": {} }, "parent": {} }
       ],
-      ["localonly", { "_index": 43, "name": { "88": {} }, "parent": {} }],
+      ["localonly", { "_index": 42, "name": { "85": {} }, "parent": {} }],
       [
         "login_hint",
         {
-          "_index": 22,
-          "name": { "26": {}, "40": {}, "53": {}, "79": {} },
+          "_index": 21,
+          "name": { "23": {}, "37": {}, "50": {}, "76": {} },
           "parent": {}
         }
       ],
-      ["loginerror", { "_index": 70, "name": { "122": {} }, "parent": {} }],
-      ["loginwithpopup", { "_index": 55, "name": { "101": {} }, "parent": {} }],
+      ["loginwithpopup", { "_index": 54, "name": { "98": {} }, "parent": {} }],
       [
         "loginwithredirect",
-        { "_index": 53, "name": { "99": {} }, "parent": {} }
+        { "_index": 52, "name": { "96": {} }, "parent": {} }
       ],
-      ["logout", { "_index": 57, "name": { "103": {} }, "parent": {} }],
+      ["logout", { "_index": 56, "name": { "100": {} }, "parent": {} }],
       [
         "logoutoptions",
         {
-          "_index": 40,
-          "name": { "84": {} },
-          "parent": { "85": {}, "86": {}, "87": {}, "88": {} }
+          "_index": 39,
+          "name": { "81": {} },
+          "parent": { "82": {}, "83": {}, "84": {}, "85": {} }
         }
       ],
       [
         "max_age",
         {
-          "_index": 19,
-          "name": { "23": {}, "37": {}, "50": {}, "76": {} },
+          "_index": 18,
+          "name": { "20": {}, "34": {}, "47": {}, "73": {} },
           "parent": {}
         }
       ],
-      ["maxage", { "_index": 76, "name": { "136": {} }, "parent": {} }],
-      ["message", { "_index": 64, "name": { "115": {} }, "parent": {} }],
-      ["name", { "_index": 63, "name": { "114": {} }, "parent": {} }],
-      [
-        "normalizeerrorfn",
-        { "_index": 69, "name": { "121": {} }, "parent": {} }
-      ],
+      ["maxage", { "_index": 69, "name": { "127": {} }, "parent": {} }],
+      ["message", { "_index": 63, "name": { "112": {} }, "parent": {} }],
+      ["name", { "_index": 62, "name": { "111": {} }, "parent": {} }],
       [
         "oautherror",
         {
-          "_index": 60,
-          "name": { "110": {} },
+          "_index": 59,
+          "name": { "107": {} },
           "parent": {
+            "108": {},
+            "109": {},
+            "110": {},
             "111": {},
             "112": {},
             "113": {},
-            "114": {},
-            "115": {},
-            "116": {},
-            "117": {}
+            "114": {}
           }
         }
       ],
       [
         "onredirectcallback",
-        { "_index": 74, "name": { "126": {} }, "parent": {} }
+        { "_index": 67, "name": { "117": {} }, "parent": {} }
       ],
-      ["popup", { "_index": 34, "name": { "60": {} }, "parent": {} }],
+      ["popup", { "_index": 33, "name": { "57": {} }, "parent": {} }],
       [
         "popupconfigoptions",
-        { "_index": 32, "name": { "58": {} }, "parent": { "59": {}, "60": {} } }
+        { "_index": 31, "name": { "55": {} }, "parent": { "56": {}, "57": {} } }
       ],
       [
         "popuploginoptions",
         {
-          "_index": 31,
-          "name": { "47": {} },
+          "_index": 30,
+          "name": { "44": {} },
           "parent": {
+            "45": {},
+            "46": {},
+            "47": {},
             "48": {},
             "49": {},
             "50": {},
             "51": {},
             "52": {},
             "53": {},
-            "54": {},
-            "55": {},
-            "56": {},
-            "57": {}
+            "54": {}
           }
         }
       ],
       [
         "prompt",
         {
-          "_index": 18,
-          "name": { "22": {}, "36": {}, "49": {}, "75": {} },
+          "_index": 17,
+          "name": { "19": {}, "33": {}, "46": {}, "72": {} },
           "parent": {}
         }
       ],
       [
         "redirect_uri",
-        { "_index": 12, "name": { "15": {}, "32": {}, "69": {} }, "parent": {} }
+        { "_index": 11, "name": { "12": {}, "29": {}, "66": {} }, "parent": {} }
       ],
       [
         "redirectloginoptions",
         {
-          "_index": 27,
-          "name": { "31": {} },
+          "_index": 26,
+          "name": { "28": {} },
           "parent": {
+            "29": {},
+            "30": {},
+            "31": {},
             "32": {},
             "33": {},
             "34": {},
@@ -1933,83 +1784,70 @@
             "39": {},
             "40": {},
             "41": {},
-            "42": {},
-            "43": {},
-            "44": {},
-            "91": {}
+            "88": {}
           }
         }
       ],
       [
         "redirectloginresult",
-        { "_index": 30, "name": { "45": {} }, "parent": { "46": {} } }
+        { "_index": 29, "name": { "42": {} }, "parent": { "43": {} } }
       ],
       [
         "redirecturi",
-        { "_index": 44, "name": { "91": {}, "130": {} }, "parent": {} }
+        { "_index": 43, "name": { "88": {}, "121": {} }, "parent": {} }
       ],
       [
         "returnto",
-        { "_index": 41, "name": { "85": {}, "142": {} }, "parent": {} }
+        { "_index": 40, "name": { "82": {}, "132": {} }, "parent": {} }
       ],
       [
         "scope",
         {
-          "_index": 24,
+          "_index": 23,
           "name": {
-            "28": {},
-            "42": {},
-            "55": {},
+            "25": {},
+            "39": {},
+            "52": {},
+            "59": {},
             "62": {},
-            "65": {},
-            "70": {},
-            "81": {},
-            "137": {}
+            "67": {},
+            "78": {},
+            "128": {}
           },
           "parent": {}
         }
       ],
-      ["stack", { "_index": 65, "name": { "116": {} }, "parent": {} }],
+      ["stack", { "_index": 64, "name": { "113": {} }, "parent": {} }],
       [
         "timeoutinseconds",
-        { "_index": 33, "name": { "59": {}, "72": {} }, "parent": {} }
+        { "_index": 32, "name": { "56": {}, "69": {} }, "parent": {} }
       ],
-      [
-        "toauth0clientoptions",
-        { "_index": 79, "name": { "143": {} }, "parent": {} }
-      ],
-      [
-        "toauth0loginredirectoptions",
-        { "_index": 80, "name": { "144": {} }, "parent": {} }
-      ],
-      ["tokenerror", { "_index": 71, "name": { "123": {} }, "parent": {} }],
       [
         "ui_locales",
         {
-          "_index": 20,
-          "name": { "24": {}, "38": {}, "51": {}, "77": {} },
+          "_index": 19,
+          "name": { "21": {}, "35": {}, "48": {}, "74": {} },
           "parent": {}
         }
       ],
-      ["useauth0", { "_index": 83, "name": { "147": {} }, "parent": {} }],
+      ["useauth0", { "_index": 72, "name": { "134": {} }, "parent": {} }],
       [
         "user",
-        { "_index": 4, "name": { "4": {}, "5": {}, "108": {} }, "parent": {} }
+        { "_index": 4, "name": { "4": {}, "5": {}, "105": {} }, "parent": {} }
       ],
       [
         "userefreshtokens",
-        { "_index": 15, "name": { "18": {}, "133": {} }, "parent": {} }
+        { "_index": 14, "name": { "15": {}, "124": {} }, "parent": {} }
       ],
-      ["withauth0", { "_index": 86, "name": { "150": {} }, "parent": {} }],
+      ["withauth0", { "_index": 75, "name": { "137": {} }, "parent": {} }],
       [
         "withauth0props",
-        { "_index": 84, "name": { "148": {} }, "parent": { "149": {} } }
+        { "_index": 73, "name": { "135": {} }, "parent": { "136": {} } }
       ],
       [
         "withauthenticationrequired",
-        { "_index": 88, "name": { "152": {} }, "parent": {} }
-      ],
-      ["wrappedgettoken", { "_index": 72, "name": { "124": {} }, "parent": {} }]
+        { "_index": 76, "name": { "138": {} }, "parent": {} }
+      ]
     ],
     "pipeline": []
   }

@@ -80,7 +80,10 @@ const stub = (): never => {
   throw new Error('You forgot to wrap your component in <Auth0Provider>.');
 };
 
-const Auth0Context = createContext<Auth0ContextInterface>({
+/**
+ * @ignore
+ */
+const initialContext = {
   ...initialAuthState,
   getAccessTokenSilently: stub,
   getAccessTokenWithPopup: stub,
@@ -88,6 +91,8 @@ const Auth0Context = createContext<Auth0ContextInterface>({
   loginWithRedirect: stub,
   loginWithPopup: stub,
   logout: stub,
-});
+};
+
+const Auth0Context = createContext<Auth0ContextInterface>(initialContext);
 
 export default Auth0Context;

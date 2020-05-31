@@ -1,9 +1,4 @@
-import React, {
-  PropsWithChildren,
-  useEffect,
-  useReducer,
-  useState,
-} from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import {
   Auth0Client,
   Auth0ClientOptions,
@@ -22,7 +17,11 @@ export type AppState = {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
-export interface Auth0ProviderOptions extends PropsWithChildren<{}> {
+export interface Auth0ProviderOptions {
+  /**
+   * The child nodes your Provider has wrapped
+   */
+  children?: React.ReactNode;
   /**
    * By default this removes the code and state parameters from the url when you are redirected from the authorize page.
    * It uses `window.history` but you might want to overwrite this if you are using a custom router, like `react-router-dom`
@@ -109,6 +108,9 @@ export interface Auth0ProviderOptions extends PropsWithChildren<{}> {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
+/**
+ * @ignore
+ */
 const toAuth0ClientOptions = (
   opts: Auth0ProviderOptions
 ): Auth0ClientOptions => {
@@ -121,6 +123,9 @@ const toAuth0ClientOptions = (
   };
 };
 
+/**
+ * @ignore
+ */
 const toAuth0LoginRedirectOptions = (
   opts?: Auth0RedirectLoginOptions
 ): RedirectLoginOptions | undefined => {
@@ -134,6 +139,9 @@ const toAuth0LoginRedirectOptions = (
   };
 };
 
+/**
+ * @ignore
+ */
 const defaultOnRedirectCallback = (appState?: AppState): void => {
   window.history.replaceState(
     {},
@@ -142,12 +150,18 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
   );
 };
 
-const Auth0Provider = ({
-  children,
-  onRedirectCallback = defaultOnRedirectCallback,
-  ...opts
-}: Auth0ProviderOptions): JSX.Element => {
-  const [client] = useState(() => new Auth0Client(toAuth0ClientOptions(opts)));
+/**
+ * The Auth0 context provider
+ */
+const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
+  const {
+    children,
+    onRedirectCallback = defaultOnRedirectCallback,
+    ...clientOpts
+  } = opts;
+  const [client] = useState(
+    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
+  );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
 
   useEffect(() => {

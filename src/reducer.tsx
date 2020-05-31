@@ -1,8 +1,5 @@
 import { AuthState, User } from './auth-state';
 
-/**
- * @ignore
- */
 type Action =
   | { type: 'LOGIN_POPUP_STARTED' }
   | {
@@ -12,9 +9,6 @@ type Action =
     }
   | { type: 'ERROR'; error: Error };
 
-/**
- * @ignore
- */
 export const reducer = (state: AuthState, action: Action): AuthState => {
   switch (action.type) {
     case 'LOGIN_POPUP_STARTED':
