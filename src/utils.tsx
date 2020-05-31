@@ -2,6 +2,7 @@ import {
   GetTokenSilentlyOptions,
   GetTokenWithPopupOptions,
 } from '@auth0/auth0-spa-js';
+import { OAuthError } from './errors';
 
 const CODE_RE = /[?&]code=[^&]+/;
 const ERROR_RE = /[?&]error=[^&]+/;
@@ -21,12 +22,6 @@ export const defaultOnRedirectCallback = (appState?: AppState): void => {
     appState?.returnTo || window.location.pathname
   );
 };
-
-export class OAuthError extends Error {
-  constructor(public error: string, public error_description?: string) {
-    super(error_description || error);
-  }
-}
 
 const normalizeErrorFn = (fallbackMessage: string) => (
   error: Error | { error: string; error_description?: string } | ProgressEvent

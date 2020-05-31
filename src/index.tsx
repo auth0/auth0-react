@@ -5,7 +5,6 @@ export {
 export { default as useAuth0 } from './use-auth0';
 export { default as withAuth0, WithAuth0Props } from './with-auth0';
 export { default as withAuthenticationRequired } from './with-login-required';
-export { OAuthError } from './utils';
 export { Auth0ContextInterface, RedirectLoginOptions } from './auth0-context';
 export {
   PopupLoginOptions,
@@ -16,3 +15,4 @@ export {
   CacheLocation,
   IdToken,
 } from '@auth0/auth0-spa-js';
+export { OAuthError } from './errors';
