@@ -34,7 +34,7 @@ export interface RedirectLoginOptions extends BaseLoginOptions {
 export interface Auth0ContextInterface extends AuthState {
   /**
    * ```js
-   * const token = await getToken(options);
+   * const token = await getAccessTokenSilently(options);
    * ```
    *
    * If there's a valid token stored, return it. Otherwise, get one from the authorize server.
