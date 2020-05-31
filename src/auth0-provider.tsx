@@ -7,21 +7,20 @@ import React, {
 import {
   Auth0Client,
   Auth0ClientOptions,
+  CacheLocation,
   IdToken,
   PopupLoginOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
-  CacheLocation,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
-import {
-  AppState,
-  defaultOnRedirectCallback,
-  loginError,
-  hasAuthParams,
-  wrappedGetToken,
-} from './utils';
+import { hasAuthParams, loginError, wrappedGetToken } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
+
+export type AppState = {
+  returnTo?: string;
+  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+};
 
 export interface Auth0ProviderOptions extends PropsWithChildren<{}> {
   /**
@@ -133,6 +132,14 @@ const toAuth0LoginRedirectOptions = (
     ...validOpts,
     redirect_uri: redirectUri,
   };
+};
+
+const defaultOnRedirectCallback = (appState?: AppState): void => {
+  window.history.replaceState(
+    {},
+    document.title,
+    appState?.returnTo || window.location.pathname
+  );
 };
 
 const Auth0Provider = ({

@@ -3056,44 +3056,9 @@
     </header>
     <nav class="tsd-navigation secondary">
       <ul>
-        <li class="tsd-kind-interface">
-          <a href="interfaces/auth0contextinterface.html" class="tsd-kind-icon"
-            >Auth0<wbr />Context<wbr />Interface</a
-          >
-        </li>
-        <li class="tsd-kind-interface">
-          <a href="interfaces/auth0provideroptions.html" class="tsd-kind-icon"
-            >Auth0<wbr />Provider<wbr />Options</a
-          >
-        </li>
-        <li class="tsd-kind-interface">
-          <a href="interfaces/authstate.html" class="tsd-kind-icon"
-            >Auth<wbr />State</a
-          >
-        </li>
-        <li class="tsd-kind-interface">
-          <a href="interfaces/withauth0props.html" class="tsd-kind-icon"
-            >With<wbr />Auth0<wbr />Props</a
-          >
-        </li>
-        <li class="tsd-kind-type-alias">
-          <a href="globals.html#appstate" class="tsd-kind-icon"
-            >App<wbr />State</a
-          >
-        </li>
         <li class="tsd-kind-function">
           <a href="globals.html#auth0provider" class="tsd-kind-icon"
             >Auth0<wbr />Provider</a
-          >
-        </li>
-        <li class="tsd-kind-function">
-          <a href="globals.html#defaultonredirectcallback" class="tsd-kind-icon"
-            >default<wbr />OnRedirect<wbr />Callback</a
-          >
-        </li>
-        <li class="tsd-kind-function">
-          <a href="globals.html#defaultonredirecting" class="tsd-kind-icon"
-            >default<wbr />OnRedirecting</a
           >
         </li>
         <li class="tsd-kind-function">
@@ -3107,13 +3072,10 @@
           >
         </li>
         <li class="tsd-kind-function tsd-has-type-parameter">
-          <a href="globals.html#withloginrequired" class="tsd-kind-icon"
-            >with<wbr />Login<wbr />Required</a
-          >
-        </li>
-        <li class="tsd-kind-object-literal">
-          <a href="globals.html#initialauthstate" class="tsd-kind-icon"
-            >initial<wbr />Auth<wbr />State</a
+          <a
+            href="globals.html#withauthenticationrequired"
+            class="tsd-kind-icon"
+            >with<wbr />Authentication<wbr />Required</a
           >
         </li>
       </ul>
@@ -3174,7 +3136,7 @@
           <ul>
             <li><a href="#installation">Installation</a></li>
             <li><a href="#getting-started">Getting Started</a></li>
-            <li><a href="#advanced-use-cases">Advanced Use Cases</a></li>
+            <li><a href="#other-use-cases">Other Use Cases</a></li>
             <li><a href="#contributing">Contributing</a></li>
             <li><a href="#support--feedback">Support + Feedback</a></li>
             <li>
@@ -3193,12 +3155,12 @@
           <p>
             For Early Access, download the binary from the releases page:
             <a
-              href="https://github.com/auth0/auth0-react/releases/download/v0.2.0/auth0-auth0-react-0.2.0.tgz"
-              >auth0-auth0-react-0.2.0.tgz</a
+              href="https://github.com/auth0/auth0-react/releases/download/v0.3.0/auth0-auth0-react-0.3.0.tgz"
+              >auth0-auth0-react-0.3.0.tgz</a
             >.
           </p>
           <p>Then install it from the folder you downloaded it to:</p>
-          <pre><code class="language-bash">npm install ~/Downloads/auth0-auth0-react-0.2.0.tgz</code></pre>
+          <pre><code class="language-bash">npm install ~/Downloads/auth0-auth0-react-0.3.0.tgz</code></pre>
           <a
             href="#getting-started"
             id="getting-started"
@@ -3219,8 +3181,8 @@
 ReactDOM.render(
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Auth0Provider</span>
     <span class="hljs-attr">domain</span>=<span class="hljs-string">"YOUR_AUTH0_DOMAIN"</span>
-    <span class="hljs-attr">client_id</span>=<span class="hljs-string">"YOUR_AUTH0_CLIENT_ID"</span>
-    <span class="hljs-attr">redirect_uri</span>=<span class="hljs-string">{window.location.origin}</span>
+    <span class="hljs-attr">clientId</span>=<span class="hljs-string">"YOUR_AUTH0_CLIENT_ID"</span>
+    <span class="hljs-attr">redirectUri</span>=<span class="hljs-string">{window.location.origin}</span>
   &gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">Auth0Provider</span>&gt;</span></span>,
@@ -3230,14 +3192,22 @@ ReactDOM.render(
             Use the <code>useAuth0</code> hook in your components to access
             authentication state (<code>isLoading</code>,
             <code>isAuthenticated</code> and <code>user</code>) and
-            authentication methods (<code>login</code> and <code>logout</code>):
+            authentication methods (<code>loginWithRedirect</code> and
+            <code>logout</code>):
           </p>
           <pre><code class="language-jsx"><span class="hljs-comment">// src/App.js</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> { useAuth0 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> { isLoading, isAuthenticated, error, user, login, logout } = useAuth0();
+  <span class="hljs-keyword">const</span> {
+    isLoading,
+    isAuthenticated,
+    error,
+    user,
+    loginWithRedirect,
+    logout,
+  } = useAuth0();
 
   <span class="hljs-keyword">if</span> (isLoading) {
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
@@ -3253,17 +3223,17 @@ ReactDOM.render(
       <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
     );
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{login}</span>&gt;</span>Log in<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{loginWithRedirect}</span>&gt;</span>Log in<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;
   }
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;</code></pre>
           <a
-            href="#advanced-use-cases"
-            id="advanced-use-cases"
+            href="#other-use-cases"
+            id="other-use-cases"
             style="color: inherit; text-decoration: none;"
           >
-            <h2>Advanced Use Cases</h2>
+            <h2>Other Use Cases</h2>
           </a>
           <a
             href="#class-components"
@@ -3296,16 +3266,19 @@ ReactDOM.render(
           </a>
           <p>
             Protect a route component using the
-            <code>withLoginRequired</code> higher order component. Visits to
-            this route when unauthenticated will redirect the user to the login
-            page and back to this page after login:
+            <code>withAuthenticationRequired</code> higher order component.
+            Visits to this route when unauthenticated will redirect the user to
+            the login page and back to this page after login:
           </p>
           <pre><code class="language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { withLoginRequired } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
+<span class="hljs-keyword">import</span> { withAuthenticationRequired } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
+
+<span class="hljs-comment">// Show a message while the user waits to be redirected to the login page.</span>
+<span class="hljs-keyword">const</span> Redirecting = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Redirecting you to the login page...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
 
 <span class="hljs-keyword">const</span> PrivateRoute = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Private<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> withLoginRequired(PrivateRoute);</code></pre>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> withAuthenticationRequired(PrivateRoute, Redirecting);</code></pre>
           <a
             href="#access-an-api"
             id="access-an-api"
@@ -3318,12 +3291,15 @@ ReactDOM.render(
 <span class="hljs-keyword">import</span> { useAuth0 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
 
 <span class="hljs-keyword">const</span> Posts = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  <span class="hljs-keyword">const</span> { getToken } = useAuth0();
+  <span class="hljs-keyword">const</span> { getAccessTokenSilently } = useAuth0();
   <span class="hljs-keyword">const</span> [posts, setPosts] = useState(<span class="hljs-literal">null</span>);
 
   useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
     (<span class="hljs-keyword">async</span> () =&gt; {
-      <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> getToken();
+      <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> getAccessTokenSilently({
+        <span class="hljs-attr">audience</span>: <span class="hljs-string">'https://api.example.com/'</span>,
+        <span class="hljs-attr">scope</span>: <span class="hljs-string">'read:posts'</span>,
+      });
       <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'https://api.example.com/posts'</span>, {
         <span class="hljs-attr">headers</span>: {
           <span class="hljs-attr">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span>,
@@ -3331,7 +3307,7 @@ ReactDOM.render(
       });
       setPosts(<span class="hljs-keyword">await</span> response.json());
     })();
-  }, [getToken]);
+  }, [getAccessTokenSilently]);
 
   <span class="hljs-keyword">if</span> (!posts) {
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
@@ -3455,6 +3431,16 @@ ReactDOM.render(
           <section class="tsd-panel tsd-index-panel">
             <div class="tsd-index-content">
               <section class="tsd-index-section">
+                <h3>Classes</h3>
+                <ul class="tsd-index-list">
+                  <li class="tsd-kind-class">
+                    <a href="classes/oautherror.html" class="tsd-kind-icon"
+                      >OAuth<wbr />Error</a
+                    >
+                  </li>
+                </ul>
+              </section>
+              <section class="tsd-index-section">
                 <h3>Interfaces</h3>
                 <ul class="tsd-index-list">
                   <li class="tsd-kind-interface">
@@ -3576,14 +3562,7 @@ ReactDOM.render(
                     >
                   </li>
                   <li class="tsd-kind-type-alias">
-                    <a href="globals.html#gettokenoptions" class="tsd-kind-icon"
-                      >Get<wbr />Token<wbr />Options</a
-                    >
-                  </li>
-                  <li class="tsd-kind-type-alias">
-                    <a href="globals.html#loginoptions" class="tsd-kind-icon"
-                      >Login<wbr />Options</a
-                    >
+                    <a href="globals.html#user" class="tsd-kind-icon">User</a>
                   </li>
                   <li class="tsd-kind-type-alias">
                     <a
@@ -3600,6 +3579,26 @@ ReactDOM.render(
                   <li class="tsd-kind-variable">
                     <a href="globals.html#auth0context" class="tsd-kind-icon"
                       >Auth0<wbr />Context</a
+                    >
+                  </li>
+                  <li class="tsd-kind-variable">
+                    <a href="globals.html#code_re" class="tsd-kind-icon"
+                      >CODE_<wbr />RE</a
+                    >
+                  </li>
+                  <li class="tsd-kind-variable">
+                    <a href="globals.html#error_re" class="tsd-kind-icon"
+                      >ERROR_<wbr />RE</a
+                    >
+                  </li>
+                  <li class="tsd-kind-variable">
+                    <a href="globals.html#loginerror" class="tsd-kind-icon"
+                      >login<wbr />Error</a
+                    >
+                  </li>
+                  <li class="tsd-kind-variable">
+                    <a href="globals.html#tokenerror" class="tsd-kind-icon"
+                      >token<wbr />Error</a
                     >
                   </li>
                 </ul>
@@ -3627,6 +3626,32 @@ ReactDOM.render(
                     >
                   </li>
                   <li class="tsd-kind-function">
+                    <a href="globals.html#hasauthparams" class="tsd-kind-icon"
+                      >has<wbr />Auth<wbr />Params</a
+                    >
+                  </li>
+                  <li class="tsd-kind-function">
+                    <a
+                      href="globals.html#normalizeerrorfn"
+                      class="tsd-kind-icon"
+                      >normalize<wbr />Error<wbr />Fn</a
+                    >
+                  </li>
+                  <li class="tsd-kind-function">
+                    <a
+                      href="globals.html#toauth0clientoptions"
+                      class="tsd-kind-icon"
+                      >to<wbr />Auth0<wbr />Client<wbr />Options</a
+                    >
+                  </li>
+                  <li class="tsd-kind-function">
+                    <a
+                      href="globals.html#toauth0loginredirectoptions"
+                      class="tsd-kind-icon"
+                      >to<wbr />Auth0<wbr />Login<wbr />Redirect<wbr />Options</a
+                    >
+                  </li>
+                  <li class="tsd-kind-function">
                     <a href="globals.html#useauth0" class="tsd-kind-icon"
                       >use<wbr />Auth0</a
                     >
@@ -3638,9 +3663,14 @@ ReactDOM.render(
                   </li>
                   <li class="tsd-kind-function tsd-has-type-parameter">
                     <a
-                      href="globals.html#withloginrequired"
+                      href="globals.html#withauthenticationrequired"
                       class="tsd-kind-icon"
-                      >with<wbr />Login<wbr />Required</a
+                      >with<wbr />Authentication<wbr />Required</a
+                    >
+                  </li>
+                  <li class="tsd-kind-function">
+                    <a href="globals.html#wrappedgettoken" class="tsd-kind-icon"
+                      >wrapped<wbr />Get<wbr />Token</a
                     >
                   </li>
                 </ul>
@@ -3680,8 +3710,8 @@ ReactDOM.render(
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/utils.tsx#L11"
-                    >src/utils.tsx:11</a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth0-provider.tsx#L20"
+                    >src/auth0-provider.tsx:20</a
                   >
                 </li>
               </ul>
@@ -3694,7 +3724,7 @@ ReactDOM.render(
                     <span class="tsd-signature-symbol">[</span>key:
                     <span class="tsd-signature-type">string</span
                     ><span class="tsd-signature-symbol">]: </span
-                    ><span class="tsd-signature-type">unknown</span>
+                    ><span class="tsd-signature-type">any</span>
                   </h5>
                 </li>
                 <li class="tsd-parameter">
@@ -3733,48 +3763,19 @@ ReactDOM.render(
             </div>
           </section>
           <section class="tsd-panel tsd-member tsd-kind-type-alias">
-            <a name="gettokenoptions" class="tsd-anchor"></a>
-            <h3>Get<wbr />Token<wbr />Options</h3>
+            <a name="user" class="tsd-anchor"></a>
+            <h3>User</h3>
             <div class="tsd-signature tsd-kind-icon">
-              Get<wbr />Token<wbr />Options<span class="tsd-signature-symbol"
-                >:</span
-              >
-              <a
-                href="interfaces/gettokensilentlyoptions.html"
-                class="tsd-signature-type"
-                >GetTokenSilentlyOptions</a
-              >
+              User<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">any</span>
             </div>
             <aside class="tsd-sources">
               <ul>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth0-context.tsx#L14"
-                    >src/auth0-context.tsx:14</a
-                  >
-                </li>
-              </ul>
-            </aside>
-          </section>
-          <section class="tsd-panel tsd-member tsd-kind-type-alias">
-            <a name="loginoptions" class="tsd-anchor"></a>
-            <h3>Login<wbr />Options</h3>
-            <div class="tsd-signature tsd-kind-icon">
-              Login<wbr />Options<span class="tsd-signature-symbol">:</span>
-              <a
-                href="interfaces/redirectloginoptions.html"
-                class="tsd-signature-type"
-                >RedirectLoginOptions</a
-              >
-            </div>
-            <aside class="tsd-sources">
-              <ul>
-                <li>
-                  Defined in
-                  <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth0-context.tsx#L15"
-                    >src/auth0-context.tsx:15</a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth-state.tsx#L1"
+                    >src/auth-state.tsx:1</a
                   >
                 </li>
               </ul>
@@ -3823,9 +3824,10 @@ ReactDOM.render(
               ><span class="tsd-signature-symbol">&gt;</span
               ><span class="tsd-signature-symbol">
                 =
-                createContext&lt;Auth0ContextInterface&gt;({...initialAuthState,getToken:
-                stub,getTokenWithPopup: stub,getIdTokenClaims: stub,login:
-                stub,loginWithPopup: stub,logout: stub,})</span
+                createContext&lt;Auth0ContextInterface&gt;({...initialAuthState,getAccessTokenSilently:
+                stub,getAccessTokenWithPopup: stub,getIdTokenClaims:
+                stub,loginWithRedirect: stub,loginWithPopup: stub,logout:
+                stub,})</span
               >
             </div>
             <aside class="tsd-sources">
@@ -3833,8 +3835,104 @@ ReactDOM.render(
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth0-context.tsx#L71"
-                    >src/auth0-context.tsx:71</a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth0-context.tsx#L83"
+                    >src/auth0-context.tsx:83</a
+                  >
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-variable">
+            <a name="code_re" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span> CODE_<wbr />RE
+            </h3>
+            <div class="tsd-signature tsd-kind-icon">
+              CODE_<wbr />RE<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">RegExp</span
+              ><span class="tsd-signature-symbol">
+                = /[?&amp;]code&#x3D;[^&amp;]+/</span
+              >
+            </div>
+            <aside class="tsd-sources">
+              <ul>
+                <li>
+                  Defined in
+                  <a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/utils.tsx#L7"
+                    >src/utils.tsx:7</a
+                  >
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-variable">
+            <a name="error_re" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span> ERROR_<wbr />RE
+            </h3>
+            <div class="tsd-signature tsd-kind-icon">
+              ERROR_<wbr />RE<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">RegExp</span
+              ><span class="tsd-signature-symbol">
+                = /[?&amp;]error&#x3D;[^&amp;]+/</span
+              >
+            </div>
+            <aside class="tsd-sources">
+              <ul>
+                <li>
+                  Defined in
+                  <a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/utils.tsx#L8"
+                    >src/utils.tsx:8</a
+                  >
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-variable">
+            <a name="loginerror" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span> login<wbr />Error
+            </h3>
+            <div class="tsd-signature tsd-kind-icon">
+              login<wbr />Error<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">(Anonymous function)</span
+              ><span class="tsd-signature-symbol">
+                = normalizeErrorFn(&#x27;Login failed&#x27;)</span
+              >
+            </div>
+            <aside class="tsd-sources">
+              <ul>
+                <li>
+                  Defined in
+                  <a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/utils.tsx#L25"
+                    >src/utils.tsx:25</a
+                  >
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-variable">
+            <a name="tokenerror" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span> token<wbr />Error
+            </h3>
+            <div class="tsd-signature tsd-kind-icon">
+              token<wbr />Error<span class="tsd-signature-symbol">:</span>
+              <span class="tsd-signature-type">(Anonymous function)</span
+              ><span class="tsd-signature-symbol">
+                = normalizeErrorFn(&#x27;Get access token failed&#x27;)</span
+              >
+            </div>
+            <aside class="tsd-sources">
+              <ul>
+                <li>
+                  Defined in
+                  <a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/utils.tsx#L27"
+                    >src/utils.tsx:27</a
                   >
                 </li>
               </ul>
@@ -3921,8 +4019,8 @@ ReactDOM.render(
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth0-provider.tsx#L28"
-                        >src/auth0-provider.tsx:28</a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth0-provider.tsx#L145"
+                        >src/auth0-provider.tsx:145</a
                       >
                     </li>
                   </ul>
@@ -4134,8 +4232,8 @@ ReactDOM.render(
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/auth0/auth0-react/blob/c43c915/src/utils.tsx#L22"
-                        >src/utils.tsx:22</a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth0-provider.tsx#L137"
+                        >src/auth0-provider.tsx:137</a
                       >
                     </li>
                   </ul>
@@ -4180,14 +4278,228 @@ ReactDOM.render(
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/auth0/auth0-react/blob/c43c915/src/with-login-required.tsx#L4"
-                        >src/with-login-required.tsx:4</a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/with-authentication-required.tsx#L4"
+                        >src/with-authentication-required.tsx:4</a
                       >
                     </li>
                   </ul>
                 </aside>
                 <h4 class="tsd-returns-title">
                   Returns <span class="tsd-signature-type">Element</span>
+                </h4>
+              </li>
+            </ul>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-function">
+            <a name="hasauthparams" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span>
+              has<wbr />Auth<wbr />Params
+            </h3>
+            <ul class="tsd-signatures tsd-kind-function">
+              <li class="tsd-signature tsd-kind-icon">
+                has<wbr />Auth<wbr />Params<span class="tsd-signature-symbol"
+                  >(</span
+                >searchParams<span class="tsd-signature-symbol">?: </span
+                ><span class="tsd-signature-type">string</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">boolean</span>
+              </li>
+            </ul>
+            <ul class="tsd-descriptions">
+              <li class="tsd-description">
+                <aside class="tsd-sources">
+                  <ul>
+                    <li>
+                      Defined in
+                      <a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/utils.tsx#L10"
+                        >src/utils.tsx:10</a
+                      >
+                    </li>
+                  </ul>
+                </aside>
+                <h4 class="tsd-parameters-title">Parameters</h4>
+                <ul class="tsd-parameters">
+                  <li>
+                    <h5>
+                      <span class="tsd-flag ts-flagDefault value"
+                        >Default value</span
+                      >
+                      searchParams:
+                      <span class="tsd-signature-type">string</span
+                      ><span class="tsd-signature-symbol">
+                        = window.location.search</span
+                      >
+                    </h5>
+                  </li>
+                </ul>
+                <h4 class="tsd-returns-title">
+                  Returns <span class="tsd-signature-type">boolean</span>
+                </h4>
+              </li>
+            </ul>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-function">
+            <a name="normalizeerrorfn" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span>
+              normalize<wbr />Error<wbr />Fn
+            </h3>
+            <ul class="tsd-signatures tsd-kind-function">
+              <li class="tsd-signature tsd-kind-icon">
+                normalize<wbr />Error<wbr />Fn<span class="tsd-signature-symbol"
+                  >(</span
+                >fallbackMessage<span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">string</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">(Anonymous function)</span>
+              </li>
+            </ul>
+            <ul class="tsd-descriptions">
+              <li class="tsd-description">
+                <aside class="tsd-sources">
+                  <ul>
+                    <li>
+                      Defined in
+                      <a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/utils.tsx#L13"
+                        >src/utils.tsx:13</a
+                      >
+                    </li>
+                  </ul>
+                </aside>
+                <h4 class="tsd-parameters-title">Parameters</h4>
+                <ul class="tsd-parameters">
+                  <li>
+                    <h5>
+                      fallbackMessage:
+                      <span class="tsd-signature-type">string</span>
+                    </h5>
+                  </li>
+                </ul>
+                <h4 class="tsd-returns-title">
+                  Returns
+                  <span class="tsd-signature-type">(Anonymous function)</span>
+                </h4>
+              </li>
+            </ul>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-function">
+            <a name="toauth0clientoptions" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span>
+              to<wbr />Auth0<wbr />Client<wbr />Options
+            </h3>
+            <ul class="tsd-signatures tsd-kind-function">
+              <li class="tsd-signature tsd-kind-icon">
+                to<wbr />Auth0<wbr />Client<wbr />Options<span
+                  class="tsd-signature-symbol"
+                  >(</span
+                >opts<span class="tsd-signature-symbol">: </span
+                ><a
+                  href="interfaces/auth0provideroptions.html"
+                  class="tsd-signature-type"
+                  >Auth0ProviderOptions</a
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><a
+                  href="interfaces/auth0clientoptions.html"
+                  class="tsd-signature-type"
+                  >Auth0ClientOptions</a
+                >
+              </li>
+            </ul>
+            <ul class="tsd-descriptions">
+              <li class="tsd-description">
+                <aside class="tsd-sources">
+                  <ul>
+                    <li>
+                      Defined in
+                      <a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth0-provider.tsx#L112"
+                        >src/auth0-provider.tsx:112</a
+                      >
+                    </li>
+                  </ul>
+                </aside>
+                <h4 class="tsd-parameters-title">Parameters</h4>
+                <ul class="tsd-parameters">
+                  <li>
+                    <h5>
+                      opts:
+                      <a
+                        href="interfaces/auth0provideroptions.html"
+                        class="tsd-signature-type"
+                        >Auth0ProviderOptions</a
+                      >
+                    </h5>
+                  </li>
+                </ul>
+                <h4 class="tsd-returns-title">
+                  Returns
+                  <a
+                    href="interfaces/auth0clientoptions.html"
+                    class="tsd-signature-type"
+                    >Auth0ClientOptions</a
+                  >
+                </h4>
+              </li>
+            </ul>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-function">
+            <a name="toauth0loginredirectoptions" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span>
+              to<wbr />Auth0<wbr />Login<wbr />Redirect<wbr />Options
+            </h3>
+            <ul class="tsd-signatures tsd-kind-function">
+              <li class="tsd-signature tsd-kind-icon">
+                to<wbr />Auth0<wbr />Login<wbr />Redirect<wbr />Options<span
+                  class="tsd-signature-symbol"
+                  >(</span
+                >opts<span class="tsd-signature-symbol">?: </span
+                ><span class="tsd-signature-type"
+                  >Auth0RedirectLoginOptions</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">RedirectLoginOptions</span
+                ><span class="tsd-signature-symbol"> | </span
+                ><span class="tsd-signature-type">undefined</span>
+              </li>
+            </ul>
+            <ul class="tsd-descriptions">
+              <li class="tsd-description">
+                <aside class="tsd-sources">
+                  <ul>
+                    <li>
+                      Defined in
+                      <a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth0-provider.tsx#L124"
+                        >src/auth0-provider.tsx:124</a
+                      >
+                    </li>
+                  </ul>
+                </aside>
+                <h4 class="tsd-parameters-title">Parameters</h4>
+                <ul class="tsd-parameters">
+                  <li>
+                    <h5>
+                      <span class="tsd-flag ts-flagOptional">Optional</span>
+                      opts:
+                      <span class="tsd-signature-type"
+                        >Auth0RedirectLoginOptions</span
+                      >
+                    </h5>
+                  </li>
+                </ul>
+                <h4 class="tsd-returns-title">
+                  Returns
+                  <span class="tsd-signature-type">RedirectLoginOptions</span
+                  ><span class="tsd-signature-symbol"> | </span
+                  ><span class="tsd-signature-type">undefined</span>
                 </h4>
               </li>
             </ul>
@@ -4216,7 +4528,7 @@ ReactDOM.render(
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/auth0/auth0-react/blob/c43c915/src/use-auth0.tsx#L7"
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/use-auth0.tsx#L7"
                         >src/use-auth0.tsx:7</a
                       >
                     </li>
@@ -4278,7 +4590,7 @@ ReactDOM.render(
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/auth0/auth0-react/blob/c43c915/src/with-auth0.tsx#L8"
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/with-auth0.tsx#L8"
                         >src/with-auth0.tsx:8</a
                       >
                     </li>
@@ -4330,14 +4642,14 @@ ReactDOM.render(
           <section
             class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter"
           >
-            <a name="withloginrequired" class="tsd-anchor"></a>
+            <a name="withauthenticationrequired" class="tsd-anchor"></a>
             <h3>
               <span class="tsd-flag ts-flagConst">Const</span>
-              with<wbr />Login<wbr />Required
+              with<wbr />Authentication<wbr />Required
             </h3>
             <ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
               <li class="tsd-signature tsd-kind-icon">
-                with<wbr />Login<wbr />Required&lt;P&gt;<span
+                with<wbr />Authentication<wbr />Required&lt;P&gt;<span
                   class="tsd-signature-symbol"
                   >(</span
                 >Component<span class="tsd-signature-symbol">: </span
@@ -4365,8 +4677,8 @@ ReactDOM.render(
                     <li>
                       Defined in
                       <a
-                        href="https://github.com/auth0/auth0-react/blob/c43c915/src/with-login-required.tsx#L6"
-                        >src/with-login-required.tsx:6</a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/with-authentication-required.tsx#L6"
+                        >src/with-authentication-required.tsx:6</a
                       >
                     </li>
                   </ul>
@@ -4435,6 +4747,144 @@ ReactDOM.render(
               </li>
             </ul>
           </section>
+          <section class="tsd-panel tsd-member tsd-kind-function">
+            <a name="wrappedgettoken" class="tsd-anchor"></a>
+            <h3>
+              <span class="tsd-flag ts-flagConst">Const</span>
+              wrapped<wbr />Get<wbr />Token
+            </h3>
+            <ul class="tsd-signatures tsd-kind-function">
+              <li class="tsd-signature tsd-kind-icon">
+                wrapped<wbr />Get<wbr />Token<span class="tsd-signature-symbol"
+                  >(</span
+                >getTokenFn<span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-symbol">(</span>opts<span
+                  class="tsd-signature-symbol"
+                  >?: </span
+                ><a
+                  href="interfaces/gettokensilentlyoptions.html"
+                  class="tsd-signature-type"
+                  >GetTokenSilentlyOptions</a
+                ><span class="tsd-signature-symbol"> | </span
+                ><a
+                  href="interfaces/gettokenwithpopupoptions.html"
+                  class="tsd-signature-type"
+                  >GetTokenWithPopupOptions</a
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol"> =&gt; </span
+                ><span class="tsd-signature-type">Promise</span
+                ><span class="tsd-signature-symbol">&lt;</span
+                ><span class="tsd-signature-type">string</span
+                ><span class="tsd-signature-symbol">&gt;</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">(Anonymous function)</span>
+              </li>
+            </ul>
+            <ul class="tsd-descriptions">
+              <li class="tsd-description">
+                <aside class="tsd-sources">
+                  <ul>
+                    <li>
+                      Defined in
+                      <a
+                        href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/utils.tsx#L29"
+                        >src/utils.tsx:29</a
+                      >
+                    </li>
+                  </ul>
+                </aside>
+                <h4 class="tsd-parameters-title">Parameters</h4>
+                <ul class="tsd-parameters">
+                  <li>
+                    <h5>
+                      getTokenFn:
+                      <span class="tsd-signature-symbol">(</span>opts<span
+                        class="tsd-signature-symbol"
+                        >?: </span
+                      ><a
+                        href="interfaces/gettokensilentlyoptions.html"
+                        class="tsd-signature-type"
+                        >GetTokenSilentlyOptions</a
+                      ><span class="tsd-signature-symbol"> | </span
+                      ><a
+                        href="interfaces/gettokenwithpopupoptions.html"
+                        class="tsd-signature-type"
+                        >GetTokenWithPopupOptions</a
+                      ><span class="tsd-signature-symbol">)</span
+                      ><span class="tsd-signature-symbol"> =&gt; </span
+                      ><span class="tsd-signature-type">Promise</span
+                      ><span class="tsd-signature-symbol">&lt;</span
+                      ><span class="tsd-signature-type">string</span
+                      ><span class="tsd-signature-symbol">&gt;</span>
+                    </h5>
+                    <ul class="tsd-parameters">
+                      <li class="tsd-parameter-signature">
+                        <ul class="tsd-signatures tsd-kind-type-literal">
+                          <li class="tsd-signature tsd-kind-icon">
+                            <span class="tsd-signature-symbol">(</span>opts<span
+                              class="tsd-signature-symbol"
+                              >?: </span
+                            ><a
+                              href="interfaces/gettokensilentlyoptions.html"
+                              class="tsd-signature-type"
+                              >GetTokenSilentlyOptions</a
+                            ><span class="tsd-signature-symbol"> | </span
+                            ><a
+                              href="interfaces/gettokenwithpopupoptions.html"
+                              class="tsd-signature-type"
+                              >GetTokenWithPopupOptions</a
+                            ><span class="tsd-signature-symbol">)</span
+                            ><span class="tsd-signature-symbol">: </span
+                            ><span class="tsd-signature-type">Promise</span
+                            ><span class="tsd-signature-symbol">&lt;</span
+                            ><span class="tsd-signature-type">string</span
+                            ><span class="tsd-signature-symbol">&gt;</span>
+                          </li>
+                        </ul>
+                        <ul class="tsd-descriptions">
+                          <li class="tsd-description">
+                            <h4 class="tsd-parameters-title">Parameters</h4>
+                            <ul class="tsd-parameters">
+                              <li>
+                                <h5>
+                                  <span class="tsd-flag ts-flagOptional"
+                                    >Optional</span
+                                  >
+                                  opts:
+                                  <a
+                                    href="interfaces/gettokensilentlyoptions.html"
+                                    class="tsd-signature-type"
+                                    >GetTokenSilentlyOptions</a
+                                  ><span class="tsd-signature-symbol"> | </span
+                                  ><a
+                                    href="interfaces/gettokenwithpopupoptions.html"
+                                    class="tsd-signature-type"
+                                    >GetTokenWithPopupOptions</a
+                                  >
+                                </h5>
+                              </li>
+                            </ul>
+                            <h4 class="tsd-returns-title">
+                              Returns
+                              <span class="tsd-signature-type">Promise</span
+                              ><span class="tsd-signature-symbol">&lt;</span
+                              ><span class="tsd-signature-type">string</span
+                              ><span class="tsd-signature-symbol">&gt;</span>
+                            </h4>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <h4 class="tsd-returns-title">
+                  Returns
+                  <span class="tsd-signature-type">(Anonymous function)</span>
+                </h4>
+              </li>
+            </ul>
+          </section>
         </section>
         <section class="tsd-panel-group tsd-member-group">
           <h2>Object literals</h2>
@@ -4455,8 +4905,8 @@ ReactDOM.render(
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth-state.tsx#L8"
-                    >src/auth-state.tsx:8</a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth-state.tsx#L10"
+                    >src/auth-state.tsx:10</a
                   >
                 </li>
               </ul>
@@ -4478,8 +4928,8 @@ ReactDOM.render(
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth-state.tsx#L9"
-                      >src/auth-state.tsx:9</a
+                      href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth-state.tsx#L11"
+                      >src/auth-state.tsx:11</a
                     >
                   </li>
                 </ul>
@@ -4492,16 +4942,18 @@ ReactDOM.render(
               <h3>is<wbr />Loading</h3>
               <div class="tsd-signature tsd-kind-icon">
                 is<wbr />Loading<span class="tsd-signature-symbol">:</span>
-                <span class="tsd-signature-type">true</span
-                ><span class="tsd-signature-symbol"> = true</span>
+                <span class="tsd-signature-type">boolean</span
+                ><span class="tsd-signature-symbol">
+                  = typeof window !&#x3D;&#x3D; &#x27;undefined&#x27;</span
+                >
               </div>
               <aside class="tsd-sources">
                 <ul>
                   <li>
                     Defined in
                     <a
-                      href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth-state.tsx#L10"
-                      >src/auth-state.tsx:10</a
+                      href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth-state.tsx#L13"
+                      >src/auth-state.tsx:13</a
                     >
                   </li>
                 </ul>
@@ -4514,8 +4966,30 @@ ReactDOM.render(
             <h2>Legend</h2>
             <div class="tsd-legend-group">
               <ul class="tsd-legend">
+                <li class="tsd-kind-constructor tsd-parent-kind-class">
+                  <span class="tsd-kind-icon">Constructor</span>
+                </li>
+                <li class="tsd-kind-property tsd-parent-kind-class">
+                  <span class="tsd-kind-icon">Property</span>
+                </li>
+              </ul>
+              <ul class="tsd-legend">
                 <li class="tsd-kind-property tsd-parent-kind-interface">
                   <span class="tsd-kind-icon">Property</span>
+                </li>
+              </ul>
+              <ul class="tsd-legend">
+                <li
+                  class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"
+                >
+                  <span class="tsd-kind-icon">Inherited property</span>
+                </li>
+              </ul>
+              <ul class="tsd-legend">
+                <li
+                  class="tsd-kind-property tsd-parent-kind-class tsd-is-static"
+                >
+                  <span class="tsd-kind-icon">Static property</span>
                 </li>
               </ul>
             </div>

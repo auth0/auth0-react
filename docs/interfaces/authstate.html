@@ -3056,62 +3056,9 @@
     </header>
     <nav class="tsd-navigation secondary">
       <ul>
-        <li class="tsd-kind-interface">
-          <a href="auth0contextinterface.html" class="tsd-kind-icon"
-            >Auth0<wbr />Context<wbr />Interface</a
-          >
-        </li>
-        <li class="tsd-kind-interface">
-          <a href="auth0provideroptions.html" class="tsd-kind-icon"
-            >Auth0<wbr />Provider<wbr />Options</a
-          >
-        </li>
-        <li class="current tsd-kind-interface">
-          <a href="authstate.html" class="tsd-kind-icon">Auth<wbr />State</a>
-          <ul>
-            <li class="tsd-kind-property tsd-parent-kind-interface">
-              <a href="authstate.html#error" class="tsd-kind-icon">error</a>
-            </li>
-            <li class="tsd-kind-property tsd-parent-kind-interface">
-              <a href="authstate.html#isauthenticated" class="tsd-kind-icon"
-                >is<wbr />Authenticated</a
-              >
-            </li>
-            <li class="tsd-kind-property tsd-parent-kind-interface">
-              <a href="authstate.html#isloading" class="tsd-kind-icon"
-                >is<wbr />Loading</a
-              >
-            </li>
-            <li class="tsd-kind-property tsd-parent-kind-interface">
-              <a href="authstate.html#user" class="tsd-kind-icon">user</a>
-            </li>
-          </ul>
-        </li>
-        <li class="tsd-kind-interface">
-          <a href="withauth0props.html" class="tsd-kind-icon"
-            >With<wbr />Auth0<wbr />Props</a
-          >
-        </li>
-        <li class="tsd-kind-type-alias">
-          <a href="../globals.html#appstate" class="tsd-kind-icon"
-            >App<wbr />State</a
-          >
-        </li>
         <li class="tsd-kind-function">
           <a href="../globals.html#auth0provider" class="tsd-kind-icon"
             >Auth0<wbr />Provider</a
-          >
-        </li>
-        <li class="tsd-kind-function">
-          <a
-            href="../globals.html#defaultonredirectcallback"
-            class="tsd-kind-icon"
-            >default<wbr />OnRedirect<wbr />Callback</a
-          >
-        </li>
-        <li class="tsd-kind-function">
-          <a href="../globals.html#defaultonredirecting" class="tsd-kind-icon"
-            >default<wbr />OnRedirecting</a
           >
         </li>
         <li class="tsd-kind-function">
@@ -3125,13 +3072,10 @@
           >
         </li>
         <li class="tsd-kind-function tsd-has-type-parameter">
-          <a href="../globals.html#withloginrequired" class="tsd-kind-icon"
-            >with<wbr />Login<wbr />Required</a
-          >
-        </li>
-        <li class="tsd-kind-object-literal">
-          <a href="../globals.html#initialauthstate" class="tsd-kind-icon"
-            >initial<wbr />Auth<wbr />State</a
+          <a
+            href="../globals.html#withauthenticationrequired"
+            class="tsd-kind-icon"
+            >with<wbr />Authentication<wbr />Required</a
           >
         </li>
       </ul>
@@ -3198,15 +3142,19 @@
             </h3>
             <div class="tsd-signature tsd-kind-icon">
               error<span class="tsd-signature-symbol">:</span>
-              <span class="tsd-signature-type">Error</span>
+              <a
+                href="../classes/oautherror.html#error-1"
+                class="tsd-signature-type"
+                >Error</a
+              >
             </div>
             <aside class="tsd-sources">
               <ul>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth-state.tsx#L2"
-                    >src/auth-state.tsx:2</a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth-state.tsx#L4"
+                    >src/auth-state.tsx:4</a
                   >
                 </li>
               </ul>
@@ -3226,8 +3174,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth-state.tsx#L3"
-                    >src/auth-state.tsx:3</a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth-state.tsx#L5"
+                    >src/auth-state.tsx:5</a
                   >
                 </li>
               </ul>
@@ -3247,8 +3195,8 @@
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth-state.tsx#L4"
-                    >src/auth-state.tsx:4</a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth-state.tsx#L6"
+                    >src/auth-state.tsx:6</a
                   >
                 </li>
               </ul>
@@ -3261,15 +3209,15 @@
             <h3><span class="tsd-flag ts-flagOptional">Optional</span> user</h3>
             <div class="tsd-signature tsd-kind-icon">
               user<span class="tsd-signature-symbol">:</span>
-              <span class="tsd-signature-type">unknown</span>
+              <a href="../globals.html#user" class="tsd-signature-type">User</a>
             </div>
             <aside class="tsd-sources">
               <ul>
                 <li>
                   Defined in
                   <a
-                    href="https://github.com/auth0/auth0-react/blob/c43c915/src/auth-state.tsx#L5"
-                    >src/auth-state.tsx:5</a
+                    href="https://github.com/auth0/auth0-react/blob/1ce2c0e/src/auth-state.tsx#L7"
+                    >src/auth-state.tsx:7</a
                   >
                 </li>
               </ul>
@@ -3281,8 +3229,30 @@
             <h2>Legend</h2>
             <div class="tsd-legend-group">
               <ul class="tsd-legend">
+                <li class="tsd-kind-constructor tsd-parent-kind-class">
+                  <span class="tsd-kind-icon">Constructor</span>
+                </li>
+                <li class="tsd-kind-property tsd-parent-kind-class">
+                  <span class="tsd-kind-icon">Property</span>
+                </li>
+              </ul>
+              <ul class="tsd-legend">
                 <li class="tsd-kind-property tsd-parent-kind-interface">
                   <span class="tsd-kind-icon">Property</span>
+                </li>
+              </ul>
+              <ul class="tsd-legend">
+                <li
+                  class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"
+                >
+                  <span class="tsd-kind-icon">Inherited property</span>
+                </li>
+              </ul>
+              <ul class="tsd-legend">
+                <li
+                  class="tsd-kind-property tsd-parent-kind-class tsd-is-static"
+                >
+                  <span class="tsd-kind-icon">Static property</span>
                 </li>
               </ul>
             </div>

@@ -1,7 +1,7 @@
 import React, { ComponentType, useEffect, FC } from 'react';
 import useAuth0 from './use-auth0';
 
-export const defaultOnRedirecting = (): JSX.Element => <></>;
+const defaultOnRedirecting = (): JSX.Element => <></>;
 
 const withAuthenticationRequired = <P extends object>(
   Component: ComponentType<P>,

@@ -1,9 +1,4 @@
-import {
-  defaultOnRedirectCallback,
-  hasAuthParams,
-  loginError,
-  tokenError,
-} from '../src/utils';
+import { hasAuthParams, loginError, tokenError } from '../src/utils';
 import { OAuthError } from '../src/errors';
 
 describe('utils hasAuthParams', () => {
@@ -23,34 +18,6 @@ describe('utils hasAuthParams', () => {
     ['', '?', '?foo=1', '?code=&foo=2', '?error='].forEach((search) =>
       expect(hasAuthParams(search)).toBeFalsy()
     );
-  });
-});
-
-describe('utils defaultOnRedirectCallback', () => {
-  it('should remove auth params', async () => {
-    window.history.pushState(
-      {},
-      document.title,
-      '/?code=__test_code__&state=__test_state__'
-    );
-    expect(window.location.href).toBe(
-      'https://www.example.com/?code=__test_code__&state=__test_state__'
-    );
-    defaultOnRedirectCallback();
-    expect(window.location.href).toBe('https://www.example.com/');
-  });
-
-  it('should redirect to app state param', async () => {
-    window.history.pushState(
-      {},
-      document.title,
-      '/?code=__test_code__&state=__test_state__'
-    );
-    expect(window.location.href).toBe(
-      'https://www.example.com/?code=__test_code__&state=__test_state__'
-    );
-    defaultOnRedirectCallback({ returnTo: '/foo' });
-    expect(window.location.href).toBe('https://www.example.com/foo');
   });
 });
 
