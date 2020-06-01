@@ -1,5 +1,11 @@
 # Change Log
 
+## [v0.3.1](https://github.com/auth0/auth0-react/tree/v0.3.1) (2020-06-01)
+
+**Fixed**
+
+- getToken methods were being called in the wrong scope [\#24](https://github.com/auth0/auth0-react/pull/24) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v0.3.0](https://github.com/auth0/auth0-react/tree/v0.3.0) (2020-05-29)
 
 **Added**

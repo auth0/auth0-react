@@ -1,7 +1,7 @@
 {
   "author": "Auth0",
   "name": "@auth0/auth0-react",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Auth0 SDK for React applications",
   "keywords": [
     "auth0",
