@@ -12,11 +12,17 @@ import { hasAuthParams, loginError, wrappedGetToken } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
 
+/**
+ * The state of the application before the user was redirected to the login page.
+ */
 export type AppState = {
   returnTo?: string;
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
+/**
+ * The main configuration to instantiate the `Auth0Provider`.
+ */
 export interface Auth0ProviderOptions {
   /**
    * The child nodes your Provider has wrapped
@@ -151,7 +157,16 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
 };
 
 /**
- * The Auth0 context provider
+ * ```jsx
+ * <Auth0Provider
+ *   domain={domain}
+ *   clientId={clientId}
+ *   redirectUri={window.location.origin}>
+ *   <MyApp />
+ * </Auth0Provider>
+ * ```
+ *
+ * Provides the Auth0Context to it's child components.
  */
 const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   const {

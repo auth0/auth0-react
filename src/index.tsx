@@ -5,7 +5,11 @@ export {
 export { default as useAuth0 } from './use-auth0';
 export { default as withAuth0, WithAuth0Props } from './with-auth0';
 export { default as withAuthenticationRequired } from './with-authentication-required';
-export { Auth0ContextInterface, RedirectLoginOptions } from './auth0-context';
+export {
+  default as Auth0Context,
+  Auth0ContextInterface,
+  RedirectLoginOptions,
+} from './auth0-context';
 export {
   PopupLoginOptions,
   PopupConfigOptions,
