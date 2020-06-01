@@ -256,6 +256,18 @@ describe('Auth0Provider', () => {
     );
   });
 
+  it('should call getAccessTokenSilently in the scope of the Auth0 client', async () => {
+    clientMock.getTokenSilently.mockReturnThis();
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    const returnedThis = await result.current.getAccessTokenSilently();
+    expect(returnedThis).toStrictEqual(clientMock);
+  });
+
   it('should provide a getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
@@ -268,6 +280,18 @@ describe('Auth0Provider', () => {
     const token = await result.current.getAccessTokenWithPopup();
     expect(clientMock.getTokenWithPopup).toHaveBeenCalled();
     expect(token).toBe('token');
+  });
+
+  it('should call getAccessTokenWithPopup in the scope of the Auth0 client', async () => {
+    clientMock.getTokenWithPopup.mockReturnThis();
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    const returnedThis = await result.current.getAccessTokenWithPopup();
+    expect(returnedThis).toStrictEqual(clientMock);
   });
 
   it('should normalize errors from getAccessTokenWithPopup method', async () => {
