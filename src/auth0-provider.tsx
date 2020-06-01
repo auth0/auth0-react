@@ -218,8 +218,12 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     <Auth0Context.Provider
       value={{
         ...state,
-        getAccessTokenSilently: wrappedGetToken(client.getTokenSilently),
-        getAccessTokenWithPopup: wrappedGetToken(client.getTokenWithPopup),
+        getAccessTokenSilently: wrappedGetToken((opts?) =>
+          client.getTokenSilently(opts)
+        ),
+        getAccessTokenWithPopup: wrappedGetToken((opts?) =>
+          client.getTokenWithPopup(opts)
+        ),
         getIdTokenClaims: (opts): Promise<IdToken> =>
           client.getIdTokenClaims(opts),
         loginWithRedirect: (opts): Promise<void> =>
