@@ -25,7 +25,7 @@
     "start": "rollup -cw",
     "test": "jest --coverage",
     "docs": "typedoc --options typedoc.js src node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-    "prepack": "npm run test && npm run build"
+    "prepack": "npm run test && npm run build && npm run docs"
   },
   "repository": {
     "type": "git",
