@@ -162,8 +162,9 @@ export default withAuthenticationRequired(Profile);
 ## 4. Create a `useApi` hook for accessing protected APIs with an access token.
 
 ```js
-// use-api.js
+// use-api.ts
 import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const useApi = (url, options = {}) => {
   const { getAccessTokenSilently } = useAuth0();
