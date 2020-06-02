@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "chromeWebSecurity": false,
+  "viewportWidth": 1000,
+  "viewportHeight": 1000,
+  "fixturesFolder": false,
+  "pluginsFile": false,
+  "supportFile": false
+}
