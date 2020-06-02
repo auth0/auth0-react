@@ -3,20 +3,30 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cypress/browsers:node12.13.0-chrome80-ff74
+      - image: circleci/node:12.9.1-browsers
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: deps-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package-lock.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
       - run: npm ci
+      - run: npm run install:examples
       - save_cache:
-          key: dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: deps-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package-lock.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
           paths:
             - ~/.npm
             - ~/.cache
       - run: npm run build
       - run: npm test
+      - run: sed -i '/process.env.CI/ s/isInteractive [|]*//' examples/cra-react-router/node_modules/react-scripts/scripts/start.js
+      - run:
+          command: npm run test:integration
+          environment:
+            SKIP_PREFLIGHT_CHECK: 'true'
+            REACT_APP_DOMAIN: brucke.auth0.com
+            REACT_APP_CLIENT_ID: wLSIP47wM39wKdDmOj6Zb5eSEw3JVhVp
+            REACT_APP_AUDIENCE: http://localhost/
+            DOMAIN: brucke.auth0.com
+            AUDIENCE: http://localhost/
       - store_test_results:
           path: test-results
       - store_artifacts:

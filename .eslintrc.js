@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/camelcase': 'off',
   },
+  ignorePatterns: ['examples/**'],
   overrides: [
     {
       files: ['*.js'],

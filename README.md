@@ -176,7 +176,7 @@ const Posts = () => {
 export default Posts;
 ```
 
-See more examples in [EXAMPLES.md](./EXAMPLES.md)
+See more examples in [EXAMPLES.md](./EXAMPLES.md) or run the example app by following the instructions in [examples/README.md](./examples/README.md)
 
 ## Contributing
 
