@@ -110,6 +110,11 @@ export interface Auth0ProviderOptions extends PropsWithChildren<{}> {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
+/**
+ * @ignore
+ */
+declare const __VERSION__: string;
+
 const toAuth0ClientOptions = (
   opts: Auth0ProviderOptions
 ): Auth0ClientOptions => {
@@ -119,6 +124,10 @@ const toAuth0ClientOptions = (
     client_id: clientId,
     redirect_uri: redirectUri,
     max_age: maxAge,
+    auth0Client: {
+      name: 'auth0-react',
+      version: __VERSION__,
+    },
   };
 };
 

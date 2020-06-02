@@ -3,6 +3,7 @@ import { mocked } from 'ts-jest/utils';
 import Auth0Context from '../src/auth0-context';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { Auth0Client } from '@auth0/auth0-spa-js';
+import pkg from '../package.json';
 import { createWrapper } from './helpers';
 
 const clientMock = mocked(new Auth0Client({ client_id: '', domain: '' }));
@@ -30,13 +31,35 @@ describe('Auth0Provider', () => {
     const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    expect(Auth0Client).toHaveBeenCalledWith({
-      client_id: 'foo',
+    expect(Auth0Client).toHaveBeenCalledWith(
+      expect.objectContaining({
+        client_id: 'foo',
+        domain: 'bar',
+        redirect_uri: 'baz',
+        max_age: 'qux',
+        extra_param: '__test_extra_param__',
+      })
+    );
+    await waitForNextUpdate();
+  });
+
+  it('should pass user agent to Auth0Client', async () => {
+    const opts = {
+      clientId: 'foo',
       domain: 'bar',
-      redirect_uri: 'baz',
-      max_age: 'qux',
-      extra_param: '__test_extra_param__',
+    };
+    const wrapper = createWrapper(opts);
+    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
     });
+    expect(Auth0Client).toHaveBeenCalledWith(
+      expect.objectContaining({
+        auth0Client: {
+          name: 'auth0-react',
+          version: pkg.version,
+        },
+      })
+    );
     await waitForNextUpdate();
   });
 
