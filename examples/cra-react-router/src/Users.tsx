@@ -5,7 +5,7 @@ import { Error } from './Error';
 
 export function Users() {
   const { loading, error, data: users = [] } = useApi(
-    `http://localhost:${process.env.REACT_APP_API_PORT}/users`,
+    `http://localhost:${process.env.REACT_APP_API_PORT || 3001}/users`,
     {
       audience: process.env.REACT_APP_AUDIENCE,
       scope: 'read:users',
