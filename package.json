@@ -24,7 +24,13 @@
     "lint": "eslint --ext=tsx ./src ./__tests__",
     "start": "rollup -cw",
     "test": "jest --coverage",
-    "prepack": "npm run test && npm run build"
+    "prepack": "npm run test && npm run build",
+    "start:cra": "npm start --prefix=examples/cra-react-router",
+    "start:api": "npm start --prefix=examples/users-api",
+    "test:integration": "start-server-and-test start:api 3001 start:cra http-get://localhost:3000 cypress:run",
+    "test:integration:watch": "start-server-and-test start:api 3001 start:cra http-get://localhost:3000 cypress:open",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -45,6 +51,7 @@
     "@types/react-dom": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
+    "cypress": "^4.7.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
@@ -63,6 +70,7 @@
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript2": "^0.27.0",
+    "start-server-and-test": "^1.11.0",
     "ts-jest": "^25.4.0",
     "tslib": "^1.11.1",
     "typescript": "^3.8.3"

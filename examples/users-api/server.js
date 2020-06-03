@@ -28,6 +28,8 @@ const checkJwt = jwt({
   algorithm: ['RS256'],
 });
 
+app.head('/', (req, res) => res.send('ok'));
+
 app.get('/users', checkJwt, jwtAuthz(['read:users']), (req, res) => {
   res.send([
     { name: 'Bob', email: 'bob@example.com' },

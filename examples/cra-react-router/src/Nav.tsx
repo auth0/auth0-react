@@ -35,9 +35,10 @@ export function Nav() {
 
       {isAuthenticated ? (
         <div>
-          Hello, {user.name}!{' '}
+          <span id="hello">Hello, {user.name}!</span>{' '}
           <button
             className="btn btn-outline-secondary"
+            id="logout"
             onClick={() => logout()}
           >
             logout
@@ -46,6 +47,7 @@ export function Nav() {
       ) : (
         <button
           className="btn btn-outline-success"
+          id="login"
           onClick={() => loginWithRedirect()}
         >
           login

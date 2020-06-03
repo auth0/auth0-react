@@ -17,6 +17,16 @@ jobs:
             - ~/.cache
       - run: npm run build
       - run: npm test
+      - run:
+          command: npm test:integration
+          environment:
+            SKIP_PREFLIGHT_CHECK: true
+            REACT_APP_DOMAIN: brucke.auth0.com
+            REACT_APP_CLIENT_ID: wLSIP47wM39wKdDmOj6Zb5eSEw3JVhVp
+            REACT_APP_AUDIENCE: http://localhost/
+            REACT_APP_API_PORT: 3001
+            DOMAIN: brucke.auth0.com
+            AUDIENCE: http://localhost/
       - store_test_results:
           path: test-results
       - store_artifacts:
