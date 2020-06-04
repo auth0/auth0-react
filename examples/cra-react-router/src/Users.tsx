@@ -3,9 +3,11 @@ import React from 'react';
 import { Loading } from './Loading';
 import { Error } from './Error';
 
+const PORT = process.env.REACT_APP_API_PORT || 3001;
+
 export function Users() {
   const { loading, error, data: users = [] } = useApi(
-    `http://localhost:${process.env.REACT_APP_API_PORT || 3001}/users`,
+    `http://localhost:${PORT}/users`,
     {
       audience: process.env.REACT_APP_AUDIENCE,
       scope: 'read:users',
