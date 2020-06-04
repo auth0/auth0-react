@@ -1,3 +1,5 @@
+const pkg = require('./package.json');
+
 module.exports = {
   clearMocks: true,
   coveragePathIgnorePatterns: ['/__tests__/'],
@@ -15,6 +17,7 @@ module.exports = {
         target: 'es6',
       },
     },
+    __VERSION__: pkg.version,
   },
   coverageThreshold: {
     global: {
