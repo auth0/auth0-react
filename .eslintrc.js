@@ -20,4 +20,12 @@ module.exports = {
   rules: {
     '@typescript-eslint/camelcase': 'off',
   },
+  overrides: [
+    {
+      files: ['*.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
+  ],
 };
