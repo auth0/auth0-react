@@ -3,6 +3,7 @@ import { mocked } from 'ts-jest/utils';
 import Auth0Context from '../src/auth0-context';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { Auth0Client } from '@auth0/auth0-spa-js';
+import pkg from '../package.json';
 import { createWrapper } from './helpers';
 
 const clientMock = mocked(new Auth0Client({ client_id: '', domain: '' }));
@@ -30,17 +31,39 @@ describe('Auth0Provider', () => {
     const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    expect(Auth0Client).toHaveBeenCalledWith({
-      client_id: 'foo',
-      domain: 'bar',
-      redirect_uri: 'baz',
-      max_age: 'qux',
-      extra_param: '__test_extra_param__',
-    });
+    expect(Auth0Client).toHaveBeenCalledWith(
+      expect.objectContaining({
+        client_id: 'foo',
+        domain: 'bar',
+        redirect_uri: 'baz',
+        max_age: 'qux',
+        extra_param: '__test_extra_param__',
+      })
+    );
     await waitForNextUpdate();
   });
 
-  it('should get token silently when logged out', async () => {
+  it('should pass user agent to Auth0Client', async () => {
+    const opts = {
+      clientId: 'foo',
+      domain: 'bar',
+    };
+    const wrapper = createWrapper(opts);
+    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+    expect(Auth0Client).toHaveBeenCalledWith(
+      expect.objectContaining({
+        auth0Client: {
+          name: 'auth0-react',
+          version: pkg.version,
+        },
+      })
+    );
+    await waitForNextUpdate();
+  });
+
+  it('should check session when logged out', async () => {
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -49,11 +72,11 @@ describe('Auth0Provider', () => {
     expect(result.current.isLoading).toBe(true);
     await waitForNextUpdate();
     expect(result.current.isLoading).toBe(false);
-    expect(clientMock.getTokenSilently).toHaveBeenCalled();
+    expect(clientMock.checkSession).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(false);
   });
 
-  it('should get token silently when logged in', async () => {
+  it('should check session when logged in', async () => {
     clientMock.isAuthenticated.mockResolvedValue(true);
     clientMock.getUser.mockResolvedValue('__test_user__');
     const wrapper = createWrapper();
@@ -62,28 +85,13 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(clientMock.getTokenSilently).toHaveBeenCalled();
+    expect(clientMock.checkSession).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(true);
     expect(result.current.user).toBe('__test_user__');
   });
 
-  it('should handle login_required errors when getting token', async () => {
-    clientMock.getTokenSilently.mockRejectedValue({
-      error: 'login_required',
-    });
-    const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
-    await waitForNextUpdate();
-    expect(clientMock.getTokenSilently).toHaveBeenCalled();
-    expect(result.current.error).toBeUndefined();
-    expect(result.current.isAuthenticated).toBe(false);
-  });
-
-  it('should handle other errors when getting token', async () => {
-    clientMock.getTokenSilently.mockRejectedValue({
+  it('should handle errors when checking session', async () => {
+    clientMock.checkSession.mockRejectedValue({
       error: '__test_error__',
       error_description: '__test_error_description__',
     });
@@ -93,7 +101,7 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(clientMock.getTokenSilently).toHaveBeenCalled();
+    expect(clientMock.checkSession).toHaveBeenCalled();
     expect(() => {
       throw result.current.error;
     }).toThrowError('__test_error_description__');

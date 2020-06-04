@@ -117,6 +117,11 @@ export interface Auth0ProviderOptions {
 /**
  * @ignore
  */
+declare const __VERSION__: string;
+
+/**
+ * @ignore
+ */
 const toAuth0ClientOptions = (
   opts: Auth0ProviderOptions
 ): Auth0ClientOptions => {
@@ -126,6 +131,10 @@ const toAuth0ClientOptions = (
     client_id: clientId,
     redirect_uri: redirectUri,
     max_age: maxAge,
+    auth0Client: {
+      name: 'auth0-react',
+      version: __VERSION__,
+    },
   };
 };
 
@@ -186,17 +195,13 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
           const { appState } = await client.handleRedirectCallback();
           onRedirectCallback(appState);
         } else {
-          await client.getTokenSilently();
+          await client.checkSession();
         }
         const isAuthenticated = await client.isAuthenticated();
         const user = isAuthenticated && (await client.getUser());
         dispatch({ type: 'INITIALISED', isAuthenticated, user });
       } catch (error) {
-        if (error.error !== 'login_required') {
-          dispatch({ type: 'ERROR', error: loginError(error) });
-        } else {
-          dispatch({ type: 'INITIALISED', isAuthenticated: false });
-        }
+        dispatch({ type: 'ERROR', error: loginError(error) });
       }
     })();
   }, [client, onRedirectCallback]);
