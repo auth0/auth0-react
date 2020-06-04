@@ -159,17 +159,13 @@ const Auth0Provider = ({
           const { appState } = await client.handleRedirectCallback();
           onRedirectCallback(appState);
         } else {
-          await client.getTokenSilently();
+          await client.checkSession();
         }
         const isAuthenticated = await client.isAuthenticated();
         const user = isAuthenticated && (await client.getUser());
         dispatch({ type: 'INITIALISED', isAuthenticated, user });
       } catch (error) {
-        if (error.error !== 'login_required') {
-          dispatch({ type: 'ERROR', error: loginError(error) });
-        } else {
-          dispatch({ type: 'INITIALISED', isAuthenticated: false });
-        }
+        dispatch({ type: 'ERROR', error: loginError(error) });
       }
     })();
   }, [client, onRedirectCallback]);
