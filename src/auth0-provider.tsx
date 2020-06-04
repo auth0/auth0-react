@@ -115,6 +115,7 @@ export interface Auth0ProviderOptions {
 }
 
 /**
+ * Replaced by the package version at runtime.
  * @ignore
  */
 declare const __VERSION__: string;
