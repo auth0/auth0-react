@@ -1,29 +1,33 @@
-import React, {
-  PropsWithChildren,
-  useEffect,
-  useReducer,
-  useState,
-} from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import {
   Auth0Client,
   Auth0ClientOptions,
+  CacheLocation,
   IdToken,
   PopupLoginOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
-  CacheLocation,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
-import {
-  AppState,
-  defaultOnRedirectCallback,
-  loginError,
-  hasAuthParams,
-  wrappedGetToken,
-} from './utils';
+import { hasAuthParams, loginError, wrappedGetToken } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
 
-export interface Auth0ProviderOptions extends PropsWithChildren<{}> {
+/**
+ * The state of the application before the user was redirected to the login page.
+ */
+export type AppState = {
+  returnTo?: string;
+  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+};
+
+/**
+ * The main configuration to instantiate the `Auth0Provider`.
+ */
+export interface Auth0ProviderOptions {
+  /**
+   * The child nodes your Provider has wrapped
+   */
+  children?: React.ReactNode;
   /**
    * By default this removes the code and state parameters from the url when you are redirected from the authorize page.
    * It uses `window.history` but you might want to overwrite this if you are using a custom router, like `react-router-dom`
@@ -111,10 +115,14 @@ export interface Auth0ProviderOptions extends PropsWithChildren<{}> {
 }
 
 /**
+ * Replaced by the package version at runtime.
  * @ignore
  */
 declare const __VERSION__: string;
 
+/**
+ * @ignore
+ */
 const toAuth0ClientOptions = (
   opts: Auth0ProviderOptions
 ): Auth0ClientOptions => {
@@ -131,6 +139,9 @@ const toAuth0ClientOptions = (
   };
 };
 
+/**
+ * @ignore
+ */
 const toAuth0LoginRedirectOptions = (
   opts?: Auth0RedirectLoginOptions
 ): RedirectLoginOptions | undefined => {
@@ -144,12 +155,38 @@ const toAuth0LoginRedirectOptions = (
   };
 };
 
-const Auth0Provider = ({
-  children,
-  onRedirectCallback = defaultOnRedirectCallback,
-  ...opts
-}: Auth0ProviderOptions): JSX.Element => {
-  const [client] = useState(() => new Auth0Client(toAuth0ClientOptions(opts)));
+/**
+ * @ignore
+ */
+const defaultOnRedirectCallback = (appState?: AppState): void => {
+  window.history.replaceState(
+    {},
+    document.title,
+    appState?.returnTo || window.location.pathname
+  );
+};
+
+/**
+ * ```jsx
+ * <Auth0Provider
+ *   domain={domain}
+ *   clientId={clientId}
+ *   redirectUri={window.location.origin}>
+ *   <MyApp />
+ * </Auth0Provider>
+ * ```
+ *
+ * Provides the Auth0Context to it's child components.
+ */
+const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
+  const {
+    children,
+    onRedirectCallback = defaultOnRedirectCallback,
+    ...clientOpts
+  } = opts;
+  const [client] = useState(
+    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
+  );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
 
   useEffect(() => {

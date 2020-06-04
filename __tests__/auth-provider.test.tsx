@@ -117,6 +117,9 @@ describe('Auth0Provider', () => {
     expect(window.location.href).toBe(
       'https://www.example.com/?code=__test_code__&state=__test_state__'
     );
+    clientMock.handleRedirectCallback.mockResolvedValueOnce({
+      appState: undefined,
+    });
     const wrapper = createWrapper();
     const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
       wrapper,
@@ -124,6 +127,27 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
     expect(window.location.href).toBe('https://www.example.com/');
+  });
+
+  it('should handle redirect callback success and return to app state param', async () => {
+    window.history.pushState(
+      {},
+      document.title,
+      '/?code=__test_code__&state=__test_state__'
+    );
+    expect(window.location.href).toBe(
+      'https://www.example.com/?code=__test_code__&state=__test_state__'
+    );
+    clientMock.handleRedirectCallback.mockResolvedValueOnce({
+      appState: { returnTo: '/foo' },
+    });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+    await waitForNextUpdate();
+    expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
+    expect(window.location.href).toBe('https://www.example.com/foo');
   });
 
   it('should handle redirect callback errors', async () => {

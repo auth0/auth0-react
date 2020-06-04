@@ -9,6 +9,9 @@ type Action =
     }
   | { type: 'ERROR'; error: Error };
 
+/**
+ * Handles how that state changes in the `useAuth0` hook.
+ */
 export const reducer = (state: AuthState, action: Action): AuthState => {
   switch (action.type) {
     case 'LOGIN_POPUP_STARTED':
