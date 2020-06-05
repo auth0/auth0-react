@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.4.0](https://github.com/auth0/auth0-react/tree/v0.4.0) (2020-06-05)
+
+**Added**
+
+- [SDK-1697] Add custom user agent to spa js [\#28](https://github.com/auth0/auth0-react/pull/28) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Use `checkSession` to start login [\#27](https://github.com/auth0/auth0-react/pull/27) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- [SDK-1690] Add generated API docs [\#25](https://github.com/auth0/auth0-react/pull/25) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v0.3.1](https://github.com/auth0/auth0-react/tree/v0.3.1) (2020-06-01)
 
 **Fixed**

@@ -1,8 +1,8 @@
 {
   "author": "Auth0",
   "name": "@auth0/auth0-react",
-  "version": "0.3.1",
-  "description": "Auth0 SDK for React applications",
+  "version": "0.4.0",
+  "description": "Auth0 SDK for React Single Page Applications (SPA)",
   "keywords": [
     "auth0",
     "login",
@@ -25,7 +25,7 @@
     "start": "rollup -cw",
     "test": "jest --coverage",
     "docs": "typedoc --options typedoc.js src node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-    "prepack": "npm run test && npm run build && npm run docs"
+    "prepack": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
