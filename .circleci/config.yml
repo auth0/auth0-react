@@ -17,10 +17,9 @@ jobs:
             - ~/.cache
       - run: npm run build
       - run: npm test
+      - run: npm run codecov
       - store_test_results:
           path: test-results
-      - store_artifacts:
-          path: coverage
 
 workflows:
   Build and Test:

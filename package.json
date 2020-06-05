@@ -25,7 +25,8 @@
     "start": "rollup -cw",
     "test": "jest --coverage",
     "docs": "typedoc --options typedoc.js src node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-    "prepack": "npm run test && npm run build"
+    "prepack": "npm run test && npm run build",
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "@types/react-dom": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
+    "codecov": "^3.7.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
