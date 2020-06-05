@@ -32,7 +32,8 @@
     "test:integration": "start-server-and-test start:api 3001 start:cra http-get://localhost:3000 cypress:run",
     "test:integration:watch": "start-server-and-test start:api 3001 start:cra http-get://localhost:3000 cypress:open",
     "cypress:run": "cypress run",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,7 @@
     "@types/react-dom": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
+    "codecov": "^3.7.0",
     "cypress": "^4.7.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",

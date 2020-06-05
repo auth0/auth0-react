@@ -2,8 +2,10 @@
 
 Auth0 SDK for React Single Page Applications (SPA).
 
-[![CircleCI](https://circleci.com/gh/auth0/auth0-react.svg?style=svg&circle-token=b7d4097b3e2d3d3d086b26df6b20fb0f51d8ca09)](https://circleci.com/gh/auth0/auth0-react)
+[![CircleCI](https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=master&style=flat)](https://circleci.com/gh/auth0/auth0-react)
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat)](https://www.npmjs.com/package/@auth0/auth0-react)
+[![codecov](https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat)](https://codecov.io/gh/auth0/auth0-react)
 
 ### Beta
 
@@ -182,7 +184,7 @@ const Posts = () => {
 export default Posts;
 ```
 
-For a more detailed example see how to [create a `useApi` hook for accessing protected APIs with an access token](#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token).
+For a more detailed example see how to [create a `useApi` hook for accessing protected APIs with an access token](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token).
 
 ## Contributing
 
