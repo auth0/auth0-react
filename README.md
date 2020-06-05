@@ -10,10 +10,7 @@ Auth0 SDK for React Applications.
 **@auth0/auth0-react** is in _Early Access_ in order to get feedback to shape its design. That means:
 
 - It is under active development so breaking changes are expected and we will do our best to communicate them.
-- This is a private preview to Auth0 employees only.
-- The library is not published onto npm.
-- Feedback is actively solicited with the SDKs team.
-- Full reviews and an audit of the library have not been completed.
+- The library is not yet published onto npm.
 
 ## Table of Contents
 
