@@ -182,7 +182,7 @@ const Posts = () => {
 export default Posts;
 ```
 
-For a more detailed example see how to [create a `useApi` hook for accessing protected APIs with an access token](#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token).
+For a more detailed example see how to [create a `useApi` hook for accessing protected APIs with an access token](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token).
 
 ## Contributing
 
