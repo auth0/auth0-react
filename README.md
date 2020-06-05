@@ -1,36 +1,41 @@
 # @auth0/auth0-react
 
-Auth0 SDK for React Applications.
+Auth0 SDK for React Single Page Applications (SPA).
 
 [![CircleCI](https://circleci.com/gh/auth0/auth0-react.svg?style=svg&circle-token=b7d4097b3e2d3d3d086b26df6b20fb0f51d8ca09)](https://circleci.com/gh/auth0/auth0-react)
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 
-### Early Access
+### Beta
 
-**@auth0/auth0-react** is in _Early Access_ in order to get feedback to shape its design. That means:
-
-- It is under active development so breaking changes are expected and we will do our best to communicate them.
-- The library is not yet published onto npm.
+**@auth0/auth0-react** is in Beta in order to get feedback to shape its design. As we move towards general availability please be aware that releases may contain breaking changes, but we will do our best to communicate them.
 
 ## Table of Contents
 
+- [Documentation](#documentation)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
-- [Other Use Cases](#other-use-cases)
 - [Contributing](#contributing)
 - [Support + Feedback](#support--feedback)
 - [Vulnerability Reporting](#vulnerability-reporting)
 - [What is Auth0](#what-is-auth0)
 - [License](#license)
 
+## Documentation
+
+- [API Reference](https://auth0.github.io/auth0-react/)
+
 ## Installation
 
-For Early Access, download the binary from the releases page: [auth0-auth0-react-0.3.1.tgz](https://github.com/auth0/auth0-react/releases/download/v0.3.1/auth0-auth0-react-0.3.1.tgz).
-
-Then install it from the folder you downloaded it to:
+Using [npm](https://npmjs.org/)
 
 ```bash
-npm install ~/Downloads/auth0-auth0-react-0.3.1.tgz
+npm install @auth0/auth0-react
+```
+
+Using [yarn](https://yarnpkg.com/)
+
+```bash
+yarn add @auth0/auth0-react
 ```
 
 ## Getting Started
@@ -94,9 +99,7 @@ function App() {
 export default App;
 ```
 
-## Other Use Cases
-
-### Class Components
+### Use with a Class Component
 
 Use the `withAuth0` higher order component to add the `auth0` property to Class components:
 
@@ -114,7 +117,7 @@ class Profile extends Component {
 export default withAuth0(Profile);
 ```
 
-### Protecting Routes
+### Protect a Route
 
 Protect a route component using the `withAuthenticationRequired` higher order component. Visits to this route when unauthenticated will redirect the user to the login page and back to this page after login:
 
@@ -130,9 +133,11 @@ const PrivateRoute = () => <div>Private</div>;
 export default withAuthenticationRequired(PrivateRoute, Redirecting);
 ```
 
-### Access an API
+**Note** If you are using a custom router, you will need to supply the `Auth0Provider` with a custom `onRedirectCallback` method to perform the action that returns the user to the protected page. See examples for [react-router](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#1-protecting-a-route-in-a-react-router-dom-app), [Gatsby](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#2-protecting-a-route-in-a-gatsby-app) and [Next.js](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#3-protecting-a-route-in-a-nextjs-app-in-spa-mode).
 
-Use a protected API with an Access Token:
+### Call an API
+
+Call a protected API with an Access Token:
 
 ```jsx
 import React, { useEffect, useState } from 'react';
@@ -144,16 +149,20 @@ const Posts = () => {
 
   useEffect(() => {
     (async () => {
-      const token = await getAccessTokenSilently({
-        audience: 'https://api.example.com/',
-        scope: 'read:posts',
-      });
-      const response = await fetch('https://api.example.com/posts', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setPosts(await response.json());
+      try {
+        const token = await getAccessTokenSilently({
+          audience: 'https://api.example.com/',
+          scope: 'read:posts',
+        });
+        const response = await fetch('https://api.example.com/posts', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setPosts(await response.json());
+      } catch (e) {
+        console.error(e);
+      }
     })();
   }, [getAccessTokenSilently]);
 
@@ -173,7 +182,7 @@ const Posts = () => {
 export default Posts;
 ```
 
-See more examples in [EXAMPLES.md](./EXAMPLES.md)
+For a more detailed example see how to [create a `useApi` hook for accessing protected APIs with an access token](#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token).
 
 ## Contributing
 
