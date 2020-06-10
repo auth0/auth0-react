@@ -105,3 +105,6 @@ dist
 
 .idea
 test-results
+
+cypress/screenshots
+cypress/videos
