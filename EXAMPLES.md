@@ -49,6 +49,8 @@ export default function App() {
 }
 ```
 
+See [react-router example app](./examples/cra-react-router)
+
 ## 2. Protecting a route in a Gatsby app
 
 Wrap the root element in your `Auth0Provider` to configure the SDK and setup the context for the `useAuth0` hook.
@@ -100,6 +102,8 @@ const Profile = () => {
 // Wrap the component in the withAuthenticationRequired handler
 export default withAuthenticationRequired(Profile);
 ```
+
+See [Gatsby example app](./examples/gatsby-app)
 
 ## 3. Protecting a route in a Next.js app (in SPA mode)
 
@@ -158,6 +162,8 @@ const Profile = () => {
 // Wrap the component in the withAuthenticationRequired handler
 export default withAuthenticationRequired(Profile);
 ```
+
+See [Next.js example app](./examples/nextjs-app)
 
 ## 4. Create a `useApi` hook for accessing protected APIs with an access token.
 
