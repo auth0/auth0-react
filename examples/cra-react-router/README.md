@@ -1,29 +1,18 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Router example
 
-## Available Scripts
+This is an example of using `@auth0/auth0-react` with `react-router`.
 
-In the project directory, you can run:
+Follow the steps in [examples/README.md](../README.md) to setup an Auth0 application and API.
 
-### `npm start`
+Add the file `./examples/cra-react-router/.env` with the `domain` and `clientId` of the application and `audience` (your API identifier)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```dotenv
+REACT_APP_DOMAIN=your_domain
+REACT_APP_CLIENT_ID=your_client_id
+REACT_APP_AUDIENCE=your_audience
+SKIP_PREFLIGHT_CHECK=true # To workaround issues with nesting create-react-app in another package
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Run `npm start` to start the application at http://localhost:3000
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Start the API using the instructions in [examples/users-api/README.md](../users-api/README.md)

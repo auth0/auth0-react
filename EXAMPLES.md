@@ -103,7 +103,7 @@ const Profile = () => {
 export default withAuthenticationRequired(Profile);
 ```
 
-See [gatsby example app](./examples/gatsby-app)
+See [Gatsby example app](./examples/gatsby-app)
 
 ## 3. Protecting a route in a Next.js app (in SPA mode)
 
@@ -162,6 +162,8 @@ const Profile = () => {
 // Wrap the component in the withAuthenticationRequired handler
 export default withAuthenticationRequired(Profile);
 ```
+
+See [Next.js example app](./examples/nextjs-app)
 
 ## 4. Create a `useApi` hook for accessing protected APIs with an access token.
 
