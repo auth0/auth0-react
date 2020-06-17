@@ -129,12 +129,12 @@ Protect a route component using the `withAuthenticationRequired` higher order co
 import React from 'react';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 
-// Show a message while the user waits to be redirected to the login page.
-const Redirecting = () => <div>Redirecting you to the login page...</div>;
-
 const PrivateRoute = () => <div>Private</div>;
 
-export default withAuthenticationRequired(PrivateRoute, Redirecting);
+export default withAuthenticationRequired(PrivateRoute, {
+  // Show a message while the user waits to be redirected to the login page.
+  onRedirecting: () => <div>Redirecting you to the login page...</div>,
+});
 ```
 
 **Note** If you are using a custom router, you will need to supply the `Auth0Provider` with a custom `onRedirectCallback` method to perform the action that returns the user to the protected page. See examples for [react-router](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#1-protecting-a-route-in-a-react-router-dom-app), [Gatsby](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#2-protecting-a-route-in-a-gatsby-app) and [Next.js](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#3-protecting-a-route-in-a-nextjs-app-in-spa-mode).
