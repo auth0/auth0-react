@@ -17,7 +17,7 @@ describe('Smoke tests', () => {
   it('do basic login and show user', () => {
     cy.visit('/');
     cy.get('#login').should('exist');
-    cy.get('#login').click();
+    cy.get('#login').click({ force: true });
 
     loginToAuth0();
 
