@@ -22,8 +22,8 @@ export interface RedirectLoginOptions extends BaseLoginOptions {
   /**
    * Used to store state before doing the redirect
    */
-
   appState?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+
   /**
    * Used to add to the URL fragment before redirecting
    */
@@ -121,7 +121,7 @@ export interface Auth0ContextInterface extends AuthState {
    *
    * Clears the application session and performs a redirect to `/v2/logout`, using
    * the parameters provided as arguments, to clear the Auth0 session.
-   * If the `federated` option is specified it also clears the Identity Provider session.
+   * If the `federated` option is specified, it also clears the Identity Provider session.
    * If the `localOnly` option is specified, it only clears the application session.
    * It is invalid to set both the `federated` and `localOnly` options to `true`,
    * and an error will be thrown if you do.
