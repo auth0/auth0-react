@@ -10,6 +10,7 @@ module.exports = {
     'Auth0ProviderOptions',
     'Auth0ContextInterface',
     'WithAuth0Props',
+    'WithAuthenticationRequiredOptions',
   ],
   mode: 'file',
   exclude: ['./src/utils.tsx', './src/reducer.tsx', './src/auth-state.tsx'],
