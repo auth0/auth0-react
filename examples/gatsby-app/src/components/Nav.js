@@ -34,7 +34,7 @@ export function Nav() {
           <button
             className="btn btn-outline-secondary"
             id="logout"
-            onClick={() => logout()}
+            onClick={() => logout({ returnTo: window.location.origin })}
           >
             logout
           </button>

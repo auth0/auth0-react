@@ -92,7 +92,10 @@ function App() {
   if (isAuthenticated) {
     return (
       <div>
-        Hello {user.name} <button onClick={logout}>Log out</button>
+        Hello {user.name}{' '}
+        <button onClick={() => logout({ returnTo: window.location.origin })}>
+          Log out
+        </button>
       </div>
     );
   } else {

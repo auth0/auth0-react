@@ -47,7 +47,11 @@
 
         return isAuthenticated ? (
           <div>
-            <button onClick={() => logout()}>logout</button>
+            <button
+              onClick={() => logout({ returnTo: window.location.origin })}
+            >
+              logout
+            </button>
             <button
               onClick={async () => setToken(await getAccessTokenSilently())}
             >
