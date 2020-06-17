@@ -116,7 +116,7 @@ export interface Auth0ContextInterface extends AuthState {
 
   /**
    * ```js
-   * auth0.logout();
+   * auth0.logout({ returnTo: window.location.origin });
    * ```
    *
    * Clears the application session and performs a redirect to `/v2/logout`, using
