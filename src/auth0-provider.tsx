@@ -92,7 +92,7 @@ export interface Auth0ProviderOptions {
     defaultScope?: string;
   };
   /**
-   * Maximum allowable elasped time (in seconds) since authentication.
+   * Maximum allowable elapsed time (in seconds) since authentication.
    * If the last time the user authenticated is greater than this value,
    * the user must be reauthenticated.
    */
@@ -176,7 +176,7 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
  * </Auth0Provider>
  * ```
  *
- * Provides the Auth0Context to it's child components.
+ * Provides the Auth0Context to its child components.
  */
 const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   const {
