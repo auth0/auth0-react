@@ -9,6 +9,7 @@ import { Error } from './Error';
 import { Loading } from './Loading';
 import { Users } from './Users';
 
+// Use `createHashHistory` to use hash routing
 export const history = createBrowserHistory();
 
 function App() {
