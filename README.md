@@ -7,10 +7,6 @@ Auth0 SDK for React Single Page Applications (SPA).
 [![npm](https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat)](https://www.npmjs.com/package/@auth0/auth0-react)
 [![codecov](https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat)](https://codecov.io/gh/auth0/auth0-react)
 
-### Beta
-
-**@auth0/auth0-react** is in Beta in order to get feedback to shape its design. As we move towards general availability please be aware that releases may contain breaking changes, but we will do our best to communicate them.
-
 ## Table of Contents
 
 - [Documentation](#documentation)

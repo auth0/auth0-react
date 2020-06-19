@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@auth0/auth0-react | @auth0/auth0-react</title>
+	<title>WithAuthenticationRequiredOptions | @auth0/auth0-react</title>
 	<meta name="description" content="Documentation for @auth0/auth0-react">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2692,7 +2692,7 @@ img {
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="index.html">@auth0/auth0-react</a></strong>
+					<strong><a href="../index.html">@auth0/auth0-react</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -2721,524 +2721,141 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class=" tsd-kind-interface">
-			<a href="interfaces/auth0contextinterface.html" class="tsd-kind-icon">Auth0<wbr>Context<wbr>Interface</a>
+			<a href="auth0contextinterface.html" class="tsd-kind-icon">Auth0<wbr>Context<wbr>Interface</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="interfaces/auth0provideroptions.html" class="tsd-kind-icon">Auth0<wbr>Provider<wbr>Options</a>
+			<a href="auth0provideroptions.html" class="tsd-kind-icon">Auth0<wbr>Provider<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="interfaces/withauth0props.html" class="tsd-kind-icon">With<wbr>Auth0<wbr>Props</a>
+			<a href="withauth0props.html" class="tsd-kind-icon">With<wbr>Auth0<wbr>Props</a>
 		</li>
-		<li class=" tsd-kind-interface">
-			<a href="interfaces/withauthenticationrequiredoptions.html" class="tsd-kind-icon">With<wbr>Authentication<wbr>Required<wbr>Options</a>
+		<li class="current tsd-kind-interface">
+			<a href="withauthenticationrequiredoptions.html" class="tsd-kind-icon">With<wbr>Authentication<wbr>Required<wbr>Options</a>
+			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="withauthenticationrequiredoptions.html#loginoptions" class="tsd-kind-icon">login<wbr>Options</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="withauthenticationrequiredoptions.html#onredirecting" class="tsd-kind-icon">on<wbr>Redirecting</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="withauthenticationrequiredoptions.html#returnto" class="tsd-kind-icon">return<wbr>To</a>
+				</li>
+			</ul>
 		</li>
 		<li class=" tsd-kind-variable">
-			<a href="globals.html#auth0context" class="tsd-kind-icon">Auth0<wbr>Context</a>
+			<a href="../globals.html#auth0context" class="tsd-kind-icon">Auth0<wbr>Context</a>
 		</li>
 		<li class=" tsd-kind-function">
-			<a href="globals.html#auth0provider" class="tsd-kind-icon">Auth0<wbr>Provider</a>
+			<a href="../globals.html#auth0provider" class="tsd-kind-icon">Auth0<wbr>Provider</a>
 		</li>
 		<li class=" tsd-kind-function">
-			<a href="globals.html#useauth0" class="tsd-kind-icon">use<wbr>Auth0</a>
+			<a href="../globals.html#useauth0" class="tsd-kind-icon">use<wbr>Auth0</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="globals.html#withauth0" class="tsd-kind-icon">with<wbr>Auth0</a>
+			<a href="../globals.html#withauth0" class="tsd-kind-icon">with<wbr>Auth0</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
-			<a href="globals.html#withauthenticationrequired" class="tsd-kind-icon">with<wbr>Authentication<wbr>Required</a>
+			<a href="../globals.html#withauthenticationrequired" class="tsd-kind-icon">with<wbr>Authentication<wbr>Required</a>
 		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
-		<div class="tsd-panel tsd-typography">
-			<a href="#auth0auth0-react" id="auth0auth0-react" style="color: inherit; text-decoration: none;">
-				<h1>@auth0/auth0-react</h1>
-			</a>
-			<p>Auth0 SDK for React Single Page Applications (SPA).</p>
-			<p><a href="https://circleci.com/gh/auth0/auth0-react"><img src="https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=master&style=flat" alt="CircleCI"></a>
-				<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/:license-mit-blue.svg?style=flat" alt="License"></a>
-				<a href="https://www.npmjs.com/package/@auth0/auth0-react"><img src="https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat" alt="npm"></a>
-			<a href="https://codecov.io/gh/auth0/auth0-react"><img src="https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat" alt="codecov"></a></p>
-			<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
-				<h2>Table of Contents</h2>
-			</a>
-			<ul>
-				<li><a href="#documentation">Documentation</a></li>
-				<li><a href="#installation">Installation</a></li>
-				<li><a href="#getting-started">Getting Started</a></li>
-				<li><a href="#contributing">Contributing</a></li>
-				<li><a href="#support--feedback">Support + Feedback</a></li>
-				<li><a href="#troubleshooting">Troubleshooting</a></li>
-				<li><a href="#vulnerability-reporting">Vulnerability Reporting</a></li>
-				<li><a href="#what-is-auth0">What is Auth0</a></li>
-				<li><a href="#license">License</a></li>
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>Options for the withAuthenticationRequired Higher Order Component</p>
+				</div>
+			</div>
+		</section>
+		<section class="tsd-panel tsd-hierarchy">
+			<h3>Hierarchy</h3>
+			<ul class="tsd-hierarchy">
+				<li>
+					<span class="target">WithAuthenticationRequiredOptions</span>
+				</li>
 			</ul>
-			<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-				<h2>Documentation</h2>
-			</a>
-			<ul>
-				<li><a href="https://auth0.github.io/auth0-react/">API Reference</a></li>
-				<li><a href="https://auth0.com/docs/quickstart/spa/auth0-react">Quickstart Guide</a></li>
-			</ul>
-			<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
-				<h2>Installation</h2>
-			</a>
-			<p>Using <a href="https://npmjs.org/">npm</a></p>
-			<pre><code class="language-bash">npm install @auth0/auth0-react</code></pre>
-			<p>Using <a href="https://yarnpkg.com/">yarn</a></p>
-			<pre><code class="language-bash">yarn add @auth0/auth0-react</code></pre>
-			<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
-				<h2>Getting Started</h2>
-			</a>
-			<p>Configure the SDK by wrapping your application in <code>Auth0Provider</code>:</p>
-			<pre><code class="language-jsx"><span class="hljs-comment">// src/index.js</span>
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-<span class="hljs-keyword">import</span> { Auth0Provider } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
-<span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">'./App'</span>;
-
-ReactDOM.render(
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Auth0Provider</span>
-    <span class="hljs-attr">domain</span>=<span class="hljs-string">"YOUR_AUTH0_DOMAIN"</span>
-    <span class="hljs-attr">clientId</span>=<span class="hljs-string">"YOUR_AUTH0_CLIENT_ID"</span>
-    <span class="hljs-attr">redirectUri</span>=<span class="hljs-string">{window.location.origin}</span>
-  &gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">Auth0Provider</span>&gt;</span></span>,
-  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app'</span>)
-);</code></pre>
-			<p>Use the <code>useAuth0</code> hook in your components to access authentication state (<code>isLoading</code>, <code>isAuthenticated</code> and <code>user</code>) and authentication methods (<code>loginWithRedirect</code> and <code>logout</code>):</p>
-			<pre><code class="language-jsx"><span class="hljs-comment">// src/App.js</span>
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { useAuth0 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">const</span> {
-    isLoading,
-    isAuthenticated,
-    error,
-    user,
-    loginWithRedirect,
-    logout,
-  } = useAuth0();
-
-  <span class="hljs-keyword">if</span> (isLoading) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
-  }
-  <span class="hljs-keyword">if</span> (error) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Oops... {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
-  }
-
-  <span class="hljs-keyword">if</span> (isAuthenticated) {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-        Hello {user.name}{' '}
-        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> logout({ returnTo: window.location.origin })}&gt;
-          Log out
-        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-    );
-  } <span class="hljs-keyword">else</span> {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{loginWithRedirect}</span>&gt;</span>Log in<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;
-  }
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;</code></pre>
-			<a href="#use-with-a-class-component" id="use-with-a-class-component" style="color: inherit; text-decoration: none;">
-				<h3>Use with a Class Component</h3>
-			</a>
-			<p>Use the <code>withAuth0</code> higher order component to add the <code>auth0</code> property to Class components:</p>
-			<pre><code class="language-jsx"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { withAuth0 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Profile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">const</span> { user } = <span class="hljs-keyword">this</span>.props.auth0;
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Hello {user.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
-  }
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> withAuth0(Profile);</code></pre>
-			<a href="#protect-a-route" id="protect-a-route" style="color: inherit; text-decoration: none;">
-				<h3>Protect a Route</h3>
-			</a>
-			<p>Protect a route component using the <code>withAuthenticationRequired</code> higher order component. Visits to this route when unauthenticated will redirect the user to the login page and back to this page after login:</p>
-			<pre><code class="language-jsx"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { withAuthenticationRequired } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
-
-<span class="hljs-keyword">const</span> PrivateRoute = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Private<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> withAuthenticationRequired(PrivateRoute, {
-  <span class="hljs-comment">// Show a message while the user waits to be redirected to the login page.</span>
-  <span class="hljs-attr">onRedirecting</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Redirecting you to the login page...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>,
-});</code></pre>
-			<p><strong>Note</strong> If you are using a custom router, you will need to supply the <code>Auth0Provider</code> with a custom <code>onRedirectCallback</code> method to perform the action that returns the user to the protected page. See examples for <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#1-protecting-a-route-in-a-react-router-dom-app">react-router</a>, <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#2-protecting-a-route-in-a-gatsby-app">Gatsby</a> and <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#3-protecting-a-route-in-a-nextjs-app-in-spa-mode">Next.js</a>.</p>
-			<a href="#call-an-api" id="call-an-api" style="color: inherit; text-decoration: none;">
-				<h3>Call an API</h3>
-			</a>
-			<p>Call a protected API with an Access Token:</p>
-			<pre><code class="language-jsx"><span class="hljs-keyword">import</span> React, { useEffect, useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { useAuth0 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@auth0/auth0-react'</span>;
-
-<span class="hljs-keyword">const</span> Posts = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  <span class="hljs-keyword">const</span> { getAccessTokenSilently } = useAuth0();
-  <span class="hljs-keyword">const</span> [posts, setPosts] = useState(<span class="hljs-literal">null</span>);
-
-  useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    (<span class="hljs-keyword">async</span> () =&gt; {
-      <span class="hljs-keyword">try</span> {
-        <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> getAccessTokenSilently({
-          <span class="hljs-attr">audience</span>: <span class="hljs-string">'https://api.example.com/'</span>,
-          <span class="hljs-attr">scope</span>: <span class="hljs-string">'read:posts'</span>,
-        });
-        <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'https://api.example.com/posts'</span>, {
-          <span class="hljs-attr">headers</span>: {
-            <span class="hljs-attr">Authorization</span>: <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span>,
-          },
-        });
-        setPosts(<span class="hljs-keyword">await</span> response.json());
-      } <span class="hljs-keyword">catch</span> (e) {
-        <span class="hljs-built_in">console</span>.error(e);
-      }
-    })();
-  }, [getAccessTokenSilently]);
-
-  <span class="hljs-keyword">if</span> (!posts) {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
-  }
-
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-      {posts.map((post, index) =&gt; {
-        return <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{index}</span>&gt;</span>{post}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>;
-      })}
-    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
-  );
-};
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Posts;</code></pre>
-			<p>For a more detailed example see how to <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token">create a <code>useApi</code> hook for accessing protected APIs with an access token</a>.</p>
-			<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
-				<h2>Contributing</h2>
-			</a>
-			<p>We appreciate feedback and contribution to this repo! Before you get started, please see the following:</p>
-			<ul>
-				<li><a href="https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md">Auth0&#39;s general contribution guidelines</a></li>
-				<li><a href="https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md">Auth0&#39;s code of conduct guidelines</a></li>
-				<li><a href="./CONTRIBUTING.md">This repo&#39;s contribution guide</a></li>
-			</ul>
-			<a href="#support--feedback" id="support--feedback" style="color: inherit; text-decoration: none;">
-				<h2>Support + Feedback</h2>
-			</a>
-			<p>For support or to provide feedback, please <a href="https://github.com/auth0/auth0-react/issues">raise an issue on our issue tracker</a>.</p>
-			<a href="#troubleshooting" id="troubleshooting" style="color: inherit; text-decoration: none;">
-				<h2>Troubleshooting</h2>
-			</a>
-			<p>For information on how to solve common problems, check out the <a href="./TROUBLESHOOTING.md">Troubleshooting</a> guide</p>
-			<a href="#vulnerability-reporting" id="vulnerability-reporting" style="color: inherit; text-decoration: none;">
-				<h2>Vulnerability Reporting</h2>
-			</a>
-			<p>Please do not report security vulnerabilities on the public GitHub issue tracker. The <a href="https://auth0.com/whitehat">Responsible Disclosure Program</a> details the procedure for disclosing security issues.</p>
-			<a href="#what-is-auth0" id="what-is-auth0" style="color: inherit; text-decoration: none;">
-				<h2>What is Auth0?</h2>
-			</a>
-			<p>Auth0 helps you to easily:</p>
-			<ul>
-				<li>Implement authentication with multiple identity providers, including social (e.g., Google, Facebook, Microsoft, LinkedIn, GitHub, Twitter, etc), or enterprise (e.g., Windows Azure AD, Google Apps, Active Directory, ADFS, SAML, etc.)</li>
-				<li>Log in users with username/password databases, passwordless, or multi-factor authentication</li>
-				<li>Link multiple user accounts together</li>
-				<li>Generate signed JSON Web Tokens to authorize your API calls and flow the user identity securely</li>
-				<li>Access demographics and analytics detailing how, when, and where users are logging in</li>
-				<li>Enrich user profiles from other data sources using customizable JavaScript rules</li>
-			</ul>
-			<p><a href="https://auth0.com/why-auth0">Why Auth0?</a></p>
-			<a href="#license" id="license" style="color: inherit; text-decoration: none;">
-				<h2>License</h2>
-			</a>
-			<p>This project is licensed under the MIT license. See the <a href="https://github.com/auth0/auth0-react/blob/master/LICENSE">LICENSE</a> file for more info.</p>
-		</div>
+		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Classes</h3>
+						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-class"><a href="classes/oautherror.html" class="tsd-kind-icon">OAuth<wbr>Error</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
-						<h3>Interfaces</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-interface"><a href="interfaces/advancedoptions.html" class="tsd-kind-icon">Advanced<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/auth0clientoptions.html" class="tsd-kind-icon">Auth0<wbr>Client<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/auth0contextinterface.html" class="tsd-kind-icon">Auth0<wbr>Context<wbr>Interface</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/auth0provideroptions.html" class="tsd-kind-icon">Auth0<wbr>Provider<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/getidtokenclaimsoptions.html" class="tsd-kind-icon">Get<wbr>IdToken<wbr>Claims<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/gettokensilentlyoptions.html" class="tsd-kind-icon">Get<wbr>Token<wbr>Silently<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/gettokenwithpopupoptions.html" class="tsd-kind-icon">Get<wbr>Token<wbr>With<wbr>Popup<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/getuseroptions.html" class="tsd-kind-icon">Get<wbr>User<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/logoutoptions.html" class="tsd-kind-icon">Logout<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/popupconfigoptions.html" class="tsd-kind-icon">Popup<wbr>Config<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/popuploginoptions.html" class="tsd-kind-icon">Popup<wbr>Login<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/redirectloginoptions.html" class="tsd-kind-icon">Redirect<wbr>Login<wbr>Options</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/redirectloginresult.html" class="tsd-kind-icon">Redirect<wbr>Login<wbr>Result</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/withauth0props.html" class="tsd-kind-icon">With<wbr>Auth0<wbr>Props</a></li>
-							<li class="tsd-kind-interface"><a href="interfaces/withauthenticationrequiredoptions.html" class="tsd-kind-icon">With<wbr>Authentication<wbr>Required<wbr>Options</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
-						<h3>Type aliases</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-type-alias"><a href="globals.html#appstate" class="tsd-kind-icon">App<wbr>State</a></li>
-							<li class="tsd-kind-type-alias"><a href="globals.html#cachelocation" class="tsd-kind-icon">Cache<wbr>Location</a></li>
-							<li class="tsd-kind-type-alias"><a href="globals.html#getidtokenclaimsoptions" class="tsd-kind-icon">get<wbr>IdToken<wbr>Claims<wbr>Options</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
-						<h3>Variables</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-variable"><a href="globals.html#auth0context" class="tsd-kind-icon">Auth0<wbr>Context</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section ">
-						<h3>Functions</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-function"><a href="globals.html#auth0provider" class="tsd-kind-icon">Auth0<wbr>Provider</a></li>
-							<li class="tsd-kind-function"><a href="globals.html#useauth0" class="tsd-kind-icon">use<wbr>Auth0</a></li>
-							<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#withauth0" class="tsd-kind-icon">with<wbr>Auth0</a></li>
-							<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#withauthenticationrequired" class="tsd-kind-icon">with<wbr>Authentication<wbr>Required</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="withauthenticationrequiredoptions.html#loginoptions" class="tsd-kind-icon">login<wbr>Options</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="withauthenticationrequiredoptions.html#onredirecting" class="tsd-kind-icon">on<wbr>Redirecting</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="withauthenticationrequiredoptions.html#returnto" class="tsd-kind-icon">return<wbr>To</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Type aliases</h2>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias">
-				<a name="appstate" class="tsd-anchor"></a>
-				<h3>App<wbr>State</h3>
-				<div class="tsd-signature tsd-kind-icon">App<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>returnTo<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="loginoptions" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> login<wbr>Options</h3>
+				<div class="tsd-signature tsd-kind-icon">login<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="redirectloginoptions.html" class="tsd-signature-type">RedirectLoginOptions</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/auth0-provider.tsx#L18">src/auth0-provider.tsx:18</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/with-authentication-required.tsx#L62">src/with-authentication-required.tsx:62</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The state of the application before the user was redirected to the login page.</p>
-					</div>
-				</div>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-index-signature">
-							<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
-						</li>
-						<li class="tsd-parameter">
-							<h5><span class="tsd-flag ts-flagOptional">Optional</span> return<wbr>To<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-						</li>
-					</ul>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias">
-				<a name="cachelocation" class="tsd-anchor"></a>
-				<h3>Cache<wbr>Location</h3>
-				<div class="tsd-signature tsd-kind-icon">Cache<wbr>Location<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"memory"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"localstorage"</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:136</li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>The possible locations where tokens can be stored</p>
-					</div>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias">
-				<a name="getidtokenclaimsoptions" class="tsd-anchor"></a>
-				<h3>get<wbr>IdToken<wbr>Claims<wbr>Options</h3>
-				<div class="tsd-signature tsd-kind-icon">get<wbr>IdToken<wbr>Claims<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="interfaces/getidtokenclaimsoptions.html" class="tsd-signature-type">GetIdTokenClaimsOptions</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:208</li>
-					</ul>
-				</aside>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Variables</h2>
-			<section class="tsd-panel tsd-member tsd-kind-variable">
-				<a name="auth0context" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> Auth0<wbr>Context</h3>
-				<div class="tsd-signature tsd-kind-icon">Auth0<wbr>Context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/auth0contextinterface.html" class="tsd-signature-type">Auth0ContextInterface</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = createContext&lt;Auth0ContextInterface&gt;(initialContext)</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/auth0-context.tsx#L156">src/auth0-context.tsx:156</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>The Auth0 Context</p>
-					</div>
-				</div>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Functions</h2>
-			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="auth0provider" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> Auth0<wbr>Provider</h3>
-				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">Auth0<wbr>Provider<span class="tsd-signature-symbol">(</span>opts<span class="tsd-signature-symbol">: </span><a href="interfaces/auth0provideroptions.html" class="tsd-signature-type">Auth0ProviderOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/auth0-provider.tsx#L181">src/auth0-provider.tsx:181</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<pre><code class="language-jsx">&lt;Auth0Provider
-  domain={domain}
-  clientId={clientId}
-  redirectUri={<span class="hljs-built_in">window</span>.location.origin}&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyApp</span> /&gt;</span></span>
-&lt;/Auth0Provider&gt;</code></pre>
-							</div>
-							<p>Provides the Auth0Context to its child components.</p>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>opts: <a href="interfaces/auth0provideroptions.html" class="tsd-signature-type">Auth0ProviderOptions</a></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="useauth0" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> use<wbr>Auth0</h3>
-				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">use<wbr>Auth0<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/auth0contextinterface.html" class="tsd-signature-type">Auth0ContextInterface</a></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/use-auth0.tsx#L24">src/use-auth0.tsx:24</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<pre><code class="language-js"><span class="hljs-keyword">const</span> {
-  <span class="hljs-comment">// Auth state:</span>
-  error,
-  isAuthenticated,
-  isLoading,
-  user,
-  <span class="hljs-comment">// Auth methods:</span>
-  getAccessTokenSilently,
-  getAccessTokenWithPopup,
-  getIdTokenClaims,
-  loginWithRedirect,
-  loginWithPopup,
-  logout,
-} = useAuth0();</code></pre>
-							</div>
-							<p>Use the <code>useAuth0</code> hook in your components to access the auth state and methods.</p>
-						</div>
-						<h4 class="tsd-returns-title">Returns <a href="interfaces/auth0contextinterface.html" class="tsd-signature-type">Auth0ContextInterface</a></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
-				<a name="withauth0" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> with<wbr>Auth0</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">with<wbr>Auth0&lt;P&gt;<span class="tsd-signature-symbol">(</span>Component<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">keyof </span><a href="interfaces/withauth0props.html" class="tsd-signature-type">WithAuth0Props</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/with-auth0.tsx#L26">src/with-auth0.tsx:26</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<pre><code class="language-jsx"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-comment">// Access the auth context from the `auth0` prop</span>
-    <span class="hljs-keyword">const</span> { user } = <span class="hljs-keyword">this</span>.props.auth0;
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Hello {user.name}!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+						<pre><code class="language-js">withAuthenticationRequired(Profile, {
+  <span class="hljs-attr">loginOptions</span>: {
+    <span class="hljs-attr">appState</span>: {
+      <span class="hljs-attr">customProp</span>: <span class="hljs-string">'foo'</span>
+    }
   }
-}
-<span class="hljs-comment">// Wrap your class component in withAuth0</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> withAuth0(MyComponent);</code></pre>
-							</div>
-							<p>Wrap your class components in this Higher Order Component to give them access to the Auth0Context</p>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>P<span class="tsd-signature-symbol">: </span><a href="interfaces/withauth0props.html" class="tsd-signature-type">WithAuth0Props</a></h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>Component: <span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">keyof </span><a href="interfaces/withauth0props.html" class="tsd-signature-type">WithAuth0Props</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
+})</code></pre>
+					</div>
+					<p>Pass additional login options, like extra <code>appState</code> to the login page.
+					This will be merged with the <code>returnTo</code> option used by the <code>onRedirectCallback</code> handler.</p>
+				</div>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
-				<a name="withauthenticationrequired" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> with<wbr>Authentication<wbr>Required</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">with<wbr>Authentication<wbr>Required&lt;P&gt;<span class="tsd-signature-symbol">(</span>Component<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/withauthenticationrequiredoptions.html" class="tsd-signature-type">WithAuthenticationRequiredOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FC</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/with-authentication-required.tsx#L73">src/with-authentication-required.tsx:73</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<pre><code class="language-js"><span class="hljs-keyword">const</span> MyProtectedComponent = withAuthenticationRequired(MyComponent);</code></pre>
-							</div>
-							<p>When you wrap your components in this Higher Order Component and an anonymous user visits your component
-							they will be redirected to the login page and returned to the page they we&#39;re redirected from after login.</p>
-						</div>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>P<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>Component: <span class="tsd-signature-type">ComponentType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <a href="interfaces/withauthenticationrequiredoptions.html" class="tsd-signature-type">WithAuthenticationRequiredOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">FC</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="onredirecting" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Redirecting</h3>
+				<div class="tsd-signature tsd-kind-icon">on<wbr>Redirecting<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">)</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/with-authentication-required.tsx#L47">src/with-authentication-required.tsx:47</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<pre><code class="language-js">withAuthenticationRequired(Profile, {
+  <span class="hljs-attr">onRedirecting</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Redirecting you to the login...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+})</code></pre>
+					</div>
+					<p>Render a message to show that the user is being redirected to the login.</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="returnto" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> return<wbr>To</h3>
+				<div class="tsd-signature tsd-kind-icon">return<wbr>To<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/with-authentication-required.tsx#L37">src/with-authentication-required.tsx:37</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<pre><code class="language-js">withAuthenticationRequired(Profile, {
+  <span class="hljs-attr">returnTo</span>: <span class="hljs-string">'/profile'</span>
+})</code></pre>
+					</div>
+					<p>or</p>
+					<pre><code class="language-js">withAuthenticationRequired(Profile, {
+  <span class="hljs-attr">returnTo</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">window</span>.location.hash.substr(<span class="hljs-number">1</span>)
+})</code></pre>
+					<p>Add a path for the <code>onRedirectCallback</code> handler to return the user to after login.</p>
+				</div>
 			</section>
 		</section>
 		<footer>
