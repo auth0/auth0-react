@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.0.0](https://github.com/auth0/auth0-react/tree/v1.0.0) (2020-06-19)
+
+**Breaking Change**
+
+- Allow custom `returnTo` in `withAuthenticationRequired` [\#41](https://github.com/auth0/auth0-react/pull/41) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v0.4.0](https://github.com/auth0/auth0-react/tree/v0.4.0) (2020-06-05)
 
 **Added**
