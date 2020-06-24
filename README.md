@@ -22,7 +22,7 @@ Auth0 SDK for React Single Page Applications (SPA).
 ## Documentation
 
 - [API Reference](https://auth0.github.io/auth0-react/)
-- [Quickstart Guide](https://auth0.com/docs/quickstart/spa/auth0-react)
+- [Quickstart Guide](https://auth0.com/docs/quickstart/spa/react)
 
 ## Installation
 
