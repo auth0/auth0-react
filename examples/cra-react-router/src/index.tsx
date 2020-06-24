@@ -4,6 +4,9 @@ import App, { history } from './App';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const onRedirectCallback = (appState: any) => {
+  // If using a Hash Router, you need to use window.history.replaceState to
+  // remove the `code` and `state` query parameters from the callback url.
+  // window.history.replaceState({}, document.title, window.location.pathname);
   history.replace((appState && appState.returnTo) || window.location.pathname);
 };
 
