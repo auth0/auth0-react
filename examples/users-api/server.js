@@ -25,7 +25,7 @@ const checkJwt = jwt({
   }),
   audience: AUDIENCE,
   issuer: `https://${DOMAIN}/`,
-  algorithm: ['RS256'],
+  algorithms: ['RS256'],
 });
 
 app.head('/', (req, res) => res.send('ok'));
