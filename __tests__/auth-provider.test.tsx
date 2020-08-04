@@ -91,7 +91,7 @@ describe('Auth0Provider', () => {
   });
 
   it('should handle errors when checking session', async () => {
-    clientMock.checkSession.mockRejectedValue({
+    clientMock.checkSession.mockRejectedValueOnce({
       error: '__test_error__',
       error_description: '__test_error_description__',
     });
@@ -255,7 +255,9 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.logout).toBeInstanceOf(Function);
-    await result.current.logout({ returnTo: '__return_to__' });
+    act(() => {
+      result.current.logout({ returnTo: '__return_to__' });
+    });
     expect(clientMock.logout).toHaveBeenCalledWith({
       returnTo: '__return_to__',
     });
