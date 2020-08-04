@@ -261,6 +261,24 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should update state for local logouts', async () => {
+    clientMock.isAuthenticated.mockResolvedValue(true);
+    clientMock.getUser.mockResolvedValue('__test_user__');
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toBe('__test_user__');
+    act(() => {
+      result.current.logout({ localOnly: true });
+    });
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(result.current.user).toBeUndefined();
+  });
+
   it('should provide a getAccessTokenSilently method', async () => {
     clientMock.getTokenSilently.mockResolvedValue('token');
     const wrapper = createWrapper();

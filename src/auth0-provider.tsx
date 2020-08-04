@@ -4,6 +4,7 @@ import {
   Auth0ClientOptions,
   CacheLocation,
   IdToken,
+  LogoutOptions,
   PopupLoginOptions,
   PopupConfigOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
@@ -224,6 +225,11 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     dispatch({ type: 'LOGIN_POPUP_COMPLETE', isAuthenticated, user });
   };
 
+  const logout = (opts?: LogoutOptions): void => {
+    client.logout(opts);
+    dispatch({ type: 'LOGOUT' });
+  };
+
   return (
     <Auth0Context.Provider
       value={{
@@ -239,7 +245,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         loginWithRedirect: (opts): Promise<void> =>
           client.loginWithRedirect(toAuth0LoginRedirectOptions(opts)),
         loginWithPopup,
-        logout: (opts): void => client.logout(opts),
+        logout,
       }}
     >
       {children}
