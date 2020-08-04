@@ -5,6 +5,7 @@ import {
   CacheLocation,
   IdToken,
   PopupLoginOptions,
+  PopupConfigOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
@@ -207,10 +208,13 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     })();
   }, [client, onRedirectCallback]);
 
-  const loginWithPopup = async (options?: PopupLoginOptions): Promise<void> => {
+  const loginWithPopup = async (
+    options?: PopupLoginOptions,
+    config?: PopupConfigOptions
+  ): Promise<void> => {
     dispatch({ type: 'LOGIN_POPUP_STARTED' });
     try {
-      await client.loginWithPopup(options);
+      await client.loginWithPopup(options, config);
     } catch (error) {
       dispatch({ type: 'ERROR', error: loginError(error) });
       return;
@@ -234,7 +238,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
           client.getIdTokenClaims(opts),
         loginWithRedirect: (opts): Promise<void> =>
           client.loginWithRedirect(toAuth0LoginRedirectOptions(opts)),
-        loginWithPopup: (opts): Promise<void> => loginWithPopup(opts),
+        loginWithPopup,
         logout: (opts): void => client.logout(opts),
       }}
     >

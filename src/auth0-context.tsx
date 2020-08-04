@@ -6,6 +6,7 @@ import {
   IdToken,
   LogoutOptions,
   PopupLoginOptions,
+  PopupConfigOptions,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -100,7 +101,7 @@ export interface Auth0ContextInterface extends AuthState {
 
   /**
    * ```js
-   * await loginWithPopup(options);
+   * await loginWithPopup(options, config);
    * ```
    *
    * Opens a popup with the `/authorize` URL using the parameters
@@ -112,7 +113,10 @@ export interface Auth0ContextInterface extends AuthState {
    * that was started by the user like a button click, for example,
    * otherwise the popup will be blocked in most browsers.
    */
-  loginWithPopup: (options?: PopupLoginOptions) => Promise<void>;
+  loginWithPopup: (
+    options?: PopupLoginOptions,
+    config?: PopupConfigOptions
+  ) => Promise<void>;
 
   /**
    * ```js
