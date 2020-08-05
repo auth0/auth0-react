@@ -225,9 +225,11 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     dispatch({ type: 'LOGIN_POPUP_COMPLETE', isAuthenticated, user });
   };
 
-  const logout = (opts?: LogoutOptions): void => {
+  const logout = (opts: LogoutOptions = {}): void => {
     client.logout(opts);
-    dispatch({ type: 'LOGOUT' });
+    if (opts.localOnly) {
+      dispatch({ type: 'LOGOUT' });
+    }
   };
 
   return (
