@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 export function Nav() {
   const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0();
-  const pathname = location.pathname;
+  const pathname = typeof window !== 'undefined' && window.location.pathname;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
