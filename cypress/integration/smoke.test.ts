@@ -16,8 +16,8 @@ const loginToAuth0 = (): void => {
 describe('Smoke tests', () => {
   it('do basic login and show user', () => {
     cy.visit('/');
-    cy.get('#login').should('exist');
-    cy.get('#login').click({ force: true });
+    cy.get('#login').should('be.visible');
+    cy.get('#login').click();
 
     loginToAuth0();
 
