@@ -91,7 +91,7 @@ describe('Auth0Provider', () => {
   });
 
   it('should handle errors when checking session', async () => {
-    clientMock.checkSession.mockRejectedValue({
+    clientMock.checkSession.mockRejectedValueOnce({
       error: '__test_error__',
       error_description: '__test_error_description__',
     });
@@ -248,6 +248,7 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a logout method', async () => {
+    clientMock.isAuthenticated.mockResolvedValue(true);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -255,10 +256,33 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.logout).toBeInstanceOf(Function);
-    await result.current.logout({ returnTo: '__return_to__' });
-    expect(clientMock.logout).toHaveBeenCalledWith({
-      returnTo: '__return_to__',
+    act(() => {
+      result.current.logout();
     });
+    expect(clientMock.logout).toHaveBeenCalled();
+    // Should not update state until returned from idp
+    expect(result.current.isAuthenticated).toBe(true);
+  });
+
+  it('should update state for local logouts', async () => {
+    clientMock.isAuthenticated.mockResolvedValue(true);
+    clientMock.getUser.mockResolvedValue('__test_user__');
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toBe('__test_user__');
+    act(() => {
+      result.current.logout({ localOnly: true });
+    });
+    expect(clientMock.logout).toHaveBeenCalledWith({
+      localOnly: true,
+    });
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(result.current.user).toBeUndefined();
   });
 
   it('should provide a getAccessTokenSilently method', async () => {

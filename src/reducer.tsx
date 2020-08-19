@@ -7,6 +7,7 @@ type Action =
       isAuthenticated: boolean;
       user?: User;
     }
+  | { type: 'LOGOUT' }
   | { type: 'ERROR'; error: Error };
 
 /**
@@ -27,6 +28,12 @@ export const reducer = (state: AuthState, action: Action): AuthState => {
         user: action.user,
         isLoading: false,
         error: undefined,
+      };
+    case 'LOGOUT':
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: undefined,
       };
     case 'ERROR':
       return {
