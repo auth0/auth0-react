@@ -89,8 +89,8 @@
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
   },
   "husky": {
     "hooks": {
