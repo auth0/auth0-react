@@ -15,6 +15,7 @@ Auth0 SDK for React Single Page Applications (SPA).
 - [Contributing](#contributing)
 - [Support + Feedback](#support--feedback)
 - [Troubleshooting](#troubleshooting)
+- [Frequently Asked Questions](#frequently-asked-questions)
 - [Vulnerability Reporting](#vulnerability-reporting)
 - [What is Auth0](#what-is-auth0)
 - [License](#license)
@@ -203,6 +204,10 @@ For support or to provide feedback, please [raise an issue on our issue tracker]
 ## Troubleshooting
 
 For information on how to solve common problems, check out the [Troubleshooting](./TROUBLESHOOTING.md) guide
+
+## Frequently Asked Questions
+
+For a rundown of common issues you might encounter when using the SDK, please check out the [FAQ](./FAQ.md).
 
 ## Vulnerability Reporting
 
