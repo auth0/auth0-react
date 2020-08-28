@@ -77,7 +77,6 @@ describe('Auth0Provider', () => {
   });
 
   it('should check session when logged in', async () => {
-    clientMock.isAuthenticated.mockResolvedValue(true);
     clientMock.getUser.mockResolvedValue('__test_user__');
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
@@ -188,15 +187,15 @@ describe('Auth0Provider', () => {
   });
 
   it('should login with a popup', async () => {
-    clientMock.isAuthenticated.mockResolvedValue(false);
+    clientMock.getUser.mockResolvedValue(false);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(result.current.isAuthenticated).toBe(false);
-    clientMock.isAuthenticated.mockResolvedValue(true);
+    expect(result.current.user).toBe(false);
+    clientMock.getUser.mockResolvedValue('__test_user__');
     act(() => {
       result.current.loginWithPopup();
     });
@@ -205,10 +204,11 @@ describe('Auth0Provider', () => {
     expect(result.current.isLoading).toBe(false);
     expect(clientMock.loginWithPopup).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toBe('__test_user__');
   });
 
   it('should handle errors when logging in with a popup', async () => {
-    clientMock.isAuthenticated.mockResolvedValue(false);
+    clientMock.getUser.mockResolvedValue(false);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -216,7 +216,8 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.isAuthenticated).toBe(false);
-    clientMock.isAuthenticated.mockResolvedValue(false);
+    expect(result.current.user).toBe(false);
+    clientMock.getUser.mockResolvedValue(false);
     clientMock.loginWithPopup.mockRejectedValue(new Error('__test_error__'));
     act(() => {
       result.current.loginWithPopup();
@@ -226,6 +227,7 @@ describe('Auth0Provider', () => {
     expect(result.current.isLoading).toBe(false);
     expect(clientMock.loginWithPopup).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(false);
+    expect(result.current.user).toBe(false);
     expect(() => {
       throw result.current.error;
     }).toThrowError('__test_error__');
@@ -248,7 +250,7 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a logout method', async () => {
-    clientMock.isAuthenticated.mockResolvedValue(true);
+    clientMock.getUser.mockResolvedValue('__test_user__');
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -262,10 +264,10 @@ describe('Auth0Provider', () => {
     expect(clientMock.logout).toHaveBeenCalled();
     // Should not update state until returned from idp
     expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toBe('__test_user__');
   });
 
   it('should update state for local logouts', async () => {
-    clientMock.isAuthenticated.mockResolvedValue(true);
     clientMock.getUser.mockResolvedValue('__test_user__');
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(

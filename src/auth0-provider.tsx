@@ -200,9 +200,8 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         } else {
           await client.checkSession();
         }
-        const isAuthenticated = await client.isAuthenticated();
-        const user = isAuthenticated && (await client.getUser());
-        dispatch({ type: 'INITIALISED', isAuthenticated, user });
+        const user = await client.getUser();
+        dispatch({ type: 'INITIALISED', isAuthenticated: !!user, user });
       } catch (error) {
         dispatch({ type: 'ERROR', error: loginError(error) });
       }
@@ -220,9 +219,8 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
       dispatch({ type: 'ERROR', error: loginError(error) });
       return;
     }
-    const isAuthenticated = await client.isAuthenticated();
-    const user = isAuthenticated && (await client.getUser());
-    dispatch({ type: 'LOGIN_POPUP_COMPLETE', isAuthenticated, user });
+    const user = await client.getUser();
+    dispatch({ type: 'LOGIN_POPUP_COMPLETE', isAuthenticated: !!user, user });
   };
 
   const logout = (opts: LogoutOptions = {}): void => {
