@@ -10,7 +10,7 @@ const mockClient = mocked(new Auth0Client({ client_id: '', domain: '' }));
 
 describe('withAuthenticationRequired', () => {
   it('should block access to a private component when not authenticated', async () => {
-    mockClient.isAuthenticated.mockResolvedValue(false);
+    mockClient.getUser.mockResolvedValue(false);
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent);
     render(
@@ -25,7 +25,7 @@ describe('withAuthenticationRequired', () => {
   });
 
   it('should allow access to a private component when authenticated', async () => {
-    mockClient.isAuthenticated.mockResolvedValue(true);
+    mockClient.getUser.mockResolvedValue('__test_user__');
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent);
     render(
@@ -40,7 +40,7 @@ describe('withAuthenticationRequired', () => {
   });
 
   it('should show a custom redirecting message', async () => {
-    mockClient.isAuthenticated.mockResolvedValue(true);
+    mockClient.getUser.mockResolvedValue('__test_user__');
     const MyComponent = (): JSX.Element => <>Private</>;
     const OnRedirecting = (): JSX.Element => <>Redirecting</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
@@ -61,7 +61,7 @@ describe('withAuthenticationRequired', () => {
   });
 
   it('should pass additional options on to loginWithRedirect', async () => {
-    mockClient.isAuthenticated.mockResolvedValue(false);
+    mockClient.getUser.mockResolvedValue(false);
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
       loginOptions: {
@@ -83,7 +83,7 @@ describe('withAuthenticationRequired', () => {
   });
 
   it('should merge additional appState with the returnTo', async () => {
-    mockClient.isAuthenticated.mockResolvedValue(false);
+    mockClient.getUser.mockResolvedValue(false);
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
       loginOptions: {
@@ -111,7 +111,7 @@ describe('withAuthenticationRequired', () => {
   });
 
   it('should accept a returnTo function', async () => {
-    mockClient.isAuthenticated.mockResolvedValue(false);
+    mockClient.getUser.mockResolvedValue(false);
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
       returnTo: () => '/foo',
