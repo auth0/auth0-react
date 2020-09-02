@@ -5,10 +5,12 @@ import {
 import { OAuthError } from './errors';
 
 const CODE_RE = /[?&]code=[^&]+/;
+const STATE_RE = /[?&]state=[^&]+/;
 const ERROR_RE = /[?&]error=[^&]+/;
 
 export const hasAuthParams = (searchParams = window.location.search): boolean =>
-  CODE_RE.test(searchParams) || ERROR_RE.test(searchParams);
+  (CODE_RE.test(searchParams) && STATE_RE.test(searchParams)) ||
+  ERROR_RE.test(searchParams);
 
 const normalizeErrorFn = (fallbackMessage: string) => (
   error: Error | { error: string; error_description?: string } | ProgressEvent

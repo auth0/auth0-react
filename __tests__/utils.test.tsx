@@ -2,10 +2,19 @@ import { hasAuthParams, loginError, tokenError } from '../src/utils';
 import { OAuthError } from '../src/errors';
 
 describe('utils hasAuthParams', () => {
-  it('should recognise the code param', async () => {
+  it('should not recognise only the code param', async () => {
     ['?code=1', '?foo=1&code=2', '?code=1&foo=2'].forEach((search) =>
-      expect(hasAuthParams(search)).toBeTruthy()
+      expect(hasAuthParams(search)).toBeFalsy()
     );
+  });
+
+  it('should recognise the code and state param', async () => {
+    [
+      '?code=1&state=2',
+      '?foo=1&state=2&code=3',
+      '?code=1&foo=2&state=3',
+      '?state=1&code=2&foo=3',
+    ].forEach((search) => expect(hasAuthParams(search)).toBeTruthy());
   });
 
   it('should recognise the error param', async () => {
