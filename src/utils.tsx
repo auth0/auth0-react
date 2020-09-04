@@ -1,7 +1,3 @@
-import {
-  GetTokenSilentlyOptions,
-  GetTokenWithPopupOptions,
-} from '@auth0/auth0-spa-js';
 import { OAuthError } from './errors';
 
 const CODE_RE = /[?&]code=[^&]+/;
@@ -27,17 +23,3 @@ const normalizeErrorFn = (fallbackMessage: string) => (
 export const loginError = normalizeErrorFn('Login failed');
 
 export const tokenError = normalizeErrorFn('Get access token failed');
-
-export const wrappedGetToken = (
-  getTokenFn: (
-    opts?: GetTokenSilentlyOptions | GetTokenWithPopupOptions
-  ) => Promise<string>
-) => async (
-  opts?: GetTokenSilentlyOptions | GetTokenWithPopupOptions
-): Promise<string> => {
-  try {
-    return await getTokenFn(opts);
-  } catch (error) {
-    throw tokenError(error);
-  }
-};

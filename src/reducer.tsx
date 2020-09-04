@@ -3,8 +3,7 @@ import { AuthState, User } from './auth-state';
 type Action =
   | { type: 'LOGIN_POPUP_STARTED' }
   | {
-      type: 'INITIALISED' | 'LOGIN_POPUP_COMPLETE';
-      isAuthenticated: boolean;
+      type: 'INITIALISED' | 'LOGIN_POPUP_COMPLETE' | 'GET_TOKEN_COMPLETE';
       user?: User;
     }
   | { type: 'LOGOUT' }
@@ -24,10 +23,16 @@ export const reducer = (state: AuthState, action: Action): AuthState => {
     case 'INITIALISED':
       return {
         ...state,
-        isAuthenticated: action.isAuthenticated,
+        isAuthenticated: !!action.user,
         user: action.user,
         isLoading: false,
         error: undefined,
+      };
+    case 'GET_TOKEN_COMPLETE':
+      return {
+        ...state,
+        isAuthenticated: !!action.user,
+        user: action.user,
       };
     case 'LOGOUT':
       return {
