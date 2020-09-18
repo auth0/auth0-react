@@ -1,7 +1,7 @@
 {
   "author": "Auth0",
   "name": "@auth0/auth0-react",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Auth0 SDK for React Single Page Applications (SPA)",
   "keywords": [
     "auth0",
@@ -98,6 +98,6 @@
     }
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.9.0"
+    "@auth0/auth0-spa-js": "^1.12.1"
   }
 }

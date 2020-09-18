@@ -1,5 +1,17 @@
 # Change Log
 
+## [v1.1.0](https://github.com/auth0/auth0-react/tree/v1.1.0) (2020-09-17)
+
+**Added**
+
+- [SDK-1927] Check for state param in callback url [\#107](https://github.com/auth0/auth0-react/pull/107) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Support react v16.11 [\#99](https://github.com/auth0/auth0-react/pull/99) ([tiagob](https://github.com/tiagob))
+
+**Fixed**
+
+- [SDK-1836] Update state for local logouts [\#81](https://github.com/auth0/auth0-react/pull/81) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add config argument to loginWithPopup [\#77](https://github.com/auth0/auth0-react/pull/77) ([Aulos](https://github.com/Aulos))
+
 ## [v1.0.0](https://github.com/auth0/auth0-react/tree/v1.0.0) (2020-06-19)
 
 **Breaking Change**

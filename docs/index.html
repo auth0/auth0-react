@@ -2759,7 +2759,8 @@ img {
 			<p><a href="https://circleci.com/gh/auth0/auth0-react"><img src="https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=master&style=flat" alt="CircleCI"></a>
 				<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/:license-mit-blue.svg?style=flat" alt="License"></a>
 				<a href="https://www.npmjs.com/package/@auth0/auth0-react"><img src="https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat" alt="npm"></a>
-			<a href="https://codecov.io/gh/auth0/auth0-react"><img src="https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat" alt="codecov"></a></p>
+				<a href="https://codecov.io/gh/auth0/auth0-react"><img src="https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat" alt="codecov"></a>
+			<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fauth0%2Fauth0-react?ref=badge_shield"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fauth0%2Fauth0-react.svg?type=shield" alt="FOSSA Status"></a></p>
 			<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
 				<h2>Table of Contents</h2>
 			</a>
@@ -2770,6 +2771,7 @@ img {
 				<li><a href="#contributing">Contributing</a></li>
 				<li><a href="#support--feedback">Support + Feedback</a></li>
 				<li><a href="#troubleshooting">Troubleshooting</a></li>
+				<li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li>
 				<li><a href="#vulnerability-reporting">Vulnerability Reporting</a></li>
 				<li><a href="#what-is-auth0">What is Auth0</a></li>
 				<li><a href="#license">License</a></li>
@@ -2779,7 +2781,7 @@ img {
 			</a>
 			<ul>
 				<li><a href="https://auth0.github.io/auth0-react/">API Reference</a></li>
-				<li><a href="https://auth0.com/docs/quickstart/spa/auth0-react">Quickstart Guide</a></li>
+				<li><a href="https://auth0.com/docs/quickstart/spa/react">Quickstart Guide</a></li>
 			</ul>
 			<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 				<h2>Installation</h2>
@@ -2854,6 +2856,7 @@ ReactDOM.render(
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Profile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
   render() {
+    <span class="hljs-comment">// `this.props.auth0` has all the same properties as the `useAuth0` hook</span>
     <span class="hljs-keyword">const</span> { user } = <span class="hljs-keyword">this</span>.props.auth0;
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Hello {user.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
   }
@@ -2936,6 +2939,10 @@ ReactDOM.render(
 				<h2>Troubleshooting</h2>
 			</a>
 			<p>For information on how to solve common problems, check out the <a href="./TROUBLESHOOTING.md">Troubleshooting</a> guide</p>
+			<a href="#frequently-asked-questions" id="frequently-asked-questions" style="color: inherit; text-decoration: none;">
+				<h2>Frequently Asked Questions</h2>
+			</a>
+			<p>For a rundown of common issues you might encounter when using the SDK, please check out the <a href="./FAQ.md">FAQ</a>.</p>
 			<a href="#vulnerability-reporting" id="vulnerability-reporting" style="color: inherit; text-decoration: none;">
 				<h2>Vulnerability Reporting</h2>
 			</a>
@@ -2957,6 +2964,7 @@ ReactDOM.render(
 				<h2>License</h2>
 			</a>
 			<p>This project is licensed under the MIT license. See the <a href="https://github.com/auth0/auth0-react/blob/master/LICENSE">LICENSE</a> file for more info.</p>
+			<p><a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fauth0%2Fauth0-react?ref=badge_large"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fauth0%2Fauth0-react.svg?type=large" alt="FOSSA Status"></a></p>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
 		<section class="tsd-panel-group tsd-index-group">
@@ -3023,7 +3031,7 @@ ReactDOM.render(
 				<div class="tsd-signature tsd-kind-icon">App<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>returnTo<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/auth0-provider.tsx#L18">src/auth0-provider.tsx:18</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-provider.tsx#L20">src/auth0-provider.tsx:20</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3049,7 +3057,7 @@ ReactDOM.render(
 				<div class="tsd-signature tsd-kind-icon">Cache<wbr>Location<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"memory"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"localstorage"</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:136</li>
+						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:145</li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3064,7 +3072,7 @@ ReactDOM.render(
 				<div class="tsd-signature tsd-kind-icon">get<wbr>IdToken<wbr>Claims<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="interfaces/getidtokenclaimsoptions.html" class="tsd-signature-type">GetIdTokenClaimsOptions</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:208</li>
+						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:217</li>
 					</ul>
 				</aside>
 			</section>
@@ -3077,7 +3085,7 @@ ReactDOM.render(
 				<div class="tsd-signature tsd-kind-icon">Auth0<wbr>Context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/auth0contextinterface.html" class="tsd-signature-type">Auth0ContextInterface</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = createContext&lt;Auth0ContextInterface&gt;(initialContext)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/auth0-context.tsx#L156">src/auth0-context.tsx:156</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-context.tsx#L160">src/auth0-context.tsx:160</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3099,7 +3107,7 @@ ReactDOM.render(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/auth0-provider.tsx#L181">src/auth0-provider.tsx:181</a></li>
+								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-provider.tsx#L183">src/auth0-provider.tsx:183</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3133,7 +3141,7 @@ ReactDOM.render(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/use-auth0.tsx#L24">src/use-auth0.tsx:24</a></li>
+								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/use-auth0.tsx#L24">src/use-auth0.tsx:24</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3169,7 +3177,7 @@ ReactDOM.render(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/with-auth0.tsx#L26">src/with-auth0.tsx:26</a></li>
+								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/with-auth0.tsx#L26">src/with-auth0.tsx:26</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -3212,7 +3220,7 @@ ReactDOM.render(
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b147d44/src/with-authentication-required.tsx#L73">src/with-authentication-required.tsx:73</a></li>
+								<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/with-authentication-required.tsx#L73">src/with-authentication-required.tsx:73</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">

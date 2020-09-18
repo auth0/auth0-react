@@ -2794,6 +2794,7 @@ img {
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="auth0clientoptions.html#id_token_hint" class="tsd-kind-icon">id_<wbr>token_<wbr>hint</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0clientoptions.html#issuer" class="tsd-kind-icon">issuer</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0clientoptions.html#leeway" class="tsd-kind-icon">leeway</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0clientoptions.html#legacysamesitecookie" class="tsd-kind-icon">legacy<wbr>Same<wbr>Site<wbr>Cookie</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="auth0clientoptions.html#login_hint" class="tsd-kind-icon">login_<wbr>hint</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="auth0clientoptions.html#max_age" class="tsd-kind-icon">max_<wbr>age</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="auth0clientoptions.html#prompt" class="tsd-kind-icon">prompt</a></li>
@@ -2825,7 +2826,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">advanced<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="advancedoptions.html" class="tsd-signature-type">AdvancedOptions</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:131</li>
+						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:140</li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3017,6 +3018,26 @@ img {
 						<p>The value in seconds used to account for clock skew in JWT expirations.
 							Typically, this value is no more than a minute or two at maximum.
 						Defaults to 60s.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="legacysamesitecookie" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> legacy<wbr>Same<wbr>Site<wbr>Cookie</h3>
+				<div class="tsd-signature tsd-kind-icon">legacy<wbr>Same<wbr>Site<wbr>Cookie<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:136</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Sets an additional cookie with no SameSite attribute to support legacy browsers
+							that are not compatible with the latest SameSite changes.
+							This will log a warning on modern browsers, you can disable the warning by setting
+							this to false but be aware that some older useragents will not work,
+							See <a href="https://www.chromium.org/updates/same-site/incompatible-clients">https://www.chromium.org/updates/same-site/incompatible-clients</a>
+						Defaults to true</p>
 					</div>
 				</div>
 			</section>
