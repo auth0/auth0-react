@@ -22,5 +22,7 @@ export {
   LogoutOptions,
   CacheLocation,
   IdToken,
+  Auth0Client,
+  Auth0ClientOptions
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';

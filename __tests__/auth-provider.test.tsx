@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import React, { PropsWithChildren, useContext } from 'react';
 import { mocked } from 'ts-jest/utils';
 import Auth0Context from '../src/auth0-context';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import pkg from '../package.json';
 import { createWrapper } from './helpers';
+import Auth0Provider from '../src/auth0-provider';
 
 const clientMock = mocked(new Auth0Client({ client_id: '', domain: '' }));
 
@@ -383,5 +384,51 @@ describe('Auth0Provider', () => {
       claim: '__test_claim__',
       __raw: '__test_raw_token__',
     });
+  });
+
+  describe('with a user-provided client instance', () => {
+    it('should handle redirect callback success and clear the url', async () => {
+      window.history.pushState(
+        {},
+        document.title,
+        '/?code=__test_code__&state=__test_state__'
+      );
+      expect(window.location.href).toBe(
+        'https://www.example.com/?code=__test_code__&state=__test_state__'
+      );
+      clientMock.handleRedirectCallback.mockResolvedValueOnce({
+        appState: undefined,
+      });
+
+      const wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => (
+        <Auth0Provider client={clientMock as unknown as Auth0Client}>
+          {children}
+        </Auth0Provider>
+      );
+      const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+        wrapper,
+      });
+      await waitForNextUpdate();
+      expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
+      expect(window.location.href).toBe('https://www.example.com/');
+    });
+  });
+
+  it('should provide a getAccessTokenSilently wrapping the method of the provided client', async () => {
+    clientMock.getTokenSilently.mockResolvedValue('token');
+    const wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => (
+      <Auth0Provider client={clientMock as unknown as Auth0Client}>
+        {children}
+      </Auth0Provider>
+    );
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.getAccessTokenSilently).toBeInstanceOf(Function);
+    const token = await result.current.getAccessTokenSilently();
+    expect(clientMock.getTokenSilently).toHaveBeenCalled();
+    expect(token).toBe('token');
   });
 });

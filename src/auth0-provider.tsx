@@ -23,9 +23,9 @@ export type AppState = {
 };
 
 /**
- * The main configuration to instantiate the `Auth0Provider`.
+ * Common props for Auth0Provider, shared by both usage patterns
  */
-export interface Auth0ProviderOptions {
+interface BaseAuth0ProviderOptions {
   /**
    * The child nodes your Provider has wrapped
    */
@@ -36,6 +36,12 @@ export interface Auth0ProviderOptions {
    * See the EXAMPLES.md for more info.
    */
   onRedirectCallback?: (appState: AppState) => void;
+}
+
+/**
+ * Props for simple usage, which instantiates an Auth0Client internally
+ */
+interface SimpleAuth0ProviderOptions extends BaseAuth0ProviderOptions {
   /**
    * Your Auth0 account domain such as `'example.auth0.com'`,
    * `'example.eu.auth0.com'` or , `'example.mycompany.com'`
@@ -58,12 +64,7 @@ export interface Auth0ProviderOptions {
    * methods that provide authentication.
    */
   redirectUri?: string;
-  /**
-   * The value in seconds used to account for clock skew in JWT expirations.
-   * Typically, this value is no more than a minute or two at maximum.
-   * Defaults to 60s.
-   */
-  leeway?: number;
+
   /**
    * The location to use when storing cache data. Valid values are `memory` or `localstorage`.
    * The default setting is `memory`.
@@ -94,6 +95,12 @@ export interface Auth0ProviderOptions {
     defaultScope?: string;
   };
   /**
+   * The value in seconds used to account for clock skew in JWT expirations.
+   * Typically, this value is no more than a minute or two at maximum.
+   * Defaults to 60s.
+   */
+  leeway?: number;
+    /**
    * Maximum allowable elapsed time (in seconds) since authentication.
    * If the last time the user authenticated is greater than this value,
    * the user must be reauthenticated.
@@ -117,6 +124,30 @@ export interface Auth0ProviderOptions {
 }
 
 /**
+ * Props for advanced usage, where the user provides a pre-instantiated client
+ */
+interface AdvancedAuth0ProviderOptions extends BaseAuth0ProviderOptions {
+    /**
+   * Provide your own client instance, which will be utilized for all
+   * library functionality. Pass in a client which you have stored elsewhere,
+   * so that it is accessible by non-React-lifecycle code like HTTP client
+   * libraries or customized user session management tools.
+   *
+   * Passing this prop causes this Provider to ignore many of the other
+   * configuration props in favor of your specified configuration for your
+   * custom client.
+   */
+  client: Auth0Client;
+}
+
+// This union enforces that either client options, or a premade client,
+// is provided to the component
+/**
+ * The main configuration to instantiate the `Auth0Provider`.
+ */
+export type Auth0ProviderOptions = SimpleAuth0ProviderOptions | AdvancedAuth0ProviderOptions;
+
+/**
  * Replaced by the package version at build time.
  * @ignore
  */
@@ -126,7 +157,7 @@ declare const __VERSION__: string;
  * @ignore
  */
 const toAuth0ClientOptions = (
-  opts: Auth0ProviderOptions
+  opts: SimpleAuth0ProviderOptions
 ): Auth0ClientOptions => {
   const { clientId, redirectUri, maxAge, ...validOpts } = opts;
   return {
@@ -187,7 +218,13 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     ...clientOpts
   } = opts;
   const [client] = useState(
-    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
+    () => {
+      if (clientOpts.client) {
+        return clientOpts.client;
+      } else {
+        return new Auth0Client(toAuth0ClientOptions(clientOpts as SimpleAuth0ProviderOptions));
+      }
+    },
   );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
 
