@@ -8,6 +8,7 @@ import {
   PopupLoginOptions,
   PopupConfigOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
+  GetTokenWithPopupOptions,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
 import { hasAuthParams, loginError, wrappedGetToken } from './utils';
@@ -237,8 +238,9 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         getAccessTokenSilently: wrappedGetToken((opts?) =>
           client.getTokenSilently(opts)
         ),
-        getAccessTokenWithPopup: wrappedGetToken((opts?) =>
-          client.getTokenWithPopup(opts)
+        getAccessTokenWithPopup: wrappedGetToken(
+          (opts?: GetTokenWithPopupOptions, config?: PopupConfigOptions) =>
+            client.getTokenWithPopup(opts, config)
         ),
         getIdTokenClaims: (opts): Promise<IdToken> =>
           client.getIdTokenClaims(opts),
