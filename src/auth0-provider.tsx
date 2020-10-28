@@ -10,12 +10,12 @@ import {
   RedirectLoginOptions as Auth0RedirectLoginOptions,
   GetTokenWithPopupOptions,
   GetTokenSilentlyOptions,
+  GetIdTokenClaimsOptions,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
-import { GetIdTokenClaimsOptions } from '@auth0/auth0-spa-js/src/global';
 
 /**
  * The state of the application before the user was redirected to the login page.
