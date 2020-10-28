@@ -9,6 +9,10 @@ import { createWrapper } from './helpers';
 const clientMock = mocked(new Auth0Client({ client_id: '', domain: '' }));
 
 describe('Auth0Provider', () => {
+  afterEach(() => {
+    window.history.pushState({}, document.title, '/');
+  });
+
   it('should provide the Auth0Provider result', async () => {
     const wrapper = createWrapper();
     const { result, waitForNextUpdate } = renderHook(
@@ -184,6 +188,29 @@ describe('Auth0Provider', () => {
     });
     await waitForNextUpdate();
     expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar' });
+  });
+
+  it('should skip redirect callback for non auth0 redirect callback handlers', async () => {
+    clientMock.isAuthenticated.mockResolvedValue(true);
+    window.history.pushState(
+      {},
+      document.title,
+      '/?code=__some_non_auth0_code__&state=__test_state__'
+    );
+    clientMock.handleRedirectCallback.mockRejectedValue(
+      new Error('__test_error__')
+    );
+    const wrapper = createWrapper({
+      skipRedirectCallback: true,
+    });
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(clientMock.handleRedirectCallback).not.toHaveBeenCalled();
+    expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.error).not.toBeDefined();
   });
 
   it('should login with a popup', async () => {
