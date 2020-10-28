@@ -323,9 +323,12 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.getAccessTokenSilently).toBeInstanceOf(Function);
-    const token = await result.current.getAccessTokenSilently();
+    await act(async () => {
+      const token = await result.current.getAccessTokenSilently();
+      expect(token).toBe('token');
+    });
+
     expect(clientMock.getTokenSilently).toHaveBeenCalled();
-    expect(token).toBe('token');
   });
 
   it('should normalize errors from getAccessTokenSilently method', async () => {
@@ -349,8 +352,29 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    const returnedThis = await result.current.getAccessTokenSilently();
-    expect(returnedThis).toStrictEqual(clientMock);
+
+    await act(async () => {
+      const returnedThis = await result.current.getAccessTokenSilently();
+      expect(returnedThis).toStrictEqual(clientMock);
+    });
+  });
+
+  it('should update auth state after getAccessTokenSilently', async () => {
+    clientMock.getTokenSilently.mockReturnThis();
+    clientMock.getUser.mockResolvedValue('foo');
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+
+    expect(result.current.user).toEqual('foo');
+    clientMock.getUser.mockResolvedValue('bar');
+    await act(async () => {
+      await result.current.getAccessTokenSilently();
+    });
+    expect(result.current.user).toEqual('bar');
   });
 
   it('should provide a getAccessTokenWithPopup method', async () => {
@@ -362,9 +386,11 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.getAccessTokenWithPopup).toBeInstanceOf(Function);
-    const token = await result.current.getAccessTokenWithPopup();
+    await act(async () => {
+      const token = await result.current.getAccessTokenWithPopup();
+      expect(token).toBe('token');
+    });
     expect(clientMock.getTokenWithPopup).toHaveBeenCalled();
-    expect(token).toBe('token');
   });
 
   it('should call getAccessTokenWithPopup in the scope of the Auth0 client', async () => {
@@ -375,8 +401,28 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    const returnedThis = await result.current.getAccessTokenWithPopup();
-    expect(returnedThis).toStrictEqual(clientMock);
+    await act(async () => {
+      const returnedThis = await result.current.getAccessTokenWithPopup();
+      expect(returnedThis).toStrictEqual(clientMock);
+    });
+  });
+
+  it('should update auth state after getAccessTokenWithPopup', async () => {
+    clientMock.getTokenSilently.mockReturnThis();
+    clientMock.getUser.mockResolvedValue('foo');
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+
+    expect(result.current.isAuthenticated).toEqual(true);
+    clientMock.getUser.mockResolvedValue(false);
+    await act(async () => {
+      await result.current.getAccessTokenSilently();
+    });
+    expect(result.current.isAuthenticated).toEqual(false);
   });
 
   it('should normalize errors from getAccessTokenWithPopup method', async () => {
