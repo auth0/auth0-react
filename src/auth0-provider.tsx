@@ -38,6 +38,20 @@ export interface Auth0ProviderOptions {
    */
   onRedirectCallback?: (appState: AppState) => void;
   /**
+   * By default, if the page url has code/state params, the SDK will treat them as Auth0's and attempt to exchange the
+   * code for a token. In some cases the code might be for something else (another OAuth SDK perhaps). In these
+   * instances you can instruct the client to ignore them eg
+   *
+   * ```jsx
+   * <Auth0Provider
+   *   clientId={clientId}
+   *   domain={domain}
+   *   skipRedirectCallback={window.location.pathname === '/stripe-oauth-callback'}
+   * >
+   * ```
+   */
+  skipRedirectCallback?: boolean;
+  /**
    * Your Auth0 account domain such as `'example.auth0.com'`,
    * `'example.eu.auth0.com'` or , `'example.mycompany.com'`
    * (when using [custom domains](https://auth0.com/docs/custom-domains))
@@ -184,6 +198,7 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
 const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   const {
     children,
+    skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
     ...clientOpts
   } = opts;
@@ -195,7 +210,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   useEffect(() => {
     (async (): Promise<void> => {
       try {
-        if (hasAuthParams()) {
+        if (hasAuthParams() && !skipRedirectCallback) {
           const { appState } = await client.handleRedirectCallback();
           onRedirectCallback(appState);
         } else {
@@ -207,7 +222,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         dispatch({ type: 'ERROR', error: loginError(error) });
       }
     })();
-  }, [client, onRedirectCallback]);
+  }, [client, onRedirectCallback, skipRedirectCallback]);
 
   const loginWithPopup = async (
     options?: PopupLoginOptions,
