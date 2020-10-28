@@ -73,31 +73,33 @@ export interface WithAuthenticationRequiredOptions {
 const withAuthenticationRequired = <P extends object>(
   Component: ComponentType<P>,
   options: WithAuthenticationRequiredOptions = {}
-): FC<P> => (props: P): JSX.Element => {
-  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-  const {
-    returnTo = defaultReturnTo,
-    onRedirecting = defaultOnRedirecting,
-    loginOptions = {},
-  } = options;
+): FC<P> => {
+  return function WithAuthenticationRequired(props: P): JSX.Element {
+    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+    const {
+      returnTo = defaultReturnTo,
+      onRedirecting = defaultOnRedirecting,
+      loginOptions = {},
+    } = options;
 
-  useEffect(() => {
-    if (isLoading || isAuthenticated) {
-      return;
-    }
-    const opts = {
-      ...loginOptions,
-      appState: {
-        ...loginOptions.appState,
-        returnTo: typeof returnTo === 'function' ? returnTo() : returnTo,
-      },
-    };
-    (async (): Promise<void> => {
-      await loginWithRedirect(opts);
-    })();
-  }, [isLoading, isAuthenticated, loginWithRedirect, loginOptions, returnTo]);
+    useEffect(() => {
+      if (isLoading || isAuthenticated) {
+        return;
+      }
+      const opts = {
+        ...loginOptions,
+        appState: {
+          ...loginOptions.appState,
+          returnTo: typeof returnTo === 'function' ? returnTo() : returnTo,
+        },
+      };
+      (async (): Promise<void> => {
+        await loginWithRedirect(opts);
+      })();
+    }, [isLoading, isAuthenticated, loginWithRedirect, loginOptions, returnTo]);
 
-  return isAuthenticated ? <Component {...props} /> : onRedirecting();
-};
+    return isAuthenticated ? <Component {...props} /> : onRedirecting();
+  };
+}
 
 export default withAuthenticationRequired;
