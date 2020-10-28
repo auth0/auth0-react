@@ -65,7 +65,7 @@ export interface Auth0ContextInterface extends AuthState {
 
   /**
    * ```js
-   * const token = await getTokenWithPopup(options);
+   * const token = await getTokenWithPopup(options, config);
    * ```
    *
    * Get an access token interactively.
@@ -76,7 +76,8 @@ export interface Auth0ContextInterface extends AuthState {
    * results will be valid according to their expiration times.
    */
   getAccessTokenWithPopup: (
-    options?: GetTokenWithPopupOptions
+    options?: GetTokenWithPopupOptions,
+    config?: PopupConfigOptions
   ) => Promise<string>;
 
   /**
