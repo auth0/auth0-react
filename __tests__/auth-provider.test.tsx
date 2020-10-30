@@ -457,4 +457,16 @@ describe('Auth0Provider', () => {
       __raw: '__test_raw_token__',
     });
   });
+
+  it('should memoize the getIdTokenClaims method', async () => {
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result, rerender } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    const memoized = result.current.getIdTokenClaims;
+    rerender();
+    expect(result.current.getIdTokenClaims).toBe(memoized);
+  });
 });
