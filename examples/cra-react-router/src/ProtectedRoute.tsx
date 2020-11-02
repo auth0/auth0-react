@@ -7,10 +7,13 @@ export const ProtectedRoute = ({
   ...args
 }: React.PropsWithChildren<any>) => (
   <Route
-    component={withAuthenticationRequired(component, {
-      // If using a Hash Router, you need to pass the hash fragment as `returnTo`
-      // returnTo: () => window.location.hash.substr(1),
-    })}
+    render={(props) => {
+      let Component = withAuthenticationRequired(component, {
+        // If using a Hash Router, you need to pass the hash fragment as `returnTo`
+        // returnTo: () => window.location.hash.substr(1),
+      });
+      return <Component {...props} />;
+    }}
     {...args}
   />
 );
