@@ -2800,7 +2800,9 @@ img {
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="auth0clientoptions.html#prompt" class="tsd-kind-icon">prompt</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0clientoptions.html#redirect_uri" class="tsd-kind-icon">redirect_<wbr>uri</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="auth0clientoptions.html#scope" class="tsd-kind-icon">scope</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0clientoptions.html#sessioncheckexpirydays" class="tsd-kind-icon">session<wbr>Check<wbr>Expiry<wbr>Days</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="auth0clientoptions.html#ui_locales" class="tsd-kind-icon">ui_<wbr>locales</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0clientoptions.html#usecookiesfortransactions" class="tsd-kind-icon">use<wbr>Cookies<wbr>For<wbr>Transactions</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0clientoptions.html#userefreshtokens" class="tsd-kind-icon">use<wbr>Refresh<wbr>Tokens</a></li>
 						</ul>
 					</section>
@@ -2826,7 +2828,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">advanced<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="advancedoptions.html" class="tsd-signature-type">AdvancedOptions</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:140</li>
+						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:152</li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3136,6 +3138,22 @@ img {
 					</div>
 				</div>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="sessioncheckexpirydays" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> session<wbr>Check<wbr>Expiry<wbr>Days</h3>
+				<div class="tsd-signature tsd-kind-icon">session<wbr>Check<wbr>Expiry<wbr>Days<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:157</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Number of days until the cookie <code>auth0.is.authenticated</code> will expire
+						Defaults to 1.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 				<a name="ui_locales" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> ui_<wbr>locales</h3>
@@ -3151,6 +3169,29 @@ img {
 						<p>The space-separated list of language tags, ordered by preference.
 						For example: <code>&#39;fr-CA fr en&#39;</code>.</p>
 					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="usecookiesfortransactions" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> use<wbr>Cookies<wbr>For<wbr>Transactions</h3>
+				<div class="tsd-signature tsd-kind-icon">use<wbr>Cookies<wbr>For<wbr>Transactions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:148</li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>If <code>true</code>, the SDK will use a cookie when storing information about the auth transaction while
+						the user is going through the authentication flow on the authorization server.</p>
+					</div>
+					<p>The default is <code>false</code>, in which case the SDK will use session storage.</p>
+					<dl class="tsd-comment-tags">
+						<dt>notes</dt>
+						<dd><p>You might want to enable this if you rely on your users being able to authenticate using flows that
+							may end up spanning across multiple tabs (e.g. magic links) or you cannot otherwise rely on session storage being available.</p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
