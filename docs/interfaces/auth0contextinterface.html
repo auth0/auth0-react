@@ -2834,7 +2834,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="auth0contextinterface.html">Auth0ContextInterface</a>.<a href="auth0contextinterface.html#error">error</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth-state.tsx#L7">src/auth-state.tsx:7</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth-state.tsx#L7">src/auth-state.tsx:7</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2844,7 +2844,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">get<wbr>Access<wbr>Token<wbr>Silently<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="gettokensilentlyoptions.html" class="tsd-signature-type">GetTokenSilentlyOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-context.tsx#L62">src/auth0-context.tsx:62</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth0-context.tsx#L62">src/auth0-context.tsx:62</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2891,15 +2891,15 @@ img {
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="getaccesstokenwithpopup" class="tsd-anchor"></a>
 				<h3>get<wbr>Access<wbr>Token<wbr>With<wbr>Popup</h3>
-				<div class="tsd-signature tsd-kind-icon">get<wbr>Access<wbr>Token<wbr>With<wbr>Popup<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="gettokenwithpopupoptions.html" class="tsd-signature-type">GetTokenWithPopupOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<div class="tsd-signature tsd-kind-icon">get<wbr>Access<wbr>Token<wbr>With<wbr>Popup<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="gettokenwithpopupoptions.html" class="tsd-signature-type">GetTokenWithPopupOptions</a>, config<span class="tsd-signature-symbol">?: </span><a href="popupconfigoptions.html" class="tsd-signature-type">PopupConfigOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-context.tsx#L78">src/auth0-context.tsx:78</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth0-context.tsx#L78">src/auth0-context.tsx:78</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<pre><code class="language-js"><span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> getTokenWithPopup(options);</code></pre>
+						<pre><code class="language-js"><span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> getTokenWithPopup(options, config);</code></pre>
 					</div>
 					<p>Get an access token interactively.</p>
 					<p>Opens a popup with the <code>/authorize</code> URL using the parameters
@@ -2912,7 +2912,7 @@ img {
 					<ul class="tsd-parameters">
 						<li class="tsd-parameter-signature">
 							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="gettokenwithpopupoptions.html" class="tsd-signature-type">GetTokenWithPopupOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="gettokenwithpopupoptions.html" class="tsd-signature-type">GetTokenWithPopupOptions</a>, config<span class="tsd-signature-symbol">?: </span><a href="popupconfigoptions.html" class="tsd-signature-type">PopupConfigOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 							</ul>
 							<ul class="tsd-descriptions">
 								<li class="tsd-description">
@@ -2920,6 +2920,9 @@ img {
 									<ul class="tsd-parameters">
 										<li>
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="gettokenwithpopupoptions.html" class="tsd-signature-type">GetTokenWithPopupOptions</a></h5>
+										</li>
+										<li>
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> config: <a href="popupconfigoptions.html" class="tsd-signature-type">PopupConfigOptions</a></h5>
 										</li>
 									</ul>
 									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -2935,7 +2938,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">get<wbr>IdToken<wbr>Claims<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="getidtokenclaimsoptions.html" class="tsd-signature-type">GetIdTokenClaimsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">IdToken</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-context.tsx#L89">src/auth0-context.tsx:89</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth0-context.tsx#L90">src/auth0-context.tsx:90</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2973,7 +2976,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="auth0contextinterface.html">Auth0ContextInterface</a>.<a href="auth0contextinterface.html#isauthenticated">isAuthenticated</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth-state.tsx#L8">src/auth-state.tsx:8</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth-state.tsx#L8">src/auth-state.tsx:8</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2984,7 +2987,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="auth0contextinterface.html">Auth0ContextInterface</a>.<a href="auth0contextinterface.html#isloading">isLoading</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth-state.tsx#L9">src/auth-state.tsx:9</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth-state.tsx#L9">src/auth-state.tsx:9</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2994,7 +2997,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">login<wbr>With<wbr>Popup<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="popuploginoptions.html" class="tsd-signature-type">PopupLoginOptions</a>, config<span class="tsd-signature-symbol">?: </span><a href="popupconfigoptions.html" class="tsd-signature-type">PopupConfigOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-context.tsx#L116">src/auth0-context.tsx:116</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth0-context.tsx#L117">src/auth0-context.tsx:117</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3040,7 +3043,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">login<wbr>With<wbr>Redirect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="redirectloginoptions.html" class="tsd-signature-type">RedirectLoginOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-context.tsx#L100">src/auth0-context.tsx:100</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth0-context.tsx#L101">src/auth0-context.tsx:101</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3079,7 +3082,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">logout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="logoutoptions.html" class="tsd-signature-type">LogoutOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth0-context.tsx#L134">src/auth0-context.tsx:134</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth0-context.tsx#L135">src/auth0-context.tsx:135</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -3123,7 +3126,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="auth0contextinterface.html">Auth0ContextInterface</a>.<a href="auth0contextinterface.html#user">user</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/adac2e8/src/auth-state.tsx#L10">src/auth-state.tsx:10</a></li>
+						<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24b9919/src/auth-state.tsx#L10">src/auth-state.tsx:10</a></li>
 					</ul>
 				</aside>
 			</section>

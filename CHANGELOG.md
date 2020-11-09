@@ -1,5 +1,17 @@
 # Change Log
 
+## [v1.2.0](https://github.com/auth0/auth0-react/tree/v1.2.0) (2020-11-04)
+
+**Added**
+
+- [SDK-2106] Memoize auth methods [\#150](https://github.com/auth0/auth0-react/pull/150) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add react fast refresh support [\#151](https://github.com/auth0/auth0-react/pull/151) ([Idered](https://github.com/Idered)) 
+- [SDK-2105] Skip redirect callback option [\#148](https://github.com/auth0/auth0-react/pull/148) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- [SDK-2104] Update peerDeps to account for react 17 [\#147](https://github.com/auth0/auth0-react/pull/147) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- [SDK-1938] Update the user/isAuthenticated state after getting a token  [\#146](https://github.com/auth0/auth0-react/pull/146) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Add config argument to getAccessTokenWithPopup [\#141](https://github.com/auth0/auth0-react/pull/141) ([ygist](https://github.com/ygist))
+- Export AppState type for custom onRedirectCallback's [\#120](https://github.com/auth0/auth0-react/pull/120) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v1.1.0](https://github.com/auth0/auth0-react/tree/v1.1.0) (2020-09-17)
 
 **Added**
