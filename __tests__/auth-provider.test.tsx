@@ -399,6 +399,19 @@ describe('Auth0Provider', () => {
     expect(result.current.user).toBe(prevUser);
   });
 
+  it('should handle not having a user while calling getAccessTokenSilently', async () => {
+    const token = '__test_token__';
+    clientMock.getTokenSilently.mockResolvedValue(token);
+    clientMock.getUser.mockResolvedValue(undefined);
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+    let returnedToken;
+    await act(async () => {
+      returnedToken = await result.current.getAccessTokenSilently();
+    });
+    expect(returnedToken).toBe(token);
+  });
+
   it('should provide a getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
@@ -476,6 +489,19 @@ describe('Auth0Provider', () => {
     expect(result.current.getAccessTokenWithPopup).rejects.toThrowError(
       'Get access token failed'
     );
+  });
+
+  it('should handle not having a user while calling getAccessTokenWithPopup', async () => {
+    const token = '__test_token__';
+    clientMock.getTokenWithPopup.mockResolvedValue(token);
+    clientMock.getUser.mockResolvedValue(undefined);
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+    let returnedToken;
+    await act(async () => {
+      returnedToken = await result.current.getAccessTokenWithPopup();
+    });
+    expect(returnedToken).toBe(token);
   });
 
   it('should provide a getIdTokenClaims method', async () => {
