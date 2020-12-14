@@ -271,7 +271,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         throw tokenError(error);
       }
       const user = await client.getUser();
-      if (user.updated_at !== userUpdatedAt) {
+      if (user?.updated_at !== userUpdatedAt) {
         dispatch({ type: 'USER_UPDATED', user });
       }
       return token;
@@ -291,7 +291,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         throw tokenError(error);
       }
       const user = await client.getUser();
-      if (user.updated_at !== userUpdatedAt) {
+      if (user?.updated_at !== userUpdatedAt) {
         dispatch({ type: 'USER_UPDATED', user });
       }
       return token;
