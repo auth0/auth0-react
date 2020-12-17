@@ -81,7 +81,8 @@ describe('Auth0Provider', () => {
   });
 
   it('should check session when logged in', async () => {
-    clientMock.getUser.mockResolvedValue('__test_user__');
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -90,7 +91,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(clientMock.checkSession).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.user).toBe('__test_user__');
+    expect(result.current.user).toBe(user);
   });
 
   it('should handle errors when checking session', async () => {
@@ -214,15 +215,16 @@ describe('Auth0Provider', () => {
   });
 
   it('should login with a popup', async () => {
-    clientMock.getUser.mockResolvedValue(false);
+    clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(result.current.user).toBe(false);
-    clientMock.getUser.mockResolvedValue('__test_user__');
+    expect(result.current.user).toBeUndefined();
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValue(user);
     act(() => {
       result.current.loginWithPopup();
     });
@@ -231,11 +233,11 @@ describe('Auth0Provider', () => {
     expect(result.current.isLoading).toBe(false);
     expect(clientMock.loginWithPopup).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.user).toBe('__test_user__');
+    expect(result.current.user).toBe(user);
   });
 
   it('should handle errors when logging in with a popup', async () => {
-    clientMock.getUser.mockResolvedValue(false);
+    clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -243,8 +245,8 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.isAuthenticated).toBe(false);
-    expect(result.current.user).toBe(false);
-    clientMock.getUser.mockResolvedValue(false);
+    expect(result.current.user).toBeUndefined();
+    clientMock.getUser.mockResolvedValue(undefined);
     clientMock.loginWithPopup.mockRejectedValue(new Error('__test_error__'));
     act(() => {
       result.current.loginWithPopup();
@@ -254,7 +256,7 @@ describe('Auth0Provider', () => {
     expect(result.current.isLoading).toBe(false);
     expect(clientMock.loginWithPopup).toHaveBeenCalled();
     expect(result.current.isAuthenticated).toBe(false);
-    expect(result.current.user).toBe(false);
+    expect(result.current.user).toBeUndefined();
     expect(() => {
       throw result.current.error;
     }).toThrowError('__test_error__');
@@ -277,7 +279,8 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a logout method', async () => {
-    clientMock.getUser.mockResolvedValue('__test_user__');
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -291,11 +294,12 @@ describe('Auth0Provider', () => {
     expect(clientMock.logout).toHaveBeenCalled();
     // Should not update state until returned from idp
     expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.user).toBe('__test_user__');
+    expect(result.current.user).toBe(user);
   });
 
   it('should update state for local logouts', async () => {
-    clientMock.getUser.mockResolvedValue('__test_user__');
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -303,7 +307,7 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.user).toBe('__test_user__');
+    expect(result.current.user).toBe(user);
     act(() => {
       result.current.logout({ localOnly: true });
     });
@@ -395,6 +399,19 @@ describe('Auth0Provider', () => {
     expect(result.current.user).toBe(prevUser);
   });
 
+  it('should handle not having a user while calling getAccessTokenSilently', async () => {
+    const token = '__test_token__';
+    clientMock.getTokenSilently.mockResolvedValue(token);
+    clientMock.getUser.mockResolvedValue(undefined);
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+    let returnedToken;
+    await act(async () => {
+      returnedToken = await result.current.getAccessTokenSilently();
+    });
+    expect(returnedToken).toBe(token);
+  });
+
   it('should provide a getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
@@ -472,6 +489,19 @@ describe('Auth0Provider', () => {
     expect(result.current.getAccessTokenWithPopup).rejects.toThrowError(
       'Get access token failed'
     );
+  });
+
+  it('should handle not having a user while calling getAccessTokenWithPopup', async () => {
+    const token = '__test_token__';
+    clientMock.getTokenWithPopup.mockResolvedValue(token);
+    clientMock.getUser.mockResolvedValue(undefined);
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+    let returnedToken;
+    await act(async () => {
+      returnedToken = await result.current.getAccessTokenWithPopup();
+    });
+    expect(returnedToken).toBe(token);
   });
 
   it('should provide a getIdTokenClaims method', async () => {
