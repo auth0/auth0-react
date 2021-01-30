@@ -5,8 +5,10 @@ import {
   GetTokenWithPopupOptions,
   IdToken,
   LogoutOptions,
+  LogoutUrlOptions,
   PopupLoginOptions,
   PopupConfigOptions,
+  RedirectLoginOptions as Auth0RedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -133,6 +135,27 @@ export interface Auth0ContextInterface extends AuthState {
    * [Read more about how Logout works at Auth0](https://auth0.com/docs/logout).
    */
   logout: (options?: LogoutOptions) => void;
+
+  /**
+   * ```js
+   * const authUrl = await buildAuthorizeUrl();
+   * ```
+   *
+   * Builds an `/authorize` URL for loginWithRedirect using the parameters
+   * provided as arguments. Random and secure `state` and `nonce`
+   * parameters will be auto-generated.
+   */
+  buildAuthorizeUrl: (options?: Auth0RedirectLoginOptions) => Promise<string>;
+
+  /**
+   * ```js
+   * const logoutUrl = buildLogoutUrl();
+   * ```
+   *
+   * returns a URL to the logout endpoint using the parameters provided as arguments.
+   * @param options
+   */
+  buildLogoutUrl: (options?: LogoutUrlOptions) => string;
 }
 
 /**
@@ -147,6 +170,8 @@ const stub = (): never => {
  */
 const initialContext = {
   ...initialAuthState,
+  buildAuthorizeUrl: stub,
+  buildLogoutUrl: stub,
   getAccessTokenSilently: stub,
   getAccessTokenWithPopup: stub,
   getIdTokenClaims: stub,

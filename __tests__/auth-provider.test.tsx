@@ -214,6 +214,40 @@ describe('Auth0Provider', () => {
     expect(result.current.error).not.toBeDefined();
   });
 
+  it('should call through to buildAuthorizeUrl method', async () => {
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.buildAuthorizeUrl).toBeInstanceOf(Function);
+
+    const authOptions = {
+      redirectUri: '__redirect_uri__',
+    };
+    await result.current.buildAuthorizeUrl(authOptions);
+    expect(clientMock.buildAuthorizeUrl).toHaveBeenCalledWith(authOptions);
+  });
+
+  it('should call through to buildLogoutUrl method', async () => {
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.buildLogoutUrl).toBeInstanceOf(Function);
+
+    const logoutOptions = {
+      returnTo: '/',
+      client_id: 'blah',
+      federated: false,
+    };
+    result.current.buildLogoutUrl(logoutOptions);
+    expect(clientMock.buildLogoutUrl).toHaveBeenCalledWith(logoutOptions);
+  });
+
   it('should login with a popup', async () => {
     clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
