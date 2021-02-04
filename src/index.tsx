@@ -21,6 +21,7 @@ export {
   GetTokenWithPopupOptions,
   LogoutOptions,
   CacheLocation,
+  GetTokenSilentlyOptions,
   IdToken,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
