@@ -60,6 +60,17 @@ export interface WithAuthenticationRequiredOptions {
    * This will be merged with the `returnTo` option used by the `onRedirectCallback` handler.
    */
   loginOptions?: RedirectLoginOptions;
+
+  /**
+   * ```js
+   * withAuthenticationRequired(Profile, {
+   *   popup: true
+   * })
+   * ```
+   *
+   *
+   */
+  popup?: boolean;
 }
 
 /**
@@ -75,11 +86,17 @@ const withAuthenticationRequired = <P extends object>(
   options: WithAuthenticationRequiredOptions = {}
 ): FC<P> => {
   return function WithAuthenticationRequired(props: P): JSX.Element {
-    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+    const {
+      isAuthenticated,
+      isLoading,
+      loginWithRedirect,
+      loginWithPopup,
+    } = useAuth0();
     const {
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
       loginOptions = {},
+      popup = false,
     } = options;
 
     useEffect(() => {
@@ -93,13 +110,24 @@ const withAuthenticationRequired = <P extends object>(
           returnTo: typeof returnTo === 'function' ? returnTo() : returnTo,
         },
       };
+
+      const loginMethod = popup ? loginWithPopup : loginWithRedirect;
+
       (async (): Promise<void> => {
-        await loginWithRedirect(opts);
+        await loginMethod(opts);
       })();
-    }, [isLoading, isAuthenticated, loginWithRedirect, loginOptions, returnTo]);
+    }, [
+      isLoading,
+      isAuthenticated,
+      loginWithRedirect,
+      loginWithPopup,
+      loginOptions,
+      popup,
+      returnTo,
+    ]);
 
     return isAuthenticated ? <Component {...props} /> : onRedirecting();
   };
-}
+};
 
 export default withAuthenticationRequired;
