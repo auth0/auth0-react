@@ -131,4 +131,18 @@ describe('withAuthenticationRequired', () => {
       )
     );
   });
+
+  it('should use popup authentication when specified', async () => {
+    mockClient.getUser.mockResolvedValue(undefined);
+    const MyComponent = (): JSX.Element => <>Private</>;
+    const WrappedComponent = withAuthenticationRequired(MyComponent, {
+      popup: true,
+    });
+    render(
+      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+        <WrappedComponent />
+      </Auth0Provider>
+    );
+    await waitFor(() => expect(mockClient.loginWithPopup).toHaveBeenCalled());
+  });
 });
