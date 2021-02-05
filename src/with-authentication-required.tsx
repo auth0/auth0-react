@@ -68,7 +68,7 @@ export interface WithAuthenticationRequiredOptions {
    * })
    * ```
    *
-   *
+   * Uses loginWithPopup when set to true.
    */
   popup?: boolean;
 }
