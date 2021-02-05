@@ -13,7 +13,7 @@ module.exports = {
   testRegex: '/__tests__/.+test.tsx?$',
   globals: {
     'ts-jest': {
-      tsConfig: {
+      tsconfig: {
         target: 'es6',
       },
     },
