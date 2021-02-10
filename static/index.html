@@ -24,7 +24,7 @@
     <script src="auth0-react.js"></script>
     <script type="text/babel" data-presets="es2015,es2016,es2017,stage-3,react">
       const { Auth0Provider, useAuth0 } = reactAuth0;
-      const { useState } = React;
+      const { useState, useEffect } = React;
 
       const App = () => {
         const {
@@ -39,6 +39,13 @@
         } = useAuth0();
         const [token, setToken] = useState(null);
         const [claims, setClaims] = useState(null);
+
+        useEffect(() => {
+          if (isLoading) return;
+          (async () => {
+            await getAccessTokenSilently();
+          })();
+        }, [isLoading]);
 
         if (isLoading) {
           return <div>loading...</div>;
