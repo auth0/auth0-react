@@ -231,7 +231,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
 
   const buildAuthorizeUrl = useCallback(
     (opts?: RedirectLoginOptions): Promise<string> =>
-      client.buildAuthorizeUrl(opts),
+      client.buildAuthorizeUrl(toAuth0LoginRedirectOptions(opts)),
     [client]
   );
 
