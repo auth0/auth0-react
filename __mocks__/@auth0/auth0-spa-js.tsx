@@ -1,4 +1,6 @@
 const handleRedirectCallback = jest.fn(() => ({ appState: {} }));
+const buildLogoutUrl = jest.fn();
+const buildAuthorizeUrl = jest.fn();
 const checkSession = jest.fn();
 const getTokenSilently = jest.fn();
 const getTokenWithPopup = jest.fn();
@@ -11,6 +13,8 @@ const logout = jest.fn();
 
 export const Auth0Client = jest.fn(() => {
   return {
+    buildAuthorizeUrl,
+    buildLogoutUrl,
     checkSession,
     handleRedirectCallback,
     getTokenSilently,

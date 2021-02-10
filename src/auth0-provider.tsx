@@ -5,6 +5,7 @@ import {
   CacheLocation,
   IdToken,
   LogoutOptions,
+  LogoutUrlOptions,
   PopupLoginOptions,
   PopupConfigOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
@@ -228,6 +229,17 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     })();
   }, [client, onRedirectCallback, skipRedirectCallback]);
 
+  const buildAuthorizeUrl = useCallback(
+    (opts?: RedirectLoginOptions): Promise<string> =>
+      client.buildAuthorizeUrl(toAuth0LoginRedirectOptions(opts)),
+    [client]
+  );
+
+  const buildLogoutUrl = useCallback(
+    (opts?: LogoutUrlOptions): string => client.buildLogoutUrl(opts),
+    [client]
+  );
+
   const loginWithRedirect = useCallback(
     (opts?: RedirectLoginOptions): Promise<void> =>
       client.loginWithRedirect(toAuth0LoginRedirectOptions(opts)),
@@ -311,6 +323,8 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     <Auth0Context.Provider
       value={{
         ...state,
+        buildAuthorizeUrl,
+        buildLogoutUrl,
         getAccessTokenSilently,
         getAccessTokenWithPopup,
         getIdTokenClaims,
