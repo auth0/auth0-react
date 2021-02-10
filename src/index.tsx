@@ -20,6 +20,7 @@ export {
   GetIdTokenClaimsOptions,
   GetTokenWithPopupOptions,
   LogoutOptions,
+  LogoutUrlOptions,
   CacheLocation,
   GetTokenSilentlyOptions,
   IdToken,
