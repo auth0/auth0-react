@@ -223,11 +223,12 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     expect(result.current.buildAuthorizeUrl).toBeInstanceOf(Function);
 
-    const authOptions = {
+    await result.current.buildAuthorizeUrl({
       redirectUri: '__redirect_uri__',
-    };
-    await result.current.buildAuthorizeUrl(authOptions);
-    expect(clientMock.buildAuthorizeUrl).toHaveBeenCalledWith(authOptions);
+    });
+    expect(clientMock.buildAuthorizeUrl).toHaveBeenCalledWith({
+      redirect_uri: '__redirect_uri__',
+    });
   });
 
   it('should call through to buildLogoutUrl method', async () => {
