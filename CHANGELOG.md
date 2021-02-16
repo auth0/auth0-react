@@ -1,5 +1,15 @@
 # Change Log
 
+## [v1.3.0](https://github.com/auth0/auth0-react/tree/v1.3.0) (2021-02-16)
+
+**Added**
+
+- Added `buildAuthorizeUrl` and `buildLogoutUrl`  [\#190](https://github.com/auth0/auth0-react/pull/190) ([THISS](https://github.com/THISS))
+
+**Changed**
+
+- `isLoading` should default to `true` even when doing SSR [\#193](https://github.com/auth0/auth0-react/pull/193) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v1.2.0](https://github.com/auth0/auth0-react/tree/v1.2.0) (2020-11-04)
 
 **Added**
