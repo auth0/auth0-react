@@ -228,13 +228,13 @@ export const Profile = () => {
     audience: 'https://api.example.com/',
     scope: 'read:users',
   };
-  const { login, getTokenWithPopup } = useAuth0();
+  const { login, getAccessTokenWithPopup } = useAuth0();
   const { loading, error, refresh, data: users } = useApi(
     'https://api.example.com/users',
     opts
   );
   const getTokenAndTryAgain = async () => {
-    await getTokenWithPopup(opts);
+    await getAccessTokenWithPopup(opts);
     refresh();
   };
   if (loading) {
