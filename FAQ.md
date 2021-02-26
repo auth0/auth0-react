@@ -20,3 +20,26 @@ In this case Silent Authentication will not work because it relies on a hidden i
 ## 2. User is not logged in after successful sign in with redirect
 
 If after successfully logging in, your user returns to your SPA and is still not authenticated, do _not_ refresh the page - go to the Network tab on Chrome and confirm that the POST to `oauth/token` resulted in an error `401 Unauthorized`. If this is the case, your tenant is most likely misconfigured. Go to your **Application Properties** in your application's settings in the [Auth0 Dashboard](https://manage.auth0.com) and make sure that `Application Type` is set to `Single Page Application` and `Token Endpoint Authentication Method` is set to `None` (**Note:** there is a known issue with the Auth0 "Default App", if you are unable to set `Token Endpoint Authentication Method` to `None`, create a new Application of type `Single Page Application` or see the advice in [issues/93](https://github.com/auth0/auth0-react/issues/93#issuecomment-673431605))
+
+## 3. User is redirected to `/` after successful sign in with redirect
+
+By default, the SDK is configured to redirect the user back to the root of the application after succesfully exchanging the `code` for the corresponding token(s).
+
+This is what a typical default flow looks like:
+
+- Auth0Provider is configured with a specific redirectUrl (e.g. `http://localhost:4200/callback`).
+- User initiates login by calling `loginWithRedirect()`
+- User is redirected to Auth0, including a `redirectUri` (e.g. `http://localhost:3000/callback`)
+- After succesful authentication, the user is redirected back to the provided redirectUri, including a `code` and `state` query parameter (in this case `http://localhost:3000/callback?code={code}&state={state}`)
+- The configured `redirectUri` is only used to process `code` and `state` in order to retrieve an actual token.
+- The user is then redirected to `/`.
+
+However, if the user should not be redirected back to `/` in the very last step, but instead they should end up at a different URL, this can be configured by providing that information to `loginWithRedirect()`:
+
+```
+loginWithRedirect({
+  appState: { target: '/some-url' }
+});
+```
+
+By doing that, in the very last step the SDK will not redirect the user back to `/`, but to `/some-url` instead.
