@@ -25,10 +25,12 @@ export interface WithAuth0Props {
  */
 const withAuth0 = <P extends WithAuth0Props>(
   Component: ComponentType<P>
-): ComponentType<Omit<P, keyof WithAuth0Props>> => (props): JSX.Element => (
+): ComponentType<Omit<P, keyof WithAuth0Props>> => (
+  props: React.PropsWithChildren<any>
+): JSX.Element => (
   <Auth0Context.Consumer>
     {(auth: Auth0ContextInterface): JSX.Element => (
-      <Component auth0={auth} {...(props as P)} />
+      <Component auth0={auth} {...props} />
     )}
   </Auth0Context.Consumer>
 );
