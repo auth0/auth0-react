@@ -13,6 +13,14 @@ const defaultOnRedirecting = (): JSX.Element => <></>;
 const defaultReturnTo = (): string =>
   `${window.location.pathname}${window.location.search}`;
 
+export interface JWTClaim {
+  [claim: string]: string | string[];
+}
+
+export interface JWTNamespaces {
+  [namespace: string]: JWTClaim;
+}
+
 /**
  * Options for the withAuthenticationRequired Higher Order Component
  */
@@ -60,6 +68,10 @@ export interface WithAuthenticationRequiredOptions {
    * This will be merged with the `returnTo` option used by the `onRedirectCallback` handler.
    */
   loginOptions?: RedirectLoginOptions;
+  /**
+   * Specify JWT claims that must be present in order to allow access to the route.
+   */
+  requiredClaims?: JWTNamespaces;
 }
 
 /**
@@ -75,15 +87,85 @@ const withAuthenticationRequired = <P extends object>(
   options: WithAuthenticationRequiredOptions = {}
 ): FC<P> => {
   return function WithAuthenticationRequired(props: P): JSX.Element {
-    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+    const {
+      user = {},
+      isAuthenticated,
+      isLoading,
+      loginWithRedirect,
+    } = useAuth0();
     const {
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
       loginOptions = {},
+      requiredClaims,
     } = options;
 
+    let claimsAreAuthenticated;
+
+    /**
+     * If no requiredClaims are provided, claimsAreAuthenticated passes
+     * automatically.
+     */
+    if (!requiredClaims) {
+      claimsAreAuthenticated = true;
+    } else {
+    /**
+     * Otherwise, claimsAreAuthenticated is false by default, and is set to true
+     * only if all requiredClaims checks pass.
+     */
+      let claimFailed = false;
+      claimsAreAuthenticated = false;
+
+      for (const claimURL in requiredClaims) {
+        if (claimURL in user) {
+          const userClaims = user[claimURL];
+          const requiredClaim = requiredClaims[claimURL];
+
+          for (const [requiredClaimKey, requiredClaimValues] of Object.entries(
+            requiredClaim
+          )) {
+            const userClaimValues = userClaims[requiredClaimKey];
+            /**
+             * Coerce string -> string[].
+             */
+            const userClaimValueArray =
+              typeof userClaimValues === 'string'
+                ? [userClaimValues]
+                : userClaimValues;
+
+            const requiredClaimValueArray =
+              typeof requiredClaimValues === 'string'
+                ? [requiredClaimValues]
+                : requiredClaimValues;
+
+            /**
+             * If one of the required Namespace claim values on the JWT does not
+             * match the required claim value, the authorization check fails.
+             */
+            for (const requiredClaimValue of requiredClaimValueArray) {
+              if (!userClaimValueArray.includes(requiredClaimValue)) {
+                claimFailed = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      /**
+       * If there were no failures, the claims are authenticated.
+       */
+      if (!claimFailed) claimsAreAuthenticated = true;
+    }
+
+    /**
+     * The route is authenticated if the user has valid auth and there are no
+     * JWT claim mismatches.
+     */
+    const routeIsAuthenticated = isAuthenticated && claimsAreAuthenticated;
+
     useEffect(() => {
-      if (isLoading || isAuthenticated) {
+      if (isLoading || routeIsAuthenticated) {
         return;
       }
       const opts = {
@@ -98,8 +180,8 @@ const withAuthenticationRequired = <P extends object>(
       })();
     }, [isLoading, isAuthenticated, loginWithRedirect, loginOptions, returnTo]);
 
-    return isAuthenticated ? <Component {...props} /> : onRedirecting();
+    return routeIsAuthenticated ? <Component {...props} /> : onRedirecting();
   };
-}
+};
 
 export default withAuthenticationRequired;
