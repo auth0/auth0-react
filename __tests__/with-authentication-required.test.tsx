@@ -40,13 +40,11 @@ describe('withAuthenticationRequired', () => {
   });
 
   it('should not allow access to claims-restricted components', async () => {
+    const claimCheck = (claim: Record<string, any>) =>
+      claim['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN');
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
-      requiredClaims: {
-        'https://my.app.io/jwt/claims': {
-          ROLE: ['ADMIN'],
-        },
-      },
+      claimCheck,
     });
     /**
      * A user with USER and MODERATOR roles.
@@ -72,13 +70,11 @@ describe('withAuthenticationRequired', () => {
   });
 
   it('should allow access to restricted components when JWT claims present', async () => {
+    const claimCheck = (claim: Record<string, any>) =>
+      claim['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN');
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
-      requiredClaims: {
-        'https://my.app.io/jwt/claims': {
-          ROLE: ['ADMIN'],
-        },
-      },
+      claimCheck,
     });
     /**
      * User with ADMIN role.
@@ -91,64 +87,6 @@ describe('withAuthenticationRequired', () => {
       },
     };
     mockClient.getUser.mockResolvedValue(mockUser);
-
-    render(
-      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
-        <WrappedComponent />
-      </Auth0Provider>
-    );
-    await waitFor(() =>
-      expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
-    );
-    expect(screen.getByText('Private')).toBeInTheDocument();
-  });
-
-  it('should handle a mixture of array/string claims', async () => {
-    const MyComponent = (): JSX.Element => <>Private</>;
-    const WrappedComponent1 = withAuthenticationRequired(MyComponent, {
-      requiredClaims: {
-        'https://my.app.io/jwt/claims': {
-          ROLE: 'ADMIN',
-        },
-      },
-    });
-    const mockUser1 = {
-      name: '__test_user__',
-      'https://my.app.io/jwt/claims': {
-        USER: '__test_user__',
-        ROLE: ['ADMIN'],
-      },
-    };
-    mockClient.getUser.mockResolvedValue(mockUser1);
-
-    render(
-      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
-        <WrappedComponent1 />
-      </Auth0Provider>
-    );
-    await waitFor(() =>
-      expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
-    );
-    expect(screen.getByText('Private')).toBeInTheDocument();
-  });
-
-  it('should handle a mixture of array/string claims', async () => {
-    const MyComponent = (): JSX.Element => <>Private</>;
-    const WrappedComponent = withAuthenticationRequired(MyComponent, {
-      requiredClaims: {
-        'https://my.app.io/jwt/claims': {
-          ROLE: ['ADMIN'],
-        },
-      },
-    });
-    const mockUser2 = {
-      name: '__test_user__',
-      'https://my.app.io/jwt/claims': {
-        USER: '__test_user__',
-        ROLE: 'ADMIN',
-      },
-    };
-    mockClient.getUser.mockResolvedValue(mockUser2);
 
     render(
       <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">

@@ -69,9 +69,10 @@ export interface WithAuthenticationRequiredOptions {
    */
   loginOptions?: RedirectLoginOptions;
   /**
-   * Specify JWT claims that must be present in order to allow access to the route.
+   * Check the user object for JWT claims and return a boolean indicating
+   * whether or not they are authorized to view the component.
    */
-  requiredClaims?: JWTNamespaces;
+  claimCheck?: (claims: JWTNamespaces) => boolean;
 }
 
 /**
@@ -97,71 +98,17 @@ const withAuthenticationRequired = <P extends object>(
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
       loginOptions = {},
-      requiredClaims,
-    } = options;
-
-    let claimsAreAuthenticated;
-
-    /**
-     * If no requiredClaims are provided, claimsAreAuthenticated passes
-     * automatically.
-     */
-    if (!requiredClaims) {
-      claimsAreAuthenticated = true;
-    } else {
-    /**
-     * Otherwise, claimsAreAuthenticated is false by default, and is set to true
-     * only if all requiredClaims checks pass.
-     */
-      let claimFailed = false;
-      claimsAreAuthenticated = false;
-
-      for (const claimURL in requiredClaims) {
-        if (claimURL in user) {
-          const userClaims = user[claimURL];
-          const requiredClaim = requiredClaims[claimURL];
-
-          for (const [requiredClaimKey, requiredClaimValues] of Object.entries(
-            requiredClaim
-          )) {
-            const userClaimValues = userClaims[requiredClaimKey];
-            /**
-             * Coerce string -> string[].
-             */
-            const userClaimValueArray =
-              typeof userClaimValues === 'string'
-                ? [userClaimValues]
-                : userClaimValues;
-
-            const requiredClaimValueArray =
-              typeof requiredClaimValues === 'string'
-                ? [requiredClaimValues]
-                : requiredClaimValues;
-
-            /**
-             * If one of the required Namespace claim values on the JWT does not
-             * match the required claim value, the authorization check fails.
-             */
-            for (const requiredClaimValue of requiredClaimValueArray) {
-              if (!userClaimValueArray.includes(requiredClaimValue)) {
-                claimFailed = true;
-                break;
-              }
-            }
-          }
-        }
-      }
-
       /**
-       * If there were no failures, the claims are authenticated.
+       * The claimCheck will return `true` by default.
        */
-      if (!claimFailed) claimsAreAuthenticated = true;
-    }
+      claimCheck = () => true,
+    } = options;
 
     /**
      * The route is authenticated if the user has valid auth and there are no
      * JWT claim mismatches.
      */
+    const claimsAreAuthenticated = claimCheck(user);
     const routeIsAuthenticated = isAuthenticated && claimsAreAuthenticated;
 
     useEffect(() => {
