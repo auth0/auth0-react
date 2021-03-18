@@ -17,8 +17,6 @@ jobs:
             - ~/.cache
       - run: npm run build
       - run: npm test
-      # TODO: remove when facebook/create-react-app#8845 is shipped
-      - run: sed -i '/process.env.CI/ s/isInteractive [|]*//' examples/cra-react-router/node_modules/react-scripts/scripts/start.js
       - run: npm run test:integration
       - run: npm run codecov
       - store_test_results:
