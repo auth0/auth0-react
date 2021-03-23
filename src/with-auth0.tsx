@@ -28,7 +28,7 @@ const withAuth0 = <P extends WithAuth0Props>(
 ): ComponentType<Omit<P, keyof WithAuth0Props>> => (props): JSX.Element => (
   <Auth0Context.Consumer>
     {(auth: Auth0ContextInterface): JSX.Element => (
-      <Component auth0={auth} {...(props as P)} />
+      <Component {...(props as P)} auth0={auth} />
     )}
   </Auth0Context.Consumer>
 );

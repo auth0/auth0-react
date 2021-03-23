@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import {
   Auth0Client,
   Auth0ClientOptions,
-  CacheLocation,
   IdToken,
   LogoutOptions,
   LogoutUrlOptions,
@@ -29,7 +28,8 @@ export type AppState = {
 /**
  * The main configuration to instantiate the `Auth0Provider`.
  */
-export interface Auth0ProviderOptions {
+export interface Auth0ProviderOptions
+  extends Exclude<Auth0ClientOptions, 'client_id' | 'redirect_uri'> {
   /**
    * The child nodes your Provider has wrapped
    */
@@ -55,16 +55,6 @@ export interface Auth0ProviderOptions {
    */
   skipRedirectCallback?: boolean;
   /**
-   * Your Auth0 account domain such as `'example.auth0.com'`,
-   * `'example.eu.auth0.com'` or , `'example.mycompany.com'`
-   * (when using [custom domains](https://auth0.com/docs/custom-domains))
-   */
-  domain: string;
-  /**
-   * The issuer to be used for validation of JWTs, optionally defaults to the domain above
-   */
-  issuer?: string;
-  /**
    * The Client ID found on your Application settings page
    */
   clientId: string;
@@ -76,64 +66,6 @@ export interface Auth0ProviderOptions {
    * methods that provide authentication.
    */
   redirectUri?: string;
-  /**
-   * The value in seconds used to account for clock skew in JWT expirations.
-   * Typically, this value is no more than a minute or two at maximum.
-   * Defaults to 60s.
-   */
-  leeway?: number;
-  /**
-   * The location to use when storing cache data. Valid values are `memory` or `localstorage`.
-   * The default setting is `memory`.
-   *
-   * Read more about [changing storage options in the Auth0 docs](https://auth0.com/docs/libraries/auth0-single-page-app-sdk#change-storage-options)
-   */
-  cacheLocation?: CacheLocation;
-  /**
-   * If true, refresh tokens are used to fetch new access tokens from the Auth0 server. If false, the legacy technique of using a hidden iframe and the `authorization_code` grant with `prompt=none` is used.
-   * The default setting is `false`.
-   *
-   * **Note**: Use of refresh tokens must be enabled by an administrator on your Auth0 client application.
-   */
-  useRefreshTokens?: boolean;
-  /**
-   * A maximum number of seconds to wait before declaring background calls to /authorize as failed for timeout
-   * Defaults to 60s.
-   */
-  authorizeTimeoutInSeconds?: number;
-  /**
-   * Changes to recommended defaults, like defaultScope
-   */
-  advancedOptions?: {
-    /**
-     * The default scope to be included with all requests.
-     * If not provided, 'openid profile email' is used. This can be set to `null` in order to effectively remove the default scopes.
-     *
-     * Note: The `openid` scope is **always applied** regardless of this setting.
-     */
-    defaultScope?: string;
-  };
-  /**
-   * Maximum allowable elapsed time (in seconds) since authentication.
-   * If the last time the user authenticated is greater than this value,
-   * the user must be reauthenticated.
-   */
-  maxAge?: string | number;
-  /**
-   * The default scope to be used on authentication requests.
-   * The defaultScope defined in the Auth0Client is included
-   * along with this scope
-   */
-  scope?: string;
-  /**
-   * The default audience to be used for requesting API access.
-   */
-  audience?: string;
-  /**
-   * If you need to send custom parameters to the Authorization Server,
-   * make sure to use the original parameter name.
-   */
-  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 /**

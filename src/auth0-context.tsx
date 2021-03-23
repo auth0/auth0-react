@@ -1,5 +1,4 @@
 import {
-  BaseLoginOptions,
   GetIdTokenClaimsOptions,
   GetTokenSilentlyOptions,
   GetTokenWithPopupOptions,
@@ -13,7 +12,8 @@ import {
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
 
-export interface RedirectLoginOptions extends BaseLoginOptions {
+export interface RedirectLoginOptions
+  extends Exclude<Auth0RedirectLoginOptions, 'redirect_uri'> {
   /**
    * The URL where Auth0 will redirect your browser to with
    * the authentication result. It must be whitelisted in
@@ -21,16 +21,6 @@ export interface RedirectLoginOptions extends BaseLoginOptions {
    * settings.
    */
   redirectUri?: string;
-
-  /**
-   * Used to store state before doing the redirect
-   */
-  appState?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-
-  /**
-   * Used to add to the URL fragment before redirecting
-   */
-  fragment?: string;
 }
 
 /**
