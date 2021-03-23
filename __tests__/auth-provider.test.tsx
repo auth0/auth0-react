@@ -378,9 +378,11 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(result.current.getAccessTokenSilently).rejects.toThrowError(
-      'Get access token failed'
-    );
+    await act(async () => {
+      await expect(result.current.getAccessTokenSilently).rejects.toThrowError(
+        'Get access token failed'
+      );
+    });
   });
 
   it('should call getAccessTokenSilently in the scope of the Auth0 client', async () => {
@@ -546,7 +548,9 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
 
     expect(result.current.isAuthenticated).toBeTruthy();
-    clientMock.getTokenWithPopup.mockRejectedValue({ error: 'login_required' });
+    clientMock.getTokenWithPopup.mockRejectedValueOnce({
+      error: 'login_required',
+    });
     clientMock.getUser.mockResolvedValue(undefined);
     await act(async () => {
       await expect(() =>
@@ -582,9 +586,11 @@ describe('Auth0Provider', () => {
       { wrapper }
     );
     await waitForNextUpdate();
-    expect(result.current.getAccessTokenWithPopup).rejects.toThrowError(
-      'Get access token failed'
-    );
+    await act(async () => {
+      await expect(result.current.getAccessTokenWithPopup).rejects.toThrowError(
+        'Get access token failed'
+      );
+    });
   });
 
   it('should handle not having a user while calling getAccessTokenWithPopup', async () => {
