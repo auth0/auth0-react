@@ -416,6 +416,27 @@ describe('Auth0Provider', () => {
     expect(result.current.user.name).toEqual('bar');
   });
 
+  it('should update auth state after getAccessTokenSilently fails', async () => {
+    clientMock.getTokenSilently.mockReturnThis();
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+
+    expect(result.current.isAuthenticated).toBeTruthy();
+    clientMock.getTokenSilently.mockRejectedValue({ error: 'login_required' });
+    clientMock.getUser.mockResolvedValue(undefined);
+    await act(async () => {
+      await expect(() =>
+        result.current.getAccessTokenSilently()
+      ).rejects.toThrowError('login_required');
+    });
+    expect(result.current.isAuthenticated).toBeFalsy();
+  });
+
   it('should ignore same user after getAccessTokenSilently', async () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
@@ -512,6 +533,27 @@ describe('Auth0Provider', () => {
       await result.current.getAccessTokenWithPopup();
     });
     expect(result.current.user).not.toBe(prevUser);
+  });
+
+  it('should update auth state after getAccessTokenWithPopup fails', async () => {
+    clientMock.getTokenSilently.mockReturnThis();
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+
+    expect(result.current.isAuthenticated).toBeTruthy();
+    clientMock.getTokenWithPopup.mockRejectedValue({ error: 'login_required' });
+    clientMock.getUser.mockResolvedValue(undefined);
+    await act(async () => {
+      await expect(() =>
+        result.current.getAccessTokenWithPopup()
+      ).rejects.toThrowError('login_required');
+    });
+    expect(result.current.isAuthenticated).toBeFalsy();
   });
 
   it('should ignore same auth state after getAccessTokenWithPopup', async () => {
