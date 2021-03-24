@@ -4,7 +4,7 @@
 2. [Protecting a route in a Gatsby app](#2-protecting-a-route-in-a-gatsby-app)
 3. [Protecting a route in a Next.js app (in SPA mode)](#3-protecting-a-route-in-a-nextjs-app-in-spa-mode)
 4. [Create a `useApi` hook for accessing protected APIs with an access token.](#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token)
-5. [Accept a user invite and login to an organization](#5-accept-a-user-invite-and-login-to-an-organization)
+5. [Use with Auth0 organizations (Closed Beta)](#5-use-with-auth0-organizations-closed-beta)
 
 ## 1. Protecting a route in a `react-router-dom` app
 
@@ -262,9 +262,27 @@ export const Profile = () => {
 };
 ```
 
-## 5. Accept a user invite and login to an organization
+## 5. Use with Auth0 organizations (Closed Beta)
 
-Organizations is currently a Closed Beta.
+To log the user in to an organization, you should specify the organization in the `Auth0Provider` props.
+
+```jsx
+ReactDOM.render(
+  <React.StrictMode>
+    <Auth0Provider
+      domain="YOUR_AUTH0_DOMAIN"
+      clientId="YOUR_AUTH0_CLIENT_ID"
+      redirectUri={window.location.origin}
+      organization="YOUR_ORGANIZATION_ID"
+    >
+      <App />
+    </Auth0Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
+
+To accept an invite from an organization, you should call `loginWithRedirect` with the `invitation` and `organization` parameters.
 
 ```jsx
 import React from 'react';
@@ -284,19 +302,4 @@ const App = () => {
   }
   return <div>...</div>;
 };
-
-ReactDOM.render(
-  <React.StrictMode>
-    <Auth0Provider
-      domain="YOUR_AUTH0_DOMAIN"
-      clientId="YOUR_AUTH0_CLIENT_ID"
-      redirectUri={window.location.origin}
-      // If you know the organization id enter it here to login to your organization
-      organization="org_id"
-    >
-      <App />
-    </Auth0Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 ```
