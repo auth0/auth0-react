@@ -14,14 +14,6 @@ const defaultOnRedirecting = (): JSX.Element => <></>;
 const defaultReturnTo = (): string =>
   `${window.location.pathname}${window.location.search}`;
 
-export interface JWTClaim {
-  [claim: string]: string | string[];
-}
-
-export interface JWTNamespaces {
-  [namespace: string]: JWTClaim;
-}
-
 /**
  * Options for the withAuthenticationRequired Higher Order Component
  */
@@ -73,7 +65,7 @@ export interface WithAuthenticationRequiredOptions {
    * Check the user object for JWT claims and return a boolean indicating
    * whether or not they are authorized to view the component.
    */
-  claimCheck?: (claims: JWTNamespaces | User) => boolean;
+  claimCheck?: (claims: User) => boolean;
 }
 
 /**
@@ -89,28 +81,19 @@ const withAuthenticationRequired = <P extends object>(
   options: WithAuthenticationRequiredOptions = {}
 ): FC<P> => {
   return function WithAuthenticationRequired(props: P): JSX.Element {
-    const {
-      user = {},
-      isAuthenticated,
-      isLoading,
-      loginWithRedirect,
-    } = useAuth0();
+    const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
     const {
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
       loginOptions = {},
-      /**
-       * The claimCheck will return `true` by default.
-       */
-      claimCheck = () => true,
+      claimCheck = (): boolean => true,
     } = options;
 
     /**
      * The route is authenticated if the user has valid auth and there are no
      * JWT claim mismatches.
      */
-    const claimsAreAuthenticated = claimCheck(user);
-    const routeIsAuthenticated = isAuthenticated && claimsAreAuthenticated;
+    const routeIsAuthenticated = isAuthenticated && claimCheck(user);
 
     useEffect(() => {
       if (isLoading || routeIsAuthenticated) {
@@ -126,7 +109,13 @@ const withAuthenticationRequired = <P extends object>(
       (async (): Promise<void> => {
         await loginWithRedirect(opts);
       })();
-    }, [isLoading, isAuthenticated, loginWithRedirect, loginOptions, returnTo]);
+    }, [
+      isLoading,
+      routeIsAuthenticated,
+      loginWithRedirect,
+      loginOptions,
+      returnTo,
+    ]);
 
     return routeIsAuthenticated ? <Component {...props} /> : onRedirecting();
   };
