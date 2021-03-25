@@ -1,6 +1,7 @@
 import React, { ComponentType, useEffect, FC } from 'react';
 import { RedirectLoginOptions } from '@auth0/auth0-spa-js';
 import useAuth0 from './use-auth0';
+import { User } from './auth-state';
 
 /**
  * @ignore
@@ -72,7 +73,7 @@ export interface WithAuthenticationRequiredOptions {
    * Check the user object for JWT claims and return a boolean indicating
    * whether or not they are authorized to view the component.
    */
-  claimCheck?: (claims: JWTNamespaces) => boolean;
+  claimCheck?: (claims: JWTNamespaces | User) => boolean;
 }
 
 /**
