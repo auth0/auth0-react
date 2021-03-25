@@ -130,6 +130,17 @@ export interface Auth0ProviderOptions {
    */
   audience?: string;
   /**
+   * The Id of an organization to log in to (Organizations is currently a Closed Beta).
+   *
+   * This will specify an `organization` parameter in your user's login request and will add a step to validate
+   * the `org_id` claim in your user's ID Token.
+   */
+  organization?: string;
+  /**
+   * The Id of an invitation to accept. This is available from the user invitation URL that is given when participating in a user invitation flow.
+   */
+  invitation?: string;
+  /**
    * If you need to send custom parameters to the Authorization Server,
    * make sure to use the original parameter name.
    */
