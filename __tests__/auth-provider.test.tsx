@@ -434,6 +434,25 @@ describe('Auth0Provider', () => {
     expect(result.current.user).toBe(prevUser);
   });
 
+  it('should not update getAccessTokenSilently after auth state change', async () => {
+    clientMock.getTokenSilently.mockReturnThis();
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    const memoized = result.current.getAccessTokenSilently;
+    expect(result.current.user.name).toEqual('foo');
+    clientMock.getUser.mockResolvedValue({ name: 'bar', updated_at: '2' });
+    await act(async () => {
+      await result.current.getAccessTokenSilently();
+    });
+    expect(result.current.user.name).toEqual('bar');
+    expect(result.current.getAccessTokenSilently).toBe(memoized);
+  });
+
   it('should handle not having a user while calling getAccessTokenSilently', async () => {
     const token = '__test_token__';
     clientMock.getTokenSilently.mockResolvedValue(token);

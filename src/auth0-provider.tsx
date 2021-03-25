@@ -285,8 +285,6 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     [client]
   );
 
-  const userUpdatedAt = state.user?.updated_at;
-
   const getAccessTokenSilently = useCallback(
     async (opts?: GetTokenSilentlyOptions): Promise<string> => {
       let token;
@@ -295,13 +293,13 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
       } catch (error) {
         throw tokenError(error);
       }
-      const user = await client.getUser();
-      if (user?.updated_at !== userUpdatedAt) {
-        dispatch({ type: 'USER_UPDATED', user });
-      }
+      dispatch({
+        type: 'GET_ACCESS_TOKEN_COMPLETE',
+        user: await client.getUser(),
+      });
       return token;
     },
-    [client, userUpdatedAt]
+    [client]
   );
 
   const getAccessTokenWithPopup = useCallback(
@@ -315,13 +313,13 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
       } catch (error) {
         throw tokenError(error);
       }
-      const user = await client.getUser();
-      if (user?.updated_at !== userUpdatedAt) {
-        dispatch({ type: 'USER_UPDATED', user });
-      }
+      dispatch({
+        type: 'GET_ACCESS_TOKEN_COMPLETE',
+        user: await client.getUser(),
+      });
       return token;
     },
-    [client, userUpdatedAt]
+    [client]
   );
 
   const getIdTokenClaims = useCallback(
