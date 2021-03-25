@@ -9,7 +9,12 @@ jobs:
       - restore_cache:
           key: dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package.json" }}-{{ checksum "examples/gatsby-app/package.json" }}-{{ checksum "examples/nextjs-app/package.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
       - run: npm ci
-      - run: npm run install:examples
+      - run:
+          name: npm run install:examples
+          command: |
+            if [ -z "$CIRCLE_PR_NUMBER" ]; then
+              npm run install:examples
+            fi
       - save_cache:
           key: dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package.json" }}-{{ checksum "examples/gatsby-app/package.json" }}-{{ checksum "examples/nextjs-app/package.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
           paths:
@@ -17,9 +22,12 @@ jobs:
             - ~/.cache
       - run: npm run build
       - run: npm test
-      # TODO: remove when facebook/create-react-app#8845 is shipped
-      - run: sed -i '/process.env.CI/ s/isInteractive [|]*//' examples/cra-react-router/node_modules/react-scripts/scripts/start.js
-      - run: npm run test:integration
+      - run:
+          name: npm run test:integration
+          command: |
+            if [ -z "$CIRCLE_PR_NUMBER" ]; then
+              npm run test:integration
+            fi
       - run: npm run codecov
       - store_test_results:
           path: test-results
