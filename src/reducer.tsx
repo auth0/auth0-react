@@ -3,7 +3,10 @@ import { AuthState, User } from './auth-state';
 type Action =
   | { type: 'LOGIN_POPUP_STARTED' }
   | {
-      type: 'INITIALISED' | 'LOGIN_POPUP_COMPLETE' | 'USER_UPDATED';
+      type:
+        | 'INITIALISED'
+        | 'LOGIN_POPUP_COMPLETE'
+        | 'GET_ACCESS_TOKEN_COMPLETE';
       user?: User;
     }
   | { type: 'LOGOUT' }
@@ -28,7 +31,10 @@ export const reducer = (state: AuthState, action: Action): AuthState => {
         isLoading: false,
         error: undefined,
       };
-    case 'USER_UPDATED':
+    case 'GET_ACCESS_TOKEN_COMPLETE':
+      if (state.user?.updated_at === action.user?.updated_at) {
+        return state;
+      }
       return {
         ...state,
         isAuthenticated: !!action.user,
