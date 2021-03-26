@@ -73,7 +73,7 @@ export interface WithAuthenticationRequiredOptions {
    * Check the user object for JWT claims and return a boolean indicating
    * whether or not they are authorized to view the component.
    */
-  claimCheck?: (claims: JWTNamespaces | User) => boolean;
+  claimCheck?: (claims: User) => boolean;
 }
 
 /**
