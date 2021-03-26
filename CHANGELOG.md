@@ -1,5 +1,16 @@
 # Change Log
 
+## [v1.4.0](https://github.com/auth0/auth0-react/tree/v1.4.0) (2021-03-26)
+
+**Added**
+
+- Update SPA JS, add organizations docs and example [\#211](https://github.com/auth0/auth0-react/pull/211) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+**Fixed**
+
+- Update auth state on access token fail [\#219](https://github.com/auth0/auth0-react/pull/219) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Updates to user should not update memoized getAccessToken* methods [\#213](https://github.com/auth0/auth0-react/pull/213) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v1.3.0](https://github.com/auth0/auth0-react/tree/v1.3.0) (2021-02-16)
 
 **Added**

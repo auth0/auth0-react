@@ -107,10 +107,12 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#children" class="tsd-kind-icon">children</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#clientid" class="tsd-kind-icon">client<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#domain" class="tsd-kind-icon">domain</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#invitation" class="tsd-kind-icon">invitation</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#issuer" class="tsd-kind-icon">issuer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#leeway" class="tsd-kind-icon">leeway</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#maxage" class="tsd-kind-icon">max<wbr>Age</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#onredirectcallback" class="tsd-kind-icon">on<wbr>Redirect<wbr>Callback</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#organization" class="tsd-kind-icon">organization</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#redirecturi" class="tsd-kind-icon">redirect<wbr>Uri</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#scope" class="tsd-kind-icon">scope</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="auth0_provider.auth0provideroptions.html#skipredirectcallback" class="tsd-kind-icon">skip<wbr>Redirect<wbr>Callback</a></li>
@@ -125,10 +127,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="advancedoptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> advanced<wbr>Options</h3>
-					<div class="tsd-signature tsd-kind-icon">advanced<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>defaultScope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+					<div class="tsd-signature tsd-kind-icon">advanced<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>defaultScope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L107">src/auth0-provider.tsx:107</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L107">src/auth0-provider.tsx:107</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -136,14 +138,29 @@
 							<p>Changes to recommended defaults, like defaultScope</p>
 						</div>
 					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Scope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>The default scope to be included with all requests.
+										If not provided, &#39;openid profile email&#39; is used. This can be set to <code>null</code> in order to effectively remove the default scopes.</p>
+									</div>
+									<p>Note: The <code>openid</code> scope is <strong>always applied</strong> regardless of this setting.</p>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="audience" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> audience</h3>
-					<div class="tsd-signature tsd-kind-icon">audience<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">audience<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L131">src/auth0-provider.tsx:131</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L131">src/auth0-provider.tsx:131</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -155,10 +172,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="authorizetimeoutinseconds" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> authorize<wbr>Timeout<wbr>InSeconds</h3>
-					<div class="tsd-signature tsd-kind-icon">authorize<wbr>Timeout<wbr>InSeconds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<div class="tsd-signature tsd-kind-icon">authorize<wbr>Timeout<wbr>InSeconds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L103">src/auth0-provider.tsx:103</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L103">src/auth0-provider.tsx:103</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -171,10 +188,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="cachelocation" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cache<wbr>Location</h3>
-					<div class="tsd-signature tsd-kind-icon">cache<wbr>Location<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;memory&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;localstorage&quot;</span></div>
+					<div class="tsd-signature tsd-kind-icon">cache<wbr>Location<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;memory&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;localstorage&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L91">src/auth0-provider.tsx:91</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L91">src/auth0-provider.tsx:91</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -191,7 +208,7 @@
 					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReactNode</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L36">src/auth0-provider.tsx:36</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L36">src/auth0-provider.tsx:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -206,7 +223,7 @@
 					<div class="tsd-signature tsd-kind-icon">client<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L70">src/auth0-provider.tsx:70</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L70">src/auth0-provider.tsx:70</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -221,7 +238,7 @@
 					<div class="tsd-signature tsd-kind-icon">domain<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L62">src/auth0-provider.tsx:62</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L62">src/auth0-provider.tsx:62</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -233,12 +250,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="issuer" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> issuer</h3>
-					<div class="tsd-signature tsd-kind-icon">issuer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<a name="invitation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> invitation</h3>
+					<div class="tsd-signature tsd-kind-icon">invitation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L66">src/auth0-provider.tsx:66</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L142">src/auth0-provider.tsx:142</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The Id of an invitation to accept. This is available from the user invitation URL that is given when participating in a user invitation flow.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="issuer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> issuer</h3>
+					<div class="tsd-signature tsd-kind-icon">issuer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L66">src/auth0-provider.tsx:66</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -250,10 +282,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="leeway" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> leeway</h3>
-					<div class="tsd-signature tsd-kind-icon">leeway<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<div class="tsd-signature tsd-kind-icon">leeway<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L84">src/auth0-provider.tsx:84</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L84">src/auth0-provider.tsx:84</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -267,10 +299,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="maxage" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> max<wbr>Age</h3>
-					<div class="tsd-signature tsd-kind-icon">max<wbr>Age<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<div class="tsd-signature tsd-kind-icon">max<wbr>Age<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L121">src/auth0-provider.tsx:121</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L121">src/auth0-provider.tsx:121</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -284,10 +316,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="onredirectcallback" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Redirect<wbr>Callback</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Redirect<wbr>Callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>appState<span class="tsd-signature-symbol">: </span><a href="../modules/auth0_provider.html#appstate" class="tsd-signature-type" data-tsd-kind="Type alias">AppState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Redirect<wbr>Callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>appState<span class="tsd-signature-symbol">: </span><a href="../modules/auth0_provider.html#appstate" class="tsd-signature-type" data-tsd-kind="Type alias">AppState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L42">src/auth0-provider.tsx:42</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L42">src/auth0-provider.tsx:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -297,14 +329,52 @@
 							See the EXAMPLES.md for more info.</p>
 						</div>
 					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>appState<span class="tsd-signature-symbol">: </span><a href="../modules/auth0_provider.html#appstate" class="tsd-signature-type" data-tsd-kind="Type alias">AppState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>appState: <a href="../modules/auth0_provider.html#appstate" class="tsd-signature-type" data-tsd-kind="Type alias">AppState</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="organization" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> organization</h3>
+					<div class="tsd-signature tsd-kind-icon">organization<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L138">src/auth0-provider.tsx:138</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The Id of an organization to log in to (Organizations is currently a Closed Beta).</p>
+						</div>
+						<p>This will specify an <code>organization</code> parameter in your user&#39;s login request and will add a step to validate
+						the <code>org_id</code> claim in your user&#39;s ID Token.</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="redirecturi" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> redirect<wbr>Uri</h3>
-					<div class="tsd-signature tsd-kind-icon">redirect<wbr>Uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">redirect<wbr>Uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L78">src/auth0-provider.tsx:78</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L78">src/auth0-provider.tsx:78</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -320,10 +390,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scope" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
-					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L127">src/auth0-provider.tsx:127</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L127">src/auth0-provider.tsx:127</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -337,10 +407,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="skipredirectcallback" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> skip<wbr>Redirect<wbr>Callback</h3>
-					<div class="tsd-signature tsd-kind-icon">skip<wbr>Redirect<wbr>Callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">skip<wbr>Redirect<wbr>Callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L56">src/auth0-provider.tsx:56</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L56">src/auth0-provider.tsx:56</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -360,10 +430,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="userefreshtokens" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> use<wbr>Refresh<wbr>Tokens</h3>
-					<div class="tsd-signature tsd-kind-icon">use<wbr>Refresh<wbr>Tokens<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">use<wbr>Refresh<wbr>Tokens<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/fb8f246/src/auth0-provider.tsx#L98">src/auth0-provider.tsx:98</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/1018526/src/auth0-provider.tsx#L98">src/auth0-provider.tsx:98</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -434,6 +504,9 @@
 								<a href="auth0_provider.auth0provideroptions.html#domain" class="tsd-kind-icon">domain</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="auth0_provider.auth0provideroptions.html#invitation" class="tsd-kind-icon">invitation</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="auth0_provider.auth0provideroptions.html#issuer" class="tsd-kind-icon">issuer</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -444,6 +517,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="auth0_provider.auth0provideroptions.html#onredirectcallback" class="tsd-kind-icon">on<wbr>Redirect<wbr>Callback</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="auth0_provider.auth0provideroptions.html#organization" class="tsd-kind-icon">organization</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="auth0_provider.auth0provideroptions.html#redirecturi" class="tsd-kind-icon">redirect<wbr>Uri</a>
