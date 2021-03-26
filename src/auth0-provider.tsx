@@ -292,11 +292,12 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         token = await client.getTokenSilently(opts);
       } catch (error) {
         throw tokenError(error);
+      } finally {
+        dispatch({
+          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          user: await client.getUser(),
+        });
       }
-      dispatch({
-        type: 'GET_ACCESS_TOKEN_COMPLETE',
-        user: await client.getUser(),
-      });
       return token;
     },
     [client]
@@ -312,11 +313,12 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         token = await client.getTokenWithPopup(opts, config);
       } catch (error) {
         throw tokenError(error);
+      } finally {
+        dispatch({
+          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          user: await client.getUser(),
+        });
       }
-      dispatch({
-        type: 'GET_ACCESS_TOKEN_COMPLETE',
-        user: await client.getUser(),
-      });
       return token;
     },
     [client]
