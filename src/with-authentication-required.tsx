@@ -1,6 +1,7 @@
 import React, { ComponentType, useEffect, FC } from 'react';
 import { RedirectLoginOptions } from '@auth0/auth0-spa-js';
 import useAuth0 from './use-auth0';
+import { User } from './auth-state';
 
 /**
  * @ignore
@@ -60,6 +61,11 @@ export interface WithAuthenticationRequiredOptions {
    * This will be merged with the `returnTo` option used by the `onRedirectCallback` handler.
    */
   loginOptions?: RedirectLoginOptions;
+  /**
+   * Check the user object for JWT claims and return a boolean indicating
+   * whether or not they are authorized to view the component.
+   */
+  claimCheck?: (claims: User) => boolean;
 }
 
 /**
@@ -75,15 +81,22 @@ const withAuthenticationRequired = <P extends object>(
   options: WithAuthenticationRequiredOptions = {}
 ): FC<P> => {
   return function WithAuthenticationRequired(props: P): JSX.Element {
-    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+    const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
     const {
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
       loginOptions = {},
+      claimCheck = (): boolean => true,
     } = options;
 
+    /**
+     * The route is authenticated if the user has valid auth and there are no
+     * JWT claim mismatches.
+     */
+    const routeIsAuthenticated = isAuthenticated && claimCheck(user);
+
     useEffect(() => {
-      if (isLoading || isAuthenticated) {
+      if (isLoading || routeIsAuthenticated) {
         return;
       }
       const opts = {
@@ -96,10 +109,16 @@ const withAuthenticationRequired = <P extends object>(
       (async (): Promise<void> => {
         await loginWithRedirect(opts);
       })();
-    }, [isLoading, isAuthenticated, loginWithRedirect, loginOptions, returnTo]);
+    }, [
+      isLoading,
+      routeIsAuthenticated,
+      loginWithRedirect,
+      loginOptions,
+      returnTo,
+    ]);
 
-    return isAuthenticated ? <Component {...props} /> : onRedirecting();
+    return routeIsAuthenticated ? <Component {...props} /> : onRedirecting();
   };
-}
+};
 
 export default withAuthenticationRequired;
