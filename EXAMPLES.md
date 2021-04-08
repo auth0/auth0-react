@@ -262,7 +262,9 @@ export const Profile = () => {
 };
 ```
 
-## 5. Use with Auth0 organizations (Closed Beta)
+## 5. Use with Auth0 organizations
+
+[Organizations](https://auth0.com/docs/organizations) is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications. Note that Organizations is currently only available to customers on our Enterprise and Startup subscription plans.
 
 To log the user in to an organization, you should specify the organization in the `Auth0Provider` props.
 
