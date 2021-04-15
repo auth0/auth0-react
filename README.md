@@ -77,7 +77,7 @@ function App() {
     user,
     loginWithRedirect,
     logout,
-  } = useAuth0<{ name: string }>();
+  } = useAuth0();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -101,6 +101,14 @@ function App() {
 }
 
 export default App;
+```
+
+If you're using TypeScript, you can pass a type parameter to `useAuth0` to specify the type of `user`:
+
+```ts
+const { user } = useAuth0<{ name: string }>();
+
+user.name; // is a string
 ```
 
 ### Use with a Class Component
