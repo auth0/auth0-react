@@ -77,7 +77,7 @@ function App() {
     user,
     loginWithRedirect,
     logout,
-  } = useAuth0();
+  } = useAuth0<{ name: string }>();
 
   if (isLoading) {
     return <div>Loading...</div>;

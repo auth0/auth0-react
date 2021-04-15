@@ -3,11 +3,11 @@ export type User = any; // eslint-disable-line @typescript-eslint/no-explicit-an
 /**
  * The auth state which, when combined with the auth methods, make up the return object of the `useAuth0` hook.
  */
-export interface AuthState {
+export interface AuthState<TUser extends User = User> {
   error?: Error;
   isAuthenticated: boolean;
   isLoading: boolean;
-  user?: User;
+  user?: TUser;
 }
 
 /**
