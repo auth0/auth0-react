@@ -155,7 +155,11 @@ describe('Auth0Provider', () => {
   });
 
   it('should handle redirect callback errors', async () => {
-    window.history.pushState({}, document.title, '/?error=__test_error__');
+    window.history.pushState(
+      {},
+      document.title,
+      '/?error=__test_error__&state=__test_state__'
+    );
     clientMock.handleRedirectCallback.mockRejectedValue(
       new Error('__test_error__')
     );

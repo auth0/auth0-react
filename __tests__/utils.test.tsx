@@ -17,9 +17,18 @@ describe('utils hasAuthParams', () => {
     ].forEach((search) => expect(hasAuthParams(search)).toBeTruthy());
   });
 
-  it('should recognise the error param', async () => {
+  it('should recognise the error and state param', async () => {
+    [
+      '?error=1&state=2',
+      '?foo=1&state=2&error=3',
+      '?error=1&foo=2&state=3',
+      '?state=1&error=2&foo=3',
+    ].forEach((search) => expect(hasAuthParams(search)).toBeTruthy());
+  });
+
+  it('should ignore the error param without state param', async () => {
     ['?error=1', '?foo=1&error=2', '?error=1&foo=2'].forEach((search) =>
-      expect(hasAuthParams(search)).toBeTruthy()
+      expect(hasAuthParams(search)).toBeFalsy()
     );
   });
 
