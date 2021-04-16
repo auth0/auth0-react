@@ -37,7 +37,7 @@ export function Nav() {
 
       {isAuthenticated ? (
         <div>
-          <span id="hello">Hello, {user.name}!</span>{' '}
+          <span id="hello">Hello, {user?.name}!</span>{' '}
           <button
             className="btn btn-outline-secondary"
             id="logout"
