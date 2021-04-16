@@ -103,6 +103,14 @@ function App() {
 export default App;
 ```
 
+If you're using TypeScript, you can pass a type parameter to `useAuth0` to specify the type of `user`:
+
+```ts
+const { user } = useAuth0<{ name: string }>();
+
+user.name; // is a string
+```
+
 ### Use with a Class Component
 
 Use the `withAuth0` higher order component to add the `auth0` property to Class components:

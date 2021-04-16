@@ -11,7 +11,7 @@ import {
   RedirectLoginOptions as Auth0RedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
-import { AuthState, initialAuthState } from './auth-state';
+import { AuthState, initialAuthState, User } from './auth-state';
 
 export interface RedirectLoginOptions extends BaseLoginOptions {
   /**
@@ -36,7 +36,8 @@ export interface RedirectLoginOptions extends BaseLoginOptions {
 /**
  * Contains the authenticated state and authentication methods provided by the `useAuth0` hook.
  */
-export interface Auth0ContextInterface extends AuthState {
+export interface Auth0ContextInterface<TUser extends User = User>
+  extends AuthState<TUser> {
   /**
    * ```js
    * const token = await getAccessTokenSilently(options);
