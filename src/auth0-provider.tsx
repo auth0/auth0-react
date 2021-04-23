@@ -12,6 +12,7 @@ import {
   GetTokenWithPopupOptions,
   GetTokenSilentlyOptions,
   GetIdTokenClaimsOptions,
+  RedirectLoginResult,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
@@ -330,6 +331,22 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     [client]
   );
 
+  const handleRedirectCallback = useCallback(
+    async (url?: string): Promise<RedirectLoginResult> => {
+      try {
+        return await client.handleRedirectCallback(url);
+      } catch (error) {
+        throw tokenError(error);
+      } finally {
+        dispatch({
+          type: 'HANDLE_REDIRECT_COMPLETE',
+          user: await client.getUser(),
+        });
+      }
+    },
+    [client]
+  );
+
   return (
     <Auth0Context.Provider
       value={{
@@ -342,6 +359,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         loginWithRedirect,
         loginWithPopup,
         logout,
+        handleRedirectCallback,
       }}
     >
       {children}

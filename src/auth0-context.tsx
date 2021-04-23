@@ -9,6 +9,7 @@ import {
   PopupLoginOptions,
   PopupConfigOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
+  RedirectLoginResult,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState, User } from './auth-state';
@@ -157,6 +158,16 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * @param options
    */
   buildLogoutUrl: (options?: LogoutUrlOptions) => string;
+
+  /**
+   * After the browser redirects back to the callback page,
+   * call `handleRedirectCallback` to handle success and error
+   * responses from Auth0. If the response is successful, results
+   * will be valid according to their expiration times.
+   *
+   * @param url The URL to that should be used to retrieve the `state` and `code` values. Defaults to `window.location.href` if not given.
+   */
+  handleRedirectCallback: (url?: string) => Promise<RedirectLoginResult>;
 }
 
 /**
@@ -179,6 +190,7 @@ const initialContext = {
   loginWithRedirect: stub,
   loginWithPopup: stub,
   logout: stub,
+  handleRedirectCallback: stub,
 };
 
 /**
