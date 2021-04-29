@@ -641,4 +641,136 @@ describe('Auth0Provider', () => {
     rerender();
     expect(result.current.getIdTokenClaims).toBe(memoized);
   });
+
+  it('should provide a handleRedirectCallback method', async () => {
+    clientMock.handleRedirectCallback.mockResolvedValue({
+      appState: { redirectUri: '/' },
+    });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.handleRedirectCallback).toBeInstanceOf(Function);
+    await act(async () => {
+      const response = await result.current.handleRedirectCallback();
+      expect(response).toStrictEqual({
+        appState: {
+          redirectUri: '/',
+        },
+      });
+    });
+    expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
+  });
+
+  it('should call handleRedirectCallback in the scope of the Auth0 client', async () => {
+    clientMock.handleRedirectCallback.mockReturnThis();
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    await act(async () => {
+      const returnedThis = await result.current.handleRedirectCallback();
+      expect(returnedThis).toStrictEqual(clientMock);
+    });
+  });
+
+  it('should update auth state after handleRedirectCallback', async () => {
+    clientMock.handleRedirectCallback.mockReturnThis();
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+
+    const prevUser = result.current.user;
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '2' });
+    await act(async () => {
+      await result.current.handleRedirectCallback();
+    });
+    expect(result.current.user).not.toBe(prevUser);
+  });
+
+  it('should update auth state after handleRedirectCallback fails', async () => {
+    clientMock.handleRedirectCallback.mockReturnThis();
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+
+    expect(result.current.isAuthenticated).toBeTruthy();
+    clientMock.handleRedirectCallback.mockRejectedValueOnce({
+      error: 'login_required',
+    });
+    clientMock.getUser.mockResolvedValue(undefined);
+    await act(async () => {
+      await expect(() =>
+        result.current.handleRedirectCallback()
+      ).rejects.toThrowError('login_required');
+    });
+    expect(result.current.isAuthenticated).toBeFalsy();
+  });
+
+  it('should ignore same auth state after handleRedirectCallback', async () => {
+    clientMock.handleRedirectCallback.mockReturnThis();
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+
+    const prevState = result.current;
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    await act(async () => {
+      await result.current.handleRedirectCallback();
+    });
+    expect(result.current).toBe(prevState);
+  });
+
+  it('should normalize errors from handleRedirectCallback method', async () => {
+    clientMock.handleRedirectCallback.mockRejectedValue(
+      new ProgressEvent('error')
+    );
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    await act(async () => {
+      await expect(result.current.handleRedirectCallback).rejects.toThrowError(
+        'Get access token failed'
+      );
+    });
+  });
+
+  it('should handle not having a user while calling handleRedirectCallback', async () => {
+    clientMock.handleRedirectCallback.mockResolvedValue({
+      appState: {
+        redirectUri: '/',
+      },
+    });
+    clientMock.getUser.mockResolvedValue(undefined);
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+    let returnedToken;
+    await act(async () => {
+      returnedToken = await result.current.handleRedirectCallback();
+    });
+    expect(returnedToken).toStrictEqual({
+      appState: {
+        redirectUri: '/',
+      },
+    });
+  });
 });

@@ -6,7 +6,8 @@ type Action =
       type:
         | 'INITIALISED'
         | 'LOGIN_POPUP_COMPLETE'
-        | 'GET_ACCESS_TOKEN_COMPLETE';
+        | 'GET_ACCESS_TOKEN_COMPLETE'
+        | 'HANDLE_REDIRECT_COMPLETE';
       user?: User;
     }
   | { type: 'LOGOUT' }
@@ -31,6 +32,7 @@ export const reducer = (state: AuthState, action: Action): AuthState => {
         isLoading: false,
         error: undefined,
       };
+    case 'HANDLE_REDIRECT_COMPLETE':
     case 'GET_ACCESS_TOKEN_COMPLETE':
       if (state.user?.updated_at === action.user?.updated_at) {
         return state;
