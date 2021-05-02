@@ -10,9 +10,10 @@ import {
   PopupConfigOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
   RedirectLoginResult,
+  User,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
-import { AuthState, initialAuthState, User } from './auth-state';
+import { AuthState, initialAuthState } from './auth-state';
 
 export interface RedirectLoginOptions extends BaseLoginOptions {
   /**
