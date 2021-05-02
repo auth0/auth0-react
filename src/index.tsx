@@ -24,5 +24,6 @@ export {
   CacheLocation,
   GetTokenSilentlyOptions,
   IdToken,
+  User,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
