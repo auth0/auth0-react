@@ -1,4 +1,5 @@
-import { AuthState, User } from './auth-state';
+import { User } from '@auth0/auth0-spa-js';
+import { AuthState } from './auth-state';
 
 type Action =
   | { type: 'LOGIN_POPUP_STARTED' }

@@ -5,7 +5,7 @@ describe('reducer', () => {
   it('should initialise when authenticated', async () => {
     const payload = {
       isAuthenticated: true,
-      user: 'Bob',
+      user: { name: 'Bob' },
     };
     expect(
       reducer(initialAuthState, { type: 'INITIALISED', ...payload })

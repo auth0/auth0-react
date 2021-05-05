@@ -1,4 +1,4 @@
-export type User = any; // eslint-disable-line @typescript-eslint/no-explicit-any
+import { User } from '@auth0/auth0-spa-js';
 
 /**
  * The auth state which, when combined with the auth methods, make up the return object of the `useAuth0` hook.

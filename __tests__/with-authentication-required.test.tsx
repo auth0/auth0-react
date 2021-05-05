@@ -2,10 +2,9 @@ import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import withAuthenticationRequired from '../src/with-authentication-required';
 import { render, screen, waitFor } from '@testing-library/react';
-import { Auth0Client } from '@auth0/auth0-spa-js';
+import { Auth0Client, User } from '@auth0/auth0-spa-js';
 import Auth0Provider from '../src/auth0-provider';
 import { mocked } from 'ts-jest/utils';
-import { User } from '../src/auth-state';
 
 const mockClient = mocked(new Auth0Client({ client_id: '', domain: '' }));
 
@@ -43,8 +42,8 @@ describe('withAuthenticationRequired', () => {
   it('should not allow access to claims-restricted components', async () => {
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
-      claimCheck: (claims: User) =>
-        claims['https://my.app.io/jwt/roles']?.includes('ADMIN'),
+      claimCheck: (claims?: User) =>
+        claims?.['https://my.app.io/jwt/roles']?.includes('ADMIN'),
     });
     /**
      * A user with USER and MODERATOR roles.
@@ -72,8 +71,8 @@ describe('withAuthenticationRequired', () => {
   it('should allow access to restricted components when JWT claims present', async () => {
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
-      claimCheck: (claim: User) =>
-        claim['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN'),
+      claimCheck: (claim?: User) =>
+        claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN'),
     });
     /**
      * User with ADMIN role.

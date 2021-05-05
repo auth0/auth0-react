@@ -414,12 +414,12 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
 
-    expect(result.current.user.name).toEqual('foo');
+    expect(result.current.user?.name).toEqual('foo');
     clientMock.getUser.mockResolvedValue({ name: 'bar', updated_at: '2' });
     await act(async () => {
       await result.current.getAccessTokenSilently();
     });
-    expect(result.current.user.name).toEqual('bar');
+    expect(result.current.user?.name).toEqual('bar');
   });
 
   it('should update auth state after getAccessTokenSilently fails', async () => {
@@ -471,12 +471,12 @@ describe('Auth0Provider', () => {
     );
     await waitForNextUpdate();
     const memoized = result.current.getAccessTokenSilently;
-    expect(result.current.user.name).toEqual('foo');
+    expect(result.current.user?.name).toEqual('foo');
     clientMock.getUser.mockResolvedValue({ name: 'bar', updated_at: '2' });
     await act(async () => {
       await result.current.getAccessTokenSilently();
     });
-    expect(result.current.user.name).toEqual('bar');
+    expect(result.current.user?.name).toEqual('bar');
     expect(result.current.getAccessTokenSilently).toBe(memoized);
   });
 
