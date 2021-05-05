@@ -1,5 +1,20 @@
 # Change Log
 
+## [v1.5.0](https://github.com/auth0/auth0-react/tree/v1.5.0) (2021-05-05)
+
+**Added**
+
+- Expose `handleRedirectCallback` [\#233](https://github.com/auth0/auth0-react/pull/233) ([stevehobbsdev](https://github.com/stevehobbsdev))
+- Add TUser type param to useAuth0 hook [\#230](https://github.com/auth0/auth0-react/pull/230) ([Jameskmonger](https://github.com/Jameskmonger))
+
+**Changed**
+
+- Update User type [\#236](https://github.com/auth0/auth0-react/pull/236) ([tkiryu](https://github.com/tkiryu))
+
+**Fixed**
+
+- Check for state along with error param [\#231](https://github.com/auth0/auth0-react/pull/231) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v1.4.0](https://github.com/auth0/auth0-react/tree/v1.4.0) (2021-03-26)
 
 **Added**
