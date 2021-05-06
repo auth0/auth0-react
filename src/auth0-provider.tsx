@@ -187,9 +187,10 @@ const toAuth0LoginRedirectOptions = (
   if (!opts) {
     return;
   }
-  const { redirectUri, ...validOpts } = opts;
+  const { redirectUri, platform = 'web', ...validOpts } = opts;
   return {
     ...validOpts,
+    platform,
     redirect_uri: redirectUri,
   };
 };
@@ -259,12 +260,8 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const loginWithRedirect = useCallback(
-    async (opts?: RedirectLoginOptions): Promise<void> => {
-      client.loginWithRedirect({
-        ...toAuth0LoginRedirectOptions(opts),
-        platform,
-      });
-    },
+    (opts?: RedirectLoginOptions): Promise<void> =>
+      client.loginWithRedirect(toAuth0LoginRedirectOptions(opts)),
     [client]
   );
 
