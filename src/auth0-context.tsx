@@ -33,6 +33,11 @@ export interface RedirectLoginOptions extends BaseLoginOptions {
    * Used to add to the URL fragment before redirecting
    */
   fragment?: string;
+
+  /**
+   * Set the platform name to enable platform specific behaviour, like ASWebAuthenticationSession for iOS
+   */
+  platform?: 'web' | 'ios' | 'android';
 }
 
 /**
@@ -83,7 +88,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
   getAccessTokenWithPopup: (
     options?: GetTokenWithPopupOptions,
     config?: PopupConfigOptions
-  ) => Promise<string>;
+  ) => Promise<string | void>;
 
   /**
    * ```js
@@ -103,7 +108,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * provided as arguments. Random and secure `state` and `nonce`
    * parameters will be auto-generated.
    */
-  loginWithRedirect: (options?: RedirectLoginOptions) => Promise<string>;
+  loginWithRedirect: (options?: RedirectLoginOptions) => Promise<string | void>;
 
   /**
    * ```js

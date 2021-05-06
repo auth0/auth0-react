@@ -1,13 +1,11 @@
 import React, { ComponentType } from 'react';
-import Auth0Context, { Auth0ContextInterface } from './auth0-context';
-
+import { Auth0ContextInterface } from './auth0-context';
 /**
  * Components wrapped in `withAuth0` will have an additional `auth0` prop
  */
 export interface WithAuth0Props {
-  auth0: Auth0ContextInterface;
+    auth0: Auth0ContextInterface;
 }
-
 /**
  * ```jsx
  * class MyComponent extends Component {
@@ -23,16 +21,6 @@ export interface WithAuth0Props {
  *
  * Wrap your class components in this Higher Order Component to give them access to the Auth0Context
  */
-const withAuth0 = <P extends WithAuth0Props>(
-  Component: ComponentType<P>
-): ComponentType<Omit<P, keyof WithAuth0Props>> => (props): JSX.Element => (
-  <Auth0Context.Consumer>
-    {(auth: Auth0ContextInterface): JSX.Element => (
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      <Component auth0={auth} {...(props as P)} />
-    )}
-  </Auth0Context.Consumer>
-);
-
+declare const withAuth0: <P extends WithAuth0Props>(Component: React.ComponentType<P>) => React.ComponentType<Pick<P, Exclude<keyof P, "auth0">>>;
 export default withAuth0;
+//# sourceMappingURL=with-auth0.d.ts.map

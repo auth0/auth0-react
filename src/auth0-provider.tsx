@@ -223,7 +223,6 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     children,
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
-    platform = 'web',
     ...clientOpts
   } = opts;
   const [client] = useState(
@@ -260,7 +259,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const loginWithRedirect = useCallback(
-    (opts?: RedirectLoginOptions): Promise<string> =>
+    (opts?: RedirectLoginOptions): Promise<string | void> =>
       client.loginWithRedirect(toAuth0LoginRedirectOptions(opts)),
     [client]
   );
@@ -315,7 +314,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     async (
       opts?: GetTokenWithPopupOptions,
       config?: PopupConfigOptions
-    ): Promise<string> => {
+    ): Promise<string | void> => {
       let token;
       try {
         token = await client.getTokenWithPopup(opts, config);

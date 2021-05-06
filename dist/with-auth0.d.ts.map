@@ -1,0 +1,1 @@
+{"version":3,"file":"with-auth0.d.ts","sourceRoot":"","sources":["../src/with-auth0.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,EAAE,aAAa,EAAE,MAAM,OAAO,CAAC;AAC7C,OAAqB,EAAE,qBAAqB,EAAE,MAAM,iBAAiB,CAAC;AAEtE;;GAEG;AACH,MAAM,WAAW,cAAc;IAC7B,KAAK,EAAE,qBAAqB,CAAC;CAC9B;AAED;;;;;;;;;;;;;;GAcG;AACH,QAAA,MAAM,SAAS,0HAUd,CAAC;AAEF,eAAe,SAAS,CAAC"}
