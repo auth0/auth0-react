@@ -1,7 +1,7 @@
 {
   "author": "Marcin Krysiak",
   "name": "auth0-react-ionic",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Auth0 SDK for React Single Page Applications (SPA) with ionic framework",
   "keywords": [
     "auth0",
@@ -100,6 +100,6 @@
     }
   },
   "dependencies": {
-    "auth0-spa-js-ionic": "^1.15.1"
+    "auth0-spa-js-ionic": "1.15.2"
   }
 }
