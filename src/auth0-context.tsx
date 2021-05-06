@@ -103,7 +103,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * provided as arguments. Random and secure `state` and `nonce`
    * parameters will be auto-generated.
    */
-  loginWithRedirect: (options?: RedirectLoginOptions) => Promise<void>;
+  loginWithRedirect: (options?: RedirectLoginOptions) => Promise<string>;
 
   /**
    * ```js

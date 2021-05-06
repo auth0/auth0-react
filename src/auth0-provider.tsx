@@ -260,7 +260,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const loginWithRedirect = useCallback(
-    (opts?: RedirectLoginOptions): Promise<void> =>
+    (opts?: RedirectLoginOptions): Promise<string> =>
       client.loginWithRedirect(toAuth0LoginRedirectOptions(opts)),
     [client]
   );
