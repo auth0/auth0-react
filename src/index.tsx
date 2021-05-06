@@ -25,5 +25,5 @@ export {
   GetTokenSilentlyOptions,
   IdToken,
   User,
-} from '@auth0/auth0-spa-js';
+} from 'auth0-spa-js-ionic';
 export { OAuthError } from './errors';

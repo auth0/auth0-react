@@ -1,4 +1,4 @@
-import { User } from '@auth0/auth0-spa-js';
+import { User } from 'auth0-spa-js-ionic';
 import { AuthState } from './auth-state';
 
 type Action =

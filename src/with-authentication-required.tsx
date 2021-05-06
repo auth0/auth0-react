@@ -1,5 +1,5 @@
 import React, { ComponentType, useEffect, FC } from 'react';
-import { RedirectLoginOptions, User } from '@auth0/auth0-spa-js';
+import { RedirectLoginOptions, User } from 'auth0-spa-js-ionic';
 import useAuth0 from './use-auth0';
 
 /**

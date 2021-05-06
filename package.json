@@ -5,6 +5,7 @@
   "description": "Auth0 SDK for React Single Page Applications (SPA)",
   "keywords": [
     "auth0",
+    "ionic",
     "login",
     "Authorization Code Grant Flow",
     "PKCE",
@@ -99,6 +100,6 @@
     }
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.15.0"
+    "auth0-spa-js-ionic": "^1.15.1"
   }
 }

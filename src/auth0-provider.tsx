@@ -13,7 +13,7 @@ import {
   GetTokenSilentlyOptions,
   GetIdTokenClaimsOptions,
   RedirectLoginResult,
-} from '@auth0/auth0-spa-js';
+} from 'auth0-spa-js-ionic';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
 import { reducer } from './reducer';
@@ -141,6 +141,11 @@ export interface Auth0ProviderOptions {
    * The Id of an invitation to accept. This is available from the user invitation URL that is given when participating in a user invitation flow.
    */
   invitation?: string;
+
+  /**
+   * Set the platform name to enable platform specific behaviour, like ASWebAuthenticationSession for iOS
+   */
+  platform?: 'web' | 'ios' | 'android';
   /**
    * If you need to send custom parameters to the Authorization Server,
    * make sure to use the original parameter name.
@@ -217,6 +222,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     children,
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
+    platform = 'web',
     ...clientOpts
   } = opts;
   const [client] = useState(
@@ -253,8 +259,12 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const loginWithRedirect = useCallback(
-    (opts?: RedirectLoginOptions): Promise<void> =>
-      client.loginWithRedirect(toAuth0LoginRedirectOptions(opts)),
+    async (opts?: RedirectLoginOptions): Promise<void> => {
+      client.loginWithRedirect({
+        ...toAuth0LoginRedirectOptions(opts),
+        platform,
+      });
+    },
     [client]
   );
 
