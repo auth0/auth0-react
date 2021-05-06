@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { mocked } from 'ts-jest/utils';
 import Auth0Context from '../src/auth0-context';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { Auth0Client } from '@auth0/auth0-spa-js';
+import { Auth0Client } from 'auth0-spa-js-ionic';
 import pkg from '../package.json';
 import { createWrapper } from './helpers';
 
@@ -231,6 +231,7 @@ describe('Auth0Provider', () => {
       redirectUri: '__redirect_uri__',
     });
     expect(clientMock.buildAuthorizeUrl).toHaveBeenCalledWith({
+      platform: 'web',
       redirect_uri: '__redirect_uri__',
     });
   });
@@ -313,6 +314,7 @@ describe('Auth0Provider', () => {
       redirectUri: '__redirect_uri__',
     });
     expect(clientMock.loginWithRedirect).toHaveBeenCalledWith({
+      platform: 'web',
       redirect_uri: '__redirect_uri__',
     });
   });
