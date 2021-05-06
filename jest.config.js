@@ -27,4 +27,11 @@ module.exports = {
       statements: 100,
     },
   },
+  transform: {
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
+    '^.+\\.(js|jsx)$': 'babel-jest',
+  },
+  transformIgnorePatterns: [
+    '[/\\\\]node_modules[/\\\\](?!@ionic-native/).+\\.js$',
+  ],
 };
