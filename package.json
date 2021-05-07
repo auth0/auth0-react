@@ -98,6 +98,6 @@
     "react-dom": "^16.11.0 || ^17"
   },
   "dependencies": {
-    "auth0-spa-js-ionic": "github:marcin-krysiak/auth0-spa-js-ionic#2f4ac00feac116b8ca93acfb93c5c2254ecae789"
+    "auth0-spa-js-ionic": "github:marcin-krysiak/auth0-spa-js-ionic#2eb5fa5a69db3442ae1bc7bdb607a64fe5e1c3be"
   }
 }
