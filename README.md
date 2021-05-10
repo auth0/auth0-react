@@ -203,7 +203,7 @@ We appreciate feedback and contribution to this repo! Before you get started, pl
 
 - [Auth0's general contribution guidelines](https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md)
 - [Auth0's code of conduct guidelines](https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md)
-- [This repo's contribution guide](./CONTRIBUTING.md)
+- [This repo's contribution guide](https://github.com/auth0/auth0-react/blob/master/CONTRIBUTING.md)
 
 ## Support + Feedback
 
@@ -211,11 +211,11 @@ For support or to provide feedback, please [raise an issue on our issue tracker]
 
 ## Troubleshooting
 
-For information on how to solve common problems, check out the [Troubleshooting](./TROUBLESHOOTING.md) guide
+For information on how to solve common problems, check out the [Troubleshooting](https://github.com/auth0/auth0-react/blob/master/TROUBLESHOOTING.md) guide
 
 ## Frequently Asked Questions
 
-For a rundown of common issues you might encounter when using the SDK, please check out the [FAQ](./FAQ.md).
+For a rundown of common issues you might encounter when using the SDK, please check out the [FAQ](https://github.com/auth0/auth0-react/blob/master/FAQ.md).
 
 ## Vulnerability Reporting
 
