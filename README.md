@@ -1,5 +1,11 @@
-# @auth0/auth0-react
+# auth0-react-ionic
+This is a fork from @auth0/auth0-react to enable using auth0 in ionic+react apps. For iOS it uses ASWebauthenticationSession to handle redirection to auth0 with is the recommended way by Apple
 
+Please make sure you have the below plugins installed in you ionic app.
+
+@ionic-native/ios-aswebauthenticationsession-api
+cordova-plugin-ios-aswebauthenticationsession-api
+Any PR's most welcome.
 Auth0 SDK for React Single Page Applications (SPA).
 
 [![CircleCI](https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=master&style=flat)](https://circleci.com/gh/auth0/auth0-react)
@@ -55,6 +61,7 @@ ReactDOM.render(
     domain="YOUR_AUTH0_DOMAIN"
     clientId="YOUR_AUTH0_CLIENT_ID"
     redirectUri={window.location.origin}
+    platform="ios" // or "web" or "android". if empty sets to "web"
   >
     <App />
   </Auth0Provider>,
