@@ -25,5 +25,9 @@ export {
   GetTokenSilentlyOptions,
   IdToken,
   User,
+  ICache,
+  InMemoryCache,
+  LocalStorageCache,
+  Cacheable,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
