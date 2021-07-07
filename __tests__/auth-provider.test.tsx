@@ -350,6 +350,7 @@ describe('Auth0Provider', () => {
     act(() => {
       result.current.logout({ localOnly: true });
     });
+    await waitForNextUpdate();
     expect(clientMock.logout).toHaveBeenCalledWith({
       localOnly: true,
     });
