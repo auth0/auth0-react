@@ -292,6 +292,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         }
         dispatch({ type: 'LOGOUT' });
       }
+      return maybePromise;
     },
     [client]
   );

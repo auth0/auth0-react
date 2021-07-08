@@ -361,7 +361,9 @@ describe('Auth0Provider', () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     // get logout to return a Promise to simulate async cache.
-    clientMock.logout.mockResolvedValue();
+    clientMock.logout.mockResolvedValue(
+      new Promise((resolve) => setTimeout(resolve, 10))
+    );
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -373,6 +375,28 @@ describe('Auth0Provider', () => {
       await result.current.logout({ localOnly: true });
     });
     expect(result.current.isAuthenticated).toBe(false);
+  });
+
+  it('should wait for logout with async cache', async () => {
+    const user = { name: '__test_user__' };
+    const logoutSpy = jest.fn();
+    clientMock.getUser.mockResolvedValue(user);
+    // get logout to return a Promise to simulate async cache.
+    clientMock.logout.mockImplementation(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      logoutSpy();
+    });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.isAuthenticated).toBe(true);
+    await act(async () => {
+      await result.current.logout();
+    });
+    expect(logoutSpy).toHaveBeenCalled();
   });
 
   it('should provide a getAccessTokenSilently method', async () => {
