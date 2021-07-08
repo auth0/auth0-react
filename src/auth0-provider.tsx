@@ -284,9 +284,12 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const logout = useCallback(
-    async (opts: LogoutOptions = {}) => {
-      await client.logout(opts);
+    (opts: LogoutOptions = {}): Promise<void> | void => {
+      const maybePromise = client.logout(opts);
       if (opts.localOnly) {
+        if (maybePromise && typeof maybePromise.then === 'function') {
+          return maybePromise.then(() => dispatch({ type: 'LOGOUT' }));
+        }
         dispatch({ type: 'LOGOUT' });
       }
     },
