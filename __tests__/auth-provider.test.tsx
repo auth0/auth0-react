@@ -361,9 +361,7 @@ describe('Auth0Provider', () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     // get logout to return a Promise to simulate async cache.
-    clientMock.logout.mockResolvedValue(
-      new Promise((resolve) => setTimeout(resolve, 10))
-    );
+    clientMock.logout.mockResolvedValue();
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
