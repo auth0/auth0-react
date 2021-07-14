@@ -99,6 +99,6 @@
     }
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.15.0"
+    "@auth0/auth0-spa-js": "^1.16.1"
   }
 }

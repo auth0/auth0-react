@@ -13,6 +13,7 @@ import {
   GetTokenSilentlyOptions,
   GetIdTokenClaimsOptions,
   RedirectLoginResult,
+  ICache,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
@@ -90,6 +91,12 @@ export interface Auth0ProviderOptions {
    * Read more about [changing storage options in the Auth0 docs](https://auth0.com/docs/libraries/auth0-single-page-app-sdk#change-storage-options)
    */
   cacheLocation?: CacheLocation;
+  /**
+   * Specify a custom cache implementation to use for token storage and retrieval. This setting takes precedence over `cacheLocation` if they are both specified.
+   *
+   * Read more about [creating a custom cache](https://github.com/auth0/auth0-spa-js#creating-a-custom-cache)
+   */
+  cache?: ICache;
   /**
    * If true, refresh tokens are used to fetch new access tokens from the Auth0 server. If false, the legacy technique of using a hidden iframe and the `authorization_code` grant with `prompt=none` is used.
    * The default setting is `false`.
@@ -277,11 +284,15 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const logout = useCallback(
-    (opts: LogoutOptions = {}): void => {
-      client.logout(opts);
+    (opts: LogoutOptions = {}): Promise<void> | void => {
+      const maybePromise = client.logout(opts);
       if (opts.localOnly) {
+        if (maybePromise && typeof maybePromise.then === 'function') {
+          return maybePromise.then(() => dispatch({ type: 'LOGOUT' }));
+        }
         dispatch({ type: 'LOGOUT' });
       }
+      return maybePromise;
     },
     [client]
   );
