@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.6.0](https://github.com/auth0/auth0-react/tree/v1.6.0) (2021-07-14)
+
+**Added**
+
+- [SDK-2603] Expose custom caching options from Auth0 SPA SDK [\#255](https://github.com/auth0/auth0-react/pull/255) ([stevehobbsdev](https://github.com/stevehobbsdev))
+
 ## [v1.5.0](https://github.com/auth0/auth0-react/tree/v1.5.0) (2021-05-05)
 
 **Added**
