@@ -96,6 +96,15 @@ export interface Auth0ContextInterface<TUser extends User = User>
 
   /**
    * ```js
+   * const claims = await getIdToken();
+   * ```
+   *
+   * Returns the raw id_token if available.
+   */
+  getIdToken: (options?: GetIdTokenClaimsOptions) => Promise<string>;
+
+  /**
+   * ```js
    * await loginWithRedirect(options);
    * ```
    *
@@ -188,6 +197,7 @@ const initialContext = {
   getAccessTokenSilently: stub,
   getAccessTokenWithPopup: stub,
   getIdTokenClaims: stub,
+  getIdToken: stub,
   loginWithRedirect: stub,
   loginWithPopup: stub,
   logout: stub,

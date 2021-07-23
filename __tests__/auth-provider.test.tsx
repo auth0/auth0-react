@@ -682,6 +682,32 @@ describe('Auth0Provider', () => {
     expect(result.current.getIdTokenClaims).toBe(memoized);
   });
 
+  it('should provide a getIdToken method', async () => {
+    clientMock.getIdToken.mockResolvedValue('__test_id_token__');
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.getIdToken).toBeInstanceOf(Function);
+    const claims = await result.current.getIdToken();
+    expect(clientMock.getIdToken).toHaveBeenCalled();
+    expect(claims).toStrictEqual('__test_id_token__');
+  });
+
+  it('should memoize the getIdToken method', async () => {
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result, rerender } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    const memoized = result.current.getIdToken;
+    rerender();
+    expect(result.current.getIdToken).toBe(memoized);
+  });
+
   it('should provide a handleRedirectCallback method', async () => {
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: { redirectUri: '/' },

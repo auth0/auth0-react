@@ -45,6 +45,7 @@
           isAuthenticated,
           isLoading,
           getIdTokenClaims,
+          getIdToken,
           getAccessTokenSilently,
           getAccessTokenWithPopup,
           loginWithRedirect,
@@ -52,6 +53,7 @@
           logout,
         } = useAuth0();
         const [token, setToken] = useState(null);
+        const [rawToken, setRawToken] = useState(null);
         const [claims, setClaims] = useState(null);
 
         const changeToAuth0 = () => {
@@ -94,10 +96,14 @@
             <button onClick={async () => setClaims(await getIdTokenClaims())}>
               Get id_token claims
             </button>
+            <button onClick={async () => setRawToken(await getIdToken())}>
+              Get raw id_token
+            </button>
             {token && <pre>access_token: {token}</pre>}
             {claims && (
               <pre>id_token_claims: {JSON.stringify(claims, null, 2)}</pre>
             )}
+            {rawToken && <pre>id_token: {rawToken}</pre>}
           </div>
         ) : (
           <div>

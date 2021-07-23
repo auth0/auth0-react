@@ -243,7 +243,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         const user = await client.getUser();
         dispatch({ type: 'INITIALISED', user });
       } catch (error) {
-        dispatch({ type: 'ERROR', error: loginError(error) });
+        dispatch({ type: 'ERROR', error: loginError(error as Error) });
       }
     })();
   }, [client, onRedirectCallback, skipRedirectCallback]);
@@ -274,7 +274,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
       try {
         await client.loginWithPopup(options, config);
       } catch (error) {
-        dispatch({ type: 'ERROR', error: loginError(error) });
+        dispatch({ type: 'ERROR', error: loginError(error as Error) });
         return;
       }
       const user = await client.getUser();
@@ -303,7 +303,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
       try {
         token = await client.getTokenSilently(opts);
       } catch (error) {
-        throw tokenError(error);
+        throw tokenError(error as Error);
       } finally {
         dispatch({
           type: 'GET_ACCESS_TOKEN_COMPLETE',
@@ -324,7 +324,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
       try {
         token = await client.getTokenWithPopup(opts, config);
       } catch (error) {
-        throw tokenError(error);
+        throw tokenError(error as Error);
       } finally {
         dispatch({
           type: 'GET_ACCESS_TOKEN_COMPLETE',
@@ -342,12 +342,18 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     [client]
   );
 
+  const getIdToken = useCallback(
+    (opts?: GetIdTokenClaimsOptions): Promise<string> =>
+      client.getIdToken(opts),
+    [client]
+  );
+
   const handleRedirectCallback = useCallback(
     async (url?: string): Promise<RedirectLoginResult> => {
       try {
         return await client.handleRedirectCallback(url);
       } catch (error) {
-        throw tokenError(error);
+        throw tokenError(error as Error);
       } finally {
         dispatch({
           type: 'HANDLE_REDIRECT_COMPLETE',
@@ -367,6 +373,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         getAccessTokenSilently,
         getAccessTokenWithPopup,
         getIdTokenClaims,
+        getIdToken,
         loginWithRedirect,
         loginWithPopup,
         logout,

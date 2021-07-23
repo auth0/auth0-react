@@ -18,7 +18,7 @@ const login = (): void => {
   return loginToNodeOidc();
 };
 
-const fixCookies = () => {
+const fixCookies = (): void => {
   // Temporary fix for https://github.com/cypress-io/cypress/issues/6375
   if (Cypress.isBrowser('firefox')) {
     cy.getCookies({ log: false }).then((cookies) =>
