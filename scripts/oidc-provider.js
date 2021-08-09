@@ -30,18 +30,28 @@ const config = {
     token: '/oauth/token',
     end_session: '/v2/logout'
   },
-  scopes: ['openid', 'offline_access'],
+  scopes: ['openid', 'offline_access', 'profile'],
   clientBasedCORS(ctx, origin, client) {
     return true;
   },
   features: {
     webMessageResponseMode: {
       enabled: true
-    }
+    },
   },
   rotateRefreshToken: true,
   interactions: {
     policy
+  },
+  conformIdTokenClaims: false,
+  claims: {
+    profile: ['name'],
+  },
+  async findAccount(ctx, id) {
+    return {
+      accountId: id,
+      async claims() { return { sub: id, name: id }; },
+    };
   }
 };
 
