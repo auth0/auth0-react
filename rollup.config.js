@@ -1,6 +1,4 @@
 import del from 'rollup-plugin-delete';
-import livereload from 'rollup-plugin-livereload';
-import serve from 'rollup-plugin-serve';
 import typescript from 'rollup-plugin-typescript2';
 import external from 'rollup-plugin-peer-deps-external';
 import { terser } from 'rollup-plugin-terser';
@@ -39,16 +37,6 @@ export default [
     ],
     plugins: [
       ...plugins,
-      ...(isProduction
-        ? []
-        : [
-            serve({
-              contentBase: ['dist', 'static'],
-              open: true,
-              port: 3000,
-            }),
-            livereload(),
-          ]),
     ],
   },
   ...(isProduction
@@ -87,4 +75,25 @@ export default [
         },
       ]
     : []),
+  
+    /*...(isProduction ? [] : [
+      {
+        input: 'playground/src/index.ts',
+        output: {
+          file: 'playground/build/bundle.js',
+          format: 'iife',
+          sourcemap: true
+        },
+        plugins: [
+          del({ targets: 'playground/build/*', runOnce: true }),
+          typescript({ useTsconfigDeclarationDir: true }),
+          dev({
+            dirs: ['dist', 'playground/build'],
+            open: true,
+            port: 3000,
+          }),
+          livereload(),
+        ]
+      }
+    ])*/
 ];
