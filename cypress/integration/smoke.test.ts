@@ -40,7 +40,7 @@ const fixCookies = () => {
 describe('Smoke tests', () => {
   afterEach(fixCookies);
 
-  it.only('do basic login and show user', () => {
+  it('do basic login and show user', () => {
     cy.visit('/');
     cy.get('#login').should('be.visible');
     cy.get('#login').click();
@@ -63,7 +63,7 @@ describe('Smoke tests', () => {
     cy.get('button[name=logout]').click();
   });
 
-  it('should access an api', () => {
+  xit('should access an api', () => {
     cy.visit('/users');
 
     login();
