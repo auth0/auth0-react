@@ -1,6 +1,6 @@
 import del from 'rollup-plugin-delete';
 import livereload from 'rollup-plugin-livereload';
-import serve from 'rollup-plugin-serve';
+import dev from 'rollup-plugin-dev';
 import typescript from 'rollup-plugin-typescript2';
 import external from 'rollup-plugin-peer-deps-external';
 import { terser } from 'rollup-plugin-terser';
@@ -8,6 +8,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import pkg from './package.json';
 import analyze from 'rollup-plugin-analyzer';
+import { createApp } from './scripts/oidc-provider';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const name = 'reactAuth0';
@@ -42,10 +43,13 @@ export default [
       ...(isProduction
         ? []
         : [
-            serve({
-              contentBase: ['dist', 'static'],
+            dev({
+              dirs: ['dist', 'static'],
               open: true,
               port: 3000,
+              extend(app, modules) {
+                app.use(modules.mount(createApp({ port: 3000 })));
+              }
             }),
             livereload(),
           ]),

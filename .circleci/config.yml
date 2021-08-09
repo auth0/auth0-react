@@ -1,9 +1,12 @@
 version: 2.1
-
+parameters:
+  docker_image:
+    type: string
+    default: circleci/node:12.22.4-browsers
 jobs:
   build:
     docker:
-      - image: circleci/node:12.9.1-browsers
+      - image: << pipeline.parameters.docker_image >>
     steps:
       - checkout
       - restore_cache:
@@ -35,8 +38,20 @@ jobs:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
+  browserstack:
+    docker:
+      - image: << pipeline.parameters.docker_image >>
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package.json" }}-{{ checksum "examples/gatsby-app/package.json" }}-{{ checksum "examples/nextjs-app/package.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
+      - run: npm ci
+      - run: npx concurrently --raw --kill-others --success first "npm:start" "wait-on http://127.0.0.1:3000/ && browserstack-cypress run --build-name $CIRCLE_BRANCH --specs "cypress/integration/smoke-bs.test.ts""
 
 workflows:
   Build and Test:
     jobs:
       - build
+      - browserstack:
+          context:
+            - browserstack-env
