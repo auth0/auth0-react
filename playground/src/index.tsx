@@ -10,6 +10,8 @@ const onRedirectCallback = (appState: AppState) => {
   history.replace((appState && appState.returnTo) || window.location.pathname);
 };
 
+console.log(process.env.REACT_APP_DOMAIN);
+
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
