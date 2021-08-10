@@ -13,21 +13,7 @@ const loginToAuth0 = (): void => {
   cy.get('.auth0-lock-submit').click();
 };
 
-const fixCookies = () => {
-  // Temporary fix for https://github.com/cypress-io/cypress/issues/6375
-  if (Cypress.isBrowser('firefox')) {
-    cy.getCookies({ log: false }).then((cookies) =>
-      cookies.forEach((cookie) => cy.clearCookie(cookie.name, { log: false }))
-    );
-    cy.log('clearCookies');
-  } else {
-    cy.clearCookies();
-  }
-};
-
 describe('Smoke tests', () => {
-  afterEach(fixCookies);
-
   it('do basic login and show user', () => {
     cy.visit('/');
     cy.get('#login').should('be.visible');
