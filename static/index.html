@@ -26,8 +26,22 @@
       const { Auth0Provider, useAuth0 } = reactAuth0;
       const { useState } = React;
 
-      const App = () => {
+      function useLocalStorage(key, initialValue) {
+        const [storedValue, setStoredValue] = useState(() => {
+          const item = window.localStorage.getItem(key);
+          return item ? JSON.parse(item) : initialValue;
+        });
+
+        const setValue = (value) => {
+          setStoredValue(value);
+          window.localStorage.setItem(key, JSON.stringify(value));
+        };
+        return [storedValue, setValue];
+      }
+
+      const Playground = ({ onChangeIDP }) => {
         const {
+          user,
           isAuthenticated,
           isLoading,
           getIdTokenClaims,
@@ -40,13 +54,29 @@
         const [token, setToken] = useState(null);
         const [claims, setClaims] = useState(null);
 
+        const changeToAuth0 = () => {
+          onChangeIDP({
+            domain: 'brucke.auth0.com',
+            clientId: 'wLSIP47wM39wKdDmOj6Zb5eSEw3JVhVp',
+          });
+        };
+
+        const changeToNodeOidc = () => {
+          onChangeIDP({
+            domain: 'http://127.0.0.1:3000',
+            clientId: 'testing',
+          });
+        };
+
         if (isLoading) {
           return <div>loading...</div>;
         }
 
         return isAuthenticated ? (
           <div>
+            <div id="hello">Hello, {user.name}!</div>
             <button
+              id="logout"
               onClick={() => logout({ returnTo: window.location.origin })}
             >
               logout
@@ -71,24 +101,51 @@
           </div>
         ) : (
           <div>
-            <button onClick={() => loginWithRedirect()}>
+            <button id="login" onClick={() => loginWithRedirect()}>
               Login with redirect
             </button>
             <button onClick={() => loginWithPopup()}>Login with popup</button>
+
+            <button data-cy="use-auth0" onClick={() => changeToAuth0()}>
+              Use Auth0
+            </button>
+            <button
+              data-cy="use-node-oidc-provider"
+              onClick={() => changeToNodeOidc()}
+            >
+              Use Node OIDC Provider
+            </button>
           </div>
         );
       };
 
-      ReactDOM.render(
-        <Auth0Provider
-          domain="brucke.auth0.com"
-          clientId="wLSIP47wM39wKdDmOj6Zb5eSEw3JVhVp"
-          redirectUri={window.location.origin}
-        >
-          <App />
-        </Auth0Provider>,
-        document.getElementById('app')
-      );
+      const App = () => {
+        const [identityProvider, setIdentityProvider] = useLocalStorage(
+          'identity_provider',
+          {
+            domain: 'brucke.auth0.com',
+            clientId: 'wLSIP47wM39wKdDmOj6Zb5eSEw3JVhVp',
+          }
+        );
+
+        const changeIDP = (data) => {
+          setIdentityProvider(data);
+        };
+
+        return (
+          <Auth0Provider
+            domain={identityProvider.domain}
+            clientId={identityProvider.clientId}
+            redirectUri={window.location.origin}
+            useFormData={true}
+            key={identityProvider.domain}
+          >
+            <Playground onChangeIDP={changeIDP} />
+          </Auth0Provider>
+        );
+      };
+
+      ReactDOM.render(<App />, document.getElementById('app'));
     </script>
   </body>
 </html>
