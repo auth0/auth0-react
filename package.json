@@ -24,7 +24,7 @@
     "lint": "eslint --ext=tsx ./src ./__tests__",
     "start": "rollup -cw",
     "test": "jest --coverage",
-    "prepack": "npm run test && npm run build",
+    "prepack": "npm run build",
     "docs": "typedoc --options typedoc.js src",
     "install:examples": "npm i --prefix=examples/cra-react-router --no-package-lock && npm i --prefix=examples/gatsby-app --no-package-lock && npm i --prefix=examples/nextjs-app --no-package-lock && npm ci --prefix=examples/users-api",
     "start:cra": "npm start --prefix=examples/cra-react-router",

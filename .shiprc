@@ -1,0 +1,3 @@
+{
+    "postbump": "npm run docs"
+}
