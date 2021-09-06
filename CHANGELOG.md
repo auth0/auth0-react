@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.7.0](https://github.com/auth0/auth0-react/tree/v1.7.0) (2021-09-06)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.6.0...v1.7.0)
+
+**Added**
+- Bump SPA JS to 1.17.1 [\#270](https://github.com/auth0/auth0-react/pull/270) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v1.6.0](https://github.com/auth0/auth0-react/tree/v1.6.0) (2021-07-14)
 
 **Added**
