@@ -28,10 +28,7 @@ export type AppState = {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
-/**
- * The main configuration to instantiate the `Auth0Provider`.
- */
-export interface Auth0ProviderOptions {
+export interface Auth0ProviderOptionsBase {
   /**
    * The child nodes your Provider has wrapped
    */
@@ -56,6 +53,12 @@ export interface Auth0ProviderOptions {
    * ```
    */
   skipRedirectCallback?: boolean;
+}
+
+/**
+ * The main configuration to instantiate the `Auth0Provider`.
+ */
+export interface Auth0ProviderOptions extends Auth0ProviderOptionsBase {
   /**
    * Your Auth0 account domain such as `'example.auth0.com'`,
    * `'example.eu.auth0.com'` or , `'example.mycompany.com'`
@@ -156,6 +159,17 @@ export interface Auth0ProviderOptions {
 }
 
 /**
+ * Alternative configuration to instantiate the `Auth0Provider`.
+ */
+export interface Auth0ProviderOptionsWithClient
+  extends Auth0ProviderOptionsBase {
+  /**
+   * Existing Auth0Client to reuse.
+   */
+  client: Auth0Client;
+}
+
+/**
  * Replaced by the package version at build time.
  * @ignore
  */
@@ -219,15 +233,18 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
  *
  * Provides the Auth0Context to its child components.
  */
-const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
+const Auth0Provider = (
+  opts: Auth0ProviderOptions | Auth0ProviderOptionsWithClient
+): JSX.Element => {
   const {
     children,
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
-    ...clientOpts
   } = opts;
-  const [client] = useState(
-    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
+  const [client] = useState(() =>
+    opts.client
+      ? opts.client
+      : new Auth0Client(toAuth0ClientOptions(opts as Auth0ProviderOptions))
   );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
 
