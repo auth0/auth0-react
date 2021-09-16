@@ -53,6 +53,10 @@ export interface Auth0ProviderOptionsBase {
    * ```
    */
   skipRedirectCallback?: boolean;
+}
+
+export interface Auth0ProviderOptionsWithoutClient
+  extends Auth0ProviderOptionsBase {
   /**
    * The default URL where Auth0 will redirect your browser to with
    * the authentication result. It must be whitelisted in
@@ -61,12 +65,6 @@ export interface Auth0ProviderOptionsBase {
    * methods that provide authentication.
    */
   redirectUri?: string;
-}
-
-/**
- * The main configuration to instantiate the `Auth0Provider`.
- */
-export interface Auth0ProviderOptions extends Auth0ProviderOptionsBase {
   /**
    * Your Auth0 account domain such as `'example.auth0.com'`,
    * `'example.eu.auth0.com'` or , `'example.mycompany.com'`
@@ -158,9 +156,6 @@ export interface Auth0ProviderOptions extends Auth0ProviderOptionsBase {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-/**
- * Alternative configuration to instantiate the `Auth0Provider`.
- */
 export interface Auth0ProviderOptionsWithClient
   extends Auth0ProviderOptionsBase {
   /**
@@ -168,6 +163,13 @@ export interface Auth0ProviderOptionsWithClient
    */
   client: Auth0Client;
 }
+
+/**
+ * The main configuration to instantiate the `Auth0Provider`.
+ */
+export type Auth0ProviderOptions =
+  | Auth0ProviderOptionsWithoutClient
+  | Auth0ProviderOptionsWithClient;
 
 /**
  * Replaced by the package version at build time.
@@ -179,7 +181,7 @@ declare const __VERSION__: string;
  * @ignore
  */
 const toAuth0ClientOptions = (
-  opts: Auth0ProviderOptions
+  opts: Auth0ProviderOptionsWithoutClient
 ): Auth0ClientOptions => {
   const { clientId, redirectUri, maxAge, ...validOpts } = opts;
   return {
@@ -233,9 +235,7 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
  *
  * Provides the Auth0Context to its child components.
  */
-const Auth0Provider = (
-  opts: Auth0ProviderOptions | Auth0ProviderOptionsWithClient
-): JSX.Element => {
+const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   const {
     children,
     skipRedirectCallback,
@@ -244,7 +244,9 @@ const Auth0Provider = (
   const [client] = useState(() =>
     opts.client
       ? opts.client
-      : new Auth0Client(toAuth0ClientOptions(opts as Auth0ProviderOptions))
+      : new Auth0Client(
+          toAuth0ClientOptions(opts as Auth0ProviderOptionsWithoutClient)
+        )
   );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
 
