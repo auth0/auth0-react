@@ -58,14 +58,6 @@ export interface Auth0ProviderOptionsBase {
 export interface Auth0ProviderOptionsWithoutClient
   extends Auth0ProviderOptionsBase {
   /**
-   * The default URL where Auth0 will redirect your browser to with
-   * the authentication result. It must be whitelisted in
-   * the "Allowed Callback URLs" field in your Auth0 Application's
-   * settings. If not provided here, it should be provided in the other
-   * methods that provide authentication.
-   */
-  redirectUri?: string;
-  /**
    * Your Auth0 account domain such as `'example.auth0.com'`,
    * `'example.eu.auth0.com'` or , `'example.mycompany.com'`
    * (when using [custom domains](https://auth0.com/docs/custom-domains))
@@ -79,6 +71,14 @@ export interface Auth0ProviderOptionsWithoutClient
    * The Client ID found on your Application settings page
    */
   clientId: string;
+  /**
+   * The default URL where Auth0 will redirect your browser to with
+   * the authentication result. It must be whitelisted in
+   * the "Allowed Callback URLs" field in your Auth0 Application's
+   * settings. If not provided here, it should be provided in the other
+   * methods that provide authentication.
+   */
+  redirectUri?: string;
   /**
    * The value in seconds used to account for clock skew in JWT expirations.
    * Typically, this value is no more than a minute or two at maximum.
