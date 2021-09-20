@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.8.0](https://github.com/auth0/auth0-react/tree/v1.8.0) (2021-09-20)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.7.0...v1.8.0)
+
+**Added**
+- Bump Auth0-SPA-JS to 1.18.0 [\#279](https://github.com/auth0/auth0-react/pull/279) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v1.7.0](https://github.com/auth0/auth0-react/tree/v1.7.0) (2021-09-06)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v1.6.0...v1.7.0)
 
