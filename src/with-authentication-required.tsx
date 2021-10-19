@@ -116,7 +116,7 @@ const withAuthenticationRequired = <P extends object>(
       returnTo,
     ]);
 
-    return routeIsAuthenticated ? <Component {...props} /> : onRedirecting();
+    return routeIsAuthenticated && !isLoading ? <Component {...props} /> : onRedirecting();
   };
 };
 
