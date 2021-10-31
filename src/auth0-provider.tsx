@@ -155,6 +155,10 @@ export interface Auth0ProviderOptions {
    */
   connection?: string;
   /**
+   * an external client for usage when auth0 properties are used outside of the react scope
+   */
+  client?: Auth0Client;
+  /**
    * If you need to send custom parameters to the Authorization Server,
    * make sure to use the original parameter name.
    */
@@ -228,12 +232,13 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
 const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   const {
     children,
+    client,
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
     ...clientOpts
   } = opts;
   const [client] = useState(
-    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
+    () => client || new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
 
