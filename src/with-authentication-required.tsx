@@ -84,8 +84,8 @@ const withAuthenticationRequired = <P extends object>(
     const {
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
-      loginOptions = {},
       claimCheck = (): boolean => true,
+      loginOptions,
     } = options;
 
     /**
@@ -101,7 +101,7 @@ const withAuthenticationRequired = <P extends object>(
       const opts = {
         ...loginOptions,
         appState: {
-          ...loginOptions.appState,
+          ...(loginOptions && loginOptions.appState),
           returnTo: typeof returnTo === 'function' ? returnTo() : returnTo,
         },
       };
