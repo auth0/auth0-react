@@ -85,15 +85,6 @@ const withAuthenticationRequired = <P extends object>(
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
       claimCheck = (): boolean => true,
-      
-      // We used to default to empty object here w/ `loginOptions = {}`, but
-      // this would be a new instance of an object on each render, which would
-      // trigger useEffect() below each time, which could lead to multiple 
-      // invocations of `loginWithRedirect()`, which could lead to race conditions
-      // and failed logins. Now, let's not default to anything, and instead handle
-      // nullish values below where we use it. More information about this issue
-      // can be found here:
-      // https://github.com/auth0/auth0-react/issues/309
       loginOptions,
     } = options;
 
