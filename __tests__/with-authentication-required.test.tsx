@@ -189,4 +189,27 @@ describe('withAuthenticationRequired', () => {
       )
     );
   });
+
+  it('should call loginWithRedirect only once even if parent state changes', async () => {
+    mockClient.getUser.mockResolvedValue(undefined);
+    const MyComponent = (): JSX.Element => <>Private</>;
+    const WrappedComponent = withAuthenticationRequired(MyComponent);
+    const App = ({ foo }: { foo: number }): JSX.Element => (
+      <div>
+        {foo}
+        <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+          <WrappedComponent />
+        </Auth0Provider>
+      </div>
+    );
+    const { rerender } = render(<App foo={1} />);
+    await waitFor(() =>
+      expect(mockClient.loginWithRedirect).toHaveBeenCalled()
+    );
+    mockClient.loginWithRedirect.mockClear();
+    rerender(<App foo={2} />);
+    await waitFor(() =>
+      expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
+    );
+  });
 });
