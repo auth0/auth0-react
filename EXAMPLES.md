@@ -1,12 +1,12 @@
 # Examples
 
-1. [Protecting a route in a `react-router-dom` app](#1-protecting-a-route-in-a-react-router-dom-app)
+1. [Protecting a route in a `react-router-dom v6` app](#1-protecting-a-route-in-a-react-router-dom-app)
 2. [Protecting a route in a Gatsby app](#2-protecting-a-route-in-a-gatsby-app)
 3. [Protecting a route in a Next.js app (in SPA mode)](#3-protecting-a-route-in-a-nextjs-app-in-spa-mode)
 4. [Create a `useApi` hook for accessing protected APIs with an access token.](#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token)
 5. [Use with Auth0 organizations](#5-use-with-auth0-organizations)
 
-## 1. Protecting a route in a `react-router-dom` app
+## 1. Protecting a route in a `react-router-dom v6` app
 
 So that we can access the router `history` outside of the `Router` component you need to [create your own history object](https://github.com/ReactTraining/react-router/blob/master/FAQ.md#how-do-i-access-the-history-object-outside-of-components). We can reference this object from the `Auth0Provider`'s `onRedirectCallback`.
 
@@ -14,16 +14,21 @@ We can then use the `withAuthenticationRequired` HOC (Higher Order Component) to
 
 ```jsx
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import {
+  unstable_HistoryRouter as HistoryRouter,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import { createBrowserHistory } from 'history';
 import Profile from './Profile';
 
 export const history = createBrowserHistory();
 
-const ProtectedRoute = ({ component, ...args }) => (
-  <Route component={withAuthenticationRequired(component)} {...args} />
-);
+const ProtectedRoute = ({ component, ...args }) => {
+  const Component = withAuthenticationRequired(component, args);
+  return <Component />;
+};
 
 const onRedirectCallback = (appState) => {
   // Use the router's history module to replace the url
@@ -39,12 +44,15 @@ export default function App() {
       onRedirectCallback={onRedirectCallback}
     >
       {/* Don't forget to add the history to your router */}
-      <Router history={history}>
+      <HistoryRouter history={history}>
         <Switch>
           <Route path="/" exact />
-          <ProtectedRoute path="/profile" component={Profile} />
+          <Route
+            path="/profile"
+            element={<ProtectedRoute component={Profile} />}
+          />
         </Switch>
-      </Router>
+      </HistoryRouter>
     </Auth0Provider>
   );
 }
