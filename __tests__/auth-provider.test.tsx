@@ -1,12 +1,14 @@
 import { useContext } from 'react';
-import { mocked } from 'ts-jest/utils';
 import Auth0Context from '../src/auth0-context';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { Auth0Client } from '@auth0/auth0-spa-js';
+import {
+  Auth0Client,
+  GetTokenSilentlyVerboseResponse,
+} from '@auth0/auth0-spa-js';
 import pkg from '../package.json';
 import { createWrapper } from './helpers';
 
-const clientMock = mocked(new Auth0Client({ client_id: '', domain: '' }));
+const clientMock = jest.mocked(new Auth0Client({ client_id: '', domain: '' }));
 
 describe('Auth0Provider', () => {
   afterEach(() => {
@@ -411,6 +413,29 @@ describe('Auth0Provider', () => {
       expect(token).toBe('token');
     });
 
+    expect(clientMock.getTokenSilently).toHaveBeenCalled();
+  });
+
+  it('should get the full token response from getAccessTokenSilently when detailedResponse is true', async () => {
+    const tokenResponse: GetTokenSilentlyVerboseResponse = {
+      access_token: '123',
+      id_token: '456',
+      expires_in: 2,
+    };
+    (clientMock.getTokenSilently as jest.Mock).mockResolvedValue(tokenResponse);
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+
+    await act(async () => {
+      const token = await result.current.getAccessTokenSilently({
+        detailedResponse: true,
+      });
+      expect(token).toBe(tokenResponse);
+    });
     expect(clientMock.getTokenSilently).toHaveBeenCalled();
   });
 
