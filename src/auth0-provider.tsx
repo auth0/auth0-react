@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from 'react';
 import {
   Auth0Client,
   Auth0ClientOptions,
@@ -364,21 +370,34 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     [client]
   );
 
+  const contextValue = useMemo(() => {
+    return {
+      ...state,
+      buildAuthorizeUrl,
+      buildLogoutUrl,
+      getAccessTokenSilently,
+      getAccessTokenWithPopup,
+      getIdTokenClaims,
+      loginWithRedirect,
+      loginWithPopup,
+      logout,
+      handleRedirectCallback,
+    };
+  }, [
+    state,
+    buildAuthorizeUrl,
+    buildLogoutUrl,
+    getAccessTokenSilently,
+    getAccessTokenWithPopup,
+    getIdTokenClaims,
+    loginWithRedirect,
+    loginWithPopup,
+    logout,
+    handleRedirectCallback,
+  ]);
+
   return (
-    <Auth0Context.Provider
-      value={{
-        ...state,
-        buildAuthorizeUrl,
-        buildLogoutUrl,
-        getAccessTokenSilently,
-        getAccessTokenWithPopup,
-        getIdTokenClaims,
-        loginWithRedirect,
-        loginWithPopup,
-        logout,
-        handleRedirectCallback,
-      }}
-    >
+    <Auth0Context.Provider value={contextValue}>
       {children}
     </Auth0Context.Provider>
   );

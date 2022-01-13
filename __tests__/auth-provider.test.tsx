@@ -813,4 +813,20 @@ describe('Auth0Provider', () => {
       },
     });
   });
+
+  it('should not update context value after rerender with no state change', async () => {
+    clientMock.getTokenSilently.mockReturnThis();
+    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result, rerender } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    const memoized = result.current;
+
+    rerender();
+
+    expect(result.current).toBe(memoized);
+  });
 });
