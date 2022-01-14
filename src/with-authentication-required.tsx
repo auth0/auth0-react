@@ -33,8 +33,25 @@ export interface WithAuthenticationRequiredOptions {
    * ```
    *
    * Add a path for the `onRedirectCallback` handler to return the user to after login.
+   *
+   * The `returnTo` function also takes the `user` object as an argument which can be useful for
+   * handling logged out user's and logged in users without the necessary claims, eg:
+   *
+   * ```js
+   * withAuthenticationRequired(Profile, {
+   *   claimCheck: (claims) => claims?.roles?.includes('admin');
+   *   returnTo: (user) => {
+   *     if (user) {
+   *       // User is logged in but not an admin
+   *       return '/';
+   *     }
+   *     // User is not logged in, login then return to this url and try again.
+   *     return window.location.pathname;
+   *   }
+   * })
+   * ```
    */
-  returnTo?: string | (() => string);
+  returnTo?: string | ((user?: User) => string);
   /**
    * ```js
    * withAuthenticationRequired(Profile, {
@@ -102,7 +119,7 @@ const withAuthenticationRequired = <P extends object>(
         ...loginOptions,
         appState: {
           ...(loginOptions && loginOptions.appState),
-          returnTo: typeof returnTo === 'function' ? returnTo() : returnTo,
+          returnTo: typeof returnTo === 'function' ? returnTo(user) : returnTo,
         },
       };
       (async (): Promise<void> => {
@@ -114,6 +131,7 @@ const withAuthenticationRequired = <P extends object>(
       loginWithRedirect,
       loginOptions,
       returnTo,
+      user,
     ]);
 
     return routeIsAuthenticated ? <Component {...props} /> : onRedirecting();

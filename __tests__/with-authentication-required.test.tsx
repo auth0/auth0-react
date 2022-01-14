@@ -70,8 +70,8 @@ describe('withAuthenticationRequired', () => {
   it('should allow access to restricted components when JWT claims present', async () => {
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
-      claimCheck: (claim?: User) =>
-        claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN'),
+      claimCheck: (claims?: User) =>
+        claims?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN'),
     });
     /**
      * User with ADMIN role.
@@ -183,6 +183,48 @@ describe('withAuthenticationRequired', () => {
         expect.objectContaining({
           appState: {
             returnTo: '/foo',
+          },
+        })
+      )
+    );
+  });
+
+  it('should be able to customise returnTo based on user', async () => {
+    mockClient.getUser.mockResolvedValue(undefined);
+    const MyComponent = (): JSX.Element => <>Private</>;
+
+    const WrappedComponent = withAuthenticationRequired(MyComponent, {
+      claimCheck: (claims?: User) =>
+        claims?.['https://my.app.io/jwt/roles']?.includes('ADMIN'),
+      returnTo: (user) => (user ? '/claim-check-failed' : '/not-logged-in'),
+    });
+
+    render(
+      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+        <WrappedComponent />
+      </Auth0Provider>
+    );
+    await waitFor(() =>
+      expect(mockClient.loginWithRedirect).toHaveBeenCalledWith(
+        expect.objectContaining({
+          appState: {
+            returnTo: '/not-logged-in',
+          },
+        })
+      )
+    );
+
+    mockClient.getUser.mockResolvedValue({ sub: 'me' });
+    render(
+      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+        <WrappedComponent />
+      </Auth0Provider>
+    );
+    await waitFor(() =>
+      expect(mockClient.loginWithRedirect).toHaveBeenCalledWith(
+        expect.objectContaining({
+          appState: {
+            returnTo: '/claim-check-failed',
           },
         })
       )
