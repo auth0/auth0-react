@@ -1,3 +1,3 @@
-    {
-        "postbump": "npm run docs"
-    }
+{
+    "postbump": "npm run docs"
+}
