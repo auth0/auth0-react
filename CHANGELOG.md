@@ -1,5 +1,16 @@
 # Change Log
 
+## [v1.9.0](https://github.com/auth0/auth0-react/tree/v1.9.0) (2022-01-14)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.8.0...v1.9.0)
+
+**Added**
+- Update to auth0-spa-js@1.19.3 [\#319](https://github.com/auth0/auth0-react/pull/319) ([adamjmcgrath](https://github.com/adamjmcgrath))
+- Memoize context value in auth0-provider [\#318](https://github.com/auth0/auth0-react/pull/318) ([claycoleman](https://github.com/claycoleman))
+
+**Fixed**
+- Avoid potential multiple invocations of loginWithRedirect [\#311](https://github.com/auth0/auth0-react/pull/311) ([kweiberth](https://github.com/kweiberth))
+- Add connection property to Auth0ProviderOptions [\#283](https://github.com/auth0/auth0-react/pull/283) ([stevehobbsdev](https://github.com/stevehobbsdev))
+
 ## [v1.8.0](https://github.com/auth0/auth0-react/tree/v1.8.0) (2021-09-20)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v1.7.0...v1.8.0)
 

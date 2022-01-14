@@ -94,6 +94,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="index.gettokensilentlyoptions.html#audience" class="tsd-kind-icon">audience</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="index.gettokensilentlyoptions.html#detailedresponse" class="tsd-kind-icon">detailed<wbr>Response</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="index.gettokensilentlyoptions.html#ignorecache" class="tsd-kind-icon">ignore<wbr>Cache</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="index.gettokensilentlyoptions.html#redirect_uri" class="tsd-kind-icon">redirect_<wbr>uri</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="index.gettokensilentlyoptions.html#scope" class="tsd-kind-icon">scope</a></li>
@@ -111,7 +112,7 @@
 					<div class="tsd-signature tsd-kind-icon">audience<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:295</li>
+							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:301</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -121,12 +122,29 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="detailedresponse" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> detailed<wbr>Response</h3>
+					<div class="tsd-signature tsd-kind-icon">detailed<wbr>Response<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:312</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If true, the full response from the /oauth/token endpoint (or the cache, if the cache was used) is returned
+							(minus <code>refresh_token</code> if one was issued). Otherwise, just the access token is returned.</p>
+						</div>
+						<p>The default is <code>false</code>.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 					<a name="ignorecache" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ignore<wbr>Cache</h3>
 					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:278</li>
+							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:284</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -142,7 +160,7 @@
 					<div class="tsd-signature tsd-kind-icon">redirect_<wbr>uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:287</li>
+							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:293</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -162,7 +180,7 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:291</li>
+							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:297</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -177,7 +195,7 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<wbr>InSeconds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:299</li>
+							<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:305</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
