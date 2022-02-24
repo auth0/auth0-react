@@ -14,25 +14,13 @@ We can then use the `withAuthenticationRequired` HOC (Higher Order Component) to
 
 ```jsx
 import React from 'react';
-import {
-  unstable_HistoryRouter as HistoryRouter,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
-import { createBrowserHistory } from 'history';
 import Profile from './Profile';
-
-export const history = createBrowserHistory();
 
 const ProtectedRoute = ({ component, ...args }) => {
   const Component = withAuthenticationRequired(component, args);
   return <Component />;
-};
-
-const onRedirectCallback = (appState) => {
-  // Use the router's history module to replace the url
-  history.replace(appState?.returnTo || window.location.pathname);
 };
 
 export default function App() {
@@ -41,18 +29,16 @@ export default function App() {
       domain="YOUR_AUTH0_DOMAIN"
       clientId="YOUR_AUTH0_CLIENT_ID"
       redirectUri={window.location.origin}
-      onRedirectCallback={onRedirectCallback}
     >
-      {/* Don't forget to add the history to your router */}
-      <HistoryRouter history={history}>
-        <Switch>
+      <BrowserRouter>
+        <Routes>
           <Route path="/" exact />
           <Route
             path="/profile"
             element={<ProtectedRoute component={Profile} />}
           />
-        </Switch>
-      </HistoryRouter>
+        </Routes>
+      </BrowserRouter>
     </Auth0Provider>
   );
 }
