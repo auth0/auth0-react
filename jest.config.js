@@ -2,13 +2,14 @@ const pkg = require('./package.json');
 
 module.exports = {
   clearMocks: true,
-  coveragePathIgnorePatterns: ['/__tests__/'],
+  coveragePathIgnorePatterns: ['/__tests__/', 'index.tsx'],
   coverageReporters: ['lcov', 'text', 'text-summary'],
   preset: 'ts-jest',
   reporters: [
     'default',
     ['jest-junit', { outputDirectory: 'test-results/jest' }],
   ],
+  testEnvironment: 'jsdom',
   testURL: 'https://www.example.com/',
   testRegex: '/__tests__/.+test.tsx?$',
   globals: {

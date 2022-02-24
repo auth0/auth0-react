@@ -11,6 +11,7 @@ import {
   RedirectLoginOptions as Auth0RedirectLoginOptions,
   RedirectLoginResult,
   User,
+  GetTokenSilentlyVerboseResponse,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -64,9 +65,15 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * Note that in all cases, falling back to an iframe requires access to
    * the `auth0` cookie.
    */
-  getAccessTokenSilently: (
-    options?: GetTokenSilentlyOptions
-  ) => Promise<string>;
+  getAccessTokenSilently: {
+    (options: GetTokenSilentlyOptions & { detailedResponse: true }): Promise<
+      GetTokenSilentlyVerboseResponse
+    >;
+    (options?: GetTokenSilentlyOptions): Promise<string>;
+    (options: GetTokenSilentlyOptions): Promise<
+      GetTokenSilentlyVerboseResponse | string
+    >;
+  };
 
   /**
    * ```js
@@ -92,7 +99,9 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * Returns all claims from the id_token if available.
    */
-  getIdTokenClaims: (options?: GetIdTokenClaimsOptions) => Promise<IdToken>;
+  getIdTokenClaims: (
+    options?: GetIdTokenClaimsOptions
+  ) => Promise<IdToken | undefined>;
 
   /**
    * ```js

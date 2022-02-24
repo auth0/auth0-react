@@ -4,9 +4,8 @@ import withAuthenticationRequired from '../src/with-authentication-required';
 import { render, screen, waitFor } from '@testing-library/react';
 import { Auth0Client, User } from '@auth0/auth0-spa-js';
 import Auth0Provider from '../src/auth0-provider';
-import { mocked } from 'ts-jest/utils';
 
-const mockClient = mocked(new Auth0Client({ client_id: '', domain: '' }));
+const mockClient = jest.mocked(new Auth0Client({ client_id: '', domain: '' }));
 
 describe('withAuthenticationRequired', () => {
   it('should block access to a private component when not authenticated', async () => {

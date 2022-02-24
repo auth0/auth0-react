@@ -1,19 +1,23 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from 'react';
 import {
   Auth0Client,
   Auth0ClientOptions,
   CacheLocation,
-  IdToken,
   LogoutOptions,
   LogoutUrlOptions,
   PopupLoginOptions,
   PopupConfigOptions,
   RedirectLoginOptions as Auth0RedirectLoginOptions,
   GetTokenWithPopupOptions,
-  GetTokenSilentlyOptions,
-  GetIdTokenClaimsOptions,
   RedirectLoginResult,
   ICache,
+  GetTokenSilentlyOptions,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
@@ -304,7 +308,8 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const getAccessTokenSilently = useCallback(
-    async (opts?: GetTokenSilentlyOptions): Promise<string> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async (opts?: GetTokenSilentlyOptions): Promise<any> => {
       let token;
       try {
         token = await client.getTokenSilently(opts);
@@ -343,8 +348,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const getIdTokenClaims = useCallback(
-    (opts?: GetIdTokenClaimsOptions): Promise<IdToken> =>
-      client.getIdTokenClaims(opts),
+    (opts) => client.getIdTokenClaims(opts),
     [client]
   );
 
@@ -364,21 +368,34 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     [client]
   );
 
+  const contextValue = useMemo(() => {
+    return {
+      ...state,
+      buildAuthorizeUrl,
+      buildLogoutUrl,
+      getAccessTokenSilently,
+      getAccessTokenWithPopup,
+      getIdTokenClaims,
+      loginWithRedirect,
+      loginWithPopup,
+      logout,
+      handleRedirectCallback,
+    };
+  }, [
+    state,
+    buildAuthorizeUrl,
+    buildLogoutUrl,
+    getAccessTokenSilently,
+    getAccessTokenWithPopup,
+    getIdTokenClaims,
+    loginWithRedirect,
+    loginWithPopup,
+    logout,
+    handleRedirectCallback,
+  ]);
+
   return (
-    <Auth0Context.Provider
-      value={{
-        ...state,
-        buildAuthorizeUrl,
-        buildLogoutUrl,
-        getAccessTokenSilently,
-        getAccessTokenWithPopup,
-        getIdTokenClaims,
-        loginWithRedirect,
-        loginWithPopup,
-        logout,
-        handleRedirectCallback,
-      }}
-    >
+    <Auth0Context.Provider value={contextValue}>
       {children}
     </Auth0Context.Provider>
   );
