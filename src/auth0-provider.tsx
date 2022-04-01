@@ -371,6 +371,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   const contextValue = useMemo(() => {
     return {
       ...state,
+      client,
       buildAuthorizeUrl,
       buildLogoutUrl,
       getAccessTokenSilently,
@@ -383,6 +384,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     };
   }, [
     state,
+    client,
     buildAuthorizeUrl,
     buildLogoutUrl,
     getAccessTokenSilently,
