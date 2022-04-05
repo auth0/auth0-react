@@ -45,7 +45,7 @@ export interface Auth0ProviderOptions {
    * It uses `window.history` but you might want to overwrite this if you are using a custom router, like `react-router-dom`
    * See the EXAMPLES.md for more info.
    */
-  onRedirectCallback?: (appState: AppState) => void;
+  onRedirectCallback?: (appState?: AppState) => void;
   /**
    * By default, if the page url has code/state params, the SDK will treat them as Auth0's and attempt to exchange the
    * code for a token. In some cases the code might be for something else (another OAuth SDK perhaps). In these
