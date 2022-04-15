@@ -35,7 +35,9 @@ describe('withAuthenticationRequired', () => {
     await waitFor(() =>
       expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
     );
-    expect(screen.getByText('Private')).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByText('Private')).toBeInTheDocument()
+    );
   });
 
   it('should not allow access to claims-restricted components', async () => {
@@ -93,11 +95,15 @@ describe('withAuthenticationRequired', () => {
     await waitFor(() =>
       expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
     );
-    expect(screen.getByText('Private')).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByText('Private')).toBeInTheDocument()
+    );
   });
 
   it('should show a custom redirecting message', async () => {
-    mockClient.getUser.mockResolvedValue({ name: '__test_user__' });
+    mockClient.getUser.mockResolvedValue(
+      Promise.resolve({ name: '__test_user__' })
+    );
     const MyComponent = (): JSX.Element => <>Private</>;
     const OnRedirecting = (): JSX.Element => <>Redirecting</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
@@ -114,7 +120,9 @@ describe('withAuthenticationRequired', () => {
     await waitFor(() =>
       expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
     );
-    expect(screen.queryByText('Redirecting')).not.toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.queryByText('Redirecting')).not.toBeInTheDocument()
+    );
   });
 
   it('should pass additional options on to loginWithRedirect', async () => {
