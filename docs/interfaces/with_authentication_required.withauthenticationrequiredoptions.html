@@ -58,7 +58,7 @@
 					<a href="../modules/with_authentication_required.html">with-authentication-required</a>
 				</li>
 				<li>
-					<a href="with_authentication_required.withauthenticationrequiredoptions.html">WithAuthenticationRequiredOptions</a>
+					<a href="with_authentication_required.WithAuthenticationRequiredOptions.html">WithAuthenticationRequiredOptions</a>
 				</li>
 			</ul>
 			<h1>Interface WithAuthenticationRequiredOptions</h1>
@@ -90,10 +90,15 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="with_authentication_required.withauthenticationrequiredoptions.html#claimcheck" class="tsd-kind-icon">claim<wbr>Check</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="with_authentication_required.withauthenticationrequiredoptions.html#loginoptions" class="tsd-kind-icon">login<wbr>Options</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="with_authentication_required.withauthenticationrequiredoptions.html#onredirecting" class="tsd-kind-icon">on<wbr>Redirecting</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="with_authentication_required.withauthenticationrequiredoptions.html#returnto" class="tsd-kind-icon">return<wbr>To</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="with_authentication_required.WithAuthenticationRequiredOptions.html#loginOptions" class="tsd-kind-icon">login<wbr>Options</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="with_authentication_required.WithAuthenticationRequiredOptions.html#returnTo" class="tsd-kind-icon">return<wbr>To</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="with_authentication_required.WithAuthenticationRequiredOptions.html#claimCheck" class="tsd-kind-icon">claim<wbr>Check</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="with_authentication_required.WithAuthenticationRequiredOptions.html#onRedirecting" class="tsd-kind-icon">on<wbr>Redirecting</a></li>
 							</ul>
 						</section>
 					</div>
@@ -102,49 +107,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="claimcheck" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> claim<wbr>Check</h3>
-					<div class="tsd-signature tsd-kind-icon">claim<wbr>Check<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>claims<span class="tsd-signature-symbol">?: </span><a href="../classes/index.user.html" class="tsd-signature-type" data-tsd-kind="Class">User</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24cc3df/src/with-authentication-required.tsx#L67">src/with-authentication-required.tsx:67</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Check the user object for JWT claims and return a boolean indicating
-							whether or not they are authorized to view the component.</p>
-						</div>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>claims<span class="tsd-signature-symbol">?: </span><a href="../classes/index.user.html" class="tsd-signature-type" data-tsd-kind="Class">User</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5><span class="tsd-flag ts-flagOptional">Optional</span> claims: <a href="../classes/index.user.html" class="tsd-signature-type" data-tsd-kind="Class">User</a></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="loginoptions" class="tsd-anchor"></a>
+					<a name="loginOptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> login<wbr>Options</h3>
 					<div class="tsd-signature tsd-kind-icon">login<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RedirectLoginOptions</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24cc3df/src/with-authentication-required.tsx#L62">src/with-authentication-required.tsx:62</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/887ae18/src/with-authentication-required.tsx#L62">src/with-authentication-required.tsx:62</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -163,46 +131,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="onredirecting" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Redirecting</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Redirecting<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Element</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24cc3df/src/with-authentication-required.tsx#L47">src/with-authentication-required.tsx:47</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<pre><code class="language-js"><span style="color: #795E26">withAuthenticationRequired</span><span style="color: #000000">(</span><span style="color: #001080">Profile</span><span style="color: #000000">, {</span>
-<span style="color: #000000">  </span><span style="color: #795E26">onRedirecting</span><span style="color: #001080">:</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Redirecting you to the login...</span><span style="color: #800000">&lt;/div&gt;</span>
-<span style="color: #000000">})</span>
-</code></pre>
-						</div>
-						<p>Render a message to show that the user is being redirected to the login.</p>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="returnto" class="tsd-anchor"></a>
+					<a name="returnTo" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> return<wbr>To</h3>
 					<div class="tsd-signature tsd-kind-icon">return<wbr>To<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/24cc3df/src/with-authentication-required.tsx#L37">src/with-authentication-required.tsx:37</a></li>
+							<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/887ae18/src/with-authentication-required.tsx#L37">src/with-authentication-required.tsx:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -221,12 +155,70 @@
 					</div>
 				</section>
 			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="claimCheck" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> claim<wbr>Check</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">claim<wbr>Check<span class="tsd-signature-symbol">(</span>claims<span class="tsd-signature-symbol">?: </span><a href="../classes/index.User.html" class="tsd-signature-type" data-tsd-kind="Class">User</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/887ae18/src/with-authentication-required.tsx#L67">src/with-authentication-required.tsx:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check the user object for JWT claims and return a boolean indicating
+									whether or not they are authorized to view the component.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> claims: <a href="../classes/index.User.html" class="tsd-signature-type" data-tsd-kind="Class">User</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onRedirecting" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Redirecting</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Redirecting<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/887ae18/src/with-authentication-required.tsx#L47">src/with-authentication-required.tsx:47</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<pre><code class="language-js"><span style="color: #795E26">withAuthenticationRequired</span><span style="color: #000000">(</span><span style="color: #001080">Profile</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">onRedirecting</span><span style="color: #001080">:</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Redirecting you to the login...</span><span style="color: #800000">&lt;/div&gt;</span>
+<span style="color: #000000">})</span>
+</code></pre>
+								</div>
+								<p>Render a message to show that the user is being redirected to the login.</p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class=" ">
-						<a href="../modules.html">Exports</a>
+						<a href="../modules.html">Modules</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/auth0_context.html">auth0-<wbr>context</a>
@@ -256,19 +248,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="with_authentication_required.withauthenticationrequiredoptions.html" class="tsd-kind-icon">With<wbr>Authentication<wbr>Required<wbr>Options</a>
+						<a href="with_authentication_required.WithAuthenticationRequiredOptions.html" class="tsd-kind-icon">With<wbr>Authentication<wbr>Required<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="with_authentication_required.withauthenticationrequiredoptions.html#claimcheck" class="tsd-kind-icon">claim<wbr>Check</a>
+								<a href="with_authentication_required.WithAuthenticationRequiredOptions.html#loginOptions" class="tsd-kind-icon">login<wbr>Options</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="with_authentication_required.withauthenticationrequiredoptions.html#loginoptions" class="tsd-kind-icon">login<wbr>Options</a>
+								<a href="with_authentication_required.WithAuthenticationRequiredOptions.html#returnTo" class="tsd-kind-icon">return<wbr>To</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="with_authentication_required.withauthenticationrequiredoptions.html#onredirecting" class="tsd-kind-icon">on<wbr>Redirecting</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="with_authentication_required.WithAuthenticationRequiredOptions.html#claimCheck" class="tsd-kind-icon">claim<wbr>Check</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="with_authentication_required.withauthenticationrequiredoptions.html#returnto" class="tsd-kind-icon">return<wbr>To</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="with_authentication_required.WithAuthenticationRequiredOptions.html#onRedirecting" class="tsd-kind-icon">on<wbr>Redirecting</a>
 							</li>
 						</ul>
 					</li>
@@ -293,6 +285,7 @@
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
