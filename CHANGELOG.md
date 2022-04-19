@@ -1,5 +1,14 @@
 # Change Log
 
+## [v1.10.0](https://github.com/auth0/auth0-react/tree/v1.10.0) (2022-04-19)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.9.0...v1.10.0)
+
+**Added**
+- Update React and other deps [\#350](https://github.com/auth0/auth0-react/pull/350) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
+**Fixed**
+- appState is an optional argument [\#341](https://github.com/auth0/auth0-react/pull/341) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v1.9.0](https://github.com/auth0/auth0-react/tree/v1.9.0) (2022-01-14)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v1.8.0...v1.9.0)
 

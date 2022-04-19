@@ -101,60 +101,60 @@
 					<h2>Getting Started</h2>
 				</a>
 				<p>Configure the SDK by wrapping your application in <code>Auth0Provider</code>:</p>
-				<pre><code class="language-jsx"><span style="color: #000000">// src/index.js</span>
-<span style="color: #000000">import React from &#039;react&#039;;</span>
-<span style="color: #000000">import ReactDOM from &#039;react-dom&#039;;</span>
-<span style="color: #000000">import { Auth0Provider } from &#039;@auth0/auth0-react&#039;;</span>
-<span style="color: #000000">import App from &#039;./App&#039;;</span>
+				<pre><code class="language-jsx"><span style="color: #008000">// src/index.js</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">React</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">ReactDOM</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react-dom&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Auth0Provider</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@auth0/auth0-react&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">App</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./App&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #000000">ReactDOM.render(</span>
-<span style="color: #000000">  &lt;Auth0Provider</span>
-<span style="color: #000000">    domain=&quot;YOUR_AUTH0_DOMAIN&quot;</span>
-<span style="color: #000000">    clientId=&quot;YOUR_AUTH0_CLIENT_ID&quot;</span>
-<span style="color: #000000">    redirectUri={window.location.origin}</span>
-<span style="color: #000000">  &gt;</span>
-<span style="color: #000000">    &lt;App /&gt;</span>
-<span style="color: #000000">  &lt;/Auth0Provider&gt;,</span>
-<span style="color: #000000">  document.getElementById(&#039;app&#039;)</span>
+<span style="color: #001080">ReactDOM</span><span style="color: #000000">.</span><span style="color: #795E26">render</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #800000">&lt;</span><span style="color: #267F99">Auth0Provider</span>
+<span style="color: #000000">    </span><span style="color: #FF0000">domain</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;YOUR_AUTH0_DOMAIN&quot;</span>
+<span style="color: #000000">    </span><span style="color: #FF0000">clientId</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;YOUR_AUTH0_CLIENT_ID&quot;</span>
+<span style="color: #000000">    </span><span style="color: #FF0000">redirectUri</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #001080">window</span><span style="color: #000000FF">.</span><span style="color: #001080">location</span><span style="color: #000000FF">.</span><span style="color: #001080">origin</span><span style="color: #0000FF">}</span>
+<span style="color: #000000">  </span><span style="color: #800000">&gt;</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;</span><span style="color: #267F99">App</span><span style="color: #000000"> </span><span style="color: #800000">/&gt;</span>
+<span style="color: #000000">  </span><span style="color: #800000">&lt;/</span><span style="color: #267F99">Auth0Provider</span><span style="color: #800000">&gt;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;app&#039;</span><span style="color: #000000">)</span>
 <span style="color: #000000">);</span>
 </code></pre>
 				<p>Use the <code>useAuth0</code> hook in your components to access authentication state (<code>isLoading</code>, <code>isAuthenticated</code> and <code>user</code>) and authentication methods (<code>loginWithRedirect</code> and <code>logout</code>):</p>
-				<pre><code class="language-jsx"><span style="color: #000000">// src/App.js</span>
-<span style="color: #000000">import React from &#039;react&#039;;</span>
-<span style="color: #000000">import { useAuth0 } from &#039;@auth0/auth0-react&#039;;</span>
+				<pre><code class="language-jsx"><span style="color: #008000">// src/App.js</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">React</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">useAuth0</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@auth0/auth0-react&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #000000">function App() {</span>
-<span style="color: #000000">  const {</span>
-<span style="color: #000000">    isLoading,</span>
-<span style="color: #000000">    isAuthenticated,</span>
-<span style="color: #000000">    error,</span>
-<span style="color: #000000">    user,</span>
-<span style="color: #000000">    loginWithRedirect,</span>
-<span style="color: #000000">    logout,</span>
-<span style="color: #000000">  } = useAuth0();</span>
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">App</span><span style="color: #000000">() {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #0070C1">isLoading</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0070C1">isAuthenticated</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0070C1">error</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0070C1">user</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0070C1">loginWithRedirect</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0070C1">logout</span><span style="color: #000000">,</span>
+<span style="color: #000000">  } = </span><span style="color: #795E26">useAuth0</span><span style="color: #000000">();</span>
 
-<span style="color: #000000">  if (isLoading) {</span>
-<span style="color: #000000">    return &lt;div&gt;Loading...&lt;/div&gt;;</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">isLoading</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Loading...</span><span style="color: #800000">&lt;/div&gt;</span><span style="color: #000000">;</span>
 <span style="color: #000000">  }</span>
-<span style="color: #000000">  if (error) {</span>
-<span style="color: #000000">    return &lt;div&gt;Oops... {error.message}&lt;/div&gt;;</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">error</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Oops... </span><span style="color: #0000FF">{</span><span style="color: #001080">error</span><span style="color: #000000FF">.</span><span style="color: #001080">message</span><span style="color: #0000FF">}</span><span style="color: #800000">&lt;/div&gt;</span><span style="color: #000000">;</span>
 <span style="color: #000000">  }</span>
 
-<span style="color: #000000">  if (isAuthenticated) {</span>
-<span style="color: #000000">    return (</span>
-<span style="color: #000000">      &lt;div&gt;</span>
-<span style="color: #000000">        Hello {user.name}{&#039; &#039;}</span>
-<span style="color: #000000">        &lt;button onClick={() =&gt; logout({ returnTo: window.location.origin })}&gt;</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">isAuthenticated</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
+<span style="color: #000000">      </span><span style="color: #800000">&lt;div&gt;</span>
+<span style="color: #000000">        Hello </span><span style="color: #0000FF">{</span><span style="color: #001080">user</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}{</span><span style="color: #A31515">&#039; &#039;</span><span style="color: #0000FF">}</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;button</span><span style="color: #000000"> </span><span style="color: #FF0000">onClick</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> </span><span style="color: #795E26">logout</span><span style="color: #000000FF">({ </span><span style="color: #001080">returnTo:</span><span style="color: #000000FF"> </span><span style="color: #001080">window</span><span style="color: #000000FF">.</span><span style="color: #001080">location</span><span style="color: #000000FF">.</span><span style="color: #001080">origin</span><span style="color: #000000FF"> })</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span>
 <span style="color: #000000">          Log out</span>
-<span style="color: #000000">        &lt;/button&gt;</span>
-<span style="color: #000000">      &lt;/div&gt;</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;/button&gt;</span>
+<span style="color: #000000">      </span><span style="color: #800000">&lt;/div&gt;</span>
 <span style="color: #000000">    );</span>
-<span style="color: #000000">  } else {</span>
-<span style="color: #000000">    return &lt;button onClick={loginWithRedirect}&gt;Log in&lt;/button&gt;;</span>
+<span style="color: #000000">  } </span><span style="color: #AF00DB">else</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;button</span><span style="color: #000000"> </span><span style="color: #FF0000">onClick</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #001080">loginWithRedirect</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span><span style="color: #000000">Log in</span><span style="color: #800000">&lt;/button&gt;</span><span style="color: #000000">;</span>
 <span style="color: #000000">  }</span>
 <span style="color: #000000">}</span>
 
-<span style="color: #000000">export default App;</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #AF00DB">default</span><span style="color: #000000"> </span><span style="color: #001080">App</span><span style="color: #000000">;</span>
 </code></pre>
 				<p>If you&#39;re using TypeScript, you can pass a type parameter to <code>useAuth0</code> to specify the type of <code>user</code>:</p>
 				<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">user</span><span style="color: #000000"> } = </span><span style="color: #795E26">useAuth0</span><span style="color: #000000">&lt;{ </span><span style="color: #001080">name</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000"> }&gt;();</span>
@@ -165,31 +165,31 @@
 					<h3>Use with a Class Component</h3>
 				</a>
 				<p>Use the <code>withAuth0</code> higher order component to add the <code>auth0</code> property to Class components:</p>
-				<pre><code class="language-jsx"><span style="color: #000000">import React, { Component } from &#039;react&#039;;</span>
-<span style="color: #000000">import { withAuth0 } from &#039;@auth0/auth0-react&#039;;</span>
+				<pre><code class="language-jsx"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">React</span><span style="color: #000000">, { </span><span style="color: #001080">Component</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withAuth0</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@auth0/auth0-react&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #000000">class Profile extends Component {</span>
-<span style="color: #000000">  render() {</span>
-<span style="color: #000000">    // `this.props.auth0` has all the same properties as the `useAuth0` hook</span>
-<span style="color: #000000">    const { user } = this.props.auth0;</span>
-<span style="color: #000000">    return &lt;div&gt;Hello {user.name}&lt;/div&gt;;</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">Profile</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">Component</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">render</span><span style="color: #000000">() {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// `this.props.auth0` has all the same properties as the `useAuth0` hook</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">user</span><span style="color: #000000"> } = </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">props</span><span style="color: #000000">.</span><span style="color: #001080">auth0</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Hello </span><span style="color: #0000FF">{</span><span style="color: #001080">user</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #800000">&lt;/div&gt;</span><span style="color: #000000">;</span>
 <span style="color: #000000">  }</span>
 <span style="color: #000000">}</span>
 
-<span style="color: #000000">export default withAuth0(Profile);</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #AF00DB">default</span><span style="color: #000000"> </span><span style="color: #795E26">withAuth0</span><span style="color: #000000">(</span><span style="color: #001080">Profile</span><span style="color: #000000">);</span>
 </code></pre>
 				<a href="#protect-a-route" id="protect-a-route" style="color: inherit; text-decoration: none;">
 					<h3>Protect a Route</h3>
 				</a>
 				<p>Protect a route component using the <code>withAuthenticationRequired</code> higher order component. Visits to this route when unauthenticated will redirect the user to the login page and back to this page after login:</p>
-				<pre><code class="language-jsx"><span style="color: #000000">import React from &#039;react&#039;;</span>
-<span style="color: #000000">import { withAuthenticationRequired } from &#039;@auth0/auth0-react&#039;;</span>
+				<pre><code class="language-jsx"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">React</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withAuthenticationRequired</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@auth0/auth0-react&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #000000">const PrivateRoute = () =&gt; &lt;div&gt;Private&lt;/div&gt;;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">PrivateRoute</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Private</span><span style="color: #800000">&lt;/div&gt;</span><span style="color: #000000">;</span>
 
-<span style="color: #000000">export default withAuthenticationRequired(PrivateRoute, {</span>
-<span style="color: #000000">  // Show a message while the user waits to be redirected to the login page.</span>
-<span style="color: #000000">  onRedirecting: () =&gt; &lt;div&gt;Redirecting you to the login page...&lt;/div&gt;,</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #AF00DB">default</span><span style="color: #000000"> </span><span style="color: #795E26">withAuthenticationRequired</span><span style="color: #000000">(</span><span style="color: #001080">PrivateRoute</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #008000">// Show a message while the user waits to be redirected to the login page.</span>
+<span style="color: #000000">  </span><span style="color: #795E26">onRedirecting</span><span style="color: #001080">:</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Redirecting you to the login page...</span><span style="color: #800000">&lt;/div&gt;</span><span style="color: #000000">,</span>
 <span style="color: #000000">});</span>
 </code></pre>
 				<p><strong>Note</strong> If you are using a custom router, you will need to supply the <code>Auth0Provider</code> with a custom <code>onRedirectCallback</code> method to perform the action that returns the user to the protected page. See examples for <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#1-protecting-a-route-in-a-react-router-dom-app">react-router</a>, <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#2-protecting-a-route-in-a-gatsby-app">Gatsby</a> and <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#3-protecting-a-route-in-a-nextjs-app-in-spa-mode">Next.js</a>.</p>
@@ -197,46 +197,46 @@
 					<h3>Call an API</h3>
 				</a>
 				<p>Call a protected API with an Access Token:</p>
-				<pre><code class="language-jsx"><span style="color: #000000">import React, { useEffect, useState } from &#039;react&#039;;</span>
-<span style="color: #000000">import { useAuth0 } from &#039;@auth0/auth0-react&#039;;</span>
+				<pre><code class="language-jsx"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">React</span><span style="color: #000000">, { </span><span style="color: #001080">useEffect</span><span style="color: #000000">, </span><span style="color: #001080">useState</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">useAuth0</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@auth0/auth0-react&#039;</span><span style="color: #000000">;</span>
 
-<span style="color: #000000">const Posts = () =&gt; {</span>
-<span style="color: #000000">  const { getAccessTokenSilently } = useAuth0();</span>
-<span style="color: #000000">  const [posts, setPosts] = useState(null);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">Posts</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">getAccessTokenSilently</span><span style="color: #000000"> } = </span><span style="color: #795E26">useAuth0</span><span style="color: #000000">();</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> [</span><span style="color: #0070C1">posts</span><span style="color: #000000">, </span><span style="color: #0070C1">setPosts</span><span style="color: #000000">] = </span><span style="color: #795E26">useState</span><span style="color: #000000">(</span><span style="color: #0000FF">null</span><span style="color: #000000">);</span>
 
-<span style="color: #000000">  useEffect(() =&gt; {</span>
-<span style="color: #000000">    (async () =&gt; {</span>
-<span style="color: #000000">      try {</span>
-<span style="color: #000000">        const token = await getAccessTokenSilently({</span>
-<span style="color: #000000">          audience: &#039;https://api.example.com/&#039;,</span>
-<span style="color: #000000">          scope: &#039;read:posts&#039;,</span>
+<span style="color: #000000">  </span><span style="color: #795E26">useEffect</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    (</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">try</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">token</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">getAccessTokenSilently</span><span style="color: #000000">({</span>
+<span style="color: #000000">          </span><span style="color: #001080">audience:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;https://api.example.com/&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #001080">scope:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;read:posts&#039;</span><span style="color: #000000">,</span>
 <span style="color: #000000">        });</span>
-<span style="color: #000000">        const response = await fetch(&#039;https://api.example.com/posts&#039;, {</span>
-<span style="color: #000000">          headers: {</span>
-<span style="color: #000000">            Authorization: `Bearer ${token}`,</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">response</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">fetch</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;https://api.example.com/posts&#039;</span><span style="color: #000000">, {</span>
+<span style="color: #000000">          </span><span style="color: #001080">headers:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">            </span><span style="color: #001080">Authorization:</span><span style="color: #000000"> </span><span style="color: #A31515">`Bearer </span><span style="color: #0000FF">${</span><span style="color: #001080">token</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">,</span>
 <span style="color: #000000">          },</span>
 <span style="color: #000000">        });</span>
-<span style="color: #000000">        setPosts(await response.json());</span>
-<span style="color: #000000">      } catch (e) {</span>
-<span style="color: #000000">        console.error(e);</span>
+<span style="color: #000000">        </span><span style="color: #795E26">setPosts</span><span style="color: #000000">(</span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #795E26">json</span><span style="color: #000000">());</span>
+<span style="color: #000000">      } </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">e</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #001080">e</span><span style="color: #000000">);</span>
 <span style="color: #000000">      }</span>
 <span style="color: #000000">    })();</span>
-<span style="color: #000000">  }, [getAccessTokenSilently]);</span>
+<span style="color: #000000">  }, [</span><span style="color: #001080">getAccessTokenSilently</span><span style="color: #000000">]);</span>
 
-<span style="color: #000000">  if (!posts) {</span>
-<span style="color: #000000">    return &lt;div&gt;Loading...&lt;/div&gt;;</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (!</span><span style="color: #001080">posts</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #800000">&lt;div&gt;</span><span style="color: #000000">Loading...</span><span style="color: #800000">&lt;/div&gt;</span><span style="color: #000000">;</span>
 <span style="color: #000000">  }</span>
 
-<span style="color: #000000">  return (</span>
-<span style="color: #000000">    &lt;ul&gt;</span>
-<span style="color: #000000">      {posts.map((post, index) =&gt; {</span>
-<span style="color: #000000">        return &lt;li key={index}&gt;{post}&lt;/li&gt;;</span>
-<span style="color: #000000">      })}</span>
-<span style="color: #000000">    &lt;/ul&gt;</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;ul&gt;</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">{</span><span style="color: #001080">posts</span><span style="color: #000000FF">.</span><span style="color: #795E26">map</span><span style="color: #000000FF">((</span><span style="color: #001080">post</span><span style="color: #000000FF">, </span><span style="color: #001080">index</span><span style="color: #000000FF">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> {</span>
+<span style="color: #000000FF">        </span><span style="color: #AF00DB">return</span><span style="color: #000000FF"> </span><span style="color: #800000">&lt;li</span><span style="color: #000000FF"> </span><span style="color: #FF0000">key</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #001080">index</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span><span style="color: #0000FF">{</span><span style="color: #001080">post</span><span style="color: #0000FF">}</span><span style="color: #800000">&lt;/li&gt;</span><span style="color: #000000FF">;</span>
+<span style="color: #000000FF">      })</span><span style="color: #0000FF">}</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;/ul&gt;</span>
 <span style="color: #000000">  );</span>
 <span style="color: #000000">};</span>
 
-<span style="color: #000000">export default Posts;</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #AF00DB">default</span><span style="color: #000000"> </span><span style="color: #001080">Posts</span><span style="color: #000000">;</span>
 </code></pre>
 				<p>For a more detailed example see how to <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token">create a <code>useApi</code> hook for accessing protected APIs with an access token</a>.</p>
 				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
@@ -287,7 +287,7 @@
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class=" ">
-						<a href="modules.html">Exports</a>
+						<a href="modules.html">Modules</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/auth0_context.html">auth0-<wbr>context</a>
