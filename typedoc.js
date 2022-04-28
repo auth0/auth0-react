@@ -1,17 +1,6 @@
 module.exports = {
   name: '@auth0/auth0-react',
   out: './docs/',
-  toc: [
-    'useAuth0',
-    'withAuth0',
-    'withAuthenticationRequired',
-    'Auth0Provider',
-    'Auth0Context',
-    'Auth0ProviderOptions',
-    'Auth0ContextInterface',
-    'WithAuth0Props',
-    'WithAuthenticationRequiredOptions',
-  ],
   exclude: ['./src/utils.tsx', './src/reducer.tsx', './src/auth-state.tsx'],
   excludeExternals: false,
   excludePrivate: true,
