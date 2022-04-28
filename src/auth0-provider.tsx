@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useMemo,
   useReducer,
+  useRef,
   useState,
 } from 'react';
 import {
@@ -240,8 +241,13 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     () => new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
+  const didInitialise = useRef(false);
 
   useEffect(() => {
+    if (didInitialise.current) {
+      return;
+    }
+    didInitialise.current = true;
     (async (): Promise<void> => {
       try {
         if (hasAuthParams() && !skipRedirectCallback) {

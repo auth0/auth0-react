@@ -133,19 +133,22 @@
         };
 
         return (
-          <Auth0Provider
-            domain={identityProvider.domain}
-            clientId={identityProvider.clientId}
-            redirectUri={window.location.origin}
-            useFormData={true}
-            key={identityProvider.domain}
-          >
-            <Playground onChangeIDP={changeIDP} />
-          </Auth0Provider>
+          <React.StrictMode>
+            <Auth0Provider
+              domain={identityProvider.domain}
+              clientId={identityProvider.clientId}
+              redirectUri={window.location.origin}
+              useFormData={true}
+              key={identityProvider.domain}
+            >
+              <Playground onChangeIDP={changeIDP} />
+            </Auth0Provider>
+          </React.StrictMode>
         );
       };
 
-      ReactDOM.render(<App />, document.getElementById('app'));
+      const root = ReactDOM.createRoot(document.getElementById('app'));
+      root.render(<App />);
     </script>
   </body>
 </html>
