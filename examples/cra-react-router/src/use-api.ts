@@ -31,7 +31,7 @@ export const useApi = (
           error: null,
           loading: false,
         });
-      } catch (error) {
+      } catch (error: any) {
         setState({
           ...state,
           error,

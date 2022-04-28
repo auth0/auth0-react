@@ -1,51 +1,59 @@
 # Examples
 
-1. [Protecting a route in a `react-router-dom` app](#1-protecting-a-route-in-a-react-router-dom-app)
+1. [Protecting a route in a `react-router-dom v6` app](#1-protecting-a-route-in-a-react-router-dom-app)
 2. [Protecting a route in a Gatsby app](#2-protecting-a-route-in-a-gatsby-app)
 3. [Protecting a route in a Next.js app (in SPA mode)](#3-protecting-a-route-in-a-nextjs-app-in-spa-mode)
 4. [Create a `useApi` hook for accessing protected APIs with an access token.](#4-create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token)
 5. [Use with Auth0 organizations](#5-use-with-auth0-organizations)
 
-## 1. Protecting a route in a `react-router-dom` app
+## 1. Protecting a route in a `react-router-dom v6` app
 
-So that we can access the router `history` outside of the `Router` component you need to [create your own history object](https://github.com/ReactTraining/react-router/blob/master/FAQ.md#how-do-i-access-the-history-object-outside-of-components). We can reference this object from the `Auth0Provider`'s `onRedirectCallback`.
+We need to access the `useNavigate` hook so we can use `navigate` in `onRedirectCallback` to return us to our `returnUrl`.
+
+In order to access `useNavigate` when defining our `Auth0Provider` we must nest it in `BrowserRouter` and use the navigate method from the hook in our `onRedirectCallback` config.
 
 We can then use the `withAuthenticationRequired` HOC (Higher Order Component) to create a `ProtectedRoute` component that redirects anonymous users to the login page, before returning them to the protected route:
 
 ```jsx
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
-import { createBrowserHistory } from 'history';
 import Profile from './Profile';
 
-export const history = createBrowserHistory();
+const ProtectedRoute = ({ component, ...args }) => {
+  const Component = withAuthenticationRequired(component, args);
+  return <Component />;
+};
 
-const ProtectedRoute = ({ component, ...args }) => (
-  <Route component={withAuthenticationRequired(component)} {...args} />
-);
-
-const onRedirectCallback = (appState) => {
-  // Use the router's history module to replace the url
-  history.replace(appState?.returnTo || window.location.pathname);
+const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
+  const navigate = useNavigate();
+  const onRedirectCallback = (appState) => {
+    navigate((appState && appState.returnTo) || window.location.pathname);
+  };
+  return (
+    <Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
+      {children}
+    </Auth0Provider>
+  );
 };
 
 export default function App() {
   return (
-    <Auth0Provider
-      domain="YOUR_AUTH0_DOMAIN"
-      clientId="YOUR_AUTH0_CLIENT_ID"
-      redirectUri={window.location.origin}
-      onRedirectCallback={onRedirectCallback}
-    >
-      {/* Don't forget to add the history to your router */}
-      <Router history={history}>
-        <Switch>
+    <BrowserRouter>
+      <Auth0ProviderWithRedirectCallback
+        domain="YOUR_AUTH0_DOMAIN"
+        clientId="YOUR_AUTH0_CLIENT_ID"
+        redirectUri={window.location.origin}
+      >
+        <Routes>
           <Route path="/" exact />
-          <ProtectedRoute path="/profile" component={Profile} />
-        </Switch>
-      </Router>
-    </Auth0Provider>
+          <Route
+            path="/profile"
+            element={<ProtectedRoute component={Profile} />}
+          />
+        </Routes>
+      </Auth0ProviderWithRedirectCallback>
+    </BrowserRouter>
   );
 }
 ```
@@ -230,10 +238,12 @@ export const Profile = () => {
     scope: 'read:users',
   };
   const { login, getAccessTokenWithPopup } = useAuth0();
-  const { loading, error, refresh, data: users } = useApi(
-    'https://api.example.com/users',
-    opts
-  );
+  const {
+    loading,
+    error,
+    refresh,
+    data: users,
+  } = useApi('https://api.example.com/users', opts);
   const getTokenAndTryAgain = async () => {
     await getAccessTokenWithPopup(opts);
     refresh();
