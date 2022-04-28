@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.10.1](https://github.com/auth0/auth0-react/tree/v1.10.1) (2022-04-28)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.10.0...v1.10.1)
+
+**Fixed**
+- Make sure handleRedirectCallback is only called once in StrictMode React 18 [\#355](https://github.com/auth0/auth0-react/pull/355) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v1.10.0](https://github.com/auth0/auth0-react/tree/v1.10.0) (2022-04-19)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v1.9.0...v1.10.0)
 
