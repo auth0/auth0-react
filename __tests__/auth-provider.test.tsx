@@ -1,5 +1,6 @@
-import { useContext } from 'react';
+import React, { StrictMode, useContext } from 'react';
 import Auth0Context from '../src/auth0-context';
+import { render, waitFor } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import {
   Auth0Client,
@@ -7,6 +8,7 @@ import {
 } from '@auth0/auth0-spa-js';
 import pkg from '../package.json';
 import { createWrapper } from './helpers';
+import { Auth0Provider } from '../src';
 
 const clientMock = jest.mocked(new Auth0Client({ client_id: '', domain: '' }));
 
@@ -853,5 +855,25 @@ describe('Auth0Provider', () => {
     rerender();
 
     expect(result.current).toBe(memoized);
+  });
+
+  it('should only handle redirect callback once', async () => {
+    window.history.pushState(
+      {},
+      document.title,
+      '/?code=__test_code__&state=__test_state__'
+    );
+    clientMock.handleRedirectCallback.mockResolvedValue({
+      appState: undefined,
+    });
+    render(
+      <StrictMode>
+        <Auth0Provider clientId="__test_client_id__" domain="__test_domain__" />
+      </StrictMode>
+    );
+    await waitFor(() => {
+      expect(clientMock.handleRedirectCallback).toHaveBeenCalledTimes(1);
+      expect(clientMock.getUser).toHaveBeenCalled();
+    });
   });
 });
