@@ -863,9 +863,6 @@ describe('Auth0Provider', () => {
       document.title,
       '/?code=__test_code__&state=__test_state__'
     );
-    expect(window.location.href).toBe(
-      'https://www.example.com/?code=__test_code__&state=__test_state__'
-    );
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: undefined,
     });
