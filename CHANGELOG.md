@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.10.2](https://github.com/auth0/auth0-react/tree/v1.10.2) (2022-06-22)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.10.1...v1.10.2)
+
+**Fixed**
+- Correctly extend Error for OAuthError [\#367](https://github.com/auth0/auth0-react/pull/367) ([mjbcopland](https://github.com/mjbcopland))
+
 ## [v1.10.1](https://github.com/auth0/auth0-react/tree/v1.10.1) (2022-04-28)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v1.10.0...v1.10.1)
 
