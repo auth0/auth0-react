@@ -102,6 +102,6 @@
     }
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.22.0"
+    "@auth0/auth0-spa-js": "^1.22.1"
   }
 }
