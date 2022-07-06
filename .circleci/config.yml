@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   ship: auth0/ship@0.1.0
+  codecov: codecov/codecov@3
 parameters:
   docker_image:
     type: string
@@ -33,7 +34,7 @@ jobs:
             if [ -z "$CIRCLE_PR_NUMBER" ]; then
               npm run test:integration
             fi
-      - run: npm run codecov
+      - codecov/upload
       - store_test_results:
           path: test-results
       - store_artifacts:
