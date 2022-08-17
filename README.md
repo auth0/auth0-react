@@ -157,27 +157,32 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Posts = () => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isLoading } = useAuth0();
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const token = await getAccessTokenSilently({
-          audience: 'https://api.example.com/',
-          scope: 'read:posts',
-        });
-        const response = await fetch('https://api.example.com/posts', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setPosts(await response.json());
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [getAccessTokenSilently]);
+    // Warning ⚠: you've to wait for the `isLoading` state to be `false` before invoking `getAccessTokenSilently`
+    // as it's gonna assume that the user isn't logged in when he's actually logged in but the SDK hasn't yet synced
+    // the authentication state so the call is gonna take 5-10 seconds to return back an access token.
+    if(!isLoading) {
+      (async () => {
+        try {
+          const token = await getAccessTokenSilently({
+            audience: 'https://api.example.com/',
+            scope: 'read:posts',
+          });
+          const response = await fetch('https://api.example.com/posts', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setPosts(await response.json());
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+    }
+  }, [getAccessTokenSilently, isLoading]);
 
   if (!posts) {
     return <div>Loading...</div>;
