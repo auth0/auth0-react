@@ -19,6 +19,7 @@ import {
   RedirectLoginResult,
   ICache,
   GetTokenSilentlyOptions,
+  User,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, { RedirectLoginOptions } from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
@@ -46,7 +47,7 @@ export interface Auth0ProviderOptions {
    * It uses `window.history` but you might want to overwrite this if you are using a custom router, like `react-router-dom`
    * See the EXAMPLES.md for more info.
    */
-  onRedirectCallback?: (appState?: AppState) => void;
+  onRedirectCallback?: (appState?: AppState, user?: User) => void;
   /**
    * By default, if the page url has code/state params, the SDK will treat them as Auth0's and attempt to exchange the
    * code for a token. In some cases the code might be for something else (another OAuth SDK perhaps). In these
@@ -250,13 +251,15 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     didInitialise.current = true;
     (async (): Promise<void> => {
       try {
+        let user: User | undefined;
         if (hasAuthParams() && !skipRedirectCallback) {
           const { appState } = await client.handleRedirectCallback();
-          onRedirectCallback(appState);
+          user = await client.getUser();
+          onRedirectCallback(appState, user);
         } else {
           await client.checkSession();
+          user = await client.getUser();
         }
-        const user = await client.getUser();
         dispatch({ type: 'INITIALISED', user });
       } catch (error) {
         dispatch({ type: 'ERROR', error: loginError(error) });

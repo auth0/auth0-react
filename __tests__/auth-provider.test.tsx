@@ -185,6 +185,8 @@ describe('Auth0Provider', () => {
       document.title,
       '/?code=__test_code__&state=__test_state__'
     );
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValue(user);
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: { foo: 'bar' },
     });
@@ -196,7 +198,7 @@ describe('Auth0Provider', () => {
       wrapper,
     });
     await waitForNextUpdate();
-    expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar' });
+    expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar' }, user);
   });
 
   it('should skip redirect callback for non auth0 redirect callback handlers', async () => {
