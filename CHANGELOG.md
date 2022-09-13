@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.11.0](https://github.com/auth0/auth0-react/tree/v1.11.0) (2022-09-13)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.10.2...v1.11.0)
+
+**Added**
+- Enrich onRedirectCallback method with User object (#400) [\#401](https://github.com/auth0/auth0-react/pull/401) ([devjmetivier](https://github.com/devjmetivier))
+
 ## [v1.10.2](https://github.com/auth0/auth0-react/tree/v1.10.2) (2022-06-22)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v1.10.1...v1.10.2)
 
