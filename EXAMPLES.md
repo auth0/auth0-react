@@ -139,7 +139,7 @@ class MyApp extends App {
       <Auth0Provider
         domain="YOUR_AUTH0_DOMAIN"
         clientId="YOUR_AUTH0_CLIENT_ID"
-        redirectUri={typeof window !== 'undefined' && window.location.origin}
+        redirectUri={typeof window !== 'undefined' ? window.location.origin : undefined}
         onRedirectCallback={onRedirectCallback}
       >
         <Component {...pageProps} />
