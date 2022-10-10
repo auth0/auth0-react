@@ -1,5 +1,8 @@
 import React, { StrictMode, useContext } from 'react';
-import Auth0Context from '../src/auth0-context';
+import Auth0Context, {
+  Auth0ContextInterface,
+  initialContext,
+} from '../src/auth0-context';
 import { render, waitFor } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import {
@@ -876,6 +879,34 @@ describe('Auth0Provider', () => {
     await waitFor(() => {
       expect(clientMock.handleRedirectCallback).toHaveBeenCalledTimes(1);
       expect(clientMock.getUser).toHaveBeenCalled();
+    });
+  });
+
+  it('should allow passing a custom context', async () => {
+    const context = React.createContext<Auth0ContextInterface>(initialContext);
+    clientMock.getIdTokenClaims.mockResolvedValue({
+      claim: '__test_claim__',
+      __raw: '__test_raw_token__',
+    });
+    const wrapper = createWrapper({ context });
+    // Test not associated with Auth0Context
+    const auth0ContextRender = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+
+    await expect(
+      auth0ContextRender.result.current.getIdTokenClaims
+    ).toThrowError('You forgot to wrap your component in <Auth0Provider>.');
+
+    const customContextRender = renderHook(() => useContext(context), {
+      wrapper,
+    });
+
+    const claims = await customContextRender.result.current.getIdTokenClaims();
+    expect(clientMock.getIdTokenClaims).toHaveBeenCalled();
+    expect(claims).toStrictEqual({
+      claim: '__test_claim__',
+      __raw: '__test_raw_token__',
     });
   });
 });

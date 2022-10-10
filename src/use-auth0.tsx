@@ -24,7 +24,9 @@ import Auth0Context, { Auth0ContextInterface } from './auth0-context';
  *
  * TUser is an optional type param to provide a type to the `user` field.
  */
-const useAuth0 = <TUser extends User = User>(): Auth0ContextInterface<TUser> =>
-  useContext(Auth0Context) as Auth0ContextInterface<TUser>;
+const useAuth0 = <TUser extends User = User>(
+  context = Auth0Context
+): Auth0ContextInterface<TUser> =>
+  useContext(context) as Auth0ContextInterface<TUser>;
 
-export default useAuth0;  
+export default useAuth0;

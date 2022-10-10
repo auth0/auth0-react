@@ -21,7 +21,10 @@ import {
   GetTokenSilentlyOptions,
   User,
 } from '@auth0/auth0-spa-js';
-import Auth0Context, { RedirectLoginOptions } from './auth0-context';
+import Auth0Context, {
+  Auth0ContextInterface,
+  RedirectLoginOptions,
+} from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
@@ -161,6 +164,14 @@ export interface Auth0ProviderOptions {
    */
   connection?: string;
   /**
+   * Context to be used when creating the Auth0Provider, defaults to the internally created context.
+   *
+   * This allows multiple Auth0Providers to be nested within the same application, the context value can then be
+   * passed to `useAuth0`, `withAuth0`, or `withAuthenticationRequired` to use that specific Auth0Provider to access
+   * auth state and methods specifically tied to the provider that the context belongs to.
+   */
+  context?: React.Context<Auth0ContextInterface>;
+  /**
    * If you need to send custom parameters to the Authorization Server,
    * make sure to use the original parameter name.
    */
@@ -236,6 +247,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     children,
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
+    context = Auth0Context,
     ...clientOpts
   } = opts;
   const [client] = useState(
@@ -403,11 +415,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     handleRedirectCallback,
   ]);
 
-  return (
-    <Auth0Context.Provider value={contextValue}>
-      {children}
-    </Auth0Context.Provider>
-  );
+  return <context.Provider value={contextValue}>{children}</context.Provider>;
 };
 
 export default Auth0Provider;
