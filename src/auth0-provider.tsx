@@ -167,8 +167,18 @@ export interface Auth0ProviderOptions {
    * Context to be used when creating the Auth0Provider, defaults to the internally created context.
    *
    * This allows multiple Auth0Providers to be nested within the same application, the context value can then be
-   * passed to `useAuth0`, `withAuth0`, or `withAuthenticationRequired` to use that specific Auth0Provider to access
+   * passed to useAuth0, withAuth0, or withAuthenticationRequired to use that specific Auth0Provider to access
    * auth state and methods specifically tied to the provider that the context belongs to.
+   *
+   * When using multiple Auth0Providers in a single application you should do the following to ensure sessions are not
+   * overwritten:
+   *
+   * * Configure a different redirect_uri for each Auth0Provider, and set skipRedirectCallback for each provider to ignore
+   * the others redirect_uri
+   * * If using localstorage for both Auth0Providers, ensure that the audience and scope are different for so that the key
+   * used to store data is different
+   *
+   * For a sample on using multiple Auth0Providers review the [React Account Linking Sample](https://github.com/auth0-samples/auth0-link-accounts-sample/tree/react-variant)
    */
   context?: React.Context<Auth0ContextInterface>;
   /**
