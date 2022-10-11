@@ -1,9 +1,10 @@
+import '@testing-library/jest-dom/extend-expect';
 import React, { StrictMode, useContext } from 'react';
 import Auth0Context, {
   Auth0ContextInterface,
   initialContext,
 } from '../src/auth0-context';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import {
   Auth0Client,
@@ -11,7 +12,7 @@ import {
 } from '@auth0/auth0-spa-js';
 import pkg from '../package.json';
 import { createWrapper } from './helpers';
-import { Auth0Provider } from '../src';
+import { Auth0Provider, useAuth0 } from '../src';
 
 const clientMock = jest.mocked(new Auth0Client({ client_id: '', domain: '' }));
 
@@ -908,5 +909,35 @@ describe('Auth0Provider', () => {
       claim: '__test_claim__',
       __raw: '__test_raw_token__',
     });
+  });
+
+  it('should allow nesting providers', async () => {
+    // Calls happen up the tree, i.e the nested Auth0Provider will get undefined and the top level will get a return value
+    clientMock.getUser.mockResolvedValueOnce({ name: '__custom_user__' });
+    clientMock.getUser.mockResolvedValueOnce({ name: '__main_user__' });
+    const context = React.createContext<Auth0ContextInterface>(initialContext);
+
+    const MyComponent = () => {
+      const { user } = useAuth0(context);
+      return <div>{user?.name}</div>;
+    };
+
+    await act(() => {
+      render(
+        <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+          <Auth0Provider
+            clientId="__test_client_id__"
+            domain="__test_domain__"
+            context={context}
+          >
+            <MyComponent />
+          </Auth0Provider>
+        </Auth0Provider>
+      );
+    });
+
+    expect(clientMock.getUser).toHaveBeenCalledTimes(2);
+    expect(screen.queryByText('__custom_user__')).toBeInTheDocument();
+    expect(screen.queryByText('__main_user__')).not.toBeInTheDocument();
   });
 });

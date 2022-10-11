@@ -36,4 +36,16 @@ describe('useAuth0', () => {
       );
     });
   });
+
+  it('should accept custom auth context', async () => {
+    const context = React.createContext<Auth0ContextInterface>(initialContext);
+    const wrapper = createWrapper({ context });
+    const {
+      result: { current },
+      waitForNextUpdate,
+    } = renderHook(() => useAuth0(context), { wrapper });
+    await waitForNextUpdate();
+    expect(current).toBeDefined();
+    expect(current.loginWithRedirect).not.toThrowError();
+  });
 });

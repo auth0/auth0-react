@@ -7,7 +7,7 @@ import Auth0Provider from '../src/auth0-provider';
 import { Auth0ContextInterface, initialContext } from '../src/auth0-context';
 
 const mockClient = jest.mocked(new Auth0Client({ client_id: '', domain: '' }));
-jest.setTimeout(999999);
+
 describe('withAuthenticationRequired', () => {
   it('should block access to a private component when not authenticated', async () => {
     mockClient.getUser.mockResolvedValue(undefined);
@@ -221,8 +221,8 @@ describe('withAuthenticationRequired', () => {
     );
   });
 
-  it('should provide access depending when the provider associated with the context is authenticated', async () => {
-    // Calls happen up the tree, i.e the first Auth0Provider will get a return value and the second will get undefined
+  it('should provide access when the provider associated with the context is authenticated', async () => {
+    // Calls happen up the tree, i.e the nested Auth0Provider will get a return value and the top level will get undefined
     mockClient.getUser.mockResolvedValueOnce({ name: '__test_user__' });
     mockClient.getUser.mockResolvedValueOnce(undefined);
     const context = React.createContext<Auth0ContextInterface>(initialContext);
@@ -252,8 +252,8 @@ describe('withAuthenticationRequired', () => {
     expect(screen.queryByText('Private')).toBeInTheDocument();
   });
 
-  it('should block access depending when the provider associated with the context is not authenticated', async () => {
-    // Calls happen up the tree, i.e the first Auth0Provider will get undefined and the second will get a return value
+  it('should block access when the provider associated with the context is not authenticated', async () => {
+    // Calls happen up the tree, i.e the nested Auth0Provider will get undefined and the top level will get a return value
     mockClient.getUser.mockResolvedValueOnce(undefined);
     mockClient.getUser.mockResolvedValueOnce({ name: '__test_user__' });
     const context = React.createContext<Auth0ContextInterface>(initialContext);
