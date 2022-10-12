@@ -12,6 +12,7 @@ export {
 export {
   default as Auth0Context,
   Auth0ContextInterface,
+  initialContext,
   RedirectLoginOptions,
 } from './auth0-context';
 export {

@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import withAuthenticationRequired from '../src/with-authentication-required';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import { Auth0Client, User } from '@auth0/auth0-spa-js';
 import Auth0Provider from '../src/auth0-provider';
+import { Auth0ContextInterface, initialContext } from '../src/auth0-context';
 
 const mockClient = jest.mocked(new Auth0Client({ client_id: '', domain: '' }));
 
@@ -218,5 +219,67 @@ describe('withAuthenticationRequired', () => {
     await waitFor(() =>
       expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
     );
+  });
+
+  it('should provide access when the provider associated with the context is authenticated', async () => {
+    // Calls happen up the tree, i.e the nested Auth0Provider will get a return value and the top level will get undefined
+    mockClient.getUser.mockResolvedValueOnce({ name: '__test_user__' });
+    mockClient.getUser.mockResolvedValueOnce(undefined);
+    const context = React.createContext<Auth0ContextInterface>(initialContext);
+    const MyComponent = (): JSX.Element => <>Private</>;
+    const WrappedComponent = withAuthenticationRequired(MyComponent, {
+      context,
+    });
+    await act(() => {
+      render(
+        <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+          <Auth0Provider
+            clientId="__test_client_id__"
+            domain="__test_domain__"
+            context={context}
+          >
+            <WrappedComponent />
+          </Auth0Provider>
+        </Auth0Provider>
+      );
+    });
+
+    await waitFor(() =>
+      expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
+    );
+    // There should be one call per provider
+    expect(mockClient.getUser).toHaveBeenCalledTimes(2);
+    expect(screen.queryByText('Private')).toBeInTheDocument();
+  });
+
+  it('should block access when the provider associated with the context is not authenticated', async () => {
+    // Calls happen up the tree, i.e the nested Auth0Provider will get undefined and the top level will get a return value
+    mockClient.getUser.mockResolvedValueOnce(undefined);
+    mockClient.getUser.mockResolvedValueOnce({ name: '__test_user__' });
+    const context = React.createContext<Auth0ContextInterface>(initialContext);
+    const MyComponent = (): JSX.Element => <>Private</>;
+    const WrappedComponent = withAuthenticationRequired(MyComponent, {
+      context,
+    });
+    await act(() => {
+      render(
+        <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+          <Auth0Provider
+            clientId="__test_client_id__"
+            domain="__test_domain__"
+            context={context}
+          >
+            <WrappedComponent />
+          </Auth0Provider>
+        </Auth0Provider>
+      );
+    });
+
+    await waitFor(() =>
+      expect(mockClient.loginWithRedirect).toHaveBeenCalled()
+    );
+    // There should be one call per provider
+    expect(mockClient.getUser).toHaveBeenCalledTimes(2);
+    expect(screen.queryByText('Private')).not.toBeInTheDocument();
   });
 });

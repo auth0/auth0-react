@@ -21,7 +21,10 @@ import {
   GetTokenSilentlyOptions,
   User,
 } from '@auth0/auth0-spa-js';
-import Auth0Context, { RedirectLoginOptions } from './auth0-context';
+import Auth0Context, {
+  Auth0ContextInterface,
+  RedirectLoginOptions,
+} from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
@@ -161,6 +164,24 @@ export interface Auth0ProviderOptions {
    */
   connection?: string;
   /**
+   * Context to be used when creating the Auth0Provider, defaults to the internally created context.
+   *
+   * This allows multiple Auth0Providers to be nested within the same application, the context value can then be
+   * passed to useAuth0, withAuth0, or withAuthenticationRequired to use that specific Auth0Provider to access
+   * auth state and methods specifically tied to the provider that the context belongs to.
+   *
+   * When using multiple Auth0Providers in a single application you should do the following to ensure sessions are not
+   * overwritten:
+   *
+   * * Configure a different redirect_uri for each Auth0Provider, and set skipRedirectCallback for each provider to ignore
+   * the others redirect_uri
+   * * If using localstorage for both Auth0Providers, ensure that the audience and scope are different for so that the key
+   * used to store data is different
+   *
+   * For a sample on using multiple Auth0Providers review the [React Account Linking Sample](https://github.com/auth0-samples/auth0-link-accounts-sample/tree/react-variant)
+   */
+  context?: React.Context<Auth0ContextInterface>;
+  /**
    * If you need to send custom parameters to the Authorization Server,
    * make sure to use the original parameter name.
    */
@@ -236,6 +257,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     children,
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
+    context = Auth0Context,
     ...clientOpts
   } = opts;
   const [client] = useState(
@@ -403,11 +425,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     handleRedirectCallback,
   ]);
 
-  return (
-    <Auth0Context.Provider value={contextValue}>
-      {children}
-    </Auth0Context.Provider>
-  );
+  return <context.Provider value={contextValue}>{children}</context.Provider>;
 };
 
 export default Auth0Provider;

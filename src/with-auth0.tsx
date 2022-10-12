@@ -21,18 +21,22 @@ export interface WithAuth0Props {
  * export default withAuth0(MyComponent);
  * ```
  *
- * Wrap your class components in this Higher Order Component to give them access to the Auth0Context
+ * Wrap your class components in this Higher Order Component to give them access to the Auth0Context.
+ *
+ * Providing a context as the second argument allows you to configure the Auth0Provider the Auth0Context
+ * should come from f you have multiple within your application.
  */
 const withAuth0 = <P extends WithAuth0Props>(
-  Component: ComponentType<P>
+  Component: ComponentType<P>,
+  context = Auth0Context
 ): ComponentType<Omit<P, keyof WithAuth0Props>> => {
   return function WithAuth(props): JSX.Element {
     return (
-      <Auth0Context.Consumer>
+      <context.Consumer>
         {(auth: Auth0ContextInterface): JSX.Element => (
           <Component {...(props as P)} auth0={auth} />
         )}
-      </Auth0Context.Consumer>
+      </context.Consumer>
     );
   };
 };

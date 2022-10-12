@@ -66,9 +66,9 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * the `auth0` cookie.
    */
   getAccessTokenSilently: {
-    (options: GetTokenSilentlyOptions & { detailedResponse: true }): Promise<
-      GetTokenSilentlyVerboseResponse
-    >;
+    (
+      options: GetTokenSilentlyOptions & { detailedResponse: true }
+    ): Promise<GetTokenSilentlyVerboseResponse>;
     (options?: GetTokenSilentlyOptions): Promise<string>;
     (options: GetTokenSilentlyOptions): Promise<
       GetTokenSilentlyVerboseResponse | string
@@ -190,7 +190,7 @@ const stub = (): never => {
 /**
  * @ignore
  */
-const initialContext = {
+export const initialContext = {
   ...initialAuthState,
   buildAuthorizeUrl: stub,
   buildLogoutUrl: stub,
