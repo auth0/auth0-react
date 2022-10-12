@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.12.0](https://github.com/auth0/auth0-react/tree/v1.12.0) (2022-10-12)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.11.0...v1.12.0)
+
+**Added**
+- [SDK-3666] Support multiple providers [\#416](https://github.com/auth0/auth0-react/pull/416) ([ewanharris](https://github.com/ewanharris))
+
 ## [v1.11.0](https://github.com/auth0/auth0-react/tree/v1.11.0) (2022-09-13)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v1.10.2...v1.11.0)
 
