@@ -3,7 +3,7 @@
 - [Use with a Class Component](#use-with-a-class-component)
 - [Protect a Route](#protect-a-route)
 - [Call an API](#call-an-api)
-- [Protecting a route in a `react-router-dom v6` app](#protecting-a-route-in-a-react-router-dom-app)
+- [Protecting a route in a `react-router-dom v6` app](#protecting-a-route-in-a-react-router-dom-v6-app)
 - [Protecting a route in a Gatsby app](#protecting-a-route-in-a-gatsby-app)
 - [Protecting a route in a Next.js app (in SPA mode)](#protecting-a-route-in-a-nextjs-app-in-spa-mode)
 - [Create a `useApi` hook for accessing protected APIs with an access token.](#create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token)
