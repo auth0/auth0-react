@@ -116,6 +116,16 @@ export default App;
 
 For more code samples on how to integrate the **auth0-react** SDK in your **React** application, have a look at our [examples](./EXAMPLES.md).
 
+## API reference
+
+Explore public API's available in auth0-react.
+
+- [Auth0Provider](https://auth0.github.io/auth0-react/modules.html#Auth0Provider)
+- [Auth0ProviderOptions](https://auth0.github.io/auth0-react/interfaces/Auth0ProviderOptions.html)
+- [useAuth0](https://auth0.github.io/auth0-react/modules.html#useAuth0)
+- [withAuth0](https://auth0.github.io/auth0-react/modules.html#withAuth0)
+- [withAuthenticationRequired](https://auth0.github.io/auth0-react/modules.html#withAuthenticationRequired)
+
 ## Feedback
 
 ### Contributing
