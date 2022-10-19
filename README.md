@@ -8,14 +8,14 @@ Auth0 SDK for React Single Page Applications (SPA).
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=master&style=flat)](https://circleci.com/gh/auth0/auth0-react)
 
-:books: [Documentation](#documentation) - :rocket: [Getting Started](#getting-started) - :computer: [API Reference](#api-reference) - :speech_balloon: [Feedback](#feedback)
+📚 [Documentation](#documentation) - 🚀 [Getting Started](#getting-started) - 💻 [API Reference](#api-reference) - 💬 [Feedback](#feedback)
 
 ## Documentation
 
 - [Quickstart](https://auth0.com/docs/quickstart/spa/react) - our interactive guide for quickly adding login, logout and user information to a React app using Auth0.
 - [Sample App](https://github.com/auth0-samples/auth0-react-samples/tree/master/Sample-01) - a full-fledged React application integrated with Auth0.
-- [FAQs](./FAQ.md) - frequently asked questions about the auth0-react SDK.
-- [Examples](./EXAMPLES.md) - code samples for common React authentication scenario's.
+- [FAQs](https://github.com/auth0/auth0-react/blob/master/FAQ.md) - frequently asked questions about the auth0-react SDK.
+- [Examples](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md) - code samples for common React authentication scenario's.
 - [Docs site](https://www.auth0.com/docs) - explore our docs site and learn more about Auth0.
 
 ## Getting started
@@ -114,7 +114,7 @@ function App() {
 export default App;
 ```
 
-For more code samples on how to integrate the **auth0-react** SDK in your **React** application, have a look at our [examples](./EXAMPLES.md).
+For more code samples on how to integrate the **auth0-react** SDK in your **React** application, have a look at our [examples](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md).
 
 ## API reference
 
@@ -148,9 +148,9 @@ Please do not report security vulnerabilities on the public GitHub issue tracker
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: light)" srcset="./auth0_light_mode.png"   width="150">
-    <source media="(prefers-color-scheme: dark)" srcset="./auth0_dark_mode.png" width="150">
-    <img alt="Auth0 Logo" src="./auth0_light_mode.png" width="150">
+    <source media="(prefers-color-scheme: light)" srcset="https://cdn.auth0.com/website/sdks/logos/auth0_light_mode.png"   width="150">
+    <source media="(prefers-color-scheme: dark)" srcset="https://cdn.auth0.com/website/sdks/logos/auth0_dark_mode.png" width="150">
+    <img alt="Auth0 Logo" src="https://cdn.auth0.com/website/sdks/logos/auth0_light_mode.png" width="150">
   </picture>
 </p>
 <p align="center">Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a></p>
