@@ -112,7 +112,7 @@ function App() {
 export default App;
 ```
 
-For more code samples on how to integrate the **auth0-react** SDK in your **React** application, have a look at our [examples](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md).
+For more code samples on how to integrate **auth0-react** SDK in your **React** application, have a look at our [examples](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md).
 
 ## API reference
 
