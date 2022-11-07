@@ -7,6 +7,7 @@ import { Nav } from '../components/Nav';
 import '../components/App.css';
 
 const onRedirectCallback = (appState) => {
+  console.log(appState)
   Router.replace(appState?.returnTo || '/');
 };
 

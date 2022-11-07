@@ -41,6 +41,15 @@ export function Nav() {
               Users
             </a>
           </Link>
+          <Link href="/test-page">
+            <a
+              className={`nav-item nav-link${
+                pathname === '/test-page' ? ' active' : ''
+              }`}
+            >
+              Test Page
+            </a>
+          </Link>
         </div>
       </div>
 
@@ -59,7 +68,7 @@ export function Nav() {
         <button
           className="btn btn-outline-success"
           id="login"
-          onClick={() => loginWithRedirect()}
+          onClick={() => loginWithRedirect({ appState: { returnTo: pathname } })}
         >
           login
         </button>
