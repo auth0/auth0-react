@@ -17,10 +17,12 @@ class MyApp extends App {
       <Auth0Provider
         domain={process.env.NEXT_PUBLIC_DOMAIN}
         clientId={process.env.NEXT_PUBLIC_CLIENT_ID}
-        audience={process.env.NEXT_PUBLIC_AUDIENCE}
-        scope="read:users"
-        redirectUri={typeof window !== 'undefined' && window.location.origin}
         onRedirectCallback={onRedirectCallback}
+        authorizationParams={{
+          scope: 'profile email read:users',
+          audience: process.env.NEXT_PUBLIC_AUDIENCE,
+          redirect_uri: typeof window !== 'undefined' && window.location.origin,
+        }}
       >
         <Head>
           <link

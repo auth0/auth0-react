@@ -28,9 +28,11 @@ ReactDOM.render(
       <Auth0ProviderWithRedirectCallback
         domain={process.env.REACT_APP_DOMAIN}
         clientId={process.env.REACT_APP_CLIENT_ID}
-        redirectUri={window.location.origin}
-        audience={process.env.REACT_APP_AUDIENCE}
-        scope="read:users"
+        authorizationParams={{
+          audience: process.env.REACT_APP_AUDIENCE,
+          scope: 'profile email read:users',
+          redirect_uri: window.location.origin,
+        }}
       >
         <App />
       </Auth0ProviderWithRedirectCallback>
