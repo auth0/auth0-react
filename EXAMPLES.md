@@ -62,8 +62,10 @@ const Posts = () => {
     (async () => {
       try {
         const token = await getAccessTokenSilently({
-          audience: 'https://api.example.com/',
-          scope: 'read:posts',
+          authorizationParams: {
+            audience: 'https://api.example.com/',
+            scope: 'read:posts',
+          },
         });
         const response = await fetch('https://api.example.com/posts', {
           headers: {
@@ -72,6 +74,7 @@ const Posts = () => {
         });
         setPosts(await response.json());
       } catch (e) {
+        // Handle errors such as `login_required` and `consent_required` by re-prompting for a login
         console.error(e);
       }
     })();
@@ -132,7 +135,9 @@ export default function App() {
       <Auth0ProviderWithRedirectCallback
         domain="YOUR_AUTH0_DOMAIN"
         clientId="YOUR_AUTH0_CLIENT_ID"
-        redirectUri={window.location.origin}
+        authorizationParams={{
+          redirect_uri: window.location.origin,
+        }}
       >
         <Routes>
           <Route path="/" exact />
@@ -171,8 +176,10 @@ export const wrapRootElement = ({ element }) => {
     <Auth0Provider
       domain="YOUR_AUTH0_DOMAIN"
       clientId="YOUR_AUTH0_CLIENT_ID"
-      redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
     >
       {element}
     </Auth0Provider>
@@ -228,10 +235,11 @@ class MyApp extends App {
       <Auth0Provider
         domain="YOUR_AUTH0_DOMAIN"
         clientId="YOUR_AUTH0_CLIENT_ID"
-        redirectUri={
-          typeof window !== 'undefined' ? window.location.origin : undefined
-        }
         onRedirectCallback={onRedirectCallback}
+        authorizationParams={{
+          redirect_uri:
+            typeof window !== 'undefined' ? window.location.origin : undefined,
+        }}
       >
         <Component {...pageProps} />
       </Auth0Provider>
@@ -265,104 +273,6 @@ export default withAuthenticationRequired(Profile);
 
 See [Next.js example app](./examples/nextjs-app)
 
-## Create a `useApi` hook for accessing protected APIs with an access token.
-
-```js
-// use-api.js
-import { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-
-export const useApi = (url, options = {}) => {
-  const { getAccessTokenSilently } = useAuth0();
-  const [state, setState] = useState({
-    error: null,
-    loading: true,
-    data: null,
-  });
-  const [refreshIndex, setRefreshIndex] = useState(0);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { audience, scope, ...fetchOptions } = options;
-        const accessToken = await getAccessTokenSilently({ audience, scope });
-        const res = await fetch(url, {
-          ...fetchOptions,
-          headers: {
-            ...fetchOptions.headers,
-            // Add the Authorization header to the existing headers
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setState({
-          ...state,
-          data: await res.json(),
-          error: null,
-          loading: false,
-        });
-      } catch (error) {
-        setState({
-          ...state,
-          error,
-          loading: false,
-        });
-      }
-    })();
-  }, [refreshIndex]);
-
-  return {
-    ...state,
-    refresh: () => setRefreshIndex(refreshIndex + 1),
-  };
-};
-```
-
-Then use it for accessing protected APIs from your components:
-
-```jsx
-// users.js
-import { useApi } from './use-api';
-
-export const Profile = () => {
-  const opts = {
-    audience: 'https://api.example.com/',
-    scope: 'read:users',
-  };
-  const { login, getAccessTokenWithPopup } = useAuth0();
-  const {
-    loading,
-    error,
-    refresh,
-    data: users,
-  } = useApi('https://api.example.com/users', opts);
-  const getTokenAndTryAgain = async () => {
-    await getAccessTokenWithPopup(opts);
-    refresh();
-  };
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    if (error.error === 'login_required') {
-      return <button onClick={() => login(opts)}>Login</button>;
-    }
-    if (error.error === 'consent_required') {
-      return (
-        <button onClick={getTokenAndTryAgain}>Consent to reading users</button>
-      );
-    }
-    return <div>Oops {error.message}</div>;
-  }
-  return (
-    <ul>
-      {users.map((user, index) => {
-        return <li key={index}>{user}</li>;
-      })}
-    </ul>
-  );
-};
-```
-
 ## Use with Auth0 organizations
 
 [Organizations](https://auth0.com/docs/organizations) is a set of features that provide better support for developers who build and maintain SaaS and Business-to-Business (B2B) applications. Note that Organizations is currently only available to customers on our Enterprise and Startup subscription plans.
@@ -375,8 +285,10 @@ ReactDOM.render(
     <Auth0Provider
       domain="YOUR_AUTH0_DOMAIN"
       clientId="YOUR_AUTH0_CLIENT_ID"
-      redirectUri={window.location.origin}
       organization="YOUR_ORGANIZATION_ID"
+      authorizationParams={{
+        redirectUri: window.location.origin,
+      }}
     >
       <App />
     </Auth0Provider>
