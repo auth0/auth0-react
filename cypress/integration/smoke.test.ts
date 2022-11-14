@@ -32,6 +32,7 @@ describe('Smoke tests', () => {
     loginToAuth0();
 
     cy.url().should('include', '/users');
+    cy.waitUntil(() => cy.get('#logout'));
     cy.get('#logout').click();
   });
 
@@ -39,6 +40,7 @@ describe('Smoke tests', () => {
     cy.visit('/users');
 
     loginToAuth0();
+    cy.waitUntil(() => cy.get('#logout'));
 
     cy.get('table').contains('bob@example.com');
     cy.get('#logout').click();
