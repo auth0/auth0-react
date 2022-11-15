@@ -10,6 +10,7 @@ jobs:
   build:
     docker:
       - image: << pipeline.parameters.docker_image >>
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
