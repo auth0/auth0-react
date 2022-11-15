@@ -1,5 +1,5 @@
-import { useApi } from '../hooks/use-api';
 import React from 'react';
+import { useApi } from '../hooks/use-api';
 import { Loading } from './Loading';
 import { Error } from './Error';
 

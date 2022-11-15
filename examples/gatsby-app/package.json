@@ -5,19 +5,10 @@
   "version": "0.1.0",
   "dependencies": {
     "@auth0/auth0-react": "file:../..",
-    "bootstrap": "^4.5.0",
-    "gatsby": "^2.22.15",
-    "gatsby-image": "^2.4.5",
-    "gatsby-plugin-create-client-paths": "^2.3.4",
-    "gatsby-plugin-manifest": "^2.4.9",
-    "gatsby-plugin-offline": "^3.2.7",
-    "gatsby-plugin-react-helmet": "^3.3.2",
-    "gatsby-source-filesystem": "^2.3.8",
-    "gatsby-transformer-sharp": "^2.5.3",
-    "prop-types": "^15.7.2",
+    "bootstrap": "^5.0.0",
+    "gatsby": "^5.0.1",
     "react": "file:../../node_modules/react",
-    "react-dom": "file:../../node_modules/react-dom",
-    "react-helmet": "^6.0.0"
+    "react-dom": "file:../../node_modules/react-dom"
   },
   "devDependencies": {
     "prettier": "2.0.5"

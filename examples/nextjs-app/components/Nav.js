@@ -18,23 +18,19 @@ export function Nav() {
       <span className="navbar-brand">@auth0/auth0-react</span>
       <div className="collapse navbar-collapse">
         <div className="navbar-nav">
-          <Link href="/">
-            <a
-              className={`nav-item nav-link${
-                pathname === '/' ? ' active' : ''
-              }`}
-            >
-              Home
-            </a>
+          <Link
+            href="/"
+            className={`nav-item nav-link${pathname === '/' ? ' active' : ''}`}
+          >
+            Home
           </Link>
-          <Link href="/users">
-            <a
-              className={`nav-item nav-link${
-                pathname === '/users' ? ' active' : ''
-              }`}
-            >
-              Users
-            </a>
+          <Link
+            href="/users"
+            className={`nav-item nav-link${
+              pathname === '/users' ? ' active' : ''
+            }`}
+          >
+            Users
           </Link>
         </div>
       </div>
