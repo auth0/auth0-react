@@ -5,7 +5,7 @@
   "viewportHeight": 1000,
   "fixturesFolder": false,
   "pluginsFile": false,
-  "supportFile": "cypress/support/commands.ts",
+  "supportFile": false,
   "reporter": "junit",
   "reporterOptions": {
     "mochaFile": "test-results/cypress/junit-[hash].xml"
