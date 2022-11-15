@@ -1,40 +1,17 @@
 import {
-  BaseLoginOptions,
-  GetIdTokenClaimsOptions,
   GetTokenSilentlyOptions,
   GetTokenWithPopupOptions,
   IdToken,
   LogoutOptions,
-  LogoutUrlOptions,
   PopupLoginOptions,
   PopupConfigOptions,
-  RedirectLoginOptions as Auth0RedirectLoginOptions,
   RedirectLoginResult,
   User,
   GetTokenSilentlyVerboseResponse,
+  RedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
-
-export interface RedirectLoginOptions extends BaseLoginOptions {
-  /**
-   * The URL where Auth0 will redirect your browser to with
-   * the authentication result. It must be whitelisted in
-   * the "Allowed Callback URLs" field in your Auth0 Application's
-   * settings.
-   */
-  redirectUri?: string;
-
-  /**
-   * Used to store state before doing the redirect
-   */
-  appState?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-
-  /**
-   * Used to add to the URL fragment before redirecting
-   */
-  fragment?: string;
-}
 
 /**
  * Contains the authenticated state and authentication methods provided by the `useAuth0` hook.
@@ -90,7 +67,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
   getAccessTokenWithPopup: (
     options?: GetTokenWithPopupOptions,
     config?: PopupConfigOptions
-  ) => Promise<string>;
+  ) => Promise<string | undefined>;
 
   /**
    * ```js
@@ -99,9 +76,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * Returns all claims from the id_token if available.
    */
-  getIdTokenClaims: (
-    options?: GetIdTokenClaimsOptions
-  ) => Promise<IdToken | undefined>;
+  getIdTokenClaims: () => Promise<IdToken | undefined>;
 
   /**
    * ```js
@@ -140,34 +115,10 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * Clears the application session and performs a redirect to `/v2/logout`, using
    * the parameters provided as arguments, to clear the Auth0 session.
-   * If the `federated` option is specified, it also clears the Identity Provider session.
-   * If the `localOnly` option is specified, it only clears the application session.
-   * It is invalid to set both the `federated` and `localOnly` options to `true`,
-   * and an error will be thrown if you do.
+   * If the `logoutParams.federated` option is specified, it also clears the Identity Provider session.
    * [Read more about how Logout works at Auth0](https://auth0.com/docs/logout).
    */
   logout: (options?: LogoutOptions) => void;
-
-  /**
-   * ```js
-   * const authUrl = await buildAuthorizeUrl();
-   * ```
-   *
-   * Builds an `/authorize` URL for loginWithRedirect using the parameters
-   * provided as arguments. Random and secure `state` and `nonce`
-   * parameters will be auto-generated.
-   */
-  buildAuthorizeUrl: (options?: Auth0RedirectLoginOptions) => Promise<string>;
-
-  /**
-   * ```js
-   * const logoutUrl = buildLogoutUrl();
-   * ```
-   *
-   * returns a URL to the logout endpoint using the parameters provided as arguments.
-   * @param options
-   */
-  buildLogoutUrl: (options?: LogoutUrlOptions) => string;
 
   /**
    * After the browser redirects back to the callback page,

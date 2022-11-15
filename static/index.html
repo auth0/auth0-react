@@ -137,9 +137,10 @@
             <Auth0Provider
               domain={identityProvider.domain}
               clientId={identityProvider.clientId}
-              redirectUri={window.location.origin}
-              useFormData={true}
               key={identityProvider.domain}
+              authorizationParams={{
+                redirect_uri: window.location.origin,
+              }}
             >
               <Playground onChangeIDP={changeIDP} />
             </Auth0Provider>

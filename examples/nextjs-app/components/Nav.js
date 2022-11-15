@@ -5,13 +5,8 @@ import { useRouter } from 'next/router';
 import { Loading } from './Loading';
 
 export function Nav() {
-  const {
-    isAuthenticated,
-    isLoading,
-    user,
-    loginWithRedirect,
-    logout,
-  } = useAuth0();
+  const { isAuthenticated, isLoading, user, loginWithRedirect, logout } =
+    useAuth0();
   const { pathname } = useRouter();
 
   if (isLoading) {
@@ -50,7 +45,9 @@ export function Nav() {
           <button
             className="btn btn-outline-secondary"
             id="logout"
-            onClick={() => logout({ returnTo: window.location.origin })}
+            onClick={() =>
+              logout({ logoutParams: { returnTo: window.location.origin } })
+            }
           >
             logout
           </button>

@@ -9,22 +9,16 @@ import React, {
 import {
   Auth0Client,
   Auth0ClientOptions,
-  CacheLocation,
   LogoutOptions,
-  LogoutUrlOptions,
   PopupLoginOptions,
   PopupConfigOptions,
-  RedirectLoginOptions as Auth0RedirectLoginOptions,
+  RedirectLoginOptions,
   GetTokenWithPopupOptions,
   RedirectLoginResult,
-  ICache,
   GetTokenSilentlyOptions,
   User,
 } from '@auth0/auth0-spa-js';
-import Auth0Context, {
-  Auth0ContextInterface,
-  RedirectLoginOptions,
-} from './auth0-context';
+import Auth0Context, { Auth0ContextInterface } from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
@@ -40,7 +34,7 @@ export type AppState = {
 /**
  * The main configuration to instantiate the `Auth0Provider`.
  */
-export interface Auth0ProviderOptions {
+export interface Auth0ProviderOptions extends Auth0ClientOptions {
   /**
    * The child nodes your Provider has wrapped
    */
@@ -66,104 +60,6 @@ export interface Auth0ProviderOptions {
    */
   skipRedirectCallback?: boolean;
   /**
-   * Your Auth0 account domain such as `'example.auth0.com'`,
-   * `'example.eu.auth0.com'` or , `'example.mycompany.com'`
-   * (when using [custom domains](https://auth0.com/docs/custom-domains))
-   */
-  domain: string;
-  /**
-   * The issuer to be used for validation of JWTs, optionally defaults to the domain above
-   */
-  issuer?: string;
-  /**
-   * The Client ID found on your Application settings page
-   */
-  clientId: string;
-  /**
-   * The default URL where Auth0 will redirect your browser to with
-   * the authentication result. It must be whitelisted in
-   * the "Allowed Callback URLs" field in your Auth0 Application's
-   * settings. If not provided here, it should be provided in the other
-   * methods that provide authentication.
-   */
-  redirectUri?: string;
-  /**
-   * The value in seconds used to account for clock skew in JWT expirations.
-   * Typically, this value is no more than a minute or two at maximum.
-   * Defaults to 60s.
-   */
-  leeway?: number;
-  /**
-   * The location to use when storing cache data. Valid values are `memory` or `localstorage`.
-   * The default setting is `memory`.
-   *
-   * Read more about [changing storage options in the Auth0 docs](https://auth0.com/docs/libraries/auth0-single-page-app-sdk#change-storage-options)
-   */
-  cacheLocation?: CacheLocation;
-  /**
-   * Specify a custom cache implementation to use for token storage and retrieval. This setting takes precedence over `cacheLocation` if they are both specified.
-   *
-   * Read more about [creating a custom cache](https://github.com/auth0/auth0-spa-js#creating-a-custom-cache)
-   */
-  cache?: ICache;
-  /**
-   * If true, refresh tokens are used to fetch new access tokens from the Auth0 server. If false, the legacy technique of using a hidden iframe and the `authorization_code` grant with `prompt=none` is used.
-   * The default setting is `false`.
-   *
-   * **Note**: Use of refresh tokens must be enabled by an administrator on your Auth0 client application.
-   */
-  useRefreshTokens?: boolean;
-  /**
-   * A maximum number of seconds to wait before declaring background calls to /authorize as failed for timeout
-   * Defaults to 60s.
-   */
-  authorizeTimeoutInSeconds?: number;
-  /**
-   * Changes to recommended defaults, like defaultScope
-   */
-  advancedOptions?: {
-    /**
-     * The default scope to be included with all requests.
-     * If not provided, 'openid profile email' is used. This can be set to `null` in order to effectively remove the default scopes.
-     *
-     * Note: The `openid` scope is **always applied** regardless of this setting.
-     */
-    defaultScope?: string;
-  };
-  /**
-   * Maximum allowable elapsed time (in seconds) since authentication.
-   * If the last time the user authenticated is greater than this value,
-   * the user must be reauthenticated.
-   */
-  maxAge?: string | number;
-  /**
-   * The default scope to be used on authentication requests.
-   * The defaultScope defined in the Auth0Client is included
-   * along with this scope
-   */
-  scope?: string;
-  /**
-   * The default audience to be used for requesting API access.
-   */
-  audience?: string;
-  /**
-   * The Id of an organization to log in to.
-   *
-   * This will specify an `organization` parameter in your user's login request and will add a step to validate
-   * the `org_id` claim in your user's ID Token.
-   */
-  organization?: string;
-  /**
-   * The Id of an invitation to accept. This is available from the user invitation URL that is given when participating in a user invitation flow.
-   */
-  invitation?: string;
-  /**
-   * The name of the connection configured for your application.
-   * If null, it will redirect to the Auth0 Login Page and show
-   * the Login Widget.
-   */
-  connection?: string;
-  /**
    * Context to be used when creating the Auth0Provider, defaults to the internally created context.
    *
    * This allows multiple Auth0Providers to be nested within the same application, the context value can then be
@@ -181,11 +77,6 @@ export interface Auth0ProviderOptions {
    * For a sample on using multiple Auth0Providers review the [React Account Linking Sample](https://github.com/auth0-samples/auth0-link-accounts-sample/tree/react-variant)
    */
   context?: React.Context<Auth0ContextInterface>;
-  /**
-   * If you need to send custom parameters to the Authorization Server,
-   * make sure to use the original parameter name.
-   */
-  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 /**
@@ -200,32 +91,12 @@ declare const __VERSION__: string;
 const toAuth0ClientOptions = (
   opts: Auth0ProviderOptions
 ): Auth0ClientOptions => {
-  const { clientId, redirectUri, maxAge, ...validOpts } = opts;
   return {
-    ...validOpts,
-    client_id: clientId,
-    redirect_uri: redirectUri,
-    max_age: maxAge,
+    ...opts,
     auth0Client: {
       name: 'auth0-react',
       version: __VERSION__,
     },
-  };
-};
-
-/**
- * @ignore
- */
-const toAuth0LoginRedirectOptions = (
-  opts?: RedirectLoginOptions
-): Auth0RedirectLoginOptions | undefined => {
-  if (!opts) {
-    return;
-  }
-  const { redirectUri, ...validOpts } = opts;
-  return {
-    ...validOpts,
-    redirect_uri: redirectUri,
   };
 };
 
@@ -289,20 +160,9 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     })();
   }, [client, onRedirectCallback, skipRedirectCallback]);
 
-  const buildAuthorizeUrl = useCallback(
-    (opts?: RedirectLoginOptions): Promise<string> =>
-      client.buildAuthorizeUrl(toAuth0LoginRedirectOptions(opts)),
-    [client]
-  );
-
-  const buildLogoutUrl = useCallback(
-    (opts?: LogoutUrlOptions): string => client.buildLogoutUrl(opts),
-    [client]
-  );
-
   const loginWithRedirect = useCallback(
     (opts?: RedirectLoginOptions): Promise<void> =>
-      client.loginWithRedirect(toAuth0LoginRedirectOptions(opts)),
+      client.loginWithRedirect(opts),
     [client]
   );
 
@@ -325,15 +185,11 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const logout = useCallback(
-    (opts: LogoutOptions = {}): Promise<void> | void => {
-      const maybePromise = client.logout(opts);
-      if (opts.localOnly) {
-        if (maybePromise && typeof maybePromise.then === 'function') {
-          return maybePromise.then(() => dispatch({ type: 'LOGOUT' }));
-        }
+    async (opts: LogoutOptions = {}): Promise<void> => {
+      await client.logout(opts);
+      if (opts.onRedirect) {
         dispatch({ type: 'LOGOUT' });
       }
-      return maybePromise;
     },
     [client]
   );
@@ -361,7 +217,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     async (
       opts?: GetTokenWithPopupOptions,
       config?: PopupConfigOptions
-    ): Promise<string> => {
+    ): Promise<string | undefined> => {
       let token;
       try {
         token = await client.getTokenWithPopup(opts, config);
@@ -379,7 +235,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
 
   const getIdTokenClaims = useCallback(
-    (opts) => client.getIdTokenClaims(opts),
+    () => client.getIdTokenClaims(),
     [client]
   );
 
@@ -402,8 +258,6 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   const contextValue = useMemo(() => {
     return {
       ...state,
-      buildAuthorizeUrl,
-      buildLogoutUrl,
       getAccessTokenSilently,
       getAccessTokenWithPopup,
       getIdTokenClaims,
@@ -414,8 +268,6 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     };
   }, [
     state,
-    buildAuthorizeUrl,
-    buildLogoutUrl,
     getAccessTokenSilently,
     getAccessTokenWithPopup,
     getIdTokenClaims,
