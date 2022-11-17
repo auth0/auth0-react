@@ -22,7 +22,9 @@
     "project_name": "Auth0 React SDK",
     "exclude": [],
     "parallels": "5",
-    "npm_dependencies": {},
+    "npm_dependencies": {
+      "typescript": "^4.6.3"
+    },
     "package_config_options": {},
     "headless": true
   },
