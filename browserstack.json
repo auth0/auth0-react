@@ -18,13 +18,11 @@
   ],
   "run_settings": {
     "cypress_config_file": "./cypress-bs.json",
-    "cypress-version": "7",
+    "cypress-version": "9",
     "project_name": "Auth0 React SDK",
     "exclude": [],
     "parallels": "5",
-    "npm_dependencies": {
-      "typescript": "^3.8.3"
-    },
+    "npm_dependencies": {},
     "package_config_options": {},
     "headless": true
   },
