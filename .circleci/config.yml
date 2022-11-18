@@ -5,7 +5,7 @@ orbs:
 parameters:
   docker_image:
     type: string
-    default: circleci/node:16-browsers
+    default: cimg/node:16.17-browsers
 jobs:
   build:
     docker:
