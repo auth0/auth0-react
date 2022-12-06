@@ -1,5 +1,7 @@
 ![Auth0 SDK for React Single Page Applications](https://cdn.auth0.com/website/sdks/banners/auth0-react-banner.png)
 
+> :warning: Please be aware that v2 is currently in [**Beta**](https://auth0.com/docs/troubleshoot/product-lifecycle/product-release-stages). Whilst we encourage you to test the update within your applications, we do no recommend using this version in production yet. Please follow the [migration guide](./MIGRATION_GUIDE.md) when updating your application.
+
 [![npm](https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat)](https://www.npmjs.com/package/@auth0/auth0-react)
 [![codecov](https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat)](https://codecov.io/gh/auth0/auth0-react)
 ![Downloads](https://img.shields.io/npm/dw/@auth0/auth0-react)
@@ -23,13 +25,13 @@
 Using [npm](https://npmjs.org/)
 
 ```bash
-npm install @auth0/auth0-react
+npm install @auth0/auth0-react@beta
 ```
 
 Using [yarn](https://yarnpkg.com/)
 
 ```bash
-yarn add @auth0/auth0-react
+yarn add @auth0/auth0-react@beta
 ```
 
 ### Configure Auth0
