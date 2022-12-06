@@ -432,7 +432,7 @@ describe('Auth0Provider', () => {
 
   it('should update auth state after getAccessTokenSilently', async () => {
     clientMock.getTokenSilently.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -441,7 +441,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
 
     expect(result.current.user?.name).toEqual('foo');
-    clientMock.getUser.mockResolvedValue({ name: 'bar', updated_at: '2' });
+    clientMock.getUser.mockResolvedValue({ name: 'bar' });
     await act(async () => {
       await result.current.getAccessTokenSilently();
     });
@@ -450,7 +450,7 @@ describe('Auth0Provider', () => {
 
   it('should update auth state after getAccessTokenSilently fails', async () => {
     clientMock.getTokenSilently.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -471,7 +471,8 @@ describe('Auth0Provider', () => {
 
   it('should ignore same user after getAccessTokenSilently', async () => {
     clientMock.getTokenSilently.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const userObject = { name: 'foo' };
+    clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -480,7 +481,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
 
     const prevUser = result.current.user;
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue(userObject);
     await act(async () => {
       await result.current.getAccessTokenSilently();
     });
@@ -489,7 +490,7 @@ describe('Auth0Provider', () => {
 
   it('should not update getAccessTokenSilently after auth state change', async () => {
     clientMock.getTokenSilently.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -498,7 +499,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
     const memoized = result.current.getAccessTokenSilently;
     expect(result.current.user?.name).toEqual('foo');
-    clientMock.getUser.mockResolvedValue({ name: 'bar', updated_at: '2' });
+    clientMock.getUser.mockResolvedValue({ name: 'bar' });
     await act(async () => {
       await result.current.getAccessTokenSilently();
     });
@@ -551,7 +552,7 @@ describe('Auth0Provider', () => {
 
   it('should update auth state after getAccessTokenWithPopup', async () => {
     clientMock.getTokenSilently.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -560,7 +561,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
 
     const prevUser = result.current.user;
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '2' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     await act(async () => {
       await result.current.getAccessTokenWithPopup();
     });
@@ -569,7 +570,7 @@ describe('Auth0Provider', () => {
 
   it('should update auth state after getAccessTokenWithPopup fails', async () => {
     clientMock.getTokenSilently.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -592,7 +593,8 @@ describe('Auth0Provider', () => {
 
   it('should ignore same auth state after getAccessTokenWithPopup', async () => {
     clientMock.getTokenSilently.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const userObject = { name: 'foo' };
+    clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -601,7 +603,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
 
     const prevState = result.current;
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue(userObject);
     await act(async () => {
       await result.current.getAccessTokenWithPopup();
     });
@@ -706,7 +708,7 @@ describe('Auth0Provider', () => {
 
   it('should update auth state after handleRedirectCallback', async () => {
     clientMock.handleRedirectCallback.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -715,7 +717,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
 
     const prevUser = result.current.user;
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '2' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     await act(async () => {
       await result.current.handleRedirectCallback();
     });
@@ -724,7 +726,7 @@ describe('Auth0Provider', () => {
 
   it('should update auth state after handleRedirectCallback fails', async () => {
     clientMock.handleRedirectCallback.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -747,7 +749,8 @@ describe('Auth0Provider', () => {
 
   it('should ignore same auth state after handleRedirectCallback', async () => {
     clientMock.handleRedirectCallback.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    const userObject = { name: 'foo' };
+    clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -756,7 +759,7 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
 
     const prevState = result.current;
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue(userObject);
     await act(async () => {
       await result.current.handleRedirectCallback();
     });
@@ -802,7 +805,7 @@ describe('Auth0Provider', () => {
 
   it('should not update context value after rerender with no state change', async () => {
     clientMock.getTokenSilently.mockReturnThis();
-    clientMock.getUser.mockResolvedValue({ name: 'foo', updated_at: '1' });
+    clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
     const { waitForNextUpdate, result, rerender } = renderHook(
       () => useContext(Auth0Context),
