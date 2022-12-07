@@ -10,15 +10,22 @@ module.exports = {
     ['jest-junit', { outputDirectory: 'test-results/jest' }],
   ],
   testEnvironment: 'jsdom',
-  testURL: 'https://www.example.com/',
+  testEnvironmentOptions: {
+    url: 'https://www.example.com/',
+  },
   testRegex: '/__tests__/.+test.tsx?$',
   globals: {
-    'ts-jest': {
-      tsconfig: {
-        target: 'es6',
-      },
-    },
     __VERSION__: pkg.version,
+  },
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          target: 'es6',
+        },
+      },
+    ],
   },
   coverageThreshold: {
     global: {
