@@ -85,6 +85,13 @@ The above changes affect the following methods:
 - getAccessTokenWithPopup
 - getAccessTokenSilently
 
+### Changing from camelCase to kebab-case
+
+With the move to placing Auth0 specific properties in the `authorizationParams` object, those properties will now use kebab-case rather than camelCase (as they did previously). For example:
+
+- `redirectUri` is now `redirect_uri`
+- `maxAge` is now `max_age`
+
 ### Introduction of `logoutParams`
 
 In v1, `logout` can be called with an object containing a number of properties, both a mix between properties used to configure the SDK as well as those used to pass through to Auth0.
