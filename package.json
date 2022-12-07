@@ -61,7 +61,7 @@
     "@types/react-dom": "^17.0.18",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "browserstack-cypress-cli": "1.19.1",
+    "browserstack-cypress-cli": "1.8.1",
     "cypress": "^9.7.0",
     "eslint": "^8.28.0",
     "eslint-plugin-react": "^7.31.11",
