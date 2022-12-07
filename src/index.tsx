@@ -15,6 +15,7 @@ export {
   initialContext,
 } from './auth0-context';
 export {
+  AuthorizationParams,
   PopupLoginOptions,
   PopupConfigOptions,
   GetTokenWithPopupOptions,
