@@ -31,8 +31,11 @@ describe('Smoke tests', () => {
 
     loginToAuth0();
 
+    // Make sure the table has rendered with data as that is when the page has loaded completely
+    // and there shouldn't be any issues with the logout button being recreated
+    cy.get('table tbody tr').should('have.length', 2);
     cy.url().should('include', '/users');
-    cy.waitUntil(() => cy.get('#logout'));
+
     cy.get('#logout').click();
   });
 
@@ -41,7 +44,10 @@ describe('Smoke tests', () => {
 
     loginToAuth0();
 
-    cy.waitUntil(() => cy.get('#logout'));
+    // Make sure the table has rendered with data as that is when the page has loaded completely
+    // and there shouldn't be any issues with the logout button being recreated
+    cy.get('table tbody tr').should('have.length', 2);
+
     cy.get('table').contains('bob@example.com');
     cy.get('#logout').click();
   });
