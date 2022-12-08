@@ -9,16 +9,18 @@ import React, {
 import {
   Auth0Client,
   Auth0ClientOptions,
-  LogoutOptions,
   PopupLoginOptions,
   PopupConfigOptions,
-  RedirectLoginOptions,
   GetTokenWithPopupOptions,
   RedirectLoginResult,
   GetTokenSilentlyOptions,
   User,
 } from '@auth0/auth0-spa-js';
-import Auth0Context, { Auth0ContextInterface } from './auth0-context';
+import Auth0Context, {
+  Auth0ContextInterface,
+  LogoutOptions,
+  RedirectLoginOptions,
+} from './auth0-context';
 import { hasAuthParams, loginError, tokenError } from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
@@ -187,7 +189,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   const logout = useCallback(
     async (opts: LogoutOptions = {}): Promise<void> => {
       await client.logout(opts);
-      if (opts.onRedirect) {
+      if (opts.openUrl || opts.openUrl === false) {
         dispatch({ type: 'LOGOUT' });
       }
     },

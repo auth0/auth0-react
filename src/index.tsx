@@ -13,12 +13,14 @@ export {
   default as Auth0Context,
   Auth0ContextInterface,
   initialContext,
+  LogoutOptions,
+  RedirectLoginOptions,
 } from './auth0-context';
 export {
+  AuthorizationParams,
   PopupLoginOptions,
   PopupConfigOptions,
   GetTokenWithPopupOptions,
-  LogoutOptions,
   LogoutUrlOptions,
   CacheLocation,
   GetTokenSilentlyOptions,
@@ -28,6 +30,5 @@ export {
   InMemoryCache,
   LocalStorageCache,
   Cacheable,
-  RedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';

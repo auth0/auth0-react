@@ -319,7 +319,7 @@ describe('Auth0Provider', () => {
     expect(result.current.user).toBe(user);
   });
 
-  it('should update state when using onRedirect', async () => {
+  it('should update state when using openUrl', async () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     // get logout to return a Promise to simulate async cache.
@@ -333,7 +333,7 @@ describe('Auth0Provider', () => {
     expect(result.current.isAuthenticated).toBe(true);
     await act(async () => {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      await result.current.logout({ onRedirect: async () => {} });
+      await result.current.logout({ openUrl: async () => {} });
     });
     expect(result.current.isAuthenticated).toBe(false);
   });
@@ -358,6 +358,28 @@ describe('Auth0Provider', () => {
       await result.current.logout();
     });
     expect(logoutSpy).toHaveBeenCalled();
+  });
+
+  it('should update state for openUrl false', async () => {
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValue(user);
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toBe(user);
+    act(() => {
+      result.current.logout({ openUrl: false });
+    });
+    expect(clientMock.logout).toHaveBeenCalledWith({
+      openUrl: false,
+    });
+    await waitForNextUpdate();
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(result.current.user).toBeUndefined();
   });
 
   it('should provide a getAccessTokenSilently method', async () => {
