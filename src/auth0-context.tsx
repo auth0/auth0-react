@@ -12,12 +12,13 @@ import {
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
+import { AppState } from './auth0-provider';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LogoutOptions extends Omit<SPALogoutOptions, 'onRedirect'> {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RedirectLoginOptions
-  extends Omit<SPARedirectLoginOptions, 'onRedirect'> {}
+export interface RedirectLoginOptions<TAppState = AppState>
+  extends Omit<SPARedirectLoginOptions<TAppState>, 'onRedirect'> {}
 
 /**
  * Contains the authenticated state and authentication methods provided by the `useAuth0` hook.
@@ -93,7 +94,9 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * provided as arguments. Random and secure `state` and `nonce`
    * parameters will be auto-generated.
    */
-  loginWithRedirect: (options?: RedirectLoginOptions) => Promise<void>;
+  loginWithRedirect: (
+    options?: RedirectLoginOptions<AppState>
+  ) => Promise<void>;
 
   /**
    * ```js
