@@ -2,16 +2,22 @@ import {
   GetTokenSilentlyOptions,
   GetTokenWithPopupOptions,
   IdToken,
-  LogoutOptions,
+  LogoutOptions as SPALogoutOptions,
   PopupLoginOptions,
   PopupConfigOptions,
   RedirectLoginResult,
   User,
   GetTokenSilentlyVerboseResponse,
-  RedirectLoginOptions,
+  RedirectLoginOptions as SPARedirectLoginOptions,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface LogoutOptions extends Omit<SPALogoutOptions, 'onRedirect'> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RedirectLoginOptions
+  extends Omit<SPARedirectLoginOptions, 'onRedirect'> {}
 
 /**
  * Contains the authenticated state and authentication methods provided by the `useAuth0` hook.
