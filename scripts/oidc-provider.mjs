@@ -1,4 +1,4 @@
-const { Provider, interactionPolicy } = require('oidc-provider');
+import Provider, { interactionPolicy } from 'oidc-provider';
 
 const { base, Prompt, Check } = interactionPolicy;
 
@@ -6,8 +6,12 @@ const policy = base();
 policy.add(
   new Prompt(
     { name: 'noop', requestable: false },
-    new Check('foo', 'bar', ctx => {
-      if (ctx.query && ctx.query.scope && ctx.query.scope.includes('offline_access')) {
+    new Check('foo', 'bar', (ctx) => {
+      if (
+        ctx.query &&
+        ctx.query.scope &&
+        ctx.query.scope.includes('offline_access')
+      ) {
         ctx.oidc.params.scope = `${ctx.oidc.params.scope} offline_access`;
       }
       return Check.NO_NEED_TO_PROMPT;
@@ -22,13 +26,13 @@ const config = {
       client_id: 'testing',
       redirect_uris: ['http://127.0.0.1:3000'],
       token_endpoint_auth_method: 'none',
-      grant_types: ['authorization_code', 'refresh_token']
-    }
+      grant_types: ['authorization_code', 'refresh_token'],
+    },
   ],
   routes: {
     authorization: '/authorize', // lgtm [js/hardcoded-credentials]
     token: '/oauth/token',
-    end_session: '/v2/logout'
+    end_session: '/v2/logout',
   },
   scopes: ['openid', 'offline_access', 'profile'],
   clientBasedCORS(ctx, origin, client) {
@@ -36,12 +40,12 @@ const config = {
   },
   features: {
     webMessageResponseMode: {
-      enabled: true
+      enabled: true,
     },
   },
   rotateRefreshToken: true,
   interactions: {
-    policy
+    policy,
   },
   conformIdTokenClaims: false,
   claims: {
@@ -50,9 +54,11 @@ const config = {
   async findAccount(ctx, id) {
     return {
       accountId: id,
-      async claims() { return { sub: id, name: id }; },
+      async claims() {
+        return { sub: id, name: id };
+      },
     };
-  }
+  },
 };
 
 export function createApp(opts) {
@@ -69,4 +75,3 @@ export function createApp(opts) {
 
   return provider.app;
 }
-
