@@ -3,12 +3,12 @@ import livereload from 'rollup-plugin-livereload';
 import dev from 'rollup-plugin-dev';
 import typescript from 'rollup-plugin-typescript2';
 import external from 'rollup-plugin-peer-deps-external';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 import analyze from 'rollup-plugin-analyzer';
-import { createApp } from './scripts/oidc-provider';
+import { createApp } from './scripts/oidc-provider.mjs';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const name = 'reactAuth0';
@@ -22,7 +22,7 @@ const plugins = [
   typescript({ useTsconfigDeclarationDir: true }),
   external(),
   resolve(),
-  replace({ __VERSION__: `'${pkg.version}'` }),
+  replace({ __VERSION__: `'${pkg.version}'`, preventAssignment: true }),
   analyze({ summaryOnly: true }),
 ];
 
@@ -45,11 +45,10 @@ export default [
         : [
             dev({
               dirs: ['dist', 'static'],
-              open: true,
               port: 3000,
               extend(app, modules) {
                 app.use(modules.mount(createApp({ port: 3000 })));
-              }
+              },
             }),
             livereload(),
           ]),
