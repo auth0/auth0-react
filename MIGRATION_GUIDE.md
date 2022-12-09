@@ -17,6 +17,7 @@ Please review this guide thoroughly to understand the changes required to migrat
   - [No more iframe fallback by default when using refresh tokens](#no-more-iframe-fallback-by-default-when-using-refresh-tokens)
   - [Changes to default scopes](#changes-to-default-scopes)
     - [`advancedOptions` and `defaultScope` are removed](#advancedoptions-and-defaultscope-are-removed)
+  - [Removal of `claimCheck` on `withAuthenticationRequired`](#removal-of-claimcheck-on-withauthenticationrequired)
 
 ## Polyfills and supported browsers
 
@@ -288,3 +289,35 @@ ReactDOM.render(
 ```
 
 As you can see, `scope` becomes a merged value of the previous `defaultScope` and `scope`.
+
+## Removal of `claimCheck` on `withAuthenticationRequired`
+
+In v1 of Auth0-React the `withAuthenticationRequired` Higher Order Component supported a `claimCheck` property that would check the ID Token's claims and redirect the user back to the Auth0 login page if the check failed. Given that it is unlikely for most user claims to change by logging in again, it would most likely lead to users being stuck in infinite login loops. Therefore, we have chosen to remove this functionality from Auth0-React and instead provide guidance on how to achieve this so that developers can have greater control over the behavior of their application.
+
+In v1, a claim check could be implemented as so
+
+```js
+withAuthenticationRequired(MyComponent, {
+  claimCheck: (claim?: User) =>
+    claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN'),
+});
+```
+
+Our recommendation is to create another HOC that will perform the claim check and provide this to `withAuthenticationRequired`
+
+```jsx
+const withClaimCheck = (Component, myClaimCheckFunction, returnTo) => {
+  const { user } =  useAuth0();
+  if (myClaimCheckFunction(user)) {
+    return <Component />
+  }
+  Router.push(returnTo);
+}
+
+const checkClaims = (claim?: User) => claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN');
+
+// Usage
+const Page = withAuthenticationRequired(
+  withClaimCheck(Component, checkClaims, '/missing-roles' )
+);
+```

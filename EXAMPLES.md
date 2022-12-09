@@ -318,3 +318,24 @@ const App = () => {
   return <div>...</div>;
 };
 ```
+
+## Protecting a route with a claims check
+
+In order to protect a route with a claims check alongside an authentication required check, you can create a HOC that will wrap your component and use that to check that the user has the required claims.
+
+```jsx
+const withClaimCheck = (Component, myClaimCheckFunction, returnTo) => {
+  const { user } =  useAuth0();
+  if (myClaimCheckFunction(user)) {
+    return <Component />
+  }
+  Router.push(returnTo);
+}
+
+const checkClaims = (claim?: User) => claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN');
+
+// Usage
+const Page = withAuthenticationRequired(
+  withClaimCheck(Component, checkClaims, '/missing-roles' )
+);
+```
