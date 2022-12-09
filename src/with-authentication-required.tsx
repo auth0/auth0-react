@@ -1,5 +1,4 @@
 import React, { ComponentType, useEffect, FC } from 'react';
-import { User } from '@auth0/auth0-spa-js';
 import useAuth0 from './use-auth0';
 import Auth0Context, {
   Auth0ContextInterface,
@@ -65,12 +64,6 @@ export interface WithAuthenticationRequiredOptions {
    */
   loginOptions?: RedirectLoginOptions;
   /**
-   * Check the user object for JWT claims and return a boolean indicating
-   * whether or not they are authorized to view the component.
-   */
-  claimCheck?: (claims?: User) => boolean;
-
-  /**
    * The context to be used when calling useAuth0, this should only be provided if you are using multiple Auth0Providers
    * within your application and you wish to tie a specific component to a Auth0Provider other than the Auth0Provider
    * associated with the default Auth0Context.
@@ -94,22 +87,15 @@ const withAuthenticationRequired = <P extends object>(
     const {
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
-      claimCheck = (): boolean => true,
       loginOptions,
       context = Auth0Context,
     } = options;
 
-    const { user, isAuthenticated, isLoading, loginWithRedirect } =
+    const { isAuthenticated, isLoading, loginWithRedirect } =
       useAuth0(context);
 
-    /**
-     * The route is authenticated if the user has valid auth and there are no
-     * JWT claim mismatches.
-     */
-    const routeIsAuthenticated = isAuthenticated && claimCheck(user);
-
     useEffect(() => {
-      if (isLoading || routeIsAuthenticated) {
+      if (isLoading || isAuthenticated) {
         return;
       }
       const opts = {
@@ -124,13 +110,13 @@ const withAuthenticationRequired = <P extends object>(
       })();
     }, [
       isLoading,
-      routeIsAuthenticated,
+      isAuthenticated,
       loginWithRedirect,
       loginOptions,
       returnTo,
     ]);
 
-    return routeIsAuthenticated ? <Component {...props} /> : onRedirecting();
+    return isAuthenticated ? <Component {...props} /> : onRedirecting();
   };
 };
 
