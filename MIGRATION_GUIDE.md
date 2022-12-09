@@ -17,6 +17,7 @@ Please review this guide thoroughly to understand the changes required to migrat
   - [No more iframe fallback by default when using refresh tokens](#no-more-iframe-fallback-by-default-when-using-refresh-tokens)
   - [Changes to default scopes](#changes-to-default-scopes)
     - [`advancedOptions` and `defaultScope` are removed](#advancedoptions-and-defaultscope-are-removed)
+  - [Removal of `claimCheck` on `withAuthenticationRequired`](#removal-of-claimcheck-on-withauthenticationrequired)
 
 ## Polyfills and supported browsers
 
