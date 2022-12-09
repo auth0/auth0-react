@@ -289,17 +289,17 @@ ReactDOM.render(
 
 As you can see, `scope` becomes a merged value of the previous `defaultScope` and `scope`.
 
-## Removal of `claimsCheck` on `withAuthenticationRequired`
+## Removal of `claimCheck` on `withAuthenticationRequired`
 
-In v1 of Auth0-React `withAuthenticationRequired` Higher Order Component supported a `claimsCheck` property that would check the claims in a JWT against the provided set and redirect the user back to the Auth0 login page if they did not have the sufficient claims. Given that it is highly unlikely for a user role to change by logging in and that it would most likely lead to users being stuck in infinite login loops, we have chosen to remove this functionality from Auth0-React and instead provide guidance on how to achieve this so that developers can have greater control over the behavior of their application.
+In v1 of Auth0-React `withAuthenticationRequired` Higher Order Component supported a `claimCheck` property that would check the claims in a JWT against the provided set and redirect the user back to the Auth0 login page if they did not have the sufficient claims. Given that it is highly unlikely for a user role to change by logging in and that it would most likely lead to users being stuck in infinite login loops, we have chosen to remove this functionality from Auth0-React and instead provide guidance on how to achieve this so that developers can have greater control over the behavior of their application.
 
 In v1, a claim check could be implemented as so
 
 ```js
 withAuthenticationRequired(MyComponent, {
-      claimCheck: (claim?: User) =>
-        claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN'),
-    });
+  claimCheck: (claim?: User) =>
+    claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN'),
+});
 ```
 
 Our recommendation is to create another HOC that will perform the claim check and provide this to `withAuthenticationRequired`
