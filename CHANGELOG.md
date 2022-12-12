@@ -8,7 +8,7 @@ Auth0-React v2 includes many significant changes compared to v1:
 - Introduction of `authorizationParams` and `logoutParams` for properties sent to Auth0
 - Removal of `buildAuthorizeUrl` and `buildLogoutUrl`
 - Removal of `redirectMethod` on `loginWithRedirect` in favour of `openUrl`
-- Removal of `localOnly` from `logout`
+- Removal of `localOnly` from `logout` in favour of `openUrl`
 - Renaming of `ignoreCache` to `cacheMode` and introduction of `cache-only`
 - Use `application/x-www-form-urlencoded` by default
 - Do not fallback to refreshing tokens via iframe by default
