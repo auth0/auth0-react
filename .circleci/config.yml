@@ -63,6 +63,7 @@ workflows:
             - browserstack-env
       - ship/node-publish:
           publish-command: npm publish --tag beta
+          node-version: 18.12.1
           context:
             - publish-npm
             - publish-gh
