@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const jwt = require('express-jwt');
+const { expressjwt: jwt } = require('express-jwt');
 const jwtAuthz = require('express-jwt-authz');
 const jwksRsa = require('jwks-rsa');
 const dotenv = require('dotenv');
@@ -26,6 +26,7 @@ const checkJwt = jwt({
   audience: AUDIENCE,
   issuer: `https://${DOMAIN}/`,
   algorithms: ['RS256'],
+  requestProperty: 'user',
 });
 
 app.head('/', (req, res) => res.send('ok'));
