@@ -17,6 +17,16 @@ Auth0-React v2 includes many significant changes compared to v1:
 
 As with any major version bump, v2 of Auth0-React contains a set of breaking changes. **Please review [the migration guide](./MIGRATION_GUIDE.md) thoroughly to understand the changes required to migrate your application to v2.**
 
+## [v1.12.1](https://github.com/auth0/auth0-react/tree/v1.12.1) (2023-01-12)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v1.12.0...v1.12.1)
+
+**Security**
+- Upgrade @auth0/auth0-spa-js to 1.22.6 [\#468](https://github.com/auth0/auth0-react/pull/468) ([ewanharris](https://github.com/ewanharris))
+
+This patch release is identical to `1.12.0` but has been released to ensure tooling no longer detects a vulnerable version of jsonwebtoken being used by `@auth0/auth0-spa-js`.
+
+Even though `1.22.5` of `@auth0/auth0-spa-js` was not vulnerable for the related [CVE](https://unit42.paloaltonetworks.com/jsonwebtoken-vulnerability-cve-2022-23529/) because of the fact that `jsonwebtoken` is a devDependency of `@auth0/auth0-spa-js`, we are cutting a release to ensure build tools no longer report our SDK's that use `@auth0/auth0-spa-js` as vulnerable to the mentioned CVE.
+
 ## [v1.12.0](https://github.com/auth0/auth0-react/tree/v1.12.0) (2022-10-12)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v1.11.0...v1.12.0)
 
