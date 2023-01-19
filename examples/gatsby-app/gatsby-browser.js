@@ -12,10 +12,12 @@ export const wrapRootElement = ({ element }) => {
     <Auth0Provider
       domain={process.env.GATSBY_DOMAIN}
       clientId={process.env.GATSBY_CLIENT_ID}
-      audience={process.env.GATSBY_AUDIENCE}
-      scope="read:users"
-      redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
+      authorizationParams={{
+        audience: process.env.GATSBY_AUDIENCE,
+        scope: 'profile email read:users',
+        redirect_uri: window.location.origin,
+      }}
     >
       {element}
     </Auth0Provider>

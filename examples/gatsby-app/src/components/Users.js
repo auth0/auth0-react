@@ -1,18 +1,19 @@
-import { useApi } from '../hooks/use-api';
 import React from 'react';
+import { useApi } from '../hooks/use-api';
 import { Loading } from './Loading';
 import { Error } from './Error';
 
 const PORT = process.env.GATSBY_API_PORT || 3001;
 
 export function Users() {
-  const { loading, error, data: users = [] } = useApi(
-    `http://localhost:${PORT}/users`,
-    {
-      audience: process.env.GATSBY_AUDIENCE,
-      scope: 'read:users',
-    }
-  );
+  const {
+    loading,
+    error,
+    data: users = [],
+  } = useApi(`http://localhost:${PORT}/users`, {
+    audience: process.env.GATSBY_AUDIENCE,
+    scope: 'profile email read:users',
+  });
 
   if (loading) {
     return <Loading />;

@@ -5,11 +5,12 @@ orbs:
 parameters:
   docker_image:
     type: string
-    default: cimg/node:16.17-browsers
+    default: cimg/node:18.12-browsers
 jobs:
   build:
     docker:
       - image: << pipeline.parameters.docker_image >>
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -49,7 +50,7 @@ jobs:
       - restore_cache:
           key: dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package.json" }}-{{ checksum "examples/gatsby-app/package.json" }}-{{ checksum "examples/nextjs-app/package.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
       - run: npm ci
-      - run: npx concurrently --raw --kill-others --success first "npm:start" "wait-on http://127.0.0.1:3000/ && browserstack-cypress run --build-name $CIRCLE_BRANCH --specs "cypress/integration/smoke-bs.test.ts""
+      - run: npx concurrently --raw --kill-others --success first "npm:start" "wait-on http://127.0.0.1:3000/ && browserstack-cypress run --build-name $CIRCLE_BRANCH --no-wrap --specs "cypress/integration/smoke-bs.test.ts""
 
 workflows:
   Build and Test:
@@ -61,6 +62,8 @@ workflows:
           context:
             - browserstack-env
       - ship/node-publish:
+          publish-command: npm publish --tag beta
+          node-version: 18.12.1
           context:
             - publish-npm
             - publish-gh
@@ -68,5 +71,6 @@ workflows:
             branches:
               only:
                 - master
+                - beta
           requires:
             - browserstack

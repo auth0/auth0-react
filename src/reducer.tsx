@@ -35,7 +35,7 @@ export const reducer = (state: AuthState, action: Action): AuthState => {
       };
     case 'HANDLE_REDIRECT_COMPLETE':
     case 'GET_ACCESS_TOKEN_COMPLETE':
-      if (state.user?.updated_at === action.user?.updated_at) {
+      if (state.user === action.user) {
         return state;
       }
       return {

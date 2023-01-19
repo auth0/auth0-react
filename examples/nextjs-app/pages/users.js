@@ -7,13 +7,14 @@ import { Error } from '../components/Error';
 const PORT = process.env.NEXT_PUBLIC_API_PORT || 3001;
 
 const Users = () => {
-  const { loading, error, data: users = [] } = useApi(
-    `http://localhost:${PORT}/users`,
-    {
-      audience: process.env.NEXT_PUBLIC_AUDIENCE,
-      scope: 'read:users',
-    }
-  );
+  const {
+    loading,
+    error,
+    data: users = [],
+  } = useApi(`http://localhost:${PORT}/users`, {
+    audience: process.env.NEXT_PUBLIC_AUDIENCE,
+    scope: 'profile email read:users',
+  });
 
   if (loading) {
     return <Loading />;

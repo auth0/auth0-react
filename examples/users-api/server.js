@@ -1,9 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const { expressjwt: jwt } = require('express-jwt');
-const jwtAuthz = require('express-jwt-authz');
-const jwksRsa = require('jwks-rsa');
 const dotenv = require('dotenv');
+const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
 
 dotenv.config();
 
@@ -19,19 +17,14 @@ if (!DOMAIN || !AUDIENCE) {
 
 app.use(cors()); // Allow all cors (not recommended for production)
 
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    jwksUri: `https://${DOMAIN}/.well-known/jwks.json`,
-  }),
+const checkJwt = auth({
   audience: AUDIENCE,
-  issuer: `https://${DOMAIN}/`,
-  algorithms: ['RS256'],
-  requestProperty: 'user',
+  issuerBaseURL: `https://${DOMAIN}`,
 });
 
 app.head('/', (req, res) => res.send('ok'));
 
-app.get('/users', checkJwt, jwtAuthz(['read:users']), (req, res) => {
+app.get('/users', checkJwt, requiredScopes('read:users'), (req, res) => {
   res.send([
     { name: 'Bob', email: 'bob@example.com' },
     { name: 'Alice', email: 'alice@example.com' },

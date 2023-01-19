@@ -13,14 +13,14 @@ export {
   default as Auth0Context,
   Auth0ContextInterface,
   initialContext,
+  LogoutOptions,
   RedirectLoginOptions,
 } from './auth0-context';
 export {
+  AuthorizationParams,
   PopupLoginOptions,
   PopupConfigOptions,
-  GetIdTokenClaimsOptions,
   GetTokenWithPopupOptions,
-  LogoutOptions,
   LogoutUrlOptions,
   CacheLocation,
   GetTokenSilentlyOptions,
