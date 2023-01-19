@@ -120,11 +120,11 @@ For more code samples on how to integrate **auth0-react** SDK in your **React** 
 
 Explore public API's available in auth0-react.
 
-- [Auth0Provider](https://auth0.github.io/auth0-react/modules.html#Auth0Provider)
+- [Auth0Provider](https://auth0.github.io/auth0-react/functions/Auth0Provider.html)
 - [Auth0ProviderOptions](https://auth0.github.io/auth0-react/interfaces/Auth0ProviderOptions.html)
-- [useAuth0](https://auth0.github.io/auth0-react/modules.html#useAuth0)
-- [withAuth0](https://auth0.github.io/auth0-react/modules.html#withAuth0)
-- [withAuthenticationRequired](https://auth0.github.io/auth0-react/modules.html#withAuthenticationRequired)
+- [useAuth0](https://auth0.github.io/auth0-react/functions/useAuth0.html)
+- [withAuth0](https://auth0.github.io/auth0-react/functions/withAuth0.html)
+- [withAuthenticationRequired](https://auth0.github.io/auth0-react/functions/withAuthenticationRequired.html)
 
 ## Feedback
 
