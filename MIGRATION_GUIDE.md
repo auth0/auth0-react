@@ -54,6 +54,7 @@ ReactDOM.render(
   <Auth0Provider
     domain="YOUR_AUTH0_DOMAIN"
     clientId="YOUR_AUTH0_CLIENT_ID"
+    audience="YOUR_AUDIENCE_ID"
     redirectUri={window.location.origin}
   >
     <App />
@@ -71,6 +72,7 @@ ReactDOM.render(
     clientId="YOUR_AUTH0_CLIENT_ID"
     authorizationParams={{
       redirect_uri: window.location.origin,
+      audience: "YOUR_AUDIENCE_ID"
     }}
   >
     <App />
