@@ -55,6 +55,7 @@ ReactDOM.render(
     domain="YOUR_AUTH0_DOMAIN"
     clientId="YOUR_AUTH0_CLIENT_ID"
     audience="YOUR_AUDIENCE_ID"
+    scope="openid profile email"
     redirectUri={window.location.origin}
   >
     <App />
@@ -72,7 +73,8 @@ ReactDOM.render(
     clientId="YOUR_AUTH0_CLIENT_ID"
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: "YOUR_AUDIENCE_ID"
+      audience: "YOUR_AUDIENCE_ID",
+      scope: "openid profile email"
     }}
   >
     <App />
@@ -259,7 +261,9 @@ Needs to be updated to explicitly include the `profile email` scopes to achieve 
 
 ```jsx
 ReactDOM.render(
-  <Auth0Provider scope="profile email scope1">
+  <Auth0Provider authorizationParams={{
+    scope: "profile email scope1"
+  }}>
     <App />
   </Auth0Provider>,
   document.getElementById('app')
@@ -283,7 +287,9 @@ Will need to move those scopes into `scope` instead:
 
 ```jsx
 ReactDOM.render(
-  <Auth0Provider scope="email scope1">
+  <Auth0Provider authorizationParams={{
+    scope: "email scope1"
+  }}>
     <App />
   </Auth0Provider>,
   document.getElementById('app')
