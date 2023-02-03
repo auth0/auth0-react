@@ -285,8 +285,8 @@ ReactDOM.render(
     <Auth0Provider
       domain="YOUR_AUTH0_DOMAIN"
       clientId="YOUR_AUTH0_CLIENT_ID"
-      organization="YOUR_ORGANIZATION_ID"
       authorizationParams={{
+        organization: "YOUR_ORGANIZATION_ID"
         redirectUri: window.location.origin,
       }}
     >
@@ -311,8 +311,10 @@ const App = () => {
   const orgMatches = url.match(/organization=([^&]+)/);
   if (inviteMatches && orgMatches) {
     loginWithRedirect({
-      organization: orgMatches[1],
-      invitation: inviteMatches[1],
+      authorizationParams: {
+        organization: orgMatches[1],
+        invitation: inviteMatches[1],
+      }
     });
   }
   return <div>...</div>;
