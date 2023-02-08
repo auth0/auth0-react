@@ -6,8 +6,8 @@
 - [Protecting a route in a `react-router-dom v6` app](#protecting-a-route-in-a-react-router-dom-v6-app)
 - [Protecting a route in a Gatsby app](#protecting-a-route-in-a-gatsby-app)
 - [Protecting a route in a Next.js app (in SPA mode)](#protecting-a-route-in-a-nextjs-app-in-spa-mode)
-- [Create a `useApi` hook for accessing protected APIs with an access token.](#create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token)
 - [Use with Auth0 organizations](#use-with-auth0-organizations)
+- [Protecting a route with a claims check](#protecting-a-route-with-a-claims-check)
 
 ## Use with a Class Component
 
