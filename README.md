@@ -1,5 +1,7 @@
 ![Auth0 SDK for React Single Page Applications](https://cdn.auth0.com/website/sdks/banners/auth0-react-banner.png)
 
+DO NOT MERGE
+
 [![npm](https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat)](https://www.npmjs.com/package/@auth0/auth0-react)
 [![codecov](https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat)](https://codecov.io/gh/auth0/auth0-react)
 ![Downloads](https://img.shields.io/npm/dw/@auth0/auth0-react)
