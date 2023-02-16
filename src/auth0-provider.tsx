@@ -26,6 +26,30 @@ import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
 
 /**
+ * @ignore
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function deprecateRedirectUri(options?: any) {
+  if (options?.redirectUri) {
+    console.warn(
+      'Using `redirectUri` has been deprecated, please use `authorizationParams.redirect_uri` instead as `redirectUri` will be no longer supported in a future version'
+    );
+    options.authorizationParams = options.authorizationParams || {};
+    options.authorizationParams.redirect_uri = options.redirectUri;
+    delete options.redirectUri;
+  }
+
+  if (options?.authorizationParams?.redirectUri) {
+    console.warn(
+      'Using `authorizationParams.redirectUri` has been deprecated, please use `authorizationParams.redirect_uri` instead as `authorizationParams.redirectUri` will be removed in a future version'
+    );
+    options.authorizationParams.redirect_uri =
+      options.authorizationParams.redirectUri;
+    delete options.authorizationParams.redirectUri;
+  }
+}
+
+/**
  * The state of the application before the user was redirected to the login page.
  */
 export type AppState = {
@@ -93,6 +117,8 @@ declare const __VERSION__: string;
 const toAuth0ClientOptions = (
   opts: Auth0ProviderOptions
 ): Auth0ClientOptions => {
+  deprecateRedirectUri(opts);
+
   return {
     ...opts,
     auth0Client: {
@@ -163,8 +189,11 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   }, [client, onRedirectCallback, skipRedirectCallback]);
 
   const loginWithRedirect = useCallback(
-    (opts?: RedirectLoginOptions): Promise<void> =>
-      client.loginWithRedirect(opts),
+    (opts?: RedirectLoginOptions): Promise<void> => {
+      deprecateRedirectUri(opts);
+
+      return client.loginWithRedirect(opts);
+    },
     [client]
   );
 
