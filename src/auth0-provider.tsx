@@ -21,33 +21,14 @@ import Auth0Context, {
   LogoutOptions,
   RedirectLoginOptions,
 } from './auth0-context';
-import { hasAuthParams, loginError, tokenError } from './utils';
+import {
+  hasAuthParams,
+  loginError,
+  tokenError,
+  deprecateRedirectUri,
+} from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
-
-/**
- * @ignore
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function deprecateRedirectUri(options?: any) {
-  if (options?.redirectUri) {
-    console.warn(
-      'Using `redirectUri` has been deprecated, please use `authorizationParams.redirect_uri` instead as `redirectUri` will be no longer supported in a future version'
-    );
-    options.authorizationParams = options.authorizationParams || {};
-    options.authorizationParams.redirect_uri = options.redirectUri;
-    delete options.redirectUri;
-  }
-
-  if (options?.authorizationParams?.redirectUri) {
-    console.warn(
-      'Using `authorizationParams.redirectUri` has been deprecated, please use `authorizationParams.redirect_uri` instead as `authorizationParams.redirectUri` will be removed in a future version'
-    );
-    options.authorizationParams.redirect_uri =
-      options.authorizationParams.redirectUri;
-    delete options.authorizationParams.redirectUri;
-  }
-}
 
 /**
  * The state of the application before the user was redirected to the login page.
