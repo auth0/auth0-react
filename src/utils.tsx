@@ -8,17 +8,29 @@ export const hasAuthParams = (searchParams = window.location.search): boolean =>
   (CODE_RE.test(searchParams) || ERROR_RE.test(searchParams)) &&
   STATE_RE.test(searchParams);
 
-const normalizeErrorFn = (fallbackMessage: string) => (
-  error: Error | { error: string; error_description?: string } | ProgressEvent
-): Error => {
-  if ('error' in error) {
-    return new OAuthError(error.error, error.error_description);
-  }
-  if (error instanceof Error) {
-    return error;
-  }
-  return new Error(fallbackMessage);
-};
+const normalizeErrorFn =
+  (fallbackMessage: string) =>
+  (error: unknown): Error => {
+    if (error instanceof Error) {
+      return error;
+    }
+    // try to check errors of the following form: {error: string; error_description?: string}
+    if (
+      error !== null &&
+      typeof error === 'object' &&
+      'error' in error &&
+      typeof error.error === 'string'
+    ) {
+      if (
+        'error_description' in error &&
+        typeof error.error_description === 'string'
+      ) {
+        return new OAuthError(error.error, error.error_description);
+      }
+      return new OAuthError(error.error);
+    }
+    return new Error(fallbackMessage);
+  };
 
 export const loginError = normalizeErrorFn('Login failed');
 
