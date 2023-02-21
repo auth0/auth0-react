@@ -89,6 +89,7 @@ The above changes affect the following methods:
 - loginWithPopup
 - getAccessTokenWithPopup
 - getAccessTokenSilently
+- withAuthenticationRequired (`loginOptions`)
 
 ### Changes to parameter casing
 

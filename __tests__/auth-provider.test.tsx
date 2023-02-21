@@ -59,6 +59,52 @@ describe('Auth0Provider', () => {
     await waitForNextUpdate();
   });
 
+  it('should support redirectUri', async () => {
+    const opts = {
+      clientId: 'foo',
+      domain: 'bar',
+      redirectUri: 'baz',
+    };
+    const wrapper = createWrapper(opts);
+    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+    expect(Auth0Client).toHaveBeenCalledWith(
+      expect.objectContaining({
+        clientId: 'foo',
+        domain: 'bar',
+        authorizationParams: {
+          redirect_uri: 'baz',
+        },
+      })
+    );
+    await waitForNextUpdate();
+  });
+
+  it('should support authorizationParams.redirectUri', async () => {
+    const opts = {
+      clientId: 'foo',
+      domain: 'bar',
+      authorizationParams: {
+        redirectUri: 'baz',
+      },
+    };
+    const wrapper = createWrapper(opts);
+    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+    expect(Auth0Client).toHaveBeenCalledWith(
+      expect.objectContaining({
+        clientId: 'foo',
+        domain: 'bar',
+        authorizationParams: {
+          redirect_uri: 'baz',
+        },
+      })
+    );
+    await waitForNextUpdate();
+  });
+
   it('should pass user agent to Auth0Client', async () => {
     const opts = {
       clientId: 'foo',
@@ -291,6 +337,44 @@ describe('Auth0Provider', () => {
     await result.current.loginWithRedirect({
       authorizationParams: {
         redirect_uri: '__redirect_uri__',
+      },
+    });
+    expect(clientMock.loginWithRedirect).toHaveBeenCalledWith({
+      authorizationParams: {
+        redirect_uri: '__redirect_uri__',
+      },
+    });
+  });
+
+  it('should provide a login method supporting redirectUri', async () => {
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    await result.current.loginWithRedirect({
+      redirectUri: '__redirect_uri__',
+    } as never);
+    expect(clientMock.loginWithRedirect).toHaveBeenCalledWith({
+      authorizationParams: {
+        redirect_uri: '__redirect_uri__',
+      },
+    });
+  });
+
+  it('should provide a login method supporting authorizationParams.redirectUri', async () => {
+    const wrapper = createWrapper();
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    await result.current.loginWithRedirect({
+      authorizationParams: {
+        redirectUri: '__redirect_uri__',
       },
     });
     expect(clientMock.loginWithRedirect).toHaveBeenCalledWith({
