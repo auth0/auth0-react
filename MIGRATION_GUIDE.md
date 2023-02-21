@@ -316,11 +316,14 @@ Our recommendation is to create another HOC that will perform the claim check an
 
 ```jsx
 const withClaimCheck = (Component, myClaimCheckFunction, returnTo) => {
-  const { user } =  useAuth0();
-  if (myClaimCheckFunction(user)) {
-    return <Component />
+  const WithClaimCheckComponent = () => {
+    const { user } =  useAuth0();
+    if (myClaimCheckFunction(user)) {
+      return <Component />
+    }
+    Router.push(returnTo);
   }
-  Router.push(returnTo);
+  return WithClaimCheckComponent;
 }
 
 const checkClaims = (claim?: User) => claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN');
