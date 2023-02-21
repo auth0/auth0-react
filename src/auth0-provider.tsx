@@ -21,7 +21,12 @@ import Auth0Context, {
   LogoutOptions,
   RedirectLoginOptions,
 } from './auth0-context';
-import { hasAuthParams, loginError, tokenError } from './utils';
+import {
+  hasAuthParams,
+  loginError,
+  tokenError,
+  deprecateRedirectUri,
+} from './utils';
 import { reducer } from './reducer';
 import { initialAuthState } from './auth-state';
 
@@ -93,6 +98,8 @@ declare const __VERSION__: string;
 const toAuth0ClientOptions = (
   opts: Auth0ProviderOptions
 ): Auth0ClientOptions => {
+  deprecateRedirectUri(opts);
+
   return {
     ...opts,
     auth0Client: {
@@ -163,8 +170,11 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   }, [client, onRedirectCallback, skipRedirectCallback]);
 
   const loginWithRedirect = useCallback(
-    (opts?: RedirectLoginOptions): Promise<void> =>
-      client.loginWithRedirect(opts),
+    (opts?: RedirectLoginOptions): Promise<void> => {
+      deprecateRedirectUri(opts);
+
+      return client.loginWithRedirect(opts);
+    },
     [client]
   );
 
