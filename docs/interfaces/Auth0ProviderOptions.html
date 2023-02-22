@@ -25,7 +25,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">Auth0ProviderOptions</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/501aca8/src/auth0-provider.tsx#L39">src/auth0-provider.tsx:39</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/a1bb92c/src/auth0-provider.tsx#L44">src/auth0-provider.tsx:44</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -120,7 +120,7 @@ The default setting is <code>memory</code>.</p>
 <div class="tsd-comment tsd-typography"><p>The child nodes your Provider has wrapped</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/501aca8/src/auth0-provider.tsx#L43">src/auth0-provider.tsx:43</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/a1bb92c/src/auth0-provider.tsx#L48">src/auth0-provider.tsx:48</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a id="clientId" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>client<wbr/>Id</span><a href="#clientId" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">client<wbr/>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -147,7 +147,7 @@ used to store data is different</li>
 <p>For a sample on using multiple Auth0Providers review the <a href="https://github.com/auth0-samples/auth0-link-accounts-sample/tree/react-variant">React Account Linking Sample</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/501aca8/src/auth0-provider.tsx#L81">src/auth0-provider.tsx:81</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/a1bb92c/src/auth0-provider.tsx#L86">src/auth0-provider.tsx:86</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a id="cookieDomain" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>cookie<wbr/>Domain</span><a href="#cookieDomain" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">cookie<wbr/>Domain<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -250,7 +250,7 @@ See the EXAMPLES.md for more info.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> user: <a href="../classes/User.html" class="tsd-signature-type" data-tsd-kind="Class">User</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/501aca8/src/auth0-provider.tsx#L49">src/auth0-provider.tsx:49</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/a1bb92c/src/auth0-provider.tsx#L54">src/auth0-provider.tsx:54</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a id="sessionCheckExpiryDays" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>session<wbr/>Check<wbr/>Expiry<wbr/>Days</span><a href="#sessionCheckExpiryDays" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">session<wbr/>Check<wbr/>Expiry<wbr/>Days<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
@@ -266,11 +266,11 @@ Defaults to 1.</p>
 <div class="tsd-comment tsd-typography"><p>By default, if the page url has code/state params, the SDK will treat them as Auth0&#39;s and attempt to exchange the
 code for a token. In some cases the code might be for something else (another OAuth SDK perhaps). In these
 instances you can instruct the client to ignore them eg</p>
-<pre><code class="language-jsx"><span class="hl-6">&lt;</span><span class="hl-7">Auth0Provider</span><br/><span class="hl-0">  </span><span class="hl-8">clientId</span><span class="hl-0">=</span><span class="hl-9">{</span><span class="hl-4">clientId</span><span class="hl-9">}</span><br/><span class="hl-0">  </span><span class="hl-8">domain</span><span class="hl-0">=</span><span class="hl-9">{</span><span class="hl-4">domain</span><span class="hl-9">}</span><br/><span class="hl-0">  </span><span class="hl-8">skipRedirectCallback</span><span class="hl-0">=</span><span class="hl-9">{</span><span class="hl-4">window</span><span class="hl-10">.</span><span class="hl-4">location</span><span class="hl-10">.</span><span class="hl-4">pathname</span><span class="hl-10"> </span><span class="hl-0">===</span><span class="hl-10"> </span><span class="hl-1">&#39;/stripe-oauth-callback&#39;</span><span class="hl-9">}</span><br/><span class="hl-6">&gt;</span>
+<pre><code class="language-jsx"><span class="hl-8">&lt;</span><span class="hl-9">Auth0Provider</span><br/><span class="hl-0">  </span><span class="hl-10">clientId</span><span class="hl-0">=</span><span class="hl-5">{</span><span class="hl-4">clientId</span><span class="hl-5">}</span><br/><span class="hl-0">  </span><span class="hl-10">domain</span><span class="hl-0">=</span><span class="hl-5">{</span><span class="hl-4">domain</span><span class="hl-5">}</span><br/><span class="hl-0">  </span><span class="hl-10">skipRedirectCallback</span><span class="hl-0">=</span><span class="hl-5">{</span><span class="hl-4">window</span><span class="hl-11">.</span><span class="hl-4">location</span><span class="hl-11">.</span><span class="hl-4">pathname</span><span class="hl-11"> </span><span class="hl-0">===</span><span class="hl-11"> </span><span class="hl-1">&#39;/stripe-oauth-callback&#39;</span><span class="hl-5">}</span><br/><span class="hl-8">&gt;</span>
 </code></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/501aca8/src/auth0-provider.tsx#L63">src/auth0-provider.tsx:63</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/a1bb92c/src/auth0-provider.tsx#L68">src/auth0-provider.tsx:68</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a id="useCookiesForTransactions" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>use<wbr/>Cookies<wbr/>For<wbr/>Transactions</span><a href="#useCookiesForTransactions" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">use<wbr/>Cookies<wbr/>For<wbr/>Transactions<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -314,7 +314,7 @@ like when you&#39;re serving your application from the file system or a custom p
 In situations like this you can disable the iframe fallback and handle the failed <code>refresh_token</code> grant and prompt the user to login interactively with <code>loginWithRedirect</code> or <code>loginWithPopup</code>.&quot;</p>
 <p>E.g. Using the <code>file:</code> protocol in an Electron application does not support that legacy technique.</p>
 
-<h3>Example</h3><pre><code class="language-ts"><span class="hl-9">let</span><span class="hl-0"> </span><span class="hl-4">token</span><span class="hl-0">: </span><span class="hl-7">string</span><span class="hl-0">;</span><br/><span class="hl-3">try</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-4">token</span><span class="hl-0"> = </span><span class="hl-3">await</span><span class="hl-0"> </span><span class="hl-4">auth0</span><span class="hl-0">.</span><span class="hl-5">getTokenSilently</span><span class="hl-0">();</span><br/><span class="hl-0">} </span><span class="hl-3">catch</span><span class="hl-0"> (</span><span class="hl-4">e</span><span class="hl-0">) {</span><br/><span class="hl-0">  </span><span class="hl-3">if</span><span class="hl-0"> (</span><span class="hl-4">e</span><span class="hl-0">.</span><span class="hl-4">error</span><span class="hl-0"> === </span><span class="hl-1">&#39;missing_refresh_token&#39;</span><span class="hl-0"> || </span><span class="hl-4">e</span><span class="hl-0">.</span><span class="hl-4">error</span><span class="hl-0"> === </span><span class="hl-1">&#39;invalid_grant&#39;</span><span class="hl-0">) {</span><br/><span class="hl-0">    </span><span class="hl-4">auth0</span><span class="hl-0">.</span><span class="hl-5">loginWithRedirect</span><span class="hl-0">();</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
+<h3>Example</h3><pre><code class="language-ts"><span class="hl-5">let</span><span class="hl-0"> </span><span class="hl-4">token</span><span class="hl-0">: </span><span class="hl-9">string</span><span class="hl-0">;</span><br/><span class="hl-3">try</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-4">token</span><span class="hl-0"> = </span><span class="hl-3">await</span><span class="hl-0"> </span><span class="hl-4">auth0</span><span class="hl-0">.</span><span class="hl-7">getTokenSilently</span><span class="hl-0">();</span><br/><span class="hl-0">} </span><span class="hl-3">catch</span><span class="hl-0"> (</span><span class="hl-4">e</span><span class="hl-0">) {</span><br/><span class="hl-0">  </span><span class="hl-3">if</span><span class="hl-0"> (</span><span class="hl-4">e</span><span class="hl-0">.</span><span class="hl-4">error</span><span class="hl-0"> === </span><span class="hl-1">&#39;missing_refresh_token&#39;</span><span class="hl-0"> || </span><span class="hl-4">e</span><span class="hl-0">.</span><span class="hl-4">error</span><span class="hl-0"> === </span><span class="hl-1">&#39;invalid_grant&#39;</span><span class="hl-0">) {</span><br/><span class="hl-0">    </span><span class="hl-4">auth0</span><span class="hl-0">.</span><span class="hl-7">loginWithRedirect</span><span class="hl-0">();</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span>
 </code></pre>
 </div><aside class="tsd-sources">
 <p>Inherited from Auth0ClientOptions.useRefreshTokensFallback</p>
