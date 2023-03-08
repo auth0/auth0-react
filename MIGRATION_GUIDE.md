@@ -93,7 +93,7 @@ The above changes affect the following methods:
 
 ### Changes to parameter casing
 
-With the move to placing Auth0 specific properties in the `authorizationParams` object, these properties will now use the casing used by the Auth0 API. This specifically impacts `redirectUri` and `maxAge` as they previously were camelCase but are now kebab-case:
+With the move to placing Auth0 specific properties in the `authorizationParams` object, these properties will now use the casing used by the Auth0 API. This specifically impacts `redirectUri` and `maxAge` as they previously were camelCase but are now snake_case:
 
 - `redirectUri` is now `redirect_uri`
 - `maxAge` is now `max_age`
