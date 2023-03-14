@@ -1,4 +1,9 @@
+.circleci/
+.github/
+__mocks__/
+__tests__/
+cypress/
 docs/
 examples/
-__tests__/
+static/
 README.md
