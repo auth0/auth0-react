@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.0.1](https://github.com/auth0/auth0-react/tree/v2.0.1) (2023-02-22)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.0.0...v2.0.1)
+
+**Fixed**
+- Support redirectUri again in a deprecated way [\#507](https://github.com/auth0/auth0-react/pull/507) ([frederikprijck](https://github.com/frederikprijck))
+
 ## [v2.0.0](https://github.com/auth0/auth0-react/tree/v2.0.0) (2023-01-19)
 
 Auth0-React v2 includes many significant changes compared to v1:
