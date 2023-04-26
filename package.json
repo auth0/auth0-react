@@ -95,11 +95,6 @@
     "react": "^16.11.0 || ^17 || ^18",
     "react-dom": "^16.11.0 || ^17 || ^18"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.0.4"
   }
