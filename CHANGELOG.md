@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.0.2](https://github.com/auth0/auth0-react/tree/v2.0.2) (2023-04-26)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.0.1...v2.0.2)
+
+**Fixed**
+- Remove useUnknownInCatchVariables to be compliant with TS ^4.4 [\#511](https://github.com/auth0/auth0-react/pull/511) ([cemercier](https://github.com/cemercier))
+
 ## [v2.0.1](https://github.com/auth0/auth0-react/tree/v2.0.1) (2023-02-22)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.0.0...v2.0.1)
 
