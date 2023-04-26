@@ -39,8 +39,7 @@
     "test:nextjs:watch": "start-server-and-test start:api 3001 start:nextjs 3000 cypress:open",
     "test:integration": "npm run test:cra && npm run test:gatsby && npm run test:nextjs",
     "cypress:run": "cypress run --spec 'cypress/integration/smoke.test.ts'",
-    "cypress:open": "cypress open",
-    "prepare": "husky install"
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -68,7 +67,7 @@
     "eslint": "^8.28.0",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
     "jest-junit": "^15.0.0",
