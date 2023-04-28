@@ -11,6 +11,11 @@ import Auth0Context, {
 const defaultOnRedirecting = (): JSX.Element => <></>;
 
 /**
+* @ignore
+*/
+const defaultOnBeforeAuthentication = async (): Promise<void> => {/* noop */};
+
+/**
  * @ignore
  */
 const defaultReturnTo = (): string =>
@@ -51,6 +56,16 @@ export interface WithAuthenticationRequiredOptions {
   /**
    * ```js
    * withAuthenticationRequired(Profile, {
+   *   onBeforeAuthentication: () => { analyticsLibrary.track('login_triggered'); }
+   * })
+   * ```
+   *
+   * Allows executing logic before the user is redirected to the login page.
+   */
+  onBeforeAuthentication?: () => Promise<void>;
+  /**
+   * ```js
+   * withAuthenticationRequired(Profile, {
    *   loginOptions: {
    *     appState: {
    *       customProp: 'foo'
@@ -87,6 +102,7 @@ const withAuthenticationRequired = <P extends object>(
     const {
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
+      onBeforeAuthentication = defaultOnBeforeAuthentication,
       loginOptions,
       context = Auth0Context,
     } = options;
@@ -106,12 +122,14 @@ const withAuthenticationRequired = <P extends object>(
         },
       };
       (async (): Promise<void> => {
+        await onBeforeAuthentication();
         await loginWithRedirect(opts);
       })();
     }, [
       isLoading,
       isAuthenticated,
       loginWithRedirect,
+      onBeforeAuthentication,
       loginOptions,
       returnTo,
     ]);
