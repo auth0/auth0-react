@@ -66,6 +66,26 @@ describe('withAuthenticationRequired', () => {
     );
   });
 
+  it('should call onBeforeAuthentication before loginWithRedirect', async () => {
+    const callOrder: string[] = [];
+    mockClient.getUser.mockResolvedValue(undefined);
+    mockClient.loginWithRedirect.mockImplementationOnce(async ()=>{ callOrder.push('loginWithRedirect') });
+    const MyComponent = (): JSX.Element => <>Private</>;
+    const OnBeforeAuthentication = jest.fn().mockImplementationOnce(async ()=>{ callOrder.push('onBeforeAuthentication') });
+    const WrappedComponent = withAuthenticationRequired(MyComponent, {
+      onBeforeAuthentication: OnBeforeAuthentication,
+    });
+    render(
+      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+        <WrappedComponent />
+      </Auth0Provider>
+    );
+
+    await waitFor(() => expect(OnBeforeAuthentication).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(mockClient.loginWithRedirect).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(callOrder).toEqual(['onBeforeAuthentication', 'loginWithRedirect']));
+  });
+
   it('should pass additional options on to loginWithRedirect', async () => {
     mockClient.getUser.mockResolvedValue(undefined);
     const MyComponent = (): JSX.Element => <>Private</>;
