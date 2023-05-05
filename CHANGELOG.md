@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.1.0](https://github.com/auth0/auth0-react/tree/v2.1.0) (2023-05-05)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.0.2...v2.1.0)
+
+**Added**
+- Adding onBeforeAuthentication to the withAuthenticationRequired HOC [\#534](https://github.com/auth0/auth0-react/pull/534) ([stephenkelzer](https://github.com/stephenkelzer))
+
 ## [v2.0.2](https://github.com/auth0/auth0-react/tree/v2.0.2) (2023-04-26)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.0.1...v2.0.2)
 
