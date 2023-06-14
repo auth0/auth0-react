@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.1.1](https://github.com/auth0/auth0-react/tree/v2.1.1) (2023-06-14)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.1.0...v2.1.1)
+
+**Changed**
+- bump SPA-JS to the latest version [\#543](https://github.com/auth0/auth0-react/pull/543) ([frederikprijck](https://github.com/frederikprijck))
+
 ## [v2.1.0](https://github.com/auth0/auth0-react/tree/v2.1.0) (2023-05-05)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.0.2...v2.1.0)
 
