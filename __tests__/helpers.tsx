@@ -16,3 +16,21 @@ export const createWrapper = ({
     );
   };
 };
+
+export interface Defer<TData> {
+  resolve: (value: TData | PromiseLike<TData>) => void;
+  reject: (reason?: unknown) => void;
+  promise: Promise<TData>;
+}
+
+export function defer<TData>() {
+  const deferred: Defer<TData> = {} as unknown as Defer<TData>;
+
+  const promise = new Promise<TData>(function (resolve, reject) {
+    deferred.resolve = resolve;
+    deferred.reject = reject;
+  });
+
+  deferred.promise = promise;
+  return deferred;
+}

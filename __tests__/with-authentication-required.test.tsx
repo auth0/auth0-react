@@ -2,9 +2,10 @@ import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import withAuthenticationRequired from '../src/with-authentication-required';
 import { render, screen, waitFor, act } from '@testing-library/react';
-import { Auth0Client} from '@auth0/auth0-spa-js';
+import { Auth0Client, User } from '@auth0/auth0-spa-js';
 import Auth0Provider from '../src/auth0-provider';
 import { Auth0ContextInterface, initialContext } from '../src/auth0-context';
+import { defer } from './helpers';
 
 const mockClient = jest.mocked(new Auth0Client({ clientId: '', domain: '' }));
 
@@ -28,11 +29,14 @@ describe('withAuthenticationRequired', () => {
     mockClient.getUser.mockResolvedValue({ name: '__test_user__' });
     const MyComponent = (): JSX.Element => <>Private</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent);
-    render(
-      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
-        <WrappedComponent />
-      </Auth0Provider>
-    );
+    await act(() => {
+      render(
+        <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+          <WrappedComponent />
+        </Auth0Provider>
+      );
+    });
+
     await waitFor(() =>
       expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
     );
@@ -41,25 +45,33 @@ describe('withAuthenticationRequired', () => {
     );
   });
 
-  it('should show a custom redirecting message', async () => {
-    mockClient.getUser.mockResolvedValue(
-      Promise.resolve({ name: '__test_user__' })
-    );
+  it('should show a custom redirecting message when not authenticated', async () => {
+    const deferred = defer<User | undefined>();
+    mockClient.getUser.mockResolvedValue(deferred.promise);
+
     const MyComponent = (): JSX.Element => <>Private</>;
     const OnRedirecting = (): JSX.Element => <>Redirecting</>;
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
       onRedirecting: OnRedirecting,
     });
-    render(
-      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
-        <WrappedComponent />
-      </Auth0Provider>
+    const { rerender } = await act(() =>
+      render(
+        <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+          <WrappedComponent />
+        </Auth0Provider>
+      )
     );
+
     await waitFor(() =>
       expect(screen.getByText('Redirecting')).toBeInTheDocument()
     );
-    await waitFor(() =>
-      expect(mockClient.loginWithRedirect).not.toHaveBeenCalled()
+
+    deferred.resolve({ name: '__test_user__' });
+
+    rerender(
+      <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+        <WrappedComponent />
+      </Auth0Provider>
     );
     await waitFor(() =>
       expect(screen.queryByText('Redirecting')).not.toBeInTheDocument()
@@ -69,9 +81,15 @@ describe('withAuthenticationRequired', () => {
   it('should call onBeforeAuthentication before loginWithRedirect', async () => {
     const callOrder: string[] = [];
     mockClient.getUser.mockResolvedValue(undefined);
-    mockClient.loginWithRedirect.mockImplementationOnce(async ()=>{ callOrder.push('loginWithRedirect') });
+    mockClient.loginWithRedirect.mockImplementationOnce(async () => {
+      callOrder.push('loginWithRedirect');
+    });
     const MyComponent = (): JSX.Element => <>Private</>;
-    const OnBeforeAuthentication = jest.fn().mockImplementationOnce(async ()=>{ callOrder.push('onBeforeAuthentication') });
+    const OnBeforeAuthentication = jest
+      .fn()
+      .mockImplementationOnce(async () => {
+        callOrder.push('onBeforeAuthentication');
+      });
     const WrappedComponent = withAuthenticationRequired(MyComponent, {
       onBeforeAuthentication: OnBeforeAuthentication,
     });
@@ -81,9 +99,15 @@ describe('withAuthenticationRequired', () => {
       </Auth0Provider>
     );
 
-    await waitFor(() => expect(OnBeforeAuthentication).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(mockClient.loginWithRedirect).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(callOrder).toEqual(['onBeforeAuthentication', 'loginWithRedirect']));
+    await waitFor(() =>
+      expect(OnBeforeAuthentication).toHaveBeenCalledTimes(1)
+    );
+    await waitFor(() =>
+      expect(mockClient.loginWithRedirect).toHaveBeenCalledTimes(1)
+    );
+    await waitFor(() =>
+      expect(callOrder).toEqual(['onBeforeAuthentication', 'loginWithRedirect'])
+    );
   });
 
   it('should pass additional options on to loginWithRedirect', async () => {
