@@ -5,6 +5,7 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import { Auth0Client, User } from '@auth0/auth0-spa-js';
 import Auth0Provider from '../src/auth0-provider';
 import { Auth0ContextInterface, initialContext } from '../src/auth0-context';
+import { defer } from './helpers';
 
 const mockClient = jest.mocked(new Auth0Client({ clientId: '', domain: '' }));
 
@@ -44,24 +45,8 @@ describe('withAuthenticationRequired', () => {
     );
   });
 
-  function defer<TData>() {
-    const deferred: {
-      resolve: (value: TData | PromiseLike<TData>) => void;
-      reject: (reason?: unknown) => void;
-      promise: Promise<TData>;
-    } = {} as any;
-
-    const promise = new Promise<TData>(function (resolve, reject) {
-      deferred.resolve = resolve;
-      deferred.reject = reject;
-    });
-
-    deferred.promise = promise;
-    return deferred;
-  }
-
   it('should show a custom redirecting message when not authenticated', async () => {
-    const deferred = defer<User>();
+    const deferred = defer<User | undefined>();
     mockClient.getUser.mockResolvedValue(deferred.promise);
 
     const MyComponent = (): JSX.Element => <>Private</>;
