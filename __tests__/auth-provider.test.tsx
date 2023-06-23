@@ -60,6 +60,7 @@ describe('Auth0Provider', () => {
   });
 
   it('should support redirectUri', async () => {
+    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const opts = {
       clientId: 'foo',
       domain: 'bar',
@@ -78,10 +79,12 @@ describe('Auth0Provider', () => {
         },
       })
     );
+    expect(warn).toHaveBeenCalled();
     await waitForNextUpdate();
   });
 
   it('should support authorizationParams.redirectUri', async () => {
+    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const opts = {
       clientId: 'foo',
       domain: 'bar',
@@ -102,6 +105,7 @@ describe('Auth0Provider', () => {
         },
       })
     );
+    expect(warn).toHaveBeenCalled();
     await waitForNextUpdate();
   });
 
@@ -347,6 +351,7 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a login method supporting redirectUri', async () => {
+    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -362,9 +367,11 @@ describe('Auth0Provider', () => {
         redirect_uri: '__redirect_uri__',
       },
     });
+    expect(warn).toHaveBeenCalled();
   });
 
   it('should provide a login method supporting authorizationParams.redirectUri', async () => {
+    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -382,6 +389,7 @@ describe('Auth0Provider', () => {
         redirect_uri: '__redirect_uri__',
       },
     });
+    expect(warn).toHaveBeenCalled();
   });
 
   it('should provide a logout method', async () => {
