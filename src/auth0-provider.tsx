@@ -267,7 +267,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     [client]
   );
 
-  const contextValue = useMemo(() => {
+  const contextValue = useMemo<Auth0ContextInterface<User>>(() => {
     return {
       ...state,
       getAccessTokenSilently,

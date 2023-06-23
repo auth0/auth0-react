@@ -127,7 +127,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * If the `logoutParams.federated` option is specified, it also clears the Identity Provider session.
    * [Read more about how Logout works at Auth0](https://auth0.com/docs/logout).
    */
-  logout: (options?: LogoutOptions) => void;
+  logout: (options?: LogoutOptions) => Promise<void>;
 
   /**
    * After the browser redirects back to the callback page,
