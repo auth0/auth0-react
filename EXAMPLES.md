@@ -311,11 +311,10 @@ const App = () => {
   const orgMatches = url.match(/organization=([^&]+)/);
   if (inviteMatches && orgMatches) {
     loginWithRedirect({
-      authorizationParams: {
-        organization: orgMatches[1],
         invitation: inviteMatches[1],
+        organization: orgMatches[1],
       }
-    });
+    );
   }
   return <div>...</div>;
 };
