@@ -1,5 +1,15 @@
 # Change Log
 
+## [v2.2.0](https://github.com/auth0/auth0-react/tree/v2.2.0) (2023-07-13)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.1.1...v2.2.0)
+
+**Added**
+- Support Organization Name [\#552](https://github.com/auth0/auth0-react/pull/552) ([frederikprijck](https://github.com/frederikprijck))
+
+**Fixed**
+- Fix incorrect logout jsdocx example [\#551](https://github.com/auth0/auth0-react/pull/551) ([frederikprijck](https://github.com/frederikprijck))
+- Fix inconsistent logout function types [\#548](https://github.com/auth0/auth0-react/pull/548) ([frederikprijck](https://github.com/frederikprijck))
+
 ## [v2.1.1](https://github.com/auth0/auth0-react/tree/v2.1.1) (2023-06-14)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.1.0...v2.1.1)
 

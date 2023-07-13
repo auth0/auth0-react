@@ -94,7 +94,7 @@ the Login Widget.</p>
 <div class="tsd-comment tsd-typography"><p>The Id of an invitation to accept. This is available from the user invitation URL that is given when participating in a user invitation flow.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:78</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:81</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a id="login_hint" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>login_<wbr/>hint</span><a href="#login_hint" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">login_<wbr/>hint<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -117,12 +117,15 @@ the user must be reauthenticated.</p>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a id="organization" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>organization</span><a href="#organization" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">organization<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The Id of an organization to log in to.</p>
-<p>This will specify an <code>organization</code> parameter in your user&#39;s login request and will add a step to validate
-the <code>org_id</code> claim in your user&#39;s ID Token.</p>
+<div class="tsd-comment tsd-typography"><p>The organization to log in to.</p>
+<p>This will specify an <code>organization</code> parameter in your user&#39;s login request.</p>
+<ul>
+<li>If you provide an Organization ID (a string with the prefix <code>org_</code>), it will be validated against the <code>org_id</code> claim of your user&#39;s ID Token. The validation is case-sensitive.</li>
+<li>If you provide an Organization Name (a string <em>without</em> the prefix <code>org_</code>), it will be validated against the <code>org_name</code> claim of your user&#39;s ID Token. The validation is case-insensitive.</li>
+</ul>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:74</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:77</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a id="prompt" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>prompt</span><a href="#prompt" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">prompt<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;none&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;login&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;consent&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;select_account&quot;</span></div>
@@ -145,7 +148,7 @@ settings. If not provided here, it should be provided in the other
 methods that provide authentication.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:86</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:89</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a id="scope" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>scope</span><a href="#scope" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">scope<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
