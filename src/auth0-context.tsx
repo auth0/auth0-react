@@ -119,7 +119,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
 
   /**
    * ```js
-   * auth0.logout({ returnTo: window.location.origin });
+   * auth0.logout({ logoutParams: { returnTo: window.location.origin } });
    * ```
    *
    * Clears the application session and performs a redirect to `/v2/logout`, using
