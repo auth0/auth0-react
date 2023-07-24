@@ -128,7 +128,13 @@ function App() {
     return (
       <div>
         Hello {user.name}{' '}
-        <button onClick={() => logout({ returnTo: window.location.origin })}>
+        <button onClick={() => {
+          return logout({
+            logoutParams: {
+              returnTo: window.location.origin,
+            },
+          });
+        }}>
           Log out
         </button>
       </div>
