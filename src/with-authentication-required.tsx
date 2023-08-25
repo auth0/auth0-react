@@ -92,7 +92,7 @@ export interface WithAuthenticationRequiredOptions {
  * ```
  *
  * When you wrap your components in this Higher Order Component and an anonymous user visits your component
- * they will be redirected to the login page and returned to the page they we're redirected from after login.
+ * they will be redirected to the login page; after login they will be returned to the page they were redirected from.
  */
 const withAuthenticationRequired = <P extends object>(
   Component: ComponentType<P>,
