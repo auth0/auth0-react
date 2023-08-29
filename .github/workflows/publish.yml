@@ -15,31 +15,9 @@ permissions:
 
 env:
   NODE_VERSION: 18
-  CACHE_KEY: '${{ github.ref }}-${{ github.run_id }}-${{ github.run_attempt }}'
 
 jobs:
-  build:
-    name: Build Package
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Build package
-        uses: ./.github/actions/build
-        with:
-          node: ${{ env.NODE_VERSION }}
-
-      - name: Save build artifacts
-        uses: actions/cache/save@v3
-        with:
-          path: .
-          key: ${{ env.CACHE_KEY }}
-
   publish-npm:
-    needs: build # Don't publish to NPM until the package is successfully built
-
     name: 'NPM'
     runs-on: ubuntu-latest
     environment: release
@@ -54,11 +32,8 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
-      - name: Restore build artifacts
-        uses: actions/cache/restore@v3
-        with:
-          path: .
-          key: ${{ env.CACHE_KEY }}
+      - name: Install dependencies
+        run: npm ci --include=dev
 
       - name: Publish release to NPM
         run: npm publish
@@ -83,11 +58,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           cache: npm
 
-      - name: Restore build artifacts
-        uses: actions/cache/restore@v3
-        with:
-          path: .
-          key: ${{ env.CACHE_KEY }}
+      - name: Install dependencies
+        run: npm ci --include=dev
 
       - name: Publish release to GitHub Packages
         run: npm publish
