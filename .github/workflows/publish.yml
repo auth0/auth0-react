@@ -1,0 +1,95 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+' # Release versions
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+' # Beta versions
+      - '[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  NODE_VERSION: 18
+  CACHE_KEY: '${{ github.ref }}-${{ github.run_id }}-${{ github.run_attempt }}'
+
+jobs:
+  build:
+    name: Build Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build package
+        uses: ./.github/actions/build
+        with:
+          node: ${{ env.NODE_VERSION }}
+
+      - name: Save build artifacts
+        uses: actions/cache/save@v3
+        with:
+          path: .
+          key: ${{ env.CACHE_KEY }}
+
+  publish-npm:
+    needs: build # Don't publish to NPM until the package is successfully built
+
+    name: 'NPM'
+    runs-on: ubuntu-latest
+    environment: release
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v3
+        with:
+          path: .
+          key: ${{ env.CACHE_KEY }}
+
+      - name: Publish release to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-gh:
+    needs: publish-npm # Don't publish to GitHub Packages until publishing to NPM is successfully completed
+
+    name: 'GitHub Packages'
+    runs-on: ubuntu-latest
+    environment: release
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://npm.pkg.github.com'
+          cache: npm
+
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v3
+        with:
+          path: .
+          key: ${{ env.CACHE_KEY }}
+
+      - name: Publish release to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
