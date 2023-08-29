@@ -116,7 +116,7 @@ jobs:
   browserstack:
     needs: unit # Only run if unit tests pass
 
-    name: BrowserSTack Tests
+    name: BrowserStack Tests
     runs-on: ubuntu-latest
 
     steps:
