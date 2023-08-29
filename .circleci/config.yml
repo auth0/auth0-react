@@ -1,0 +1,75 @@
+version: 2.1
+orbs:
+  ship: auth0/ship@0
+  codecov: codecov/codecov@3
+parameters:
+  docker_image:
+    type: string
+    default: cimg/node:18.12-browsers
+jobs:
+  build:
+    docker:
+      - image: << pipeline.parameters.docker_image >>
+    resource_class: xlarge
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package.json" }}-{{ checksum "examples/gatsby-app/package.json" }}-{{ checksum "examples/nextjs-app/package.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
+      - run: npm ci
+      - run:
+          name: npm run install:examples
+          command: |
+            if [ -z "$CIRCLE_PR_NUMBER" ]; then
+              npm run install:examples
+            fi
+      - save_cache:
+          key: dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package.json" }}-{{ checksum "examples/gatsby-app/package.json" }}-{{ checksum "examples/nextjs-app/package.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - run: npm run build
+      - run: npm test
+      - run:
+          name: npm run test:integration
+          command: |
+            if [ -z "$CIRCLE_PR_NUMBER" ]; then
+              npm run test:integration
+            fi
+      - codecov/upload
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+  browserstack:
+    docker:
+      - image: << pipeline.parameters.docker_image >>
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependencies-{{ .Branch }}-{{ checksum "package-lock.json" }}-{{ checksum "examples/cra-react-router/package.json" }}-{{ checksum "examples/gatsby-app/package.json" }}-{{ checksum "examples/nextjs-app/package.json" }}-{{ checksum "examples/users-api/package-lock.json" }}
+      - run: npm ci
+      - run: npx concurrently --raw --kill-others --success first "npm:start" "wait-on http://127.0.0.1:3000/ && browserstack-cypress run --build-name $CIRCLE_BRANCH --no-wrap --specs "cypress/integration/smoke-bs.test.ts""
+
+workflows:
+  Build and Test:
+    jobs:
+      - build
+      - browserstack:
+          requires:
+            - build
+          context:
+            - browserstack-env
+      - ship/node-publish:
+          publish-command: npm publish 
+          node-version: 18.12.1
+          context:
+            - publish-npm
+            - publish-gh
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - browserstack
