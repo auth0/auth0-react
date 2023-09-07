@@ -30,6 +30,13 @@ jobs:
     name: cra-react-router
     runs-on: ubuntu-latest
 
+    env:
+      SKIP_PREFLIGHT_CHECK: true
+      REACT_APP_DOMAIN: your-tenant.auth0.com
+      REACT_APP_CLIENT_ID: yourclientid
+      REACT_APP_AUDIENCE: https://api.example.com/users
+      REACT_APP_API_PORT: 3001
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -49,12 +56,6 @@ jobs:
           start: |
             npm start --prefix=examples/users-api
             npm start --prefix=examples/cra-react-router
-        env:
-          SKIP_PREFLIGHT_CHECK: true
-          REACT_APP_DOMAIN: your-tenant.auth0.com
-          REACT_APP_CLIENT_ID: yourclientid
-          REACT_APP_AUDIENCE: https://api.example.com/users
-          REACT_APP_API_PORT: 3001
 
   # test-gatsby:
   #   name: Run Gatsby tests
