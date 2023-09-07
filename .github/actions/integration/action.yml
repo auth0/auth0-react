@@ -47,8 +47,8 @@ runs:
       shell: bash
       run: |
         pnpm i
-        pnpm i --prefix=examples/users-api --frozen-lockfile
-        pnpm i --prefix=examples/${{ inputs.integration }} --frozen-lockfile
+        pnpm i --prefix=examples/users-api
+        pnpm i --prefix=examples/${{ inputs.integration }}
 
     - name: Start mock API server
       shell: bash
