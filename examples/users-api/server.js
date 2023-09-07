@@ -31,4 +31,4 @@ app.get('/users', checkJwt, requiredScopes('read:users'), (req, res) => {
   ]);
 });
 
-app.listen(PORT, () => console.log(`API Server listening on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`API Server listening on port ${PORT}`));
