@@ -51,13 +51,15 @@ jobs:
       - name: Start mock API server
         run: npm start --prefix=examples/users-api &
 
+      - name: Start application
+        run: npm start --prefix=examples/cra-react-router &
+
       - name: Run Cypress integration test
         uses: cypress-io/github-action@v6
         with:
           spec: cypress/integration/smoke.test.ts
-          # install: false
-          build: npm run build
-          start: npm start --prefix=examples/cra-react-router
+          build: false
+          install: false
           wait-on: 'http://127.0.0.1:3001/, http://127.0.0.1:3000'
 
   # test-gatsby:
