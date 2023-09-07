@@ -9,9 +9,6 @@ inputs:
     description: The Node version to use
     required: false
     default: 18
-  key:
-    description: The key to use for the cache
-    required: true
   dotenv:
     description: The path to the .env file
     required: false
@@ -40,9 +37,9 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        npm ci
-        npm ci --prefix=examples/users-api
-        npm i --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
+        npm ci --with=dev
+        npm ci --with=dev --prefix=examples/users-api
+        npm i --with=dev --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
 
     - name: Build package
       shell: bash
