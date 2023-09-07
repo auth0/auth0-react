@@ -19,40 +19,12 @@ concurrency:
 
 env:
   NODE_VERSION: 18
-  CACHE_KEY: '${{ github.ref }}-${{ github.run_id }}-${{ github.run_attempt }}'
   DOMAIN: your-tenant.auth0.com
   AUDIENCE: https://api.example.com/users
   PORT: 3001
 
 jobs:
-  build:
-    name: Prepare
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build package
-        uses: ./.github/actions/build
-        with:
-          node: ${{ env.NODE_VERSION }}
-
-      - name: Save build artifacts
-        uses: actions/cache/save@v3
-        with:
-          path: .
-          key: ${{ env.CACHE_KEY }}
-
-      - name: Cache Cypress
-        uses: actions/cache/save@v3
-        with:
-          path: /home/runner/.cache/Cypress
-          key: ${{ env.CACHE_KEY }}-cypress
-
   test-cra:
-    needs: build # Require build to complete before running tests
-
     name: Run cra-react-router tests
     runs-on: ubuntu-latest
 
@@ -65,7 +37,6 @@ jobs:
         with:
           integration: 'cra-react-router'
           node: ${{ env.NODE_VERSION }}
-          key: ${{ env.CACHE_KEY }}
 
       - name: Run integration tests
         run: |
@@ -78,8 +49,6 @@ jobs:
           REACT_APP_API_PORT: 3001
 
   test-gatsby:
-    needs: build # Require build to complete before running tests
-
     name: Run Gatsby tests
     runs-on: ubuntu-latest
 
@@ -92,7 +61,6 @@ jobs:
         with:
           integration: 'gatsby-app'
           node: ${{ env.NODE_VERSION }}
-          key: ${{ env.CACHE_KEY }}
 
       - name: Run integration tests
         run: |
@@ -104,8 +72,6 @@ jobs:
           GATSBY_API_PORT: 3001
 
   test-nextjs:
-    needs: build # Require build to complete before running tests
-
     name: Run NextJS tests
     runs-on: ubuntu-latest
 
@@ -118,7 +84,6 @@ jobs:
         with:
           integration: 'nextjs-app'
           node: ${{ env.NODE_VERSION }}
-          key: ${{ env.CACHE_KEY }}
 
       - name: Run integration tests
         run: |
