@@ -18,6 +18,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 env:
+  NODE_ENV: development
   NODE_VERSION: 18
   DOMAIN: your-tenant.auth0.com
   AUDIENCE: https://api.example.com/users
