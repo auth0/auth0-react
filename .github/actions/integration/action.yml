@@ -54,6 +54,8 @@ runs:
         cd examples/users-api
         pnpm i
         pnpm run start &
+      env:
+        PORT: 3001
 
     - name: Start application
       shell: bash
@@ -61,6 +63,8 @@ runs:
         cd examples/${{ inputs.integration }}
         pnpm i
         pnpm run start &
+      env:
+        PORT: 3000
 
     - name: Run Cypress test
       uses: cypress-io/github-action@v6
