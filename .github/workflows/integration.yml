@@ -61,6 +61,7 @@ jobs:
         with:
           integration: 'gatsby-app'
           node: ${{ env.NODE_VERSION }}
+          dotenv: .env.development.sample
 
       - name: Run integration tests
         run: |
