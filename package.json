@@ -26,7 +26,7 @@
     "test": "jest --coverage",
     "prepack": "npm run build",
     "docs": "typedoc --options typedoc.js src",
-    "install:examples": "npm i --prefix=examples/cra-react-router --no-package-lock && npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps && npm i --prefix=examples/nextjs-app --no-package-lock --legacy-peer-deps && npm ci --prefix=examples/users-api",
+    "install:examples": "npm i --prefix=examples/cra-react-router --no-package-lock --legacy-peer-deps && npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps && npm i --prefix=examples/nextjs-app --no-package-lock --legacy-peer-deps && npm ci --prefix=examples/users-api",
     "start:cra": "npm start --prefix=examples/cra-react-router",
     "start:gatsby": "npm start --prefix=examples/gatsby-app",
     "start:nextjs": "npm run dev --prefix=examples/nextjs-app",
