@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Integration Test
 
 on:
   merge_group:
@@ -43,7 +43,7 @@ jobs:
           path: .
           key: ${{ env.CACHE_KEY }}
 
-  unit:
+  integration:
     needs: build # Require build to complete before running tests
 
     name: Run Tests
@@ -52,6 +52,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -65,8 +67,8 @@ jobs:
           path: .
           key: ${{ env.CACHE_KEY }}
 
-      - name: Run tests
-        run: npm run test
+      - name: Install integration dependencies
+        run: npm run install:examples
 
-      - name: Upload coverage
-        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # pin@3.1.4
+      - name: Run tests
+        run: npm run test:integration
