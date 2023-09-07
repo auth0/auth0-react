@@ -23,6 +23,7 @@ const checkJwt = auth({
 });
 
 app.head('/', (req, res) => res.send('ok'));
+app.get('/', (req, res) => res.status(200).send('OK'));
 
 app.get('/users', checkJwt, requiredScopes('read:users'), (req, res) => {
   res.send([
