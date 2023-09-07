@@ -42,18 +42,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Prepare environment
+      - name: Run integration test
         uses: ./.github/actions/integration
         with:
           integration: 'cra-react-router'
           node: ${{ env.NODE_VERSION }}
-
-      - name: Run Cypress integration test
-        uses: cypress-io/github-action@v6
-        with:
-          spec: cypress/integration/smoke.test.ts
-          install: false
-          wait-on: 'http://127.0.0.1:3001/, http://127.0.0.1:3000'
 
   # test-gatsby:
   #   name: Run Gatsby tests
