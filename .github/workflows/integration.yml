@@ -41,7 +41,7 @@ jobs:
       - name: Setup common dependencies
         run: |
           npm ci --prefix=examples/users-api
-          mv examples/users-api/.env.example examples/users-api/.env
+          mv examples/users-api/.env.sample examples/users-api/.env
 
       - name: Save build artifacts
         uses: actions/cache/save@v3
@@ -88,7 +88,7 @@ jobs:
           npm ci
           npm ci --prefix=examples/users-api
           npm i --prefix=examples/cra-react-router --no-package-lock --legacy-peer-deps
-          mv examples/cra-react-router/.env.example examples/cra-react-router/.env
+          mv examples/cra-react-router/.env.sample examples/cra-react-router/.env
           npm run test:cra
         env:
           SKIP_PREFLIGHT_CHECK: true
@@ -130,7 +130,7 @@ jobs:
           npm ci
           npm ci --prefix=examples/users-api
           npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps
-          mv examples/gatsby-app/.env.example examples/gatsby-app/.env
+          mv examples/gatsby-app/.env.development.sample examples/gatsby-app/.env
           npm run test:gatsby
         env:
           GATSBY_DOMAIN: your-tenant.auth0.com
@@ -171,7 +171,7 @@ jobs:
           npm ci
           npm ci --prefix=examples/users-api
           npm i --prefix=examples/nextjs-app --no-package-lock --legacy-peer-deps
-          mv examples/nextjs-app/.env.example examples/nextjs-app/.env
+          mv examples/nextjs-app/.env.sample examples/nextjs-app/.env
           npm run test:nextjs
         env:
           NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
