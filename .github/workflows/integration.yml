@@ -45,19 +45,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-
-      - name: Install integration dependencies
-        run: npm run install:examples
-
       - name: Build package
         uses: ./.github/actions/build
         with:
           node: ${{ env.NODE_VERSION }}
 
+      - name: Install test dependencies
+        run: npm run install:examples
+
       - name: Run tests
+        run: npm run test
+
+      - name: Run integration tests
         run: npm run test:integration
