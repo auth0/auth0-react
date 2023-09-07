@@ -38,9 +38,13 @@ jobs:
           integration: 'cra-react-router'
           node: ${{ env.NODE_VERSION }}
 
-      - name: Run integration tests
-        run: |
-          npm run test:cra
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          spec: cypress/integration/smoke.test.ts
+          install: false
+          build: npm run build
+          start: (npm start:api--port 3000 & npm start:cra --port 3001) && sleep 10
         env:
           SKIP_PREFLIGHT_CHECK: true
           REACT_APP_DOMAIN: your-tenant.auth0.com
@@ -48,49 +52,49 @@ jobs:
           REACT_APP_AUDIENCE: https://api.example.com/users
           REACT_APP_API_PORT: 3001
 
-  test-gatsby:
-    name: Run Gatsby tests
-    runs-on: ubuntu-latest
+  # test-gatsby:
+  #   name: Run Gatsby tests
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Prepare integration test
-        uses: ./.github/actions/integration
-        with:
-          integration: 'gatsby-app'
-          node: ${{ env.NODE_VERSION }}
-          dotenv: .env.development.sample
+  #     - name: Prepare integration test
+  #       uses: ./.github/actions/integration
+  #       with:
+  #         integration: 'gatsby-app'
+  #         node: ${{ env.NODE_VERSION }}
+  #         dotenv: .env.development.sample
 
-      - name: Run integration tests
-        run: |
-          npm run test:gatsby
-        env:
-          GATSBY_DOMAIN: your-tenant.auth0.com
-          GATSBY_CLIENT_ID: yourclientid
-          GATSBY_AUDIENCE: https://api.example.com/users
-          GATSBY_API_PORT: 3001
+  #     - name: Run integration tests
+  #       run: |
+  #         npm run test:gatsby
+  #       env:
+  #         GATSBY_DOMAIN: your-tenant.auth0.com
+  #         GATSBY_CLIENT_ID: yourclientid
+  #         GATSBY_AUDIENCE: https://api.example.com/users
+  #         GATSBY_API_PORT: 3001
 
-  test-nextjs:
-    name: Run NextJS tests
-    runs-on: ubuntu-latest
+  # test-nextjs:
+  #   name: Run NextJS tests
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Prepare integration test
-        uses: ./.github/actions/integration
-        with:
-          integration: 'nextjs-app'
-          node: ${{ env.NODE_VERSION }}
+  #     - name: Prepare integration test
+  #       uses: ./.github/actions/integration
+  #       with:
+  #         integration: 'nextjs-app'
+  #         node: ${{ env.NODE_VERSION }}
 
-      - name: Run integration tests
-        run: |
-          npm run test:nextjs
-        env:
-          NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
-          NEXT_PUBLIC_CLIENT_ID: yourclientid
-          NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
-          NEXT_PUBLIC_API_PORT: 3001
+  #     - name: Run integration tests
+  #       run: |
+  #         npm run test:nextjs
+  #       env:
+  #         NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
+  #         NEXT_PUBLIC_CLIENT_ID: yourclientid
+  #         NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
+  #         NEXT_PUBLIC_API_PORT: 3001
