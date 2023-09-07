@@ -22,7 +22,7 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node }}
-        cache: 'npm'
+        cache: 'pnpm'
 
     - name: Update /etc/hosts
       shell: bash
@@ -37,6 +37,14 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        npm ci
-        npm ci --prefix=examples/users-api
-        npm i --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
+        pnpm ci
+        pnpm ci --prefix=examples/users-api
+        pnpm i --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
+
+    - name: Start mock API server
+      shell: bash
+      run: pnpm run start --prefix=examples/users-api &
+
+    - name: Start application
+      shell: bash
+      run: pnpm run start --prefix=examples/${{ inputs.integration }} &
