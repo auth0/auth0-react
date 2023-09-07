@@ -58,7 +58,7 @@ jobs:
           # install: false
           build: npm run build
           start: npm start --prefix=examples/cra-react-router
-          wait-on: 'http://localhost:3001/users, http://localhost:3000'
+          wait-on: 'http://127.0.0.1:3001/users, http://127.0.0.1:3000'
 
   # test-gatsby:
   #   name: Run Gatsby tests
