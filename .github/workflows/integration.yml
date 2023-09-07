@@ -71,6 +71,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
+      - name: Update /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
+
       - name: Restore build artifacts
         uses: actions/cache/restore@v3
         with:
@@ -113,6 +117,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
+      - name: Update /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
+
       - name: Restore build artifacts
         uses: actions/cache/restore@v3
         with:
@@ -153,6 +161,10 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+
+      - name: Update /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
 
       - name: Restore build artifacts
         uses: actions/cache/restore@v3
