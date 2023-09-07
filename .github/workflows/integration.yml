@@ -21,7 +21,7 @@ env:
   NODE_VERSION: 18
   DOMAIN: your-tenant.auth0.com
   AUDIENCE: https://api.example.com/users
-  PORT: 3001
+  PORT: 3000
 
 jobs:
   test-cra:
