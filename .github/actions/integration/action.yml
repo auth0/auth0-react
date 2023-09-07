@@ -24,6 +24,11 @@ runs:
         node-version: ${{ inputs.node }}
         cache: 'npm'
 
+    - name: Update /etc/hosts
+      shell: bash
+      run: |
+        sudo echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
+
     - name: Move dotenv file
       shell: bash
       run: |
