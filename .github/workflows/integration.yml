@@ -51,7 +51,7 @@ jobs:
   test-cra:
     needs: build # Require build to complete before running tests
 
-    name: Run cra-react-router integration tests
+    name: Run cra-react-router tests
     runs-on: ubuntu-latest
 
     steps:
@@ -64,7 +64,7 @@ jobs:
           path: .
           key: ${{ env.CACHE_KEY }}
 
-      - name: Run CRA integration tests
+      - name: Run integration tests
         run: |
           npm i --prefix=examples/cra-react-router --no-package-lock --legacy-peer-deps
           npm start-server-and-test start:api 3001 start:cra http-get://127.0.0.1:3000 cypress:run
@@ -78,7 +78,7 @@ jobs:
   test-gatsby:
     needs: build # Require build to complete before running tests
 
-    name: Run Gatsby integration tests
+    name: Run Gatsby tests
     runs-on: ubuntu-latest
 
     steps:
@@ -91,7 +91,7 @@ jobs:
           path: .
           key: ${{ env.CACHE_KEY }}
 
-      - name: Run Gatsby integration tests
+      - name: Run integration tests
         run: |
           npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps
           npm start-server-and-test start:api 3001 start:gatsby 3000 cypress:run
@@ -104,7 +104,7 @@ jobs:
   test-nextjs:
     needs: build # Require build to complete before running tests
 
-    name: Run NextJS integration tests
+    name: Run NextJS tests
     runs-on: ubuntu-latest
 
     steps:
@@ -117,7 +117,7 @@ jobs:
           path: .
           key: ${{ env.CACHE_KEY }}
 
-      - name: Run NextJS integration tests
+      - name: Run integration tests
         run: |
           npm i --prefix=examples/nextjs-app --no-package-lock --legacy-peer-deps
           npm start-server-and-test start:api 3001 start:nextjs 3000 cypress:run
