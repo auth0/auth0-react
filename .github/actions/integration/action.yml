@@ -55,6 +55,8 @@ runs:
         pnpm i
         pnpm run start &
       env:
+        DOMAIN: your-tenant.auth0.com
+        AUDIENCE: https://api.example.com/users
         PORT: 3001
 
     - name: Start application
