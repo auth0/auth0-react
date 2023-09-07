@@ -24,11 +24,6 @@ runs:
         node-version: ${{ inputs.node }}
         cache: 'npm'
 
-    - name: Update /etc/hosts
-      shell: bash
-      run: |
-        sudo echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
-
     - name: Move dotenv file
       shell: bash
       run: |
@@ -40,7 +35,3 @@ runs:
         npm ci --with=dev
         npm ci --with=dev --prefix=examples/users-api
         npm i --with=dev --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
-
-    - name: Build package
-      shell: bash
-      run: npm run build
