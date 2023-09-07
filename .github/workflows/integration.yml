@@ -22,19 +22,6 @@ env:
   DOMAIN: your-tenant.auth0.com
   AUDIENCE: https://api.example.com/users
   PORT: 3001
-  NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
-  NEXT_PUBLIC_CLIENT_ID: yourclientid
-  NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
-  NEXT_PUBLIC_API_PORT: 3001
-  GATSBY_DOMAIN: your-tenant.auth0.com
-  GATSBY_CLIENT_ID: yourclientid
-  GATSBY_AUDIENCE: https://api.example.com/users
-  GATSBY_API_PORT: 3001
-  SKIP_PREFLIGHT_CHECK: true
-  REACT_APP_DOMAIN: your-tenant.auth0.com
-  REACT_APP_CLIENT_ID: yourclientid
-  REACT_APP_AUDIENCE: https://api.example.com/users
-  REACT_APP_API_PORT: 3001
 
 jobs:
   integration:
@@ -50,11 +37,37 @@ jobs:
         with:
           node: ${{ env.NODE_VERSION }}
 
-      - name: Install test dependencies
-        run: npm run install:examples
+      - name: Install dependencies
+        run: |
+          npm ci --prefix=examples/users-api
 
-      - name: Run tests
-        run: npm run test
+      - name: Run CRA integration tests
+        run: |
+          npm i --prefix=examples/cra-react-router --no-package-lock --legacy-peer-deps
+          npm run test:cra
+        env:
+          SKIP_PREFLIGHT_CHECK: true
+          REACT_APP_DOMAIN: your-tenant.auth0.com
+          REACT_APP_CLIENT_ID: yourclientid
+          REACT_APP_AUDIENCE: https://api.example.com/users
+          REACT_APP_API_PORT: 3001
 
-      - name: Run integration tests
-        run: npm run test:integration
+      - name: Run Gatsby integration tests
+        run: |
+          npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps
+          npm run test:gatsby
+        env:
+          GATSBY_DOMAIN: your-tenant.auth0.com
+          GATSBY_CLIENT_ID: yourclientid
+          GATSBY_AUDIENCE: https://api.example.com/users
+          GATSBY_API_PORT: 3001
+
+      - name: Run NextJS integration tests
+        run: |
+          npm i --prefix=examples/nextjs-app --no-package-lock --legacy-peer-deps
+          npm run test:nextjs
+        env:
+          NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
+          NEXT_PUBLIC_CLIENT_ID: yourclientid
+          NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
+          NEXT_PUBLIC_API_PORT: 3001
