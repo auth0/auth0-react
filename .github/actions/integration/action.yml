@@ -1,5 +1,5 @@
-name: Setup integration test
-description: Prepares the environment to run an integration test
+name: Run integration test
+description: Prepares the environment and runs an integration test using Cypress
 
 inputs:
   integration:
