@@ -22,31 +22,33 @@ env:
   DOMAIN: your-tenant.auth0.com
   AUDIENCE: https://api.example.com/users
   PORT: 3001
+  CYPRESS_USER_EMAIL: testing@example.com
+  CYPRESS_USER_PASSWORD: mockpassword
 
 jobs:
   test-cra:
-    name: Run cra-react-router tests
+    name: cra-react-router
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Prepare integration test
+      - name: Prepare environment
         uses: ./.github/actions/integration
         with:
           integration: 'cra-react-router'
           node: ${{ env.NODE_VERSION }}
 
-      - name: RUn Cypress integration test
+      - name: Run Cypress integration test
         uses: cypress-io/github-action@v6
         with:
           spec: cypress/integration/smoke.test.ts
           install: false
           build: npm run build
           start: |
-            npm run start --prefix=examples/users-api --port 3001
-            npm run start --prefix=examples/cra-react-router --port 3000
+            npm start --prefix=examples/users-api
+            npm start --prefix=examples/cra-react-router
         env:
           SKIP_PREFLIGHT_CHECK: true
           REACT_APP_DOMAIN: your-tenant.auth0.com
