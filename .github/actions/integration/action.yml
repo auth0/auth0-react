@@ -37,6 +37,6 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        npm ci --with=dev
-        npm ci --with=dev --prefix=examples/users-api
-        npm i --with=dev --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
+        npm ci
+        npm ci --prefix=examples/users-api
+        npm i --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
