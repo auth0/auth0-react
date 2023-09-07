@@ -48,6 +48,12 @@ jobs:
           path: .
           key: ${{ env.CACHE_KEY }}
 
+      - name: Save Cypress binaries
+        uses: actions/cache/save@v3
+        with:
+          path: /home/runner/.cache/Cypress
+          key: ${{ env.CACHE_KEY }}-cypress
+
   test-cra:
     needs: build # Require build to complete before running tests
 
@@ -63,6 +69,12 @@ jobs:
         with:
           path: .
           key: ${{ env.CACHE_KEY }}
+
+      - name: Restore Cypress
+        uses: actions/cache/restore@v3
+        with:
+          path: /home/runner/.cache/Cypress
+          key: ${{ env.CACHE_KEY }}-cypress
 
       - name: Run integration tests
         run: |
@@ -91,6 +103,12 @@ jobs:
           path: .
           key: ${{ env.CACHE_KEY }}
 
+      - name: Restore Cypress
+        uses: actions/cache/restore@v3
+        with:
+          path: /home/runner/.cache/Cypress
+          key: ${{ env.CACHE_KEY }}-cypress
+
       - name: Run integration tests
         run: |
           npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps
@@ -116,6 +134,12 @@ jobs:
         with:
           path: .
           key: ${{ env.CACHE_KEY }}
+
+      - name: Restore Cypress
+        uses: actions/cache/restore@v3
+        with:
+          path: /home/runner/.cache/Cypress
+          key: ${{ env.CACHE_KEY }}-cypress
 
       - name: Run integration tests
         run: |
