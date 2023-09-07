@@ -47,13 +47,17 @@ runs:
       shell: bash
       run: |
         pnpm i
-        pnpm i --prefix=examples/users-api
-        pnpm i --prefix=examples/${{ inputs.integration }}
 
     - name: Start mock API server
       shell: bash
-      run: pnpm run start --prefix=examples/users-api &
+      run: |
+        cd examples/users-api
+        pnpm i
+        pnpm run start &
 
     - name: Start application
       shell: bash
-      run: pnpm run start --prefix=examples/${{ inputs.integration }} &
+      run: |
+        cd examples/${{ inputs.integration }}
+        pnpm i
+        pnpm run start &
