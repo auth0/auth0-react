@@ -48,15 +48,17 @@ jobs:
           integration: 'cra-react-router'
           node: ${{ env.NODE_VERSION }}
 
+      - name: Start mock API server
+        run: npm start --prefix=examples/users-api &
+
       - name: Run Cypress integration test
         uses: cypress-io/github-action@v6
         with:
           spec: cypress/integration/smoke.test.ts
-          install: false
+          # install: false
           build: npm run build
-          start: |
-            npm start --prefix=examples/users-api --port 3001 &
-            npm start --prefix=examples/cra-react-router --port 3000 &
+          start: npm start --prefix=examples/cra-react-router
+          wait-on: 'http://localhost:3001, http://localhost:3000'
 
   # test-gatsby:
   #   name: Run Gatsby tests
