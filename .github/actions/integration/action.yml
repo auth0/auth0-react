@@ -1,0 +1,57 @@
+name: Setup integration test
+description: Prepares the environment to run an integration test
+
+inputs:
+  integration:
+    description: The integration test to run
+    required: true
+  node:
+    description: The Node version to use
+    required: false
+    default: 18
+  key:
+    description: The key to use for the cache
+    required: true
+  dotenv:
+    description: The path to the .env file
+    required: false
+    default: .env.sample
+
+runs:
+  using: composite
+
+  steps:
+    - name: Restore build artifacts
+      uses: actions/cache/restore@v3
+      with:
+        path: .
+        key: ${{ inputs.key }}
+
+    - name: Restore Cypress
+      uses: actions/cache/restore@v3
+      with:
+        path: /home/runner/.cache/Cypress
+        key: ${{ inputs.key }}-cypress
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node }}
+        cache: 'npm'
+
+    - name: Update /etc/hosts
+      shell: bash
+      run: |
+        sudo echo "127.0.0.1 localhost" | sudo tee -a /etc/hosts
+
+    - name: Move dotenv file
+      shell: bash
+      run: |
+        mv examples/${{ inputs.integration }}/${{ inputs.dotenv }} examples/${{ inputs.integration }}/.env
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        npm ci
+        npm ci --prefix=examples/users-api
+        npm i --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
