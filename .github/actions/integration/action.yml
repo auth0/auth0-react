@@ -46,8 +46,8 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        pnpm ci
-        pnpm ci --prefix=examples/users-api
+        pnpm i
+        pnpm i --prefix=examples/users-api
         pnpm i --prefix=examples/${{ inputs.integration }} --no-package-lock --legacy-peer-deps
 
     - name: Start mock API server
