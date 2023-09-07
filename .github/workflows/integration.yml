@@ -77,6 +77,7 @@ jobs:
           npm ci
           npm ci --prefix=examples/users-api
           npm i --prefix=examples/cra-react-router --no-package-lock --legacy-peer-deps
+          npx kill-port 3000 3001
           npm run test:cra
         env:
           SKIP_PREFLIGHT_CHECK: true
@@ -112,6 +113,7 @@ jobs:
           npm ci
           npm ci --prefix=examples/users-api
           npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps
+          npx kill-port 3000 3001
           npm run test:gatsby
         env:
           GATSBY_DOMAIN: your-tenant.auth0.com
@@ -146,6 +148,7 @@ jobs:
           npm ci
           npm ci --prefix=examples/users-api
           npm i --prefix=examples/nextjs-app --no-package-lock --legacy-peer-deps
+          npx kill-port 3000 3001
           npm run test:nextjs
         env:
           NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
