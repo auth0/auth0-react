@@ -45,8 +45,8 @@ jobs:
           install: false
           build: npm run build
           start: |
-            npm run start:api --port 3001
-            npm run start:cra --port 3000
+            PORT=3001 npm start --prefix=examples/users-api
+            PORT=3000 npm start --prefix=examples/cra-react-router
         env:
           SKIP_PREFLIGHT_CHECK: true
           REACT_APP_DOMAIN: your-tenant.auth0.com
