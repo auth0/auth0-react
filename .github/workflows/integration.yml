@@ -38,17 +38,13 @@ jobs:
         with:
           node: ${{ env.NODE_VERSION }}
 
-      - name: Install `examples/users-api` dependencies
-        run: |
-          npm ci --prefix=examples/users-api
-
       - name: Save build artifacts
         uses: actions/cache/save@v3
         with:
           path: .
           key: ${{ env.CACHE_KEY }}
 
-      - name: Save Cypress binaries
+      - name: Cache Cypress
         uses: actions/cache/save@v3
         with:
           path: /home/runner/.cache/Cypress
@@ -78,6 +74,8 @@ jobs:
 
       - name: Run integration tests
         run: |
+          npm ci
+          npm ci --prefix=examples/users-api
           npm i --prefix=examples/cra-react-router --no-package-lock --legacy-peer-deps
           npm run test:cra
         env:
@@ -111,6 +109,8 @@ jobs:
 
       - name: Run integration tests
         run: |
+          npm ci
+          npm ci --prefix=examples/users-api
           npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps
           npm run test:gatsby
         env:
@@ -143,6 +143,8 @@ jobs:
 
       - name: Run integration tests
         run: |
+          npm ci
+          npm ci --prefix=examples/users-api
           npm i --prefix=examples/nextjs-app --no-package-lock --legacy-peer-deps
           npm run test:nextjs
         env:
