@@ -55,8 +55,8 @@ jobs:
           install: false
           build: npm run build
           start: |
-            npm start --prefix=examples/users-api
-            npm start --prefix=examples/cra-react-router
+            npm start --prefix=examples/users-api --port 3001 &
+            npm start --prefix=examples/cra-react-router --port 3000 &
 
   # test-gatsby:
   #   name: Run Gatsby tests
