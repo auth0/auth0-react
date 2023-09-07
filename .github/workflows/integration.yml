@@ -19,31 +19,25 @@ concurrency:
 
 env:
   NODE_VERSION: 18
-  CACHE_KEY: '${{ github.ref }}-${{ github.run_id }}-${{ github.run_attempt }}'
+  DOMAIN: your-tenant.auth0.com
+  AUDIENCE: https://api.example.com/users
+  PORT: 3001
+  NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
+  NEXT_PUBLIC_CLIENT_ID: yourclientid
+  NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
+  NEXT_PUBLIC_API_PORT: 3001
+  GATSBY_DOMAIN: your-tenant.auth0.com
+  GATSBY_CLIENT_ID: yourclientid
+  GATSBY_AUDIENCE: https://api.example.com/users
+  GATSBY_API_PORT: 3001
+  SKIP_PREFLIGHT_CHECK: true
+  REACT_APP_DOMAIN: your-tenant.auth0.com
+  REACT_APP_CLIENT_ID: yourclientid
+  REACT_APP_AUDIENCE: https://api.example.com/users
+  REACT_APP_API_PORT: 3001
 
 jobs:
-  build:
-    name: Build Package
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build package
-        uses: ./.github/actions/build
-        with:
-          node: ${{ env.NODE_VERSION }}
-
-      - name: Save build artifacts
-        uses: actions/cache/save@v3
-        with:
-          path: .
-          key: ${{ env.CACHE_KEY }}
-
   integration:
-    needs: build # Require build to complete before running tests
-
     name: Run Tests
     runs-on: ubuntu-latest
 
@@ -57,31 +51,13 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
-      - name: Restore build artifacts
-        uses: actions/cache/restore@v3
-        with:
-          path: .
-          key: ${{ env.CACHE_KEY }}
-
       - name: Install integration dependencies
         run: npm run install:examples
 
+      - name: Build package
+        uses: ./.github/actions/build
+        with:
+          node: ${{ env.NODE_VERSION }}
+
       - name: Run tests
         run: npm run test:integration
-        env:
-          DOMAIN: your-tenant.auth0.com
-          AUDIENCE: https://api.example.com/users
-          PORT: 3001
-          NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
-          NEXT_PUBLIC_CLIENT_ID: yourclientid
-          NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
-          NEXT_PUBLIC_API_PORT: 3001
-          GATSBY_DOMAIN: your-tenant.auth0.com
-          GATSBY_CLIENT_ID: yourclientid
-          GATSBY_AUDIENCE: https://api.example.com/users
-          GATSBY_API_PORT: 3001
-          SKIP_PREFLIGHT_CHECK: true
-          REACT_APP_DOMAIN: your-tenant.auth0.com
-          REACT_APP_CLIENT_ID: yourclientid
-          REACT_APP_AUDIENCE: https://api.example.com/users
-          REACT_APP_API_PORT: 3001
