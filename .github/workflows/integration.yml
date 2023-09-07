@@ -44,7 +44,9 @@ jobs:
           spec: cypress/integration/smoke.test.ts
           install: false
           build: npm run build
-          start: (npm start:api--port 3000 & npm start:cra --port 3001) && sleep 10
+          start: |
+            npm start:api --port 3000
+            npm start:cra --port 3001
         env:
           SKIP_PREFLIGHT_CHECK: true
           REACT_APP_DOMAIN: your-tenant.auth0.com
