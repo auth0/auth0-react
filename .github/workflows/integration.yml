@@ -1,0 +1,87 @@
+name: Integration Tests
+
+on:
+  # merge_group:
+  workflow_dispatch:
+  # pull_request:
+  #   branches:
+  #     - master
+  # push:
+  #   branches:
+  #     - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+env:
+  NODE_VERSION: 18
+  # Mock user credentials for Cypress tests
+  CYPRESS_USER_EMAIL: testing@example.com
+  CYPRESS_USER_PASSWORD: mockpassword
+
+jobs:
+  test-react-router:
+    name: Run react-router tests
+    runs-on: ubuntu-latest
+
+    env:
+      SKIP_PREFLIGHT_CHECK: true
+      REACT_APP_DOMAIN: your-tenant.auth0.com
+      REACT_APP_CLIENT_ID: yourclientid
+      REACT_APP_AUDIENCE: https://api.example.com/users
+      REACT_APP_API_PORT: 3001
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run integration test
+        uses: ./.github/actions/integration
+        with:
+          integration: 'cra-react-router'
+          node: ${{ env.NODE_VERSION }}
+
+  test-gatsby:
+    name: Run Gatsby tests
+    runs-on: ubuntu-latest
+
+    env:
+      GATSBY_DOMAIN: your-tenant.auth0.com
+      GATSBY_CLIENT_ID: yourclientid
+      GATSBY_AUDIENCE: https://api.example.com/users
+      GATSBY_API_PORT: 3001
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run integration test
+        uses: ./.github/actions/integration
+        with:
+          integration: 'gatsby-app'
+          node: ${{ env.NODE_VERSION }}
+          dotenv: '.env.development.sample'
+
+  test-nextjs:
+    name: Run NextJS tests
+    runs-on: ubuntu-latest
+
+    env:
+      NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
+      NEXT_PUBLIC_CLIENT_ID: yourclientid
+      NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
+      NEXT_PUBLIC_API_PORT: 3001
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run integration test
+        uses: ./.github/actions/integration
+        with:
+          integration: 'nextjs-app'
+          node: ${{ env.NODE_VERSION }}

@@ -23,6 +23,7 @@ const checkJwt = auth({
 });
 
 app.head('/', (req, res) => res.send('ok'));
+app.get('/', (req, res) => res.status(200).send('OK'));
 
 app.get('/users', checkJwt, requiredScopes('read:users'), (req, res) => {
   res.send([
@@ -31,4 +32,4 @@ app.get('/users', checkJwt, requiredScopes('read:users'), (req, res) => {
   ]);
 });
 
-app.listen(PORT, () => console.log(`API Server listening on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`API Server listening on port ${PORT}`));
