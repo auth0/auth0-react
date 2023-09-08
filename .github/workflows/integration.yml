@@ -19,6 +19,7 @@ concurrency:
 
 env:
   NODE_VERSION: 18
+  # Mock user credentials for Cypress tests
   CYPRESS_USER_EMAIL: testing@example.com
   CYPRESS_USER_PASSWORD: mockpassword
 
