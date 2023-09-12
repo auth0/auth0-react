@@ -6,7 +6,7 @@ on:
       branch:
         description: The branch to release from
         required: true
-        default: master
+        default: main
       version:
         description: The version being published. This should be a valid semver version, such as `1.0.0`.
         required: true

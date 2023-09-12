@@ -14,10 +14,10 @@
 <h2>@auth0/auth0-react</h2></div>
 <div class="tsd-panel tsd-typography"><p><img src="https://cdn.auth0.com/website/sdks/banners/auth0-react-banner.png" alt="Auth0 SDK for React Single Page Applications"></p>
 <p><a href="https://www.npmjs.com/package/@auth0/auth0-react"><img src="https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat" alt="npm"></a>
-<a href="https://codecov.io/gh/auth0/auth0-react"><img src="https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat" alt="codecov"></a>
+<a href="https://codecov.io/gh/auth0/auth0-react"><img src="https://img.shields.io/codecov/c/github/auth0/auth0-react/main.svg?style=flat" alt="codecov"></a>
 <img src="https://img.shields.io/npm/dw/@auth0/auth0-react" alt="Downloads">
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/:license-mit-blue.svg?style=flat" alt="License"></a>
-<a href="https://circleci.com/gh/auth0/auth0-react"><img src="https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=master&style=flat" alt="CircleCI"></a></p>
+<a href="https://circleci.com/gh/auth0/auth0-react"><img src="https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=main&style=flat" alt="CircleCI"></a></p>
 <p>📚 <a href="#documentation">Documentation</a> - 🚀 <a href="#getting-started">Getting Started</a> - 💻 <a href="#api-reference">API Reference</a> - 💬 <a href="#feedback">Feedback</a></p>
 
 <a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
@@ -26,8 +26,8 @@
 <ul>
 <li><a href="https://auth0.com/docs/quickstart/spa/react">Quickstart</a> - our interactive guide for quickly adding login, logout and user information to a React app using Auth0.</li>
 <li><a href="https://github.com/auth0-samples/auth0-react-samples/tree/master/Sample-01">Sample App</a> - a full-fledged React application integrated with Auth0.</li>
-<li><a href="https://github.com/auth0/auth0-react/blob/master/FAQ.md">FAQs</a> - frequently asked questions about the auth0-react SDK.</li>
-<li><a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md">Examples</a> - code samples for common React authentication scenario&#39;s.</li>
+<li><a href="https://github.com/auth0/auth0-react/blob/main/FAQ.md">FAQs</a> - frequently asked questions about the auth0-react SDK.</li>
+<li><a href="https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md">Examples</a> - code samples for common React authentication scenario&#39;s.</li>
 <li><a href="https://www.auth0.com/docs">Docs site</a> - explore our docs site and learn more about Auth0.</li>
 </ul>
 
@@ -86,7 +86,7 @@
 <p>Use the <code>useAuth0</code> hook in your components to access authentication state (<code>isLoading</code>, <code>isAuthenticated</code> and <code>user</code>) and authentication methods (<code>loginWithRedirect</code> and <code>logout</code>):</p>
 <pre><code class="language-jsx"><span class="hl-2">// src/App.js</span><br/><span class="hl-3">import</span><span class="hl-0"> </span><span class="hl-4">React</span><span class="hl-0"> </span><span class="hl-3">from</span><span class="hl-0"> </span><span class="hl-1">&#39;react&#39;</span><span class="hl-0">;</span><br/><span class="hl-3">import</span><span class="hl-0"> { </span><span class="hl-4">useAuth0</span><span class="hl-0"> } </span><span class="hl-3">from</span><span class="hl-0"> </span><span class="hl-1">&#39;@auth0/auth0-react&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">function</span><span class="hl-0"> </span><span class="hl-7">App</span><span class="hl-0">() {</span><br/><span class="hl-0">  </span><span class="hl-5">const</span><span class="hl-0"> { </span><span class="hl-6">isLoading</span><span class="hl-0">, </span><span class="hl-6">isAuthenticated</span><span class="hl-0">, </span><span class="hl-6">error</span><span class="hl-0">, </span><span class="hl-6">user</span><span class="hl-0">, </span><span class="hl-6">loginWithRedirect</span><span class="hl-0">, </span><span class="hl-6">logout</span><span class="hl-0"> } =</span><br/><span class="hl-0">    </span><span class="hl-7">useAuth0</span><span class="hl-0">();</span><br/><br/><span class="hl-0">  </span><span class="hl-3">if</span><span class="hl-0"> (</span><span class="hl-4">isLoading</span><span class="hl-0">) {</span><br/><span class="hl-0">    </span><span class="hl-3">return</span><span class="hl-0"> </span><span class="hl-8">&lt;</span><span class="hl-12">div</span><span class="hl-8">&gt;</span><span class="hl-0">Loading...</span><span class="hl-8">&lt;/</span><span class="hl-12">div</span><span class="hl-8">&gt;</span><span class="hl-0">;</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">  </span><span class="hl-3">if</span><span class="hl-0"> (</span><span class="hl-4">error</span><span class="hl-0">) {</span><br/><span class="hl-0">    </span><span class="hl-3">return</span><span class="hl-0"> </span><span class="hl-8">&lt;</span><span class="hl-12">div</span><span class="hl-8">&gt;</span><span class="hl-0">Oops... </span><span class="hl-5">{</span><span class="hl-4">error</span><span class="hl-11">.</span><span class="hl-4">message</span><span class="hl-5">}</span><span class="hl-8">&lt;/</span><span class="hl-12">div</span><span class="hl-8">&gt;</span><span class="hl-0">;</span><br/><span class="hl-0">  }</span><br/><br/><span class="hl-0">  </span><span class="hl-3">if</span><span class="hl-0"> (</span><span class="hl-4">isAuthenticated</span><span class="hl-0">) {</span><br/><span class="hl-0">    </span><span class="hl-3">return</span><span class="hl-0"> (</span><br/><span class="hl-0">      </span><span class="hl-8">&lt;</span><span class="hl-12">div</span><span class="hl-8">&gt;</span><br/><span class="hl-0">        Hello </span><span class="hl-5">{</span><span class="hl-4">user</span><span class="hl-11">.</span><span class="hl-4">name</span><span class="hl-5">}{</span><span class="hl-1">&#39; &#39;</span><span class="hl-5">}</span><br/><span class="hl-0">        </span><span class="hl-8">&lt;</span><span class="hl-12">button</span><span class="hl-0"> </span><span class="hl-10">onClick</span><span class="hl-0">=</span><span class="hl-5">{</span><span class="hl-11">() </span><span class="hl-5">=&gt;</span><span class="hl-11"> </span><span class="hl-7">logout</span><span class="hl-11">({ </span><span class="hl-4">logoutParams:</span><span class="hl-11"> { </span><span class="hl-4">returnTo:</span><span class="hl-11"> </span><span class="hl-4">window</span><span class="hl-11">.</span><span class="hl-4">location</span><span class="hl-11">.</span><span class="hl-4">origin</span><span class="hl-11"> } })</span><span class="hl-5">}</span><span class="hl-8">&gt;</span><br/><span class="hl-0">          Log out</span><br/><span class="hl-0">        </span><span class="hl-8">&lt;/</span><span class="hl-12">button</span><span class="hl-8">&gt;</span><br/><span class="hl-0">      </span><span class="hl-8">&lt;/</span><span class="hl-12">div</span><span class="hl-8">&gt;</span><br/><span class="hl-0">    );</span><br/><span class="hl-0">  } </span><span class="hl-3">else</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-3">return</span><span class="hl-0"> </span><span class="hl-8">&lt;</span><span class="hl-12">button</span><span class="hl-0"> </span><span class="hl-10">onClick</span><span class="hl-0">=</span><span class="hl-5">{</span><span class="hl-11">() </span><span class="hl-5">=&gt;</span><span class="hl-11"> </span><span class="hl-7">loginWithRedirect</span><span class="hl-11">()</span><span class="hl-5">}</span><span class="hl-8">&gt;</span><span class="hl-0">Log in</span><span class="hl-8">&lt;/</span><span class="hl-12">button</span><span class="hl-8">&gt;</span><span class="hl-0">;</span><br/><span class="hl-0">  }</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-3">export</span><span class="hl-0"> </span><span class="hl-3">default</span><span class="hl-0"> </span><span class="hl-4">App</span><span class="hl-0">;</span>
 </code></pre>
-<p>For more code samples on how to integrate <strong>auth0-react</strong> SDK in your <strong>React</strong> application, have a look at our <a href="https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md">examples</a>.</p>
+<p>For more code samples on how to integrate <strong>auth0-react</strong> SDK in your <strong>React</strong> application, have a look at our <a href="https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md">examples</a>.</p>
 
 <a href="#api-reference" id="api-reference" style="color: inherit; text-decoration: none;">
   <h2>API reference</h2>
@@ -111,7 +111,7 @@
 <ul>
 <li><a href="https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md">Auth0&#39;s general contribution guidelines</a></li>
 <li><a href="https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md">Auth0&#39;s code of conduct guidelines</a></li>
-<li><a href="https://github.com/auth0/auth0-react/blob/master/CONTRIBUTING.md">This repo&#39;s contribution guide</a></li>
+<li><a href="https://github.com/auth0/auth0-react/blob/main/CONTRIBUTING.md">This repo&#39;s contribution guide</a></li>
 </ul>
 
 <a href="#raise-an-issue" id="raise-an-issue" style="color: inherit; text-decoration: none;">
@@ -133,7 +133,7 @@
 </p>
 <p align="center">Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a></p>
 <p align="center">
-This project is licensed under the MIT license. See the <a href="https://github.com/auth0/auth0-react/blob/master/LICENSE"> LICENSE</a> file for more info.</p></div></div>
+This project is licensed under the MIT license. See the <a href="https://github.com/auth0/auth0-react/blob/main/LICENSE"> LICENSE</a> file for more info.</p></div></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
