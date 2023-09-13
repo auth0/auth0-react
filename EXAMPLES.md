@@ -96,8 +96,6 @@ const Posts = () => {
 export default Posts;
 ```
 
-For a more detailed example see how to [create a `useApi` hook for accessing protected APIs with an access token](#create-a-useapi-hook-for-accessing-protected-apis-with-an-access-token).
-
 ## Protecting a route in a `react-router-dom v6` app
 
 We need to access the `useNavigate` hook so we can use `navigate` in `onRedirectCallback` to return us to our `returnUrl`.
