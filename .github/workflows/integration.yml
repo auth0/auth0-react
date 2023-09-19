@@ -58,3 +58,6 @@ jobs:
 
       - name: Run integration test (NextJS)
         run: npm run test:nextjs
+
+      - name: Run integration test (Gatsby)
+        run: npm run test:gatsby
