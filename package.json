@@ -33,7 +33,7 @@
     "start:api": "npm start --prefix=examples/users-api",
     "test:cra": "start-server-and-test start:api 3001 start:cra http-get://127.0.0.1:3000 cypress:run",
     "test:cra:watch": "start-server-and-test start:api 3001 start:cra 3000 cypress:open",
-    "test:gatsby": "start-server-and-test start:api 3001 start:gatsby 3000 cypress:run",
+    "test:gatsby": "start-server-and-test start:api 3001 start:gatsby http-get://localhost:3000 cypress:run",
     "test:gatsby:watch": "start-server-and-test start:api 3001 start:gatsby 3000 cypress:open",
     "test:nextjs": "start-server-and-test start:api 3001 start:nextjs 3000 cypress:run",
     "test:nextjs:watch": "start-server-and-test start:api 3001 start:nextjs 3000 cypress:open",
