@@ -71,6 +71,6 @@ runs:
     - name: Run Cypress test
       uses: cypress-io/github-action@v6
       with:
-        spec: cypress/integration/smoke.test.ts
+        spec: cypress/e2e/smoke.cy.ts
         install: false
         wait-on: 'http://localhost:3001/, http://localhost:3000'

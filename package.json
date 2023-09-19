@@ -38,7 +38,7 @@
     "test:nextjs": "start-server-and-test start:api 3001 start:nextjs 3000 cypress:run",
     "test:nextjs:watch": "start-server-and-test start:api 3001 start:nextjs 3000 cypress:open",
     "test:integration": "npm run test:cra && npm run test:gatsby && npm run test:nextjs",
-    "cypress:run": "cypress run --spec 'cypress/integration/smoke.test.ts'",
+    "cypress:run": "cypress run --spec 'cypress/e2e/smoke.cy.ts'",
     "cypress:open": "cypress open"
   },
   "repository": {
