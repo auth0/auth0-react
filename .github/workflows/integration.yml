@@ -54,5 +54,8 @@ jobs:
       - name: Install examples
         run: npm run install:examples
 
-      - name: Run integration test
-        run: npm run test:integration
+      - name: Run integration test (CRA)
+        run: npm run test:cra
+
+      - name: Run integration test (NextJS)
+        run: npm run test:nextjs
