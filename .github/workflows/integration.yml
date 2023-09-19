@@ -40,6 +40,7 @@ jobs:
       NEXT_PUBLIC_CLIENT_ID: yourclientid
       NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
       DOMAIN: your-tenant.auth0.com
+      AUDIENCE: https://api.example.com/users
 
     steps:
       - name: Checkout code
