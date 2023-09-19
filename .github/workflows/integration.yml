@@ -19,9 +19,6 @@ concurrency:
 
 env:
   NODE_VERSION: 18
-  # Mock user credentials for Cypress tests
-  CYPRESS_USER_EMAIL: testing@example.com
-  CYPRESS_USER_PASSWORD: mockpassword
 
 jobs:
   test-examples:
@@ -30,6 +27,8 @@ jobs:
 
     env:
       SKIP_PREFLIGHT_CHECK: true
+      CYPRESS_USER_EMAIL: ${{secrets.CYPRESS_USER_EMAIL}}
+      CYPRESS_USER_PASSWORD: ${{secrets.CYPRESS_USER_PASSWORD}}
       REACT_APP_DOMAIN: ${{secrets.TEST_DOMAIN}}
       REACT_APP_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
       REACT_APP_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
@@ -57,4 +56,4 @@ jobs:
         run: npm run install:examples
 
       - name: Run integration test
-        run: npm run test:integration
+        run: npm run test:cra
