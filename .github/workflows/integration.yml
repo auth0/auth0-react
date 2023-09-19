@@ -49,6 +49,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+
+      - name: Build SDK
+        run: npm run build
+
       - name: Install examples
         run: npm run install:examples
 
