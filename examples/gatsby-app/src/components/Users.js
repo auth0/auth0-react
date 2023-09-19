@@ -10,7 +10,7 @@ export function Users() {
     loading,
     error,
     data: users = [],
-  } = useApi(`http://localhost:${PORT}/users`, {
+  } = useApi(`http://127.0.0.1:${PORT}/users`, {
     audience: process.env.GATSBY_AUDIENCE,
     scope: 'profile email read:users',
   });

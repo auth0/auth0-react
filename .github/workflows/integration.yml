@@ -1,14 +1,13 @@
 name: Integration Tests
 
 on:
-  # merge_group:
   workflow_dispatch:
-  # pull_request:
-  #   branches:
-  #     - main
-  # push:
-  #   branches:
-  #     - main
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -19,69 +18,46 @@ concurrency:
 
 env:
   NODE_VERSION: 18
-  # Mock user credentials for Cypress tests
-  CYPRESS_USER_EMAIL: testing@example.com
-  CYPRESS_USER_PASSWORD: mockpassword
 
 jobs:
-  test-react-router:
-    name: Run react-router tests
+  test-examples:
+    name: Run example tests
     runs-on: ubuntu-latest
 
     env:
       SKIP_PREFLIGHT_CHECK: true
-      REACT_APP_DOMAIN: your-tenant.auth0.com
-      REACT_APP_CLIENT_ID: yourclientid
-      REACT_APP_AUDIENCE: https://api.example.com/users
-      REACT_APP_API_PORT: 3001
+      CYPRESS_USER_EMAIL: ${{secrets.CYPRESS_USER_EMAIL}}
+      CYPRESS_USER_PASSWORD: ${{secrets.CYPRESS_USER_PASSWORD}}
+      REACT_APP_DOMAIN: ${{secrets.TEST_DOMAIN}}
+      REACT_APP_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
+      REACT_APP_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
+      GATSBY_DOMAIN: ${{secrets.TEST_DOMAIN}}
+      GATSBY_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
+      GATSBY_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
+      NEXT_PUBLIC_DOMAIN: ${{secrets.TEST_DOMAIN}}
+      NEXT_PUBLIC_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
+      NEXT_PUBLIC_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
+      DOMAIN: ${{secrets.TEST_DOMAIN}}
+      AUDIENCE: ${{secrets.TEST_AUDIENCE}}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run integration test
-        uses: ./.github/actions/integration
-        with:
-          integration: 'cra-react-router'
-          node: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: npm ci
 
-  test-gatsby:
-    name: Run Gatsby tests
-    runs-on: ubuntu-latest
+      - name: Build SDK
+        run: npm run build
 
-    env:
-      GATSBY_DOMAIN: your-tenant.auth0.com
-      GATSBY_CLIENT_ID: yourclientid
-      GATSBY_AUDIENCE: https://api.example.com/users
-      GATSBY_API_PORT: 3001
+      - name: Install examples
+        run: npm run install:examples
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Run integration test (CRA)
+        run: npm run test:cra
 
-      - name: Run integration test
-        uses: ./.github/actions/integration
-        with:
-          integration: 'gatsby-app'
-          node: ${{ env.NODE_VERSION }}
-          dotenv: '.env.development.sample'
+      - name: Run integration test (NextJS)
+        run: npm run test:nextjs
 
-  test-nextjs:
-    name: Run NextJS tests
-    runs-on: ubuntu-latest
-
-    env:
-      NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
-      NEXT_PUBLIC_CLIENT_ID: yourclientid
-      NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
-      NEXT_PUBLIC_API_PORT: 3001
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run integration test
-        uses: ./.github/actions/integration
-        with:
-          integration: 'nextjs-app'
-          node: ${{ env.NODE_VERSION }}
+      - name: Run integration test (Gatsby)
+        run: npm run test:gatsby
