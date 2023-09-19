@@ -29,20 +29,17 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TEST__DOMAIN: your-tenant.auth0.com
-      TEST__CLIENT_ID: yourclientid
-      TEST__AUDIENCE: https://api.example.com/users
       SKIP_PREFLIGHT_CHECK: true
-      REACT_APP_DOMAIN: ${{env.TEST__DOMAIN}}
-      REACT_APP_CLIENT_ID: ${{env.TEST__CLIENT_ID}}
-      REACT_APP_AUDIENCE: ${{env.TEST__AUDIENCE}}
-      GATSBY_DOMAIN: ${{env.TEST__DOMAIN}}
-      GATSBY_CLIENT_ID: ${{env.TEST__CLIENT_ID}}
-      GATSBY_AUDIENCE: ${{env.TEST__AUDIENCE}}
-      NEXT_PUBLIC_DOMAIN: ${{env.TEST__DOMAIN}}
-      NEXT_PUBLIC_CLIENT_ID: ${{env.TEST__CLIENT_ID}}
-      NEXT_PUBLIC_AUDIENCE: ${{env.TEST__AUDIENCE}}
-      DOMAIN: ${{env.TEST__DOMAIN}}
+      REACT_APP_DOMAIN: your-tenant.auth0.com
+      REACT_APP_CLIENT_ID: yourclientid
+      REACT_APP_AUDIENCE: https://api.example.com/users
+      GATSBY_DOMAIN: your-tenant.auth0.com
+      GATSBY_CLIENT_ID: yourclientid
+      GATSBY_AUDIENCE: https://api.example.com/users
+      NEXT_PUBLIC_DOMAIN: your-tenant.auth0.com
+      NEXT_PUBLIC_CLIENT_ID: yourclientid
+      NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
+      DOMAIN: your-tenant.auth0.com
 
     steps:
       - name: Checkout code
