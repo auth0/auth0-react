@@ -32,9 +32,9 @@ export function Users() {
         </tr>
       </thead>
       <tbody>
-        {users!.map(
+        {users.map(
           ({ name, email }: { name: string; email: string }, i: number) => (
-            <tr key={i}>
+            <tr key={i.toString()}>
               <td>{name}</td>
               <td>{email}</td>
             </tr>
