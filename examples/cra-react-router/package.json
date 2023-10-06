@@ -8,9 +8,9 @@
     "@types/react": "file:../../node_modules/@types/react",
     "react": "file:../../node_modules/react",
     "react-dom": "file:../../node_modules/react-dom",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.16.0",
     "react-scripts": "^5.0.1",
-    "typescript": "^4.6.3"
+    "typescript": "file:../../node_modules/typescript"
   },
   "scripts": {
     "start": "react-scripts start",
