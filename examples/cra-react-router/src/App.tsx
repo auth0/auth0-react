@@ -22,7 +22,7 @@ function App() {
       {error && <Error message={error.message} />}
       <Routes>
         <Route path="/" />
-        <Route path="/users" element={<ProtectedUsers />} />
+        <Route path="/users" Component={ProtectedUsers} />
       </Routes>
     </>
   );

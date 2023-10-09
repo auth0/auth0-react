@@ -10,7 +10,7 @@
     "react-dom": "file:../../node_modules/react-dom",
     "react-router-dom": "^6.16.0",
     "react-scripts": "^5.0.1",
-    "typescript": "file:../../node_modules/typescript"
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "start": "react-scripts start",
