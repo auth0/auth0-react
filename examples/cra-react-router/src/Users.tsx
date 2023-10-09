@@ -34,7 +34,7 @@ export function Users() {
       <tbody>
         {users.map(
           ({ name, email }: { name: string; email: string }, i: number) => (
-            <tr key={i.toString()}>
+            <tr key={i}>
               <td>{name}</td>
               <td>{email}</td>
             </tr>
