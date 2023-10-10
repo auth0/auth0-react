@@ -5,8 +5,8 @@
   "dependencies": {
     "@auth0/auth0-react": "file:../..",
     "@types/node": "^17.0.29",
-    "@types/react": "^18.0.8",
-    "@types/react-router-dom": "^5.3.3",
+    "@types/react": "file:../../node_modules/@types/react",
+    "@types/react-dom": "file:../../node_modules/@types/react-dom",
     "react": "file:../../node_modules/react",
     "react-dom": "file:../../node_modules/react-dom",
     "react-router-dom": "^6.3.0",
