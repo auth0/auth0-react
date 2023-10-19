@@ -1,9 +1,34 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, createContext, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { Auth0Provider, AppState } from '@auth0/auth0-react';
+import {
+  Auth0Provider,
+  AppState,
+  initialContext,
+  Auth0ContextInterface,
+  useAuth0,
+  User,
+} from '@auth0/auth0-react';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { Auth0ProviderOptions } from '../../../src';
+
+export const MyAuth0Context =
+  createContext<Auth0ContextInterface>(initialContext);
+
+const MyAuth0Provider = ({ children }: { children?: React.ReactNode }) => {
+  const { user, ...rest } = useAuth0();
+  const contextValue = useMemo<Auth0ContextInterface<User>>(() => {
+    return {
+      user,
+      ...rest,
+    };
+  }, [user?.updated_at, rest.isLoading, rest.isAuthenticated]);
+  return (
+    <MyAuth0Context.Provider value={contextValue}>
+      {children}
+    </MyAuth0Context.Provider>
+  );
+};
 
 const Auth0ProviderWithRedirectCallback = ({
   children,
@@ -34,7 +59,9 @@ ReactDOM.render(
           redirect_uri: window.location.origin,
         }}
       >
-        <App />
+        <MyAuth0Provider>
+          <App />
+        </MyAuth0Provider>
       </Auth0ProviderWithRedirectCallback>
     </BrowserRouter>
   </React.StrictMode>,
