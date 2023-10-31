@@ -7,7 +7,7 @@ import { GenericError } from "@auth0/auth0-spa-js";
  * See: https://openid.net/specs/openid-connect-core-1_0.html#rfc.section.3.1.2.6
  */
 export class OAuthError extends GenericError {
-  constructor(public error: string, public error_description: string = '') {
+  constructor(error: string, error_description?: string) {
     super(error, error_description || error);
 
     // https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md#extending-built-ins-like-error-array-and-map-may-no-longer-work
