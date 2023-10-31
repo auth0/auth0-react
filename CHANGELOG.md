@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.2.2](https://github.com/auth0/auth0-react/tree/v2.2.2) (2023-10-31)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.1...v2.2.2)
+
+**Fixed**
+- Export all errors from SPA-JS [\#637](https://github.com/auth0/auth0-react/pull/637) ([frederikprijck](https://github.com/frederikprijck))
+
+**Changed**
+- Make OAuthError extend GenericError [\#638](https://github.com/auth0/auth0-react/pull/638) ([frederikprijck](https://github.com/frederikprijck))
+
 ## [v2.2.1](https://github.com/auth0/auth0-react/tree/v2.2.1) (2023-08-22)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.0...v2.2.1)
 
