@@ -30,5 +30,11 @@ export {
   InMemoryCache,
   LocalStorageCache,
   Cacheable,
+  TimeoutError,
+  MfaRequiredError,
+  PopupCancelledError,
+  PopupTimeoutError,
+  AuthenticationError,
+  MissingRefreshTokenError,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
