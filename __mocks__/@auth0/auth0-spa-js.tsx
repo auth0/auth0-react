@@ -27,3 +27,10 @@ export const Auth0Client = jest.fn(() => {
     logout,
   };
 });
+
+export class GenericError extends Error {
+  constructor(public error: string, public error_description: string) {
+    super(error_description);
+    Object.setPrototypeOf(this, GenericError.prototype);
+  }
+}
