@@ -9,14 +9,14 @@ on:
       - synchronize
   push:
     branches:
-      - master
+      - main
 
 permissions:
   contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
   NODE_VERSION: 18
@@ -42,7 +42,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -54,7 +54,7 @@ jobs:
 
       - name: Run tests
         shell: bash
-        run: npx concurrently --raw --kill-others --success first "npm:start" "wait-on http://127.0.0.1:3000/ && browserstack-cypress run --build-name ${{ github.event.pull_request.head.sha || github.ref }} --no-wrap --specs "cypress/integration/smoke-bs.test.ts""
+        run: npx concurrently --raw --kill-others --success first "npm:start" "wait-on http://127.0.0.1:3000/ && browserstack-cypress run --build-name ${{ github.event.pull_request.head.sha || github.ref }} --no-wrap --specs "cypress/e2e/smoke-bs.cy.ts""
         env:
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}

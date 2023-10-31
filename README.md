@@ -1,10 +1,10 @@
 ![Auth0 SDK for React Single Page Applications](https://cdn.auth0.com/website/sdks/banners/auth0-react-banner.png)
 
 [![npm](https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat)](https://www.npmjs.com/package/@auth0/auth0-react)
-[![codecov](https://img.shields.io/codecov/c/github/auth0/auth0-react/master.svg?style=flat)](https://codecov.io/gh/auth0/auth0-react)
+[![codecov](https://img.shields.io/codecov/c/github/auth0/auth0-react/main.svg?style=flat)](https://codecov.io/gh/auth0/auth0-react)
 ![Downloads](https://img.shields.io/npm/dw/@auth0/auth0-react)
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
-[![CircleCI](https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=master&style=flat)](https://circleci.com/gh/auth0/auth0-react)
+[![CircleCI](https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=main&style=flat)](https://circleci.com/gh/auth0/auth0-react)
 
 📚 [Documentation](#documentation) - 🚀 [Getting Started](#getting-started) - 💻 [API Reference](#api-reference) - 💬 [Feedback](#feedback)
 
@@ -12,8 +12,8 @@
 
 - [Quickstart](https://auth0.com/docs/quickstart/spa/react) - our interactive guide for quickly adding login, logout and user information to a React app using Auth0.
 - [Sample App](https://github.com/auth0-samples/auth0-react-samples/tree/master/Sample-01) - a full-fledged React application integrated with Auth0.
-- [FAQs](https://github.com/auth0/auth0-react/blob/master/FAQ.md) - frequently asked questions about the auth0-react SDK.
-- [Examples](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md) - code samples for common React authentication scenario's.
+- [FAQs](https://github.com/auth0/auth0-react/blob/main/FAQ.md) - frequently asked questions about the auth0-react SDK.
+- [Examples](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md) - code samples for common React authentication scenario's.
 - [Docs site](https://www.auth0.com/docs) - explore our docs site and learn more about Auth0.
 
 ## Getting started
@@ -140,7 +140,7 @@ function App() {
 export default App;
 ```
 
-For more code samples on how to integrate **auth0-react** SDK in your **React** application, have a look at our [examples](https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md).
+For more code samples on how to integrate **auth0-react** SDK in your **React** application, have a look at our [examples](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md).
 
 ## API reference
 
@@ -160,7 +160,7 @@ We appreciate feedback and contribution to this repo! Before you get started, pl
 
 - [Auth0's general contribution guidelines](https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md)
 - [Auth0's code of conduct guidelines](https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md)
-- [This repo's contribution guide](https://github.com/auth0/auth0-react/blob/master/CONTRIBUTING.md)
+- [This repo's contribution guide](https://github.com/auth0/auth0-react/blob/main/CONTRIBUTING.md)
 
 ### Raise an issue
 
@@ -181,4 +181,4 @@ Please do not report security vulnerabilities on the public GitHub issue tracker
 </p>
 <p align="center">Auth0 is an easy to implement, adaptable authentication and authorization platform. To learn more checkout <a href="https://auth0.com/why-auth0">Why Auth0?</a></p>
 <p align="center">
-This project is licensed under the MIT license. See the <a href="https://github.com/auth0/auth0-react/blob/master/LICENSE"> LICENSE</a> file for more info.</p>
+This project is licensed under the MIT license. See the <a href="https://github.com/auth0/auth0-react/blob/main/LICENSE"> LICENSE</a> file for more info.</p>

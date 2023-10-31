@@ -9,7 +9,7 @@ on:
       - synchronize
   push:
     branches:
-      - master
+      - main
       - beta
   schedule:
     - cron: '30 0 1,15 * *'
@@ -19,7 +19,7 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   authorize:
@@ -43,6 +43,6 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
 
-      - uses: snyk/actions/php@b98d498629f1c368650224d6d212bf7dfa89e4bf # pin@0.4.0
+      - uses: snyk/actions/node@b98d498629f1c368650224d6d212bf7dfa89e4bf # pin@0.4.0
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

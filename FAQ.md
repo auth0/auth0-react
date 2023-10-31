@@ -1,6 +1,6 @@
 # Frequently Asked Questions
 
-**Note:** `auth0-react` uses [Auth0 SPA JS](https://github.com/auth0/auth0-spa-js) behind the scenes, so be sure to check [their FAQs](https://github.com/auth0/auth0-spa-js/blob/master/FAQ.md) too.
+**Note:** `auth0-react` uses [Auth0 SPA JS](https://github.com/auth0/auth0-spa-js) behind the scenes, so be sure to check [their FAQs](https://github.com/auth0/auth0-spa-js/blob/main/FAQ.md) too.
 
 1. [User is not logged in after page refresh](#1-user-is-not-logged-in-after-page-refresh)
 2. [User is not logged in after successful sign in with redirect](#2-user-is-not-logged-in-after-successful-sign-in-with-redirect)
