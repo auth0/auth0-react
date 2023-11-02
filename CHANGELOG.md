@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.2.3](https://github.com/auth0/auth0-react/tree/v2.2.3) (2023-11-02)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.2...v2.2.3)
+
+**Fixed**
+- Revert "Make OAuthError extend GenericError" [\#646](https://github.com/auth0/auth0-react/pull/646) ([frederikprijck](https://github.com/frederikprijck))
+
 ## [v2.2.2](https://github.com/auth0/auth0-react/tree/v2.2.2) (2023-10-31)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.1...v2.2.2)
 
