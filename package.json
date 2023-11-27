@@ -97,6 +97,14 @@
     "react": "^16.11.0 || ^17 || ^18",
     "react-dom": "^16.11.0 || ^17 || ^18"
   },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.1.2"
   }
