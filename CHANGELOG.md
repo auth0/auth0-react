@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.2.4](https://github.com/auth0/auth0-react/tree/v2.2.4) (2023-12-11)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.3...v2.2.4)
+
+**Changed**
+- Update Auth0-SPA-JS to latest version [\#690](https://github.com/auth0/auth0-react/pull/690) ([frederikprijck](https://github.com/frederikprijck))
+
 ## [v2.2.3](https://github.com/auth0/auth0-react/tree/v2.2.3) (2023-11-02)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.2...v2.2.3)
 
