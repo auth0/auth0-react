@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import { ComponentType } from 'react';
 import Auth0Context, { Auth0ContextInterface } from './auth0-context';
 
 /**
