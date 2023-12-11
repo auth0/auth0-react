@@ -1,3 +1,6 @@
 {
+    "files": {
+        ".version": []
+    },
     "postbump": "npm run docs"
 }
