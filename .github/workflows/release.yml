@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/get-prerelease
         with:
           version: ${{ steps.get_version.outputs.version }}
-      
+
       # Get the release notes
       # This will expose the release notes as env.RELEASE_NOTES
       - id: get_release_notes
