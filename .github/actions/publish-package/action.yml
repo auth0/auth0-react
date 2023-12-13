@@ -7,6 +7,8 @@ inputs:
     required: true
   version:
     required: true
+  release-directory:
+    default: './'
 
 runs:
   using: composite
@@ -29,6 +31,7 @@ runs:
 
     - name: Publish release to NPM
       shell: bash
+      working-directory: ${{ inputs.release-directory }}
       run: |
         if [[ "${VERSION}" == *"beta"* ]]; then
           TAG="beta"
