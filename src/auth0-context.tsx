@@ -38,7 +38,9 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * If refresh tokens are used, the token endpoint is called directly with the
    * 'refresh_token' grant. If no refresh token is available to make this call,
-   * the SDK falls back to using an iframe to the '/authorize' URL.
+   * the SDK will only fall back to using an iframe to the '/authorize' URL if 
+   * the `useRefreshTokensFallback` setting has been set to `true`. By default this
+   * setting is `false`.
    *
    * This method may use a web worker to perform the token call if the in-memory
    * cache is used.
