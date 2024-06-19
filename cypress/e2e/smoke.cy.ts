@@ -8,8 +8,8 @@ if (!EMAIL || !PASSWORD) {
 }
 
 const loginToAuth0 = (): void => {
-  cy.get('.auth0-lock-input-username .auth0-lock-input').clear().type(EMAIL);
-  cy.get('.auth0-lock-input-password .auth0-lock-input').clear().type(PASSWORD);
+  cy.get('.auth0-lock-input-email .auth0-lock-input').clear().type(EMAIL);
+  cy.get('.auth0-lock-input-show-password .auth0-lock-input').clear().type(PASSWORD);
   cy.get('.auth0-lock-submit').click();
 };
 
