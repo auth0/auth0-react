@@ -1,4 +1,4 @@
-import { User } from '@auth0/auth0-spa-js';
+import { User } from '@hooppee/authing-spa-js';
 import { AuthState } from './auth-state';
 
 type Action =

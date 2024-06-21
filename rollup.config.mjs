@@ -32,7 +32,7 @@ export default [
     output: [
       {
         name,
-        file: 'dist/auth0-react.js',
+        file: 'dist/authing-react.js',
         format: 'umd',
         globals,
         sourcemap: true,
@@ -61,7 +61,7 @@ export default [
           output: [
             {
               name,
-              file: 'dist/auth0-react.min.js',
+              file: 'dist/authing-react.min.js',
               format: 'umd',
               globals,
               sourcemap: true,

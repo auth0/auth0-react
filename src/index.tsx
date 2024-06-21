@@ -37,5 +37,5 @@ export {
   AuthenticationError,
   MissingRefreshTokenError,
   GenericError
-} from '@auth0/auth0-spa-js';
+} from '@hooppee/authing-spa-js';
 export { OAuthError } from './errors';
