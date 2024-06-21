@@ -13,6 +13,9 @@
     "react-scripts": "^5.0.1",
     "typescript": "^4.6.3"
   },
+  "devDependencies": {
+    "ajv": "8.16.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"

@@ -11,7 +11,8 @@
     "react-dom": "file:../../node_modules/react-dom"
   },
   "devDependencies": {
-    "prettier": "2.0.5"
+    "prettier": "2.0.5",
+    "ajv": "8.16.0"
   },
   "keywords": [
     "gatsby"
