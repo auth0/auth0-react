@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "file:../..",
-    "next": "13.5.6",
+    "next": "14.1.1",
     "react": "file:../../node_modules/react",
     "react-dom": "file:../../node_modules/react-dom"
   }
