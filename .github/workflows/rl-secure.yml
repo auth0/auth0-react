@@ -30,7 +30,7 @@ jobs:
 
       - name: Create tgz build artifact
         run: |
-          tar -czvf auth0-spa-js.tgz *
+          tar -czvf auth0-react.tgz *
 
       - name: Create build artifact
         id: output_build_artifact
