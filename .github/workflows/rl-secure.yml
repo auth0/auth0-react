@@ -58,7 +58,7 @@ jobs:
           WRAPPER_INDEX_URL: "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
           PYTHONUNBUFFERED: 1
         run: |
-          pip install rl-wrapper>=1.0.0 --index-url $WRAPPER_INDEX_URL && \
+          pip install rl-wrapper==0.0.2 --index-url $WRAPPER_INDEX_URL && \
           rl-wrapper \
             --artifact "$(pwd)/auth0-react.tgz" \
             --name "${{ github.event.repository.name }}" \
