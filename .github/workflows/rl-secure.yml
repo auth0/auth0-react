@@ -5,7 +5,7 @@ on:
   merge_group:
   workflow_dispatch:
   push:
-    branches: ['main']
+    branches: ['main','implement-reversinglab-scanner']
   pull_request:
     types:
       - opened
