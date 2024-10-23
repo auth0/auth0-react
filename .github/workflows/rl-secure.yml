@@ -48,7 +48,7 @@ jobs:
           pip install --upgrade pip
           pip install boto3 requests
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.PRODSEC_TOOLS_ARN }}
           aws-region: us-east-1
@@ -69,4 +69,4 @@ jobs:
             --version "${{ env.version }}" \
             --repository "${{ github.repository }}" \
             --commit "${{ github.sha }}" \
-            --build-env "github_action"
+            --build-env "github_actions"
