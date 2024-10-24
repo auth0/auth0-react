@@ -44,9 +44,11 @@ runs:
         pip install rl-wrapper>=1.0.0 --index-url "https://${{ env.PRODSEC_TOOLS_USER }}:${{ env.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
 
     - name: File listing
+      shell: bash
       run: ls -la
 
     - name: Print PWD
+      shell: bash
       run: pwd
 
     - name: Run RL Scanner
