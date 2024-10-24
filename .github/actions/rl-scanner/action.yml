@@ -1,0 +1,70 @@
+name: 'Reversing Labs Scanner'
+description: 'Runs the Reversing Labs scanner on a specified artifact.'
+inputs:
+  artifact-path:
+    description: 'Path to the artifact to be scanned.'
+    required: true
+  version:
+    description: 'Version of the artifact.'
+    required: true
+  repository:
+    description: 'GitHub repository name.'
+    required: true
+  commit:
+    description: 'Git commit SHA.'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Python dependencies
+      run: |
+        pip install --upgrade pip
+        pip install boto3 requests
+
+    - name: Install RL Wrapper
+      run: |
+        pip install rl-wrapper>=1.0.0 --index-url "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
+
+    - name: Run RL Scanner
+      env:
+        RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
+        RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
+        SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
+        PYTHONUNBUFFERED: 1
+      run: |
+        if [ ! -f "${{ inputs.artifact-path }}" ]; then
+          echo "Artifact not found: ${{ inputs.artifact-path }}"
+          exit 1
+        fi
+
+        rl-wrapper \
+          --artifact "${{ inputs.artifact-path }}" \
+          --name "${{ inputs.repository }}" \
+          --version "${{ inputs.version }}" \
+          --repository "${{ inputs.repository }}" \
+          --commit "${{ inputs.commit }}" \
+          --build-env "github_actions"
+
+        # Check the outcome of the scanner
+        if [ $? -ne 0 ]; then
+          echo "RL Scanner failed."
+          echo "scan-status=failed" >> $GITHUB_ENV
+          exit 1
+        else
+          echo "RL Scanner passed."
+          echo "scan-status=success" >> $GITHUB_ENV
+        fi
+
+outputs:
+  scan-status:
+    description: 'The outcome of the scan process.'
+    value: ${{ env.scan-status }}

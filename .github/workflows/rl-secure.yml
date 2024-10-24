@@ -1,68 +1,65 @@
 name: RL-Secure Workflow
-run-name: rl-scanner-only
 
 on:
-  merge_group:
-  workflow_dispatch:
-  push:
-    branches: ['main','Add-ReversingLabs-Scanner']
-
-env:
-  NODE_VERSION: 18
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+      artifact-name:
+        required: true
+        type: string
+    secrets:
+      RL_SECURE_LICENSE:
+        required: true
+      RL_SECURE_SITE_KEY:
+        required: true
+      SIGNAL_HANDLER_TOKEN:
+        required: true
+      PROD_TOOLS_USER:
+        required: true
+      PROD_TOOLS_TOKEN:
+        required: true
 
 jobs:
-  checkout-build-scan-only:
+  rl-scanner:
+    name: Run Reversing Labs Scanner
     runs-on: ubuntu-latest
-
-    permissions:
-      pull-requests: write
-      id-token: write
+    outputs:
+      scan-status: ${{ steps.rl-scan-conclusion.outcome }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Build package
         uses: ./.github/actions/build
         with:
-          node: ${{ env.NODE_VERSION }}
+          node: ${{ inputs.node-version }}
 
       - name: Create tgz build artifact
         run: |
-          tar -czvf auth0-react.tgz *
+          tar -czvf ${{ inputs.artifact-name }} *
 
-      - name: Get Artifact Version
-        id: get_version
-        run: echo "version=$(cat .version)" >> $GITHUB_ENV
+      - id: get_version
+        uses: ./.github/actions/get-version
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Run RL Scanner
+        id: rl-scan-conclusion
+        uses: ./.github/actions/rl-scanner
         with:
-          python-version: "3.10"
-
-      - name: Install Python dependencies
-        run: |
-          pip install --upgrade pip
-          pip install boto3 requests
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.PRODSEC_TOOLS_ARN }}
-          aws-region: us-east-1
-          mask-aws-account-id: true
-
-      - name: Run Reversing Labs Wrapper Scanner
+          artifact-path: "$(pwd)/${{ inputs.artifact-name }}"
+          version: "${{ steps.get_version.outputs.version }}"
+          repository: "${{ github.repository }}"
+          commit: "${{ github.sha }}"
         env:
-          RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
-          RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
+          RL_SECURE_LICENSE: ${{ secrets.RL_SECURE_LICENSE }}
+          RL_SECURE_SITE_KEY: ${{ secrets.RL_SECURE_SITE_KEY }}
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
-          WRAPPER_INDEX_URL: "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
-          PYTHONUNBUFFERED: 1
-        run: |
-          pip install rl-wrapper>=1.0.0 --index-url $WRAPPER_INDEX_URL && \
-          rl-wrapper \
-            --artifact "$(pwd)/auth0-react.tgz" \
-            --name "${{ github.event.repository.name }}" \
-            --version "${{ env.version }}" \
-            --repository "${{ github.repository }}" \
-            --commit "${{ github.sha }}" \
-            --build-env "github_actions"
+          PROD_TOOLS_USER: ${{ secrets.PROD_TOOLS_USER }}
+          PROD_TOOLS_TOKEN: ${{ secrets.PROD_TOOLS_TOKEN }}
+
+      - name: Output scan result
+        run: echo "scan-status=${{ steps.rl-scan-conclusion.outcome }}" >> $GITHUB_ENV
