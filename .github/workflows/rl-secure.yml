@@ -45,6 +45,9 @@ jobs:
         run: |
           tar -czvf ${{ inputs.artifact-name }} *
 
+      - name: Verify artifact creation
+        run: ls -la
+
       - id: get_version
         uses: ./.github/actions/get-version
 
