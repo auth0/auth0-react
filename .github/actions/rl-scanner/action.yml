@@ -19,7 +19,6 @@ runs:
     - name: Install Python dependencies
       shell: bash
       run: |
-        pip install --upgrade pip
         pip install boto3 requests
 
     - name: Configure AWS credentials
