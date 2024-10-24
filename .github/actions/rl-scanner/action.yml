@@ -7,12 +7,6 @@ inputs:
   version:
     description: 'Version of the artifact.'
     required: true
-  repository:
-    description: 'GitHub repository name.'
-    required: true
-  commit:
-    description: 'Git commit SHA.'
-    required: true
 
 runs:
   using: 'composite'
@@ -57,8 +51,8 @@ runs:
           --artifact "${{ inputs.artifact-path }}" \
           --name "${{ github.event.repository.name }}" \
           --version "${{ inputs.version }}" \
-          --repository "${{ inputs.repository }}" \
-          --commit "${{ inputs.commit }}" \
+          --repository "${{ github.repository }}" \
+          --commit "${{ github.sha }}" \
           --build-env "github_actions" \
           --suppress_output
 

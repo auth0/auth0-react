@@ -54,8 +54,6 @@ jobs:
         with:
           artifact-path: "$(pwd)/${{ inputs.artifact-name }}"
           version: "${{ steps.get_version.outputs.version }}"
-          repository: "${{ github.repository }}"
-          commit: "${{ github.sha }}"
         env:
           RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
           RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
