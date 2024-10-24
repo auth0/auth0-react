@@ -59,7 +59,8 @@ runs:
           --version "${{ inputs.version }}" \
           --repository "${{ inputs.repository }}" \
           --commit "${{ inputs.commit }}" \
-          --build-env "github_actions"
+          --build-env "github_actions" \
+          --suppress-output
 
         # Check the outcome of the scanner
         if [ $? -ne 0 ]; then
