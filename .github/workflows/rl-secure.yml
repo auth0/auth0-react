@@ -20,6 +20,8 @@ on:
         required: true
       PRODSEC_TOOLS_TOKEN:
         required: true
+      PRODSEC_TOOLS_ARN:
+        required: true
 
 jobs:
   rl-scanner:
@@ -60,6 +62,7 @@ jobs:
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
           PRODSEC_TOOLS_USER: ${{ secrets.PRODSEC_TOOLS_USER }}
           PRODSEC_TOOLS_TOKEN: ${{ secrets.PRODSEC_TOOLS_TOKEN }}
+          PRODSEC_TOOLS_ARN: ${{ secrets.PRODSEC_TOOLS_ARN }}
 
       - name: Output scan result
         run: echo "scan-status=${{ steps.rl-scan-conclusion.outcome }}" >> $GITHUB_ENV

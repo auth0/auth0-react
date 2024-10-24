@@ -28,6 +28,7 @@ jobs:
       SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
       PRODSEC_TOOLS_USER: ${{ secrets.PRODSEC_TOOLS_USER }}
       PRODSEC_TOOLS_TOKEN: ${{ secrets.PRODSEC_TOOLS_TOKEN }}
+      PRODSEC_TOOLS_ARN: ${{ secrets.PRODSEC_TOOLS_ARN }}
   release:
     uses: ./.github/workflows/npm-release.yml
     needs: rl-scanner
