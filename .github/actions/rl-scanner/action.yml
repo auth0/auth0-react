@@ -32,13 +32,13 @@ runs:
 
     - name: Install RL Wrapper
       run: |
-        pip install rl-wrapper>=1.0.0 --index-url "https://${{ secrets.PRODSEC_TOOLS_USER }}:${{ secrets.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
+        pip install rl-wrapper>=1.0.0 --index-url "https://${{ env.PRODSEC_TOOLS_USER }}:${{ env.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
 
     - name: Run RL Scanner
       env:
-        RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
-        RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
-        SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
+        RLSECURE_LICENSE: ${{ env.RLSECURE_LICENSE }}
+        RLSECURE_SITE_KEY: ${{ env.RLSECURE_SITE_KEY }}
+        SIGNAL_HANDLER_TOKEN: ${{ env.SIGNAL_HANDLER_TOKEN }}
         PYTHONUNBUFFERED: 1
       run: |
         if [ ! -f "${{ inputs.artifact-path }}" ]; then
