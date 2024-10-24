@@ -63,7 +63,7 @@ runs:
 
         rl-wrapper \
           --artifact "${{ inputs.artifact-path }}" \
-          --name "${{ inputs.repository }}" \
+          --name "${{ github.event.repository.name }}" \
           --version "${{ inputs.version }}" \
           --repository "${{ inputs.repository }}" \
           --commit "${{ inputs.commit }}" \
