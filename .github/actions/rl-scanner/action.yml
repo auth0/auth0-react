@@ -31,16 +31,23 @@ runs:
         pip install --upgrade pip
         pip install boto3 requests
 
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: ${{ env.PRODSEC_TOOLS_ARN }}
+        aws-region: us-east-1
+        mask-aws-account-id: true
+
     - name: Install RL Wrapper
       shell: bash
       run: |
-        pip install rl-wrapper>=1.0.0 --index-url "https://${{ env.PROD_TOOLS_USER }}:${{ env.PROD_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
+        pip install rl-wrapper>=1.0.0 --index-url "https://${{ env.PRODSEC_TOOLS_USER }}:${{ env.PRODSEC_TOOLS_TOKEN }}@a0us.jfrog.io/artifactory/api/pypi/python-local/simple"
 
     - name: Run RL Scanner
       shell: bash
       env:
-        RLSECURE_LICENSE: ${{ env.RL_SECURE_LICENSE }}
-        RLSECURE_SITE_KEY: ${{ env.RL_SECURE_SITE_KEY }}
+        RLSECURE_LICENSE: ${{ env.RLSECURE_LICENSE }}
+        RLSECURE_SITE_KEY: ${{ env.RLSECURE_SITE_KEY }}
         SIGNAL_HANDLER_TOKEN: ${{ env.SIGNAL_HANDLER_TOKEN }}
         PYTHONUNBUFFERED: 1
       run: |

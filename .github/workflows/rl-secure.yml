@@ -10,15 +10,15 @@ on:
         required: true
         type: string
     secrets:
-      RL_SECURE_LICENSE:
+      RLSECURE_LICENSE:
         required: true
-      RL_SECURE_SITE_KEY:
+      RLSECURE_SITE_KEY:
         required: true
       SIGNAL_HANDLER_TOKEN:
         required: true
-      PROD_TOOLS_USER:
+      PRODSEC_TOOLS_USER:
         required: true
-      PROD_TOOLS_TOKEN:
+      PRODSEC_TOOLS_TOKEN:
         required: true
 
 jobs:
@@ -55,11 +55,11 @@ jobs:
           repository: "${{ github.repository }}"
           commit: "${{ github.sha }}"
         env:
-          RL_SECURE_LICENSE: ${{ secrets.RL_SECURE_LICENSE }}
-          RL_SECURE_SITE_KEY: ${{ secrets.RL_SECURE_SITE_KEY }}
+          RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
+          RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
           SIGNAL_HANDLER_TOKEN: ${{ secrets.SIGNAL_HANDLER_TOKEN }}
-          PROD_TOOLS_USER: ${{ secrets.PROD_TOOLS_USER }}
-          PROD_TOOLS_TOKEN: ${{ secrets.PROD_TOOLS_TOKEN }}
+          PRODSEC_TOOLS_USER: ${{ secrets.PRODSEC_TOOLS_USER }}
+          PRODSEC_TOOLS_TOKEN: ${{ secrets.PRODSEC_TOOLS_TOKEN }}
 
       - name: Output scan result
         run: echo "scan-status=${{ steps.rl-scan-conclusion.outcome }}" >> $GITHUB_ENV
