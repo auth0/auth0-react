@@ -18,7 +18,7 @@ jobs:
     uses: ./.github/workflows/rl-secure.yml
     with:
       node-version: 18
-      artifact-name: 'auth0-java.tgz'
+      artifact-name: 'auth0-react.tgz'
     secrets:
       RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
       RLSECURE_SITE_KEY: ${{ secrets.RLSECURE_SITE_KEY }}
