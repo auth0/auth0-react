@@ -4,6 +4,7 @@
 
 1. [User is not logged in after page refresh](#1-user-is-not-logged-in-after-page-refresh)
 2. [User is not logged in after successful sign in with redirect](#2-user-is-not-logged-in-after-successful-sign-in-with-redirect)
+3. [Skip the Auth0 login page](#3-skip-the-auth0-login-page)
 
 ## 1. User is not logged in after page refresh
 
@@ -20,3 +21,33 @@ In this case Silent Authentication will not work because it relies on a hidden i
 ## 2. User is not logged in after successful sign in with redirect
 
 If after successfully logging in, your user returns to your SPA and is still not authenticated, do _not_ refresh the page - go to the Network tab on Chrome and confirm that the POST to `oauth/token` resulted in an error `401 Unauthorized`. If this is the case, your tenant is most likely misconfigured. Go to your **Application Properties** in your application's settings in the [Auth0 Dashboard](https://manage.auth0.com) and make sure that `Application Type` is set to `Single Page Application` and `Token Endpoint Authentication Method` is set to `None` (**Note:** there is a known issue with the Auth0 "Default App", if you are unable to set `Token Endpoint Authentication Method` to `None`, create a new Application of type `Single Page Application` or see the advice in [issues/93](https://github.com/auth0/auth0-react/issues/93#issuecomment-673431605))
+
+## 3. Skip the Auth0 login page
+
+When integrating with third party providers such as Google or Microsoft, being redirected to Auth0 before being redirected to the corresponding provider can be sub-optimal in terms of user-experience.
+If you only have a single connection enabled, or you know up front how the user wants to authenticate, you can set the `connection` parameter when calling `loginWithRedirect()` or `loginWithPopup()`:
+
+```js
+loginWithRedirect({
+  // ...
+  authorizationParams: {
+    connection: 'connection_logical_identifier'
+  }
+})
+```
+
+Doing so for connections such as Google or Microsoft, would automatically redirect you to them instead of showing the Auth0 login page first.
+
+Additionally, if you are using `withAuthenticationRequired`, you may want it to pick up the same connection when it would redirect for login. To do so, you should provide the `connection` property when configuring `withAuthenticationRequired`:
+
+```js
+withAuthenticationRequired(Component, { 
+  loginOptions: {
+    authorizationParams: {
+      connection: 'connection_logical_identifier'
+    }
+  }
+})
+```
+
+ℹ️ You can find the connection's logical identifier as the **connection name** in the connection settings in the Auth0 dashboard for your tenant.
