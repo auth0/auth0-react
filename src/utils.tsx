@@ -36,6 +36,8 @@ export const loginError = normalizeErrorFn('Login failed');
 
 export const tokenError = normalizeErrorFn('Get access token failed');
 
+export const userError = normalizeErrorFn('Get user failed');
+
 /**
  * @ignore
  * Helper function to map the v1 `redirectUri` option to the v2 `authorizationParams.redirect_uri`

@@ -25,6 +25,7 @@ import {
   hasAuthParams,
   loginError,
   tokenError,
+  userError,
   deprecateRedirectUri,
 } from './utils';
 import { reducer } from './reducer';
@@ -267,6 +268,18 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     [client]
   );
 
+  const getUser = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async <TUser extends User>(): Promise<any> => {
+      try {
+        return await client.getUser<TUser>();
+      } catch (error) {
+        throw userError(error);
+      }
+    },
+    [client]
+  );
+
   const contextValue = useMemo<Auth0ContextInterface<User>>(() => {
     return {
       ...state,
@@ -277,6 +290,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
       loginWithPopup,
       logout,
       handleRedirectCallback,
+      getUser,
     };
   }, [
     state,
@@ -287,6 +301,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
     loginWithPopup,
     logout,
     handleRedirectCallback,
+    getUser,
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;
