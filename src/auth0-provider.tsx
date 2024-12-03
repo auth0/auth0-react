@@ -88,13 +88,10 @@ export interface Auth0ProviderOptions extends Auth0ClientOptions {
 
 // Define types for clarity
 export type Auth0ProviderLegacyOptions = Auth0ProviderOptions;
-export type Auth0ProviderInjectableClientOptions = {
-  client: Auth0Client;
-  context?: React.Context<Auth0ContextInterface>;
-  children?: React.ReactNode;
-  skipRedirectCallback?: boolean;
-  onRedirectCallback?: (appState?: AppState, user?: User) => void;
-};
+export type Auth0ProviderInjectableClientOptions = Exclude<
+  Auth0ProviderOptions,
+  keyof Auth0ClientOptions
+> & { client: Auth0Client };
 
 // Combined type for the overload implementation
 export type CombinedAuth0ProviderOptions =
