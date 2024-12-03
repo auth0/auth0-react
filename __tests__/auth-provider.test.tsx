@@ -11,7 +11,7 @@ import {
   GetTokenSilentlyVerboseResponse,
 } from '@auth0/auth0-spa-js';
 import pkg from '../package.json';
-import { createWrapper } from './helpers';
+import { createWrapper, createWrapperInjectableClient } from './helpers';
 import { Auth0Provider, useAuth0 } from '../src';
 
 const clientMock = jest.mocked(new Auth0Client({ clientId: '', domain: '' }));
@@ -60,7 +60,9 @@ describe('Auth0Provider', () => {
   });
 
   it('should support redirectUri', async () => {
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+    const warn = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
     const opts = {
       clientId: 'foo',
       domain: 'bar',
@@ -84,7 +86,9 @@ describe('Auth0Provider', () => {
   });
 
   it('should support authorizationParams.redirectUri', async () => {
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+    const warn = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
     const opts = {
       clientId: 'foo',
       domain: 'bar',
@@ -304,6 +308,33 @@ describe('Auth0Provider', () => {
     expect(result.current.user).toBe(user);
   });
 
+  it('should login with a popup for injectable client', async () => {
+    clientMock.getUser.mockResolvedValue(undefined);
+    const wrapper = createWrapperInjectableClient({
+      client: new Auth0Client({
+        clientId: '__test_client_id__',
+        domain: '__test_domain__',
+      }),
+    });
+    const { waitForNextUpdate, result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitForNextUpdate();
+    expect(result.current.user).toBeUndefined();
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValue(user);
+    act(() => {
+      result.current.loginWithPopup();
+    });
+    expect(result.current.isLoading).toBe(true);
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBe(false);
+    expect(clientMock.loginWithPopup).toHaveBeenCalled();
+    expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toBe(user);
+  });
+
   it('should handle errors when logging in with a popup', async () => {
     clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
@@ -351,7 +382,9 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a login method supporting redirectUri', async () => {
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+    const warn = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),
@@ -371,7 +404,9 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a login method supporting authorizationParams.redirectUri', async () => {
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+    const warn = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
     const wrapper = createWrapper();
     const { waitForNextUpdate, result } = renderHook(
       () => useContext(Auth0Context),

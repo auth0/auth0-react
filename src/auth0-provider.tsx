@@ -86,6 +86,21 @@ export interface Auth0ProviderOptions extends Auth0ClientOptions {
   context?: React.Context<Auth0ContextInterface>;
 }
 
+// Define types for clarity
+export type Auth0ProviderLegacyOptions = Auth0ProviderOptions;
+export type Auth0ProviderInjectableClientOptions = {
+  client: Auth0Client;
+  context?: React.Context<Auth0ContextInterface>;
+  children?: React.ReactNode;
+  skipRedirectCallback?: boolean;
+  onRedirectCallback?: (appState?: AppState, user?: User) => void;
+};
+
+// Combined type for the overload implementation
+export type CombinedAuth0ProviderOptions =
+  | Auth0ProviderLegacyOptions
+  | Auth0ProviderInjectableClientOptions;
+
 /**
  * Replaced by the package version at build time.
  * @ignore
@@ -120,6 +135,10 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
   );
 };
 
+// Overload signatures
+function Auth0Provider(opts: Auth0ProviderInjectableClientOptions): JSX.Element;
+function Auth0Provider(opts: Auth0ProviderLegacyOptions): JSX.Element;
+
 /**
  * ```jsx
  * <Auth0Provider
@@ -132,17 +151,24 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
  *
  * Provides the Auth0Context to its child components.
  */
-const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
+function Auth0Provider(opts: CombinedAuth0ProviderOptions) {
   const {
     children,
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
     context = Auth0Context,
-    ...clientOpts
+    ...restOpts
   } = opts;
-  const [client] = useState(
-    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
-  );
+  const [client] = useState(() => {
+    if ('client' in opts) {
+      return opts.client; // Use the injected client
+    } else {
+      // Construct a new client from legacy options
+      return new Auth0Client(
+        toAuth0ClientOptions(restOpts as Auth0ProviderLegacyOptions)
+      );
+    }
+  });
   const [state, dispatch] = useReducer(reducer, initialAuthState);
   const didInitialise = useRef(false);
 
@@ -290,6 +316,6 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;
-};
+}
 
 export default Auth0Provider;

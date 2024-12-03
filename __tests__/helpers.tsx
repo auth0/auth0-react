@@ -1,5 +1,9 @@
 import React, { PropsWithChildren } from 'react';
-import Auth0Provider, { Auth0ProviderOptions } from '../src/auth0-provider';
+import Auth0Provider, {
+  Auth0ProviderInjectableClientOptions,
+  Auth0ProviderOptions,
+} from '../src/auth0-provider';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 
 export const createWrapper = ({
   clientId = '__test_client_id__',
@@ -11,6 +15,23 @@ export const createWrapper = ({
   }: PropsWithChildren<Record<string, unknown>>): JSX.Element {
     return (
       <Auth0Provider domain={domain} clientId={clientId} {...opts}>
+        {children}
+      </Auth0Provider>
+    );
+  };
+};
+
+export const createWrapperInjectableClient = ({
+  client,
+  ...opts
+}: Omit<Partial<Auth0ProviderInjectableClientOptions>, 'client'> & {
+  client: Auth0Client;
+}) => {
+  return function Wrapper({
+    children,
+  }: PropsWithChildren<Record<string, unknown>>): JSX.Element {
+    return (
+      <Auth0Provider client={client} {...opts}>
         {children}
       </Auth0Provider>
     );
