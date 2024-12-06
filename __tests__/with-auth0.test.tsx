@@ -1,8 +1,8 @@
-import '@testing-library/jest-dom/extend-expect';
-import React, { Component } from 'react';
-import withAuth0, { WithAuth0Props } from '../src/with-auth0';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import React, { Component } from 'react';
 import { Auth0ContextInterface, initialContext } from '../src/auth0-context';
+import withAuth0, { WithAuth0Props } from '../src/with-auth0';
 
 describe('withAuth0', () => {
   it('should wrap a class component', () => {
