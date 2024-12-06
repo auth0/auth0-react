@@ -1,18 +1,17 @@
-import '@testing-library/jest-dom/extend-expect';
-import React, { StrictMode, useContext } from 'react';
-import Auth0Context, {
-  Auth0ContextInterface,
-  initialContext,
-} from '../src/auth0-context';
-import { render, screen, waitFor } from '@testing-library/react';
-import { renderHook, act } from '@testing-library/react-hooks';
 import {
   Auth0Client,
   GetTokenSilentlyVerboseResponse,
 } from '@auth0/auth0-spa-js';
+import '@testing-library/jest-dom';
+import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
+import React, { StrictMode, useContext } from 'react';
 import pkg from '../package.json';
-import { createWrapper } from './helpers';
 import { Auth0Provider, useAuth0 } from '../src';
+import Auth0Context, {
+  Auth0ContextInterface,
+  initialContext,
+} from '../src/auth0-context';
+import { createWrapper } from './helpers';
 
 const clientMock = jest.mocked(new Auth0Client({ clientId: '', domain: '' }));
 
@@ -23,12 +22,13 @@ describe('Auth0Provider', () => {
 
   it('should provide the Auth0Provider result', async () => {
     const wrapper = createWrapper();
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    expect(result.current).toBeDefined();
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current).toBeDefined();
+    });
   });
 
   it('should configure an instance of the Auth0Client', async () => {
@@ -42,21 +42,22 @@ describe('Auth0Provider', () => {
       },
     };
     const wrapper = createWrapper(opts);
-    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+    renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    expect(Auth0Client).toHaveBeenCalledWith(
-      expect.objectContaining({
-        clientId: 'foo',
-        domain: 'bar',
-        authorizationParams: {
-          redirect_uri: 'baz',
-          max_age: 'qux',
-          extra_param: '__test_extra_param__',
-        },
-      })
-    );
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(Auth0Client).toHaveBeenCalledWith(
+        expect.objectContaining({
+          clientId: 'foo',
+          domain: 'bar',
+          authorizationParams: {
+            redirect_uri: 'baz',
+            max_age: 'qux',
+            extra_param: '__test_extra_param__',
+          },
+        })
+      );
+    });
   });
 
   it('should support redirectUri', async () => {
@@ -67,20 +68,21 @@ describe('Auth0Provider', () => {
       redirectUri: 'baz',
     };
     const wrapper = createWrapper(opts);
-    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+    renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    expect(Auth0Client).toHaveBeenCalledWith(
-      expect.objectContaining({
-        clientId: 'foo',
-        domain: 'bar',
-        authorizationParams: {
-          redirect_uri: 'baz',
-        },
-      })
-    );
-    expect(warn).toHaveBeenCalled();
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(Auth0Client).toHaveBeenCalledWith(
+        expect.objectContaining({
+          clientId: 'foo',
+          domain: 'bar',
+          authorizationParams: {
+            redirect_uri: 'baz',
+          },
+        })
+      );
+      expect(warn).toHaveBeenCalled();
+    });
   });
 
   it('should support authorizationParams.redirectUri', async () => {
@@ -93,20 +95,21 @@ describe('Auth0Provider', () => {
       },
     };
     const wrapper = createWrapper(opts);
-    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+    renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    expect(Auth0Client).toHaveBeenCalledWith(
-      expect.objectContaining({
-        clientId: 'foo',
-        domain: 'bar',
-        authorizationParams: {
-          redirect_uri: 'baz',
-        },
-      })
-    );
-    expect(warn).toHaveBeenCalled();
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(Auth0Client).toHaveBeenCalledWith(
+        expect.objectContaining({
+          clientId: 'foo',
+          domain: 'bar',
+          authorizationParams: {
+            redirect_uri: 'baz',
+          },
+        })
+      );
+      expect(warn).toHaveBeenCalled();
+    });
   });
 
   it('should pass user agent to Auth0Client', async () => {
@@ -115,45 +118,48 @@ describe('Auth0Provider', () => {
       domain: 'bar',
     };
     const wrapper = createWrapper(opts);
-    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+    renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    expect(Auth0Client).toHaveBeenCalledWith(
-      expect.objectContaining({
-        auth0Client: {
-          name: 'auth0-react',
-          version: pkg.version,
-        },
-      })
-    );
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(Auth0Client).toHaveBeenCalledWith(
+        expect.objectContaining({
+          auth0Client: {
+            name: 'auth0-react',
+            version: pkg.version,
+          },
+        })
+      );
+    });
   });
 
   it('should check session when logged out', async () => {
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
     expect(result.current.isLoading).toBe(true);
-    await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
-    expect(clientMock.checkSession).toHaveBeenCalled();
-    expect(result.current.isAuthenticated).toBe(false);
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(clientMock.checkSession).toHaveBeenCalled();
+      expect(result.current.isAuthenticated).toBe(false);
+    });
   });
 
   it('should check session when logged in', async () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(clientMock.checkSession).toHaveBeenCalled();
-    expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.user).toBe(user);
+    await waitFor(() => {
+      expect(clientMock.checkSession).toHaveBeenCalled();
+      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.user).toBe(user);
+    });
   });
 
   it('should handle errors when checking session', async () => {
@@ -162,16 +168,17 @@ describe('Auth0Provider', () => {
       error_description: '__test_error_description__',
     });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(clientMock.checkSession).toHaveBeenCalled();
-    expect(() => {
-      throw result.current.error;
-    }).toThrowError('__test_error_description__');
-    expect(result.current.isAuthenticated).toBe(false);
+    await waitFor(() => {
+      expect(clientMock.checkSession).toHaveBeenCalled();
+      expect(() => {
+        throw result.current.error;
+      }).toThrowError('__test_error_description__');
+      expect(result.current.isAuthenticated).toBe(false);
+    });
   });
 
   it('should handle redirect callback success and clear the url', async () => {
@@ -187,12 +194,13 @@ describe('Auth0Provider', () => {
       appState: undefined,
     });
     const wrapper = createWrapper();
-    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+    renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    await waitForNextUpdate();
-    expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
-    expect(window.location.href).toBe('https://www.example.com/');
+    await waitFor(() => {
+      expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
+      expect(window.location.href).toBe('https://www.example.com/');
+    });
   });
 
   it('should handle redirect callback success and return to app state param', async () => {
@@ -208,12 +216,13 @@ describe('Auth0Provider', () => {
       appState: { returnTo: '/foo' },
     });
     const wrapper = createWrapper();
-    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+    renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    await waitForNextUpdate();
-    expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
-    expect(window.location.href).toBe('https://www.example.com/foo');
+    await waitFor(() => {
+      expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
+      expect(window.location.href).toBe('https://www.example.com/foo');
+    });
   });
 
   it('should handle redirect callback errors', async () => {
@@ -226,15 +235,16 @@ describe('Auth0Provider', () => {
       new Error('__test_error__')
     );
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
-    expect(() => {
-      throw result.current.error;
-    }).toThrowError('__test_error__');
+    await waitFor(() => {
+      expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
+      expect(() => {
+        throw result.current.error;
+      }).toThrowError('__test_error__');
+    });
   });
 
   it('should handle redirect and call a custom handler', async () => {
@@ -252,11 +262,12 @@ describe('Auth0Provider', () => {
     const wrapper = createWrapper({
       onRedirectCallback,
     });
-    const { waitForNextUpdate } = renderHook(() => useContext(Auth0Context), {
+    renderHook(() => useContext(Auth0Context), {
       wrapper,
     });
-    await waitForNextUpdate();
-    expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar' }, user);
+    await waitFor(() => {
+      expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar' }, user);
+    });
   });
 
   it('should skip redirect callback for non auth0 redirect callback handlers', async () => {
@@ -272,72 +283,79 @@ describe('Auth0Provider', () => {
     const wrapper = createWrapper({
       skipRedirectCallback: true,
     });
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(clientMock.handleRedirectCallback).not.toHaveBeenCalled();
-    expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.error).not.toBeDefined();
+    await waitFor(() => {
+      expect(clientMock.handleRedirectCallback).not.toHaveBeenCalled();
+      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.error).not.toBeDefined();
+    });
   });
 
   it('should login with a popup', async () => {
     clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.user).toBeUndefined();
+    await waitFor(() => {
+      expect(result.current.user).toBeUndefined();
+    });
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     act(() => {
       result.current.loginWithPopup();
     });
     expect(result.current.isLoading).toBe(true);
-    await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
-    expect(clientMock.loginWithPopup).toHaveBeenCalled();
-    expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.user).toBe(user);
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(clientMock.loginWithPopup).toHaveBeenCalled();
+      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.user).toBe(user);
+    });
   });
 
   it('should handle errors when logging in with a popup', async () => {
     clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.isAuthenticated).toBe(false);
-    expect(result.current.user).toBeUndefined();
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.user).toBeUndefined();
+    });
     clientMock.getUser.mockResolvedValue(undefined);
     clientMock.loginWithPopup.mockRejectedValue(new Error('__test_error__'));
     act(() => {
       result.current.loginWithPopup();
     });
     expect(result.current.isLoading).toBe(true);
-    await waitForNextUpdate();
-    expect(result.current.isLoading).toBe(false);
-    expect(clientMock.loginWithPopup).toHaveBeenCalled();
-    expect(result.current.isAuthenticated).toBe(false);
-    expect(result.current.user).toBeUndefined();
-    expect(() => {
-      throw result.current.error;
-    }).toThrowError('__test_error__');
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(clientMock.loginWithPopup).toHaveBeenCalled();
+      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.user).toBeUndefined();
+      expect(() => {
+        throw result.current.error;
+      }).toThrowError('__test_error__');
+    });
   });
 
   it('should provide a login method', async () => {
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    await waitFor(() => {
+
+      expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    });
     await result.current.loginWithRedirect({
       authorizationParams: {
         redirect_uri: '__redirect_uri__',
@@ -353,12 +371,13 @@ describe('Auth0Provider', () => {
   it('should provide a login method supporting redirectUri', async () => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    await waitFor(() => {
+      expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    });
     await result.current.loginWithRedirect({
       redirectUri: '__redirect_uri__',
     } as never);
@@ -373,12 +392,13 @@ describe('Auth0Provider', () => {
   it('should provide a login method supporting authorizationParams.redirectUri', async () => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    await waitFor(() => {
+      expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
+    });
     await result.current.loginWithRedirect({
       authorizationParams: {
         redirectUri: '__redirect_uri__',
@@ -396,12 +416,13 @@ describe('Auth0Provider', () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.logout).toBeInstanceOf(Function);
+    await waitFor(() => {
+      expect(result.current.logout).toBeInstanceOf(Function);
+    });
     act(() => {
       result.current.logout();
     });
@@ -417,15 +438,16 @@ describe('Auth0Provider', () => {
     // get logout to return a Promise to simulate async cache.
     clientMock.logout.mockResolvedValue();
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.isAuthenticated).toBe(true);
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(true);
+    });
     await act(async () => {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      await result.current.logout({ openUrl: async () => {} });
+      await result.current.logout({ openUrl: async () => { } });
     });
     expect(result.current.isAuthenticated).toBe(false);
   });
@@ -440,12 +462,13 @@ describe('Auth0Provider', () => {
       logoutSpy();
     });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.isAuthenticated).toBe(true);
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(true);
+    });
     await act(async () => {
       await result.current.logout();
     });
@@ -456,33 +479,36 @@ describe('Auth0Provider', () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.user).toBe(user);
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.user).toBe(user);
+    });
     act(() => {
       result.current.logout({ openUrl: false });
     });
     expect(clientMock.logout).toHaveBeenCalledWith({
       openUrl: false,
     });
-    await waitForNextUpdate();
-    expect(result.current.isAuthenticated).toBe(false);
-    expect(result.current.user).toBeUndefined();
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.user).toBeUndefined();
+    });
   });
 
   it('should provide a getAccessTokenSilently method', async () => {
     clientMock.getTokenSilently.mockResolvedValue('token');
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    expect(result.current.getAccessTokenSilently).toBeInstanceOf(Function);
+    await waitFor(() => {
+      expect(result.current.getAccessTokenSilently).toBeInstanceOf(Function);
+    });
     await act(async () => {
       const token = await result.current.getAccessTokenSilently();
       expect(token).toBe('token');
@@ -499,12 +525,10 @@ describe('Auth0Provider', () => {
     };
     (clientMock.getTokenSilently as jest.Mock).mockResolvedValue(tokenResponse);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-
     await act(async () => {
       const token = await result.current.getAccessTokenSilently({
         detailedResponse: true,
@@ -517,11 +541,10 @@ describe('Auth0Provider', () => {
   it('should normalize errors from getAccessTokenSilently method', async () => {
     clientMock.getTokenSilently.mockRejectedValue(new ProgressEvent('error'));
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
     await act(async () => {
       await expect(result.current.getAccessTokenSilently).rejects.toThrowError(
         'Get access token failed'
@@ -532,11 +555,10 @@ describe('Auth0Provider', () => {
   it('should call getAccessTokenSilently in the scope of the Auth0 client', async () => {
     clientMock.getTokenSilently.mockReturnThis();
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
 
     await act(async () => {
       const returnedThis = await result.current.getAccessTokenSilently();
@@ -548,13 +570,13 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-
-    expect(result.current.user?.name).toEqual('foo');
+    await waitFor(async () => {
+      expect(result.current.user?.name).toEqual('foo');
+    });
     clientMock.getUser.mockResolvedValue({ name: 'bar' });
     await act(async () => {
       await result.current.getAccessTokenSilently();
@@ -566,13 +588,14 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBeTruthy();
+    });
 
-    expect(result.current.isAuthenticated).toBeTruthy();
     clientMock.getTokenSilently.mockRejectedValue({ error: 'login_required' });
     clientMock.getUser.mockResolvedValue(undefined);
     await act(async () => {
@@ -588,32 +611,34 @@ describe('Auth0Provider', () => {
     const userObject = { name: 'foo' };
     clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-
-    const prevUser = result.current.user;
-    clientMock.getUser.mockResolvedValue(userObject);
-    await act(async () => {
-      await result.current.getAccessTokenSilently();
+    await waitFor(async () => {
+      const prevUser = result.current.user;
+      clientMock.getUser.mockResolvedValue(userObject);
+      await act(async () => {
+        await result.current.getAccessTokenSilently();
+      });
+      expect(result.current.user).toBe(prevUser);
     });
-    expect(result.current.user).toBe(prevUser);
   });
 
   it('should not update getAccessTokenSilently after auth state change', async () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    const memoized = result.current.getAccessTokenSilently;
-    expect(result.current.user?.name).toEqual('foo');
-    clientMock.getUser.mockResolvedValue({ name: 'bar' });
+    let memoized
+    await waitFor(async () => {
+      memoized = result.current.getAccessTokenSilently;
+      expect(result.current.user?.name).toEqual('foo');
+      clientMock.getUser.mockResolvedValue({ name: 'bar' });
+    });
     await act(async () => {
       await result.current.getAccessTokenSilently();
     });
@@ -637,11 +662,10 @@ describe('Auth0Provider', () => {
   it('should provide a getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
     expect(result.current.getAccessTokenWithPopup).toBeInstanceOf(Function);
     await act(async () => {
       const token = await result.current.getAccessTokenWithPopup();
@@ -653,11 +677,10 @@ describe('Auth0Provider', () => {
   it('should call getAccessTokenWithPopup in the scope of the Auth0 client', async () => {
     clientMock.getTokenWithPopup.mockReturnThis();
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
     await act(async () => {
       const returnedThis = await result.current.getAccessTokenWithPopup();
       expect(returnedThis).toStrictEqual(clientMock);
@@ -668,11 +691,10 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
 
     const prevUser = result.current.user;
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
@@ -686,13 +708,14 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBeTruthy();
+    });
 
-    expect(result.current.isAuthenticated).toBeTruthy();
     clientMock.getTokenWithPopup.mockRejectedValueOnce({
       error: 'login_required',
     });
@@ -710,28 +733,27 @@ describe('Auth0Provider', () => {
     const userObject = { name: 'foo' };
     clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-
-    const prevState = result.current;
-    clientMock.getUser.mockResolvedValue(userObject);
-    await act(async () => {
-      await result.current.getAccessTokenWithPopup();
+    await waitFor(async () => {
+      const prevState = result.current;
+      clientMock.getUser.mockResolvedValue(userObject);
+      await act(async () => {
+        await result.current.getAccessTokenWithPopup();
+      });
+      expect(result.current).toBe(prevState);
     });
-    expect(result.current).toBe(prevState);
   });
 
   it('should normalize errors from getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockRejectedValue(new ProgressEvent('error'));
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
     await act(async () => {
       await expect(result.current.getAccessTokenWithPopup).rejects.toThrowError(
         'Get access token failed'
@@ -758,13 +780,16 @@ describe('Auth0Provider', () => {
       __raw: '__test_raw_token__',
     });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
+
     expect(result.current.getIdTokenClaims).toBeInstanceOf(Function);
-    const claims = await result.current.getIdTokenClaims();
+    let claims;
+    await act(async () => {
+      claims = await result.current.getIdTokenClaims();
+    })
     expect(clientMock.getIdTokenClaims).toHaveBeenCalled();
     expect(claims).toStrictEqual({
       claim: '__test_claim__',
@@ -774,14 +799,15 @@ describe('Auth0Provider', () => {
 
   it('should memoize the getIdTokenClaims method', async () => {
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result, rerender } = renderHook(
+    const { result, rerender } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    const memoized = result.current.getIdTokenClaims;
-    rerender();
-    expect(result.current.getIdTokenClaims).toBe(memoized);
+    await waitFor(() => {
+      const memoized = result.current.getIdTokenClaims;
+      rerender();
+      expect(result.current.getIdTokenClaims).toBe(memoized);
+    });
   });
 
   it('should provide a handleRedirectCallback method', async () => {
@@ -789,11 +815,10 @@ describe('Auth0Provider', () => {
       appState: { redirectUri: '/' },
     });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
     expect(result.current.handleRedirectCallback).toBeInstanceOf(Function);
     await act(async () => {
       const response = await result.current.handleRedirectCallback();
@@ -809,11 +834,10 @@ describe('Auth0Provider', () => {
   it('should call handleRedirectCallback in the scope of the Auth0 client', async () => {
     clientMock.handleRedirectCallback.mockReturnThis();
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
     await act(async () => {
       const returnedThis = await result.current.handleRedirectCallback();
       expect(returnedThis).toStrictEqual(clientMock);
@@ -824,11 +848,10 @@ describe('Auth0Provider', () => {
     clientMock.handleRedirectCallback.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
 
     const prevUser = result.current.user;
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
@@ -842,13 +865,13 @@ describe('Auth0Provider', () => {
     clientMock.handleRedirectCallback.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-
-    expect(result.current.isAuthenticated).toBeTruthy();
+    await waitFor(async () => {
+      expect(result.current.isAuthenticated).toBeTruthy();
+    });
     clientMock.handleRedirectCallback.mockRejectedValueOnce({
       error: 'login_required',
     });
@@ -866,18 +889,19 @@ describe('Auth0Provider', () => {
     const userObject = { name: 'foo' };
     clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-
-    const prevState = result.current;
-    clientMock.getUser.mockResolvedValue(userObject);
-    await act(async () => {
-      await result.current.handleRedirectCallback();
+    await waitFor(async () => {
+      const prevState = result.current;
+      clientMock.getUser.mockResolvedValue(userObject);
+      await act(async () => {
+        await result.current.handleRedirectCallback();
+      });
+      expect(result.current).toBe(prevState);
     });
-    expect(result.current).toBe(prevState);
+
   });
 
   it('should normalize errors from handleRedirectCallback method', async () => {
@@ -885,11 +909,10 @@ describe('Auth0Provider', () => {
       new ProgressEvent('error')
     );
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result } = renderHook(
+    const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
     await act(async () => {
       await expect(result.current.handleRedirectCallback).rejects.toThrowError(
         'Get access token failed'
@@ -921,16 +944,15 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { waitForNextUpdate, result, rerender } = renderHook(
+    const { result, rerender } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
-    await waitForNextUpdate();
-    const memoized = result.current;
-
-    rerender();
-
-    expect(result.current).toBe(memoized);
+    await waitFor(() => {
+      const memoized = result.current;
+      rerender();
+      expect(result.current).toBe(memoized);
+    });
   });
 
   it('should only handle redirect callback once', async () => {

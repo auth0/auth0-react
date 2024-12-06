@@ -1,18 +1,18 @@
+import { act, renderHook, waitFor } from '@testing-library/react';
 import React from 'react';
-import useAuth0 from '../src/use-auth0';
-import { act, renderHook } from '@testing-library/react-hooks';
-import { createWrapper } from './helpers';
 import { Auth0ContextInterface, initialContext } from '../src/auth0-context';
+import useAuth0 from '../src/use-auth0';
+import { createWrapper } from './helpers';
 
 describe('useAuth0', () => {
   it('should provide the auth context', async () => {
     const wrapper = createWrapper();
     const {
-      result: { current },
-      waitForNextUpdate,
+      result: { current }
     } = renderHook(() => useAuth0(), { wrapper });
-    await waitForNextUpdate();
-    expect(current).toBeDefined();
+    await waitFor(() => {
+      expect(current).toBeDefined();
+    });
   });
 
   it('should throw with no provider', () => {
@@ -42,10 +42,10 @@ describe('useAuth0', () => {
     const wrapper = createWrapper({ context });
     const {
       result: { current },
-      waitForNextUpdate,
     } = renderHook(() => useAuth0(context), { wrapper });
-    await waitForNextUpdate();
-    expect(current).toBeDefined();
-    expect(current.loginWithRedirect).not.toThrowError();
+    await waitFor(() => {
+      expect(current).toBeDefined();
+      expect(current.loginWithRedirect).not.toThrowError();
+    });
   });
 });

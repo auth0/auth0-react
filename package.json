@@ -54,9 +54,9 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.1",
     "@rollup/plugin-terser": "^0.4.3",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.2.3",
     "@types/react": "^18.2.27",
     "@types/react-dom": "^18.2.12",
@@ -74,9 +74,9 @@
     "oidc-provider": "^8.0.0",
     "prettier": "^2.8.1",
     "pretty-quick": "^3.1.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-test-renderer": "^18.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-test-renderer": "^19.0.0",
     "rollup": "^3.7.0",
     "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-delete": "^2.0.0",
@@ -92,8 +92,8 @@
     "typescript": "^4.9.4"
   },
   "peerDependencies": {
-    "react": "^16.11.0 || ^17 || ^18",
-    "react-dom": "^16.11.0 || ^17 || ^18"
+    "react": "^16.11.0 || ^17 || ^18|| ^19",
+    "react-dom": "^16.11.0 || ^17 || ^18 || ^19"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.1.3"
