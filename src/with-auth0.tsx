@@ -30,10 +30,10 @@ const withAuth0 = <P extends WithAuth0Props>(
   Component: ComponentType<P>,
   context = Auth0Context
 ): ComponentType<Omit<P, keyof WithAuth0Props>> => {
-  return function WithAuth(props): JSX.Element {
+  return function WithAuth(props) {
     return (
       <context.Consumer>
-        {(auth: Auth0ContextInterface): JSX.Element => (
+        {(auth: Auth0ContextInterface) => (
           <Component {...(props as P)} auth0={auth} />
         )}
       </context.Consumer>

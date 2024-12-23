@@ -13,7 +13,7 @@ describe('In a Node SSR environment', () => {
     ReactDOMServer.renderToString(
       <Auth0Provider clientId="__client_id__" domain="__domain__">
         <Auth0Context.Consumer>
-          {(value): JSX.Element => {
+          {(value) => {
             ({ isLoading, isAuthenticated, user, loginWithRedirect } = value);
             return <div>App</div>;
           }}

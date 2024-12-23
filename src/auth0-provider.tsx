@@ -132,7 +132,7 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
  *
  * Provides the Auth0Context to its child components.
  */
-const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
+const Auth0Provider = (opts: Auth0ProviderOptions) => {
   const {
     children,
     skipRedirectCallback,
