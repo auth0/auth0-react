@@ -132,7 +132,7 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
  *
  * Provides the Auth0Context to its child components.
  */
-const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
+const Auth0Provider = (opts: Auth0ProviderOptions)  => {
   const {
     children,
     skipRedirectCallback,
@@ -145,6 +145,11 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
   );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
   const didInitialise = useRef(false);
+
+  const handleError = useCallback((error: Error) => {
+    dispatch({ type: 'ERROR', error });
+    return error;
+  }, []);
 
   useEffect(() => {
     if (didInitialise.current) {
@@ -164,10 +169,10 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
         }
         dispatch({ type: 'INITIALISED', user });
       } catch (error) {
-        dispatch({ type: 'ERROR', error: loginError(error) });
+        handleError(loginError(error));
       }
     })();
-  }, [client, onRedirectCallback, skipRedirectCallback]);
+  }, [client, onRedirectCallback, skipRedirectCallback, handleError]);
 
   const loginWithRedirect = useCallback(
     (opts?: RedirectLoginOptions): Promise<void> => {
@@ -187,7 +192,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions): JSX.Element => {
       try {
         await client.loginWithPopup(options, config);
       } catch (error) {
-        dispatch({ type: 'ERROR', error: loginError(error) });
+        handleError(loginError(error));
         return;
       }
       const user = await client.getUser();
