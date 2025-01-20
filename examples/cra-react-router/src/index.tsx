@@ -1,27 +1,33 @@
 import { createRoot } from "react-dom/client";
 import React, { PropsWithChildren } from 'react';
-import App from './App.js';
-import { Auth0Provider, AppState } from '@auth0/auth0-react';
+import App from './App';
+import { Auth0Provider, AppState, Auth0ContextInterface, User } from '@auth0/auth0-react';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { Auth0ProviderOptions } from '../../../src/index.js';
 
 const Auth0ProviderWithRedirectCallback = ({
   children,
+  context,
   ...props
-}: PropsWithChildren<Auth0ProviderOptions>) => {
+}: PropsWithChildren<Omit<Auth0ProviderOptions, 'context'>> & {
+  context?: React.Context<Auth0ContextInterface<User>>
+}) => {
   const navigate = useNavigate();
 
-  const onRedirectCallback = (appState?: AppState) => {
+  const onRedirectCallback = (appState?: AppState, user?: User) => {
     navigate((appState?.returnTo) || window.location.pathname);
   };
 
   return (
-    <Auth0Provider onRedirectCallback={onRedirectCallback} {...props}>
+    <Auth0Provider
+      onRedirectCallback={onRedirectCallback}
+      context={context}
+      {...props}
+    >
       {children}
     </Auth0Provider>
   );
 };
-
 const root = createRoot(document.getElementById('root')!);
 
 root.render(
