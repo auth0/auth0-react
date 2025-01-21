@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       require-build:
-        default: "true"
+        default: true
         type: string
       release-directory:
         default: './'
@@ -32,17 +32,17 @@ jobs:
 
       # Get the version from the branch name
       - id: get_version
-        uses: ./.github/actions/get-version
+        uses: ./get-version
 
       # Get the prerelease flag from the branch name
       - id: get_prerelease
-        uses: ./.github/actions/get-prerelease
+        uses: ./get-prerelease
         with:
           version: ${{ steps.get_version.outputs.version }}
 
       # Get the release notes
       - id: get_release_notes
-        uses: ./.github/actions/get-release-notes
+        uses: ./get-release-notes
         with:
           token: ${{ secrets.github-token }}
           version: ${{ steps.get_version.outputs.version }}
@@ -51,7 +51,7 @@ jobs:
 
       # Check if the tag already exists
       - id: tag_exists
-        uses: ./.github/actions/tag-exists
+        uses: ./tag-exists
         with:
           tag: ${{ steps.get_version.outputs.version }}
           token: ${{ secrets.github-token }}
@@ -61,7 +61,7 @@ jobs:
         run: exit 1
 
       # Publish the release to our package manager
-      - uses: ./.github/actions/npm-publish
+      - uses: ./npm-publish
         with:
           node-version: ${{ inputs.node-version }}
           require-build: ${{ inputs.require-build }}
@@ -70,7 +70,7 @@ jobs:
           release-directory: ${{ inputs.release-directory }}
 
       # Create a release for the tag
-      - uses: ./.github/actions/release-create
+      - uses: ./release-create
         with:
           token: ${{ secrets.github-token }}
           name: ${{ steps.get_version.outputs.version }}
