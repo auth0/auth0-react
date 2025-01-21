@@ -1,36 +1,5 @@
 # Change Log
 
-## [v2.3.0](https://github.com/auth0/auth0-react/tree/v2.3.0) (2025-01-21)
-[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.4...v2.3.0)
-
-**Added**
-- Feature/react19 [\#824](https://github.com/auth0/auth0-react/pull/824) ([tusharpandey13](https://github.com/tusharpandey13))
-- Add  ReversingLabs Workflow (Don't Merge) [\#782](https://github.com/auth0/auth0-react/pull/782) ([developerkunal](https://github.com/developerkunal))
-
-**Changed**
-- Bump next from 13.5.6 to 14.1.1 in /examples/nextjs-app [\#761](https://github.com/auth0/auth0-react/pull/761) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump @testing-library/react from 14.1.2 to 14.3.1 [\#757](https://github.com/auth0/auth0-react/pull/757) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump ts-jest from 29.1.1 to 29.1.5 [\#766](https://github.com/auth0/auth0-react/pull/766) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump cypress from 13.6.1 to 13.12.0 [\#770](https://github.com/auth0/auth0-react/pull/770) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump braces from 3.0.2 to 3.0.3 [\#773](https://github.com/auth0/auth0-react/pull/773) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump @types/jest from 29.5.11 to 29.5.12 [\#750](https://github.com/auth0/auth0-react/pull/750) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump @types/react from 18.2.45 to 18.2.64 [\#747](https://github.com/auth0/auth0-react/pull/747) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump browserstack-cypress-cli from 1.28.0 to 1.28.1 [\#715](https://github.com/auth0/auth0-react/pull/715) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump typedoc from 0.25.4 to 0.25.7 [\#713](https://github.com/auth0/auth0-react/pull/713) ([dependabot[bot]](https://github.com/apps/dependabot))
-
-**Fixed**
-- ci: changed pull_request_target to pull_request and removed the authorize step [\#796](https://github.com/auth0/auth0-react/pull/796) ([desusai7](https://github.com/desusai7))
-- Update codeowner file with new GitHub team name [\#790](https://github.com/auth0/auth0-react/pull/790) ([stevenwong-okta](https://github.com/stevenwong-okta))
-- Bump jose from 4.11.0 to 4.15.5 in /examples/users-api [\#749](https://github.com/auth0/auth0-react/pull/749) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Workaround for failing "integration test (CRA)" [\#769](https://github.com/auth0/auth0-react/pull/769) ([nandan-bhat](https://github.com/nandan-bhat))
-
-**Security**
-- Bump pretty-quick from 3.1.3 to 3.3.1 [\#736](https://github.com/auth0/auth0-react/pull/736) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump express from 4.18.2 to 4.19.2 in /examples/users-api [\#754](https://github.com/auth0/auth0-react/pull/754) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump follow-redirects from 1.15.3 to 1.15.6 [\#752](https://github.com/auth0/auth0-react/pull/752) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump ws from 7.5.9 to 7.5.10 [\#768](https://github.com/auth0/auth0-react/pull/768) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump oidc-provider from 8.4.3 to 8.4.5 [\#720](https://github.com/auth0/auth0-react/pull/720) ([dependabot[bot]](https://github.com/apps/dependabot))
-
 ## [v2.2.4](https://github.com/auth0/auth0-react/tree/v2.2.4) (2023-12-11)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.3...v2.2.4)
 
