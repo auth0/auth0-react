@@ -8,12 +8,12 @@ import Auth0Context, {
 /**
  * @ignore
  */
-const defaultOnRedirecting = (): JSX.Element => <></>;
+const defaultOnRedirecting = (): React.JSX.Element => <></>;
 
 /**
 * @ignore
 */
-const defaultOnBeforeAuthentication = async (): Promise<void> => {/* noop */};
+const defaultOnBeforeAuthentication = async (): Promise<void> => {/* noop */ };
 
 /**
  * @ignore
@@ -52,7 +52,7 @@ export interface WithAuthenticationRequiredOptions {
    *
    * Render a message to show that the user is being redirected to the login.
    */
-  onRedirecting?: () => JSX.Element;
+  onRedirecting?: () => React.JSX.Element;
   /**
    * ```js
    * withAuthenticationRequired(Profile, {
@@ -98,7 +98,7 @@ const withAuthenticationRequired = <P extends object>(
   Component: ComponentType<P>,
   options: WithAuthenticationRequiredOptions = {}
 ): FC<P> => {
-  return function WithAuthenticationRequired(props: P): JSX.Element {
+  return function WithAuthenticationRequired(props: P): React.JSX.Element {
     const {
       returnTo = defaultReturnTo,
       onRedirecting = defaultOnRedirecting,
