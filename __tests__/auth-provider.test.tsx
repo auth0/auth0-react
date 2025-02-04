@@ -975,6 +975,30 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should return the user on getUser', async () => {
+    const userObject = { name: 'foo' };
+    clientMock.getUser.mockResolvedValue(userObject);
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+    let user;
+    await act(async () => {
+      user = await result.current.getUser();
+    });
+    expect(user).toBe(userObject);
+  });
+
+  it('should handle getUser errors', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+    clientMock.getUser.mockRejectedValue(new Error('__test_error__'));
+    await act(async () => {
+      await expect(() => result.current.getUser()).rejects.toThrowError(
+        '__test_error__'
+      );
+    });
+  });
+
   it('should allow passing a custom context', async () => {
     const context = React.createContext<Auth0ContextInterface>(initialContext);
     clientMock.getIdTokenClaims.mockResolvedValue({
