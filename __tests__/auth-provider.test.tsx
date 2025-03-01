@@ -225,7 +225,7 @@ describe('Auth0Provider', () => {
     });
   });
 
-  it('should handle redirect callback errors', async () => {
+  it('should handle redirect callback errors and clear the url', async () => {
     window.history.pushState(
       {},
       document.title,
@@ -244,6 +244,7 @@ describe('Auth0Provider', () => {
       expect(() => {
         throw result.current.error;
       }).toThrowError('__test_error__');
+      expect(window.location.href).toBe('https://www.example.com/');
     });
   });
 

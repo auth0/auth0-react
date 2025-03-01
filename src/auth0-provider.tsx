@@ -157,12 +157,12 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
     }
     didInitialise.current = true;
     (async (): Promise<void> => {
+      let appState: AppState | undefined
+      let user: User | undefined;
       try {
-        let user: User | undefined;
         if (hasAuthParams() && !skipRedirectCallback) {
-          const { appState } = await client.handleRedirectCallback();
+          appState = (await client.handleRedirectCallback()).appState;
           user = await client.getUser();
-          onRedirectCallback(appState, user);
         } else {
           await client.checkSession();
           user = await client.getUser();
@@ -170,6 +170,8 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
         dispatch({ type: 'INITIALISED', user });
       } catch (error) {
         handleError(loginError(error));
+      } finally {
+        onRedirectCallback(appState, user);
       }
     })();
   }, [client, onRedirectCallback, skipRedirectCallback, handleError]);
