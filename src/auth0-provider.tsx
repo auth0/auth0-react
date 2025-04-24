@@ -35,6 +35,7 @@ import { initialAuthState } from './auth-state';
  */
 export type AppState = {
   returnTo?: string;
+  search?: string;
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
