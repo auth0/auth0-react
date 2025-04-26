@@ -3,7 +3,13 @@ import {
   GetTokenSilentlyVerboseResponse,
 } from '@auth0/auth0-spa-js';
 import '@testing-library/jest-dom';
-import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import React, { StrictMode, useContext } from 'react';
 import pkg from '../package.json';
 import { Auth0Provider, useAuth0 } from '../src';
@@ -22,10 +28,7 @@ describe('Auth0Provider', () => {
 
   it('should provide the Auth0Provider result', async () => {
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current).toBeDefined();
     });
@@ -61,7 +64,9 @@ describe('Auth0Provider', () => {
   });
 
   it('should support redirectUri', async () => {
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+    const warn = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
     const opts = {
       clientId: 'foo',
       domain: 'bar',
@@ -86,7 +91,9 @@ describe('Auth0Provider', () => {
   });
 
   it('should support authorizationParams.redirectUri', async () => {
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+    const warn = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
     const opts = {
       clientId: 'foo',
       domain: 'bar',
@@ -135,10 +142,7 @@ describe('Auth0Provider', () => {
 
   it('should check session when logged out', async () => {
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     expect(result.current.isLoading).toBe(true);
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
@@ -151,10 +155,7 @@ describe('Auth0Provider', () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(clientMock.checkSession).toHaveBeenCalled();
       expect(result.current.isAuthenticated).toBe(true);
@@ -168,10 +169,7 @@ describe('Auth0Provider', () => {
       error_description: '__test_error_description__',
     });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(clientMock.checkSession).toHaveBeenCalled();
       expect(() => {
@@ -235,10 +233,7 @@ describe('Auth0Provider', () => {
       new Error('__test_error__')
     );
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
       expect(() => {
@@ -283,10 +278,7 @@ describe('Auth0Provider', () => {
     const wrapper = createWrapper({
       skipRedirectCallback: true,
     });
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(clientMock.handleRedirectCallback).not.toHaveBeenCalled();
       expect(result.current.isAuthenticated).toBe(true);
@@ -297,10 +289,7 @@ describe('Auth0Provider', () => {
   it('should login with a popup', async () => {
     clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.user).toBeUndefined();
     });
@@ -321,10 +310,7 @@ describe('Auth0Provider', () => {
   it('should handle errors when logging in with a popup', async () => {
     clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.isAuthenticated).toBe(false);
       expect(result.current.user).toBeUndefined();
@@ -348,12 +334,8 @@ describe('Auth0Provider', () => {
 
   it('should provide a login method', async () => {
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
-
       expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
     });
     await result.current.loginWithRedirect({
@@ -369,12 +351,11 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a login method supporting redirectUri', async () => {
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+    const warn = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
     });
@@ -390,12 +371,11 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a login method supporting authorizationParams.redirectUri', async () => {
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+    const warn = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.loginWithRedirect).toBeInstanceOf(Function);
     });
@@ -416,10 +396,7 @@ describe('Auth0Provider', () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.logout).toBeInstanceOf(Function);
     });
@@ -438,16 +415,13 @@ describe('Auth0Provider', () => {
     // get logout to return a Promise to simulate async cache.
     clientMock.logout.mockResolvedValue();
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.isAuthenticated).toBe(true);
     });
     await act(async () => {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      await result.current.logout({ openUrl: async () => { } });
+      await result.current.logout({ openUrl: async () => {} });
     });
     expect(result.current.isAuthenticated).toBe(false);
   });
@@ -462,10 +436,7 @@ describe('Auth0Provider', () => {
       logoutSpy();
     });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.isAuthenticated).toBe(true);
     });
@@ -479,10 +450,7 @@ describe('Auth0Provider', () => {
     const user = { name: '__test_user__' };
     clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.isAuthenticated).toBe(true);
       expect(result.current.user).toBe(user);
@@ -502,10 +470,7 @@ describe('Auth0Provider', () => {
   it('should provide a getAccessTokenSilently method', async () => {
     clientMock.getTokenSilently.mockResolvedValue('token');
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.getAccessTokenSilently).toBeInstanceOf(Function);
     });
@@ -525,10 +490,7 @@ describe('Auth0Provider', () => {
     };
     (clientMock.getTokenSilently as jest.Mock).mockResolvedValue(tokenResponse);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await act(async () => {
       const token = await result.current.getAccessTokenSilently({
         detailedResponse: true,
@@ -541,10 +503,7 @@ describe('Auth0Provider', () => {
   it('should normalize errors from getAccessTokenSilently method', async () => {
     clientMock.getTokenSilently.mockRejectedValue(new ProgressEvent('error'));
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await act(async () => {
       await expect(result.current.getAccessTokenSilently).rejects.toThrowError(
         'Get access token failed'
@@ -555,10 +514,7 @@ describe('Auth0Provider', () => {
   it('should call getAccessTokenSilently in the scope of the Auth0 client', async () => {
     clientMock.getTokenSilently.mockReturnThis();
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
 
     await act(async () => {
       const returnedThis = await result.current.getAccessTokenSilently();
@@ -570,10 +526,7 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(async () => {
       expect(result.current.user?.name).toEqual('foo');
     });
@@ -588,10 +541,7 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.isAuthenticated).toBeTruthy();
     });
@@ -611,10 +561,7 @@ describe('Auth0Provider', () => {
     const userObject = { name: 'foo' };
     clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(async () => {
       const prevUser = result.current.user;
       clientMock.getUser.mockResolvedValue(userObject);
@@ -629,11 +576,8 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
-    let memoized
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+    let memoized;
     await waitFor(async () => {
       memoized = result.current.getAccessTokenSilently;
       expect(result.current.user?.name).toEqual('foo');
@@ -662,10 +606,7 @@ describe('Auth0Provider', () => {
   it('should provide a getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     expect(result.current.getAccessTokenWithPopup).toBeInstanceOf(Function);
     await act(async () => {
       const token = await result.current.getAccessTokenWithPopup();
@@ -677,10 +618,7 @@ describe('Auth0Provider', () => {
   it('should call getAccessTokenWithPopup in the scope of the Auth0 client', async () => {
     clientMock.getTokenWithPopup.mockReturnThis();
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await act(async () => {
       const returnedThis = await result.current.getAccessTokenWithPopup();
       expect(returnedThis).toStrictEqual(clientMock);
@@ -691,10 +629,7 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
 
     const prevUser = result.current.user;
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
@@ -708,10 +643,7 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(result.current.isAuthenticated).toBeTruthy();
     });
@@ -733,10 +665,7 @@ describe('Auth0Provider', () => {
     const userObject = { name: 'foo' };
     clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(async () => {
       const prevState = result.current;
       clientMock.getUser.mockResolvedValue(userObject);
@@ -750,10 +679,7 @@ describe('Auth0Provider', () => {
   it('should normalize errors from getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockRejectedValue(new ProgressEvent('error'));
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await act(async () => {
       await expect(result.current.getAccessTokenWithPopup).rejects.toThrowError(
         'Get access token failed'
@@ -780,16 +706,13 @@ describe('Auth0Provider', () => {
       __raw: '__test_raw_token__',
     });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
 
     expect(result.current.getIdTokenClaims).toBeInstanceOf(Function);
     let claims;
     await act(async () => {
       claims = await result.current.getIdTokenClaims();
-    })
+    });
     expect(clientMock.getIdTokenClaims).toHaveBeenCalled();
     expect(claims).toStrictEqual({
       claim: '__test_claim__',
@@ -799,10 +722,9 @@ describe('Auth0Provider', () => {
 
   it('should memoize the getIdTokenClaims method', async () => {
     const wrapper = createWrapper();
-    const { result, rerender } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result, rerender } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
     await waitFor(() => {
       const memoized = result.current.getIdTokenClaims;
       rerender();
@@ -815,10 +737,7 @@ describe('Auth0Provider', () => {
       appState: { redirectUri: '/' },
     });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     expect(result.current.handleRedirectCallback).toBeInstanceOf(Function);
     await act(async () => {
       const response = await result.current.handleRedirectCallback();
@@ -834,10 +753,7 @@ describe('Auth0Provider', () => {
   it('should call handleRedirectCallback in the scope of the Auth0 client', async () => {
     clientMock.handleRedirectCallback.mockReturnThis();
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await act(async () => {
       const returnedThis = await result.current.handleRedirectCallback();
       expect(returnedThis).toStrictEqual(clientMock);
@@ -848,10 +764,7 @@ describe('Auth0Provider', () => {
     clientMock.handleRedirectCallback.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
 
     const prevUser = result.current.user;
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
@@ -865,10 +778,7 @@ describe('Auth0Provider', () => {
     clientMock.handleRedirectCallback.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(async () => {
       expect(result.current.isAuthenticated).toBeTruthy();
     });
@@ -889,10 +799,7 @@ describe('Auth0Provider', () => {
     const userObject = { name: 'foo' };
     clientMock.getUser.mockResolvedValue(userObject);
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(async () => {
       const prevState = result.current;
       clientMock.getUser.mockResolvedValue(userObject);
@@ -901,7 +808,6 @@ describe('Auth0Provider', () => {
       });
       expect(result.current).toBe(prevState);
     });
-
   });
 
   it('should normalize errors from handleRedirectCallback method', async () => {
@@ -909,10 +815,7 @@ describe('Auth0Provider', () => {
       new ProgressEvent('error')
     );
     const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
     await act(async () => {
       await expect(result.current.handleRedirectCallback).rejects.toThrowError(
         'Get access token failed'
@@ -944,10 +847,9 @@ describe('Auth0Provider', () => {
     clientMock.getTokenSilently.mockReturnThis();
     clientMock.getUser.mockResolvedValue({ name: 'foo' });
     const wrapper = createWrapper();
-    const { result, rerender } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
+    const { result, rerender } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
     await waitFor(() => {
       const memoized = result.current;
       rerender();
@@ -1036,5 +938,125 @@ describe('Auth0Provider', () => {
     expect(clientMock.getUser).toHaveBeenCalledTimes(2);
     expect(screen.queryByText('__custom_user__')).toBeInTheDocument();
     expect(screen.queryByText('__main_user__')).not.toBeInTheDocument();
+  });
+
+  it('should provide a setAuthCallbackUrl method', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+    await waitFor(() => {
+      expect(result.current.setAuthCallbackUrl).toBeInstanceOf(Function);
+    });
+  });
+
+  it.each([
+    'https://example.com/callback?code=test_code&state=test_state',
+    'http://localhost:3000/callback?code=test_code&state=test_state',
+    'file://Application/dist/index.html?code=test_code&state=test_state',
+    'chrome-extension://__test_extension_id__/callback?code=test_code&state=test_state',
+    'electron-fidde://__test_fidder_id__/callback?code=test_code&state=test_state',
+  ])(
+    'should handle authentication from setAuthCallbackUrl with query parameters',
+    async (testUrl) => {
+      const user = { name: '__test_user__' };
+      clientMock.getUser.mockResolvedValue(user);
+      clientMock.handleRedirectCallback.mockResolvedValue({
+        appState: { foo: 'bar' },
+      });
+
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useContext(Auth0Context), {
+        wrapper,
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      act(() => {
+        result.current.setAuthCallbackUrl(testUrl);
+      });
+
+      await waitFor(() => {
+        // The handleRedirectCallback should be called with the URL
+        expect(clientMock.handleRedirectCallback).toHaveBeenCalledWith(testUrl);
+        expect(result.current.user).toBe(user);
+      });
+    }
+  );
+
+  it.each([
+    'https://example.com/callback',
+    'https://example.com/callback?code=test_code',
+    'https://example.com/callback?state=test_state',
+  ])(
+    'should not process URLs without valid auth query parameters in setAuthCallbackUrl',
+    async (testUrl) => {
+      // Mock implementation to track calls
+      const handleCallbackSpy = jest.fn();
+      clientMock.handleRedirectCallback.mockImplementation(handleCallbackSpy);
+
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useContext(Auth0Context), {
+        wrapper,
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // Reset any previous calls to the mock
+      handleCallbackSpy.mockClear();
+
+      act(() => {
+        result.current.setAuthCallbackUrl(testUrl);
+      });
+
+      // Wait a bit to ensure the effect has time to run
+      await waitFor(() => {
+        expect(handleCallbackSpy).not.toHaveBeenCalled();
+      });
+    }
+  );
+
+  it('should call handleRedirectCallback once and reset authCallbackUrl after processing', async () => {
+    // Create a URL with auth parameters
+    const testUrl =
+      'https://example.com/callback?code=test_code&state=test_state';
+
+    // Reset mocks
+    clientMock.handleRedirectCallback.mockClear();
+
+    // Create a wrapper with the Auth0Provider
+    const wrapper = createWrapper();
+    const { result, rerender } = renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+
+    // Wait for initial loading to complete
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    // Call setAuthCallbackUrl
+    act(() => {
+      result.current.setAuthCallbackUrl(testUrl);
+    });
+
+    // Verify handleRedirectCallback was called exactly once
+    await waitFor(() => {
+      expect(clientMock.handleRedirectCallback).toHaveBeenCalledTimes(1);
+      expect(clientMock.handleRedirectCallback).toHaveBeenCalledWith(testUrl);
+    });
+
+    // Clear the mock to check if it gets called on rerender
+    clientMock.handleRedirectCallback.mockClear();
+
+    // Force a rerender of the component
+    rerender();
+
+    await waitFor(() => {
+      expect(clientMock.handleRedirectCallback).not.toHaveBeenCalled();
+    });
   });
 });
