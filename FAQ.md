@@ -33,7 +33,7 @@ The `setAuthCallbackUrl` method provides a solution for these scenarios by allow
 
 **Example usage in Electron:**
 
-```javascript
+```tsx
 import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
