@@ -1,5 +1,5 @@
-import { hasAuthParams, loginError, tokenError } from '../src/utils';
 import { OAuthError } from '../src/errors';
+import { hasAuthParams, loginError, tokenError } from '../src/utils';
 
 describe('utils hasAuthParams', () => {
   it('should not recognise only the code param', async () => {

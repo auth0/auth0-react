@@ -153,7 +153,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
   }, []);
 
   const handleAuthCallback = useCallback(
-    async (authParams: string, authCallbackUrl: string) => {
+    async (authParams?: string, authCallbackUrl?: string) => {
       try {
         let user: User | undefined;
 
@@ -180,7 +180,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
       return;
     }
     didInitialise.current = true;
-    handleAuthCallback(window.location.search, window.location.href);
+    handleAuthCallback();
   }, [
     client,
     onRedirectCallback,
