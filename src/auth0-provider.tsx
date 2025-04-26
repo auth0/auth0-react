@@ -226,6 +226,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
       const user = await client.getUser();
       dispatch({ type: 'LOGIN_POPUP_COMPLETE', user });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [client]
   );
 
