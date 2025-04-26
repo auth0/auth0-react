@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import { User } from '@auth0/auth0-spa-js';
+import { useContext } from 'react';
 import Auth0Context, { Auth0ContextInterface } from './auth0-context';
 
 /**
@@ -14,6 +14,7 @@ import Auth0Context, { Auth0ContextInterface } from './auth0-context';
  *   getAccessTokenSilently,
  *   getAccessTokenWithPopup,
  *   getIdTokenClaims,
+ *   setAuthCallbackUrl,
  *   loginWithRedirect,
  *   loginWithPopup,
  *   logout,
