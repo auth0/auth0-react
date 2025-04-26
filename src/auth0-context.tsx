@@ -1,14 +1,14 @@
 import {
   GetTokenSilentlyOptions,
+  GetTokenSilentlyVerboseResponse,
   GetTokenWithPopupOptions,
   IdToken,
-  LogoutOptions as SPALogoutOptions,
-  PopupLoginOptions,
   PopupConfigOptions,
+  PopupLoginOptions,
   RedirectLoginResult,
-  User,
-  GetTokenSilentlyVerboseResponse,
+  LogoutOptions as SPALogoutOptions,
   RedirectLoginOptions as SPARedirectLoginOptions,
+  User,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -38,7 +38,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * If refresh tokens are used, the token endpoint is called directly with the
    * 'refresh_token' grant. If no refresh token is available to make this call,
-   * the SDK will only fall back to using an iframe to the '/authorize' URL if 
+   * the SDK will only fall back to using an iframe to the '/authorize' URL if
    * the `useRefreshTokensFallback` setting has been set to `true`. By default this
    * setting is `false`.
    *
@@ -86,6 +86,21 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * Returns all claims from the id_token if available.
    */
   getIdTokenClaims: () => Promise<IdToken | undefined>;
+
+  /**
+   * ```js
+   * setAuthCallbackUrl(url);
+   * ```
+   *
+   * Manually set the auth callback URL and trigger the authentication state handling.
+   *
+   * This is useful if you do not want to reload the page with authentication search query parameters
+   * in order to handle the authentication state. It can be particularly useful for native applications
+   * (like Electron), where reloading the page requires extra steps to be taken in the main process.
+   *
+   * @param url The URL containing the authentication result parameters to process
+   */
+  setAuthCallbackUrl: (url: string) => void;
 
   /**
    * ```js
@@ -159,6 +174,7 @@ export const initialContext = {
   getAccessTokenSilently: stub,
   getAccessTokenWithPopup: stub,
   getIdTokenClaims: stub,
+  setAuthCallbackUrl: stub,
   loginWithRedirect: stub,
   loginWithPopup: stub,
   logout: stub,

@@ -1,3 +1,13 @@
+import {
+  Auth0Client,
+  Auth0ClientOptions,
+  GetTokenSilentlyOptions,
+  GetTokenWithPopupOptions,
+  PopupConfigOptions,
+  PopupLoginOptions,
+  RedirectLoginResult,
+  User,
+} from '@auth0/auth0-spa-js';
 import React, {
   useCallback,
   useEffect,
@@ -6,29 +16,19 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  Auth0Client,
-  Auth0ClientOptions,
-  PopupLoginOptions,
-  PopupConfigOptions,
-  GetTokenWithPopupOptions,
-  RedirectLoginResult,
-  GetTokenSilentlyOptions,
-  User,
-} from '@auth0/auth0-spa-js';
+import { initialAuthState } from './auth-state';
 import Auth0Context, {
   Auth0ContextInterface,
   LogoutOptions,
   RedirectLoginOptions,
 } from './auth0-context';
+import { reducer } from './reducer';
 import {
+  deprecateRedirectUri,
   hasAuthParams,
   loginError,
   tokenError,
-  deprecateRedirectUri,
 } from './utils';
-import { reducer } from './reducer';
-import { initialAuthState } from './auth-state';
 
 /**
  * The state of the application before the user was redirected to the login page.
@@ -144,6 +144,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
     () => new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
+  const [authCallbackUrl, setAuthCallbackUrl] = useState<string | undefined>();
   const didInitialise = useRef(false);
 
   const handleError = useCallback((error: Error) => {
@@ -151,16 +152,15 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
     return error;
   }, []);
 
-  useEffect(() => {
-    if (didInitialise.current) {
-      return;
-    }
-    didInitialise.current = true;
-    (async (): Promise<void> => {
+  const handleAuthCallback = useCallback(
+    async (authParams: string, authCallbackUrl: string) => {
       try {
         let user: User | undefined;
-        if (hasAuthParams() && !skipRedirectCallback) {
-          const { appState } = await client.handleRedirectCallback();
+
+        if (hasAuthParams(authParams) && !skipRedirectCallback) {
+          const { appState } = await client.handleRedirectCallback(
+            authCallbackUrl
+          );
           user = await client.getUser();
           onRedirectCallback(appState, user);
         } else {
@@ -171,8 +171,36 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
       } catch (error) {
         handleError(loginError(error));
       }
-    })();
-  }, [client, onRedirectCallback, skipRedirectCallback, handleError]);
+    },
+    [client, onRedirectCallback, skipRedirectCallback, handleError]
+  );
+
+  useEffect(() => {
+    if (didInitialise.current) {
+      return;
+    }
+    didInitialise.current = true;
+    handleAuthCallback(window.location.search, window.location.href);
+  }, [
+    client,
+    onRedirectCallback,
+    skipRedirectCallback,
+    handleError,
+    handleAuthCallback,
+  ]);
+
+  useEffect(() => {
+    if (authCallbackUrl === undefined) {
+      return;
+    }
+
+    setAuthCallbackUrl(undefined);
+    const idx = authCallbackUrl.indexOf('?');
+
+    if (idx !== -1) {
+      handleAuthCallback(authCallbackUrl.slice(idx), authCallbackUrl);
+    }
+  }, [authCallbackUrl, handleAuthCallback]);
 
   const loginWithRedirect = useCallback(
     (opts?: RedirectLoginOptions): Promise<void> => {
@@ -278,6 +306,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
       getAccessTokenSilently,
       getAccessTokenWithPopup,
       getIdTokenClaims,
+      setAuthCallbackUrl,
       loginWithRedirect,
       loginWithPopup,
       logout,
@@ -288,6 +317,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
     getAccessTokenSilently,
     getAccessTokenWithPopup,
     getIdTokenClaims,
+    setAuthCallbackUrl,
     loginWithRedirect,
     loginWithPopup,
     logout,
