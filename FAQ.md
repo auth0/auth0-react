@@ -4,6 +4,7 @@
 
 1. [User is not logged in after page refresh](#1-user-is-not-logged-in-after-page-refresh)
 2. [User is not logged in after successful sign in with redirect](#2-user-is-not-logged-in-after-successful-sign-in-with-redirect)
+3. [How to handle authentication in Electron or other native applications using react](#3-how-to-handle-authentication-in-electron-or-other-native-applications)
 
 ## 1. User is not logged in after page refresh
 
@@ -20,3 +21,38 @@ In this case Silent Authentication will not work because it relies on a hidden i
 ## 2. User is not logged in after successful sign in with redirect
 
 If after successfully logging in, your user returns to your SPA and is still not authenticated, do _not_ refresh the page - go to the Network tab on Chrome and confirm that the POST to `oauth/token` resulted in an error `401 Unauthorized`. If this is the case, your tenant is most likely misconfigured. Go to your **Application Properties** in your application's settings in the [Auth0 Dashboard](https://manage.auth0.com) and make sure that `Application Type` is set to `Single Page Application` and `Token Endpoint Authentication Method` is set to `None` (**Note:** there is a known issue with the Auth0 "Default App", if you are unable to set `Token Endpoint Authentication Method` to `None`, create a new Application of type `Single Page Application` or see the advice in [issues/93](https://github.com/auth0/auth0-react/issues/93#issuecomment-673431605))
+
+## 3. How to handle authentication in Electron or other native applications
+
+When using Auth0 React in Electron or other native/desktop applications, handling authentication redirects can be challenging because:
+
+1. The default redirect-based authentication flow requires page reloads, which may need special handling in native contexts
+2. Native apps often use custom URL schemes (like `electron://`, `file://`) for deep linking
+
+The `setAuthCallbackUrl` method provides a solution for these scenarios by allowing you to manually set the authentication callback URL with auth parameters.
+
+**Example usage in Electron:**
+
+```javascript
+import { useAuth0 } from '@auth0/auth0-react';
+
+function App() {
+  const { loginWithRedirect, setAuthCallbackUrl } = useAuth0();
+
+  // Set up a custom protocol handler in your Electron app
+  // When your app receives a deep link with auth params, call:
+  const handleAuthCallback = (url) => {
+    setAuthCallbackUrl(url);
+  };
+
+  return <button onClick={() => loginWithRedirect()}>Log in</button>;
+}
+```
+
+You would need to configure your Electron app to:
+
+1. Register a custom URL protocol (e.g., `your-app://`)
+2. Set your Auth0 application's callback URL to include this protocol in the **Allowed Callback URLs** section of the **Settings** tab of your Auth0 application.
+3. Intercept the callback URL in your main process and pass it to your renderer where you can call `setAuthCallbackUrl`
+
+This approach prevents having to reload the entire application when handling authentication callbacks and works well with custom URL schemes that native applications typically use.
