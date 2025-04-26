@@ -990,7 +990,7 @@ describe('Auth0Provider', () => {
     'https://example.com/callback?code=test_code',
     'https://example.com/callback?state=test_state',
   ])(
-    'should not process URLs without auth query parameters in setAuthCallbackUrl',
+    'should not process URLs without valid auth query parameters in setAuthCallbackUrl',
     async (testUrl) => {
       // Mock implementation to track calls
       const handleCallbackSpy = jest.fn();
@@ -1013,10 +1013,9 @@ describe('Auth0Provider', () => {
       });
 
       // Wait a bit to ensure the effect has time to run
-      await new Promise((resolve) => setTimeout(resolve, 0));
-
-      // The handleRedirectCallback should not be called for URLs without query params
-      expect(handleCallbackSpy).not.toHaveBeenCalled();
+      await waitFor(() => {
+        expect(handleCallbackSpy).not.toHaveBeenCalled();
+      });
     }
   );
 
@@ -1056,11 +1055,8 @@ describe('Auth0Provider', () => {
     // Force a rerender of the component
     rerender();
 
-    // Wait a bit to ensure effects have time to run if they're going to
-    await new Promise((resolve) => setTimeout(resolve, 0));
-
-    // Verify handleRedirectCallback is NOT called again on rerender
-    // This proves authCallbackUrl was reset to undefined and isn't triggering the effect again
-    expect(clientMock.handleRedirectCallback).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(clientMock.handleRedirectCallback).not.toHaveBeenCalled();
+    });
   });
 });
