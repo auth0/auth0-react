@@ -2,16 +2,11 @@ import {
   Auth0Client,
   TokenEndpointResponse,
 } from '@auth0/auth0-spa-js';
-import type { CustomTokenExchangeOptions } from '@auth0/auth0-spa-js/dist/typings/TokenExchange';
 import '@testing-library/jest-dom';
 import { act, renderHook } from '@testing-library/react';
-import React, { useContext } from 'react';
-import pkg from '../package.json';
-import { Auth0Provider, useAuth0 } from '../src';
-import Auth0Context, {
-  Auth0ContextInterface,
-  initialContext,
-} from '../src/auth0-context';
+import { useContext } from 'react';
+import { useAuth0 } from '../src';
+import Auth0Context from '../src/auth0-context';
 import { createWrapper } from './helpers';
 
 const clientMock = jest.mocked(new Auth0Client({ clientId: '', domain: '' }));
