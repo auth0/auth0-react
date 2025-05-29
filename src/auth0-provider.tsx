@@ -15,7 +15,12 @@ import {
   RedirectLoginResult,
   GetTokenSilentlyOptions,
   User,
+  TokenEndpointResponse,
 } from '@auth0/auth0-spa-js';
+import type { CustomTokenExchangeOptions } from '@auth0/auth0-spa-js/dist/typings/TokenExchange';
+
+// The exchangeToken method expects an object with subject_token and subject_token_type properties
+// along with optional audience and scope parameters
 import Auth0Context, {
   Auth0ContextInterface,
   LogoutOptions,
@@ -145,6 +150,20 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
   );
   const [state, dispatch] = useReducer(reducer, initialAuthState);
   const didInitialise = useRef(false);
+
+  // Exchange a subject token for an Auth0 access token using the OAuth 2.0 Token Exchange flow
+  // This method allows exchanging tokens from external identity providers for Auth0 tokens
+  const exchangeToken = useCallback(
+    async (options: CustomTokenExchangeOptions): Promise<TokenEndpointResponse> => {
+      try {
+        return await client.exchangeToken(options);
+      } catch (error) {
+        console.error('Token exchange failed:', error);
+        throw error;
+      }
+    },
+    [client]
+  );
 
   const handleError = useCallback((error: Error) => {
     dispatch({ type: 'ERROR', error });
@@ -282,6 +301,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
       loginWithPopup,
       logout,
       handleRedirectCallback,
+      exchangeToken,
     };
   }, [
     state,
