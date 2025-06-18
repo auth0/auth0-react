@@ -28,7 +28,7 @@ import {
   deprecateRedirectUri,
 } from './utils';
 import { reducer } from './reducer';
-import { initialAuthState } from './auth-state';
+import { initialAuthState, type AuthState } from './auth-state';
 
 /**
  * The state of the application before the user was redirected to the login page.
@@ -143,7 +143,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
   const [client] = useState(
     () => new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
-  const [state, dispatch] = useReducer(reducer, initialAuthState);
+  const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
   const didInitialise = useRef(false);
 
   const handleError = useCallback((error: Error) => {
@@ -275,7 +275,6 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
   const contextValue = useMemo<Auth0ContextInterface<TUser>>(() => {
     return {
       ...state,
-      user: state.user as TUser | undefined,
       getAccessTokenSilently,
       getAccessTokenWithPopup,
       getIdTokenClaims,
