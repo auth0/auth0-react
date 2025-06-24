@@ -28,7 +28,7 @@ import {
   deprecateRedirectUri,
 } from './utils';
 import { reducer } from './reducer';
-import { initialAuthState } from './auth-state';
+import { initialAuthState, type AuthState } from './auth-state';
 
 /**
  * The state of the application before the user was redirected to the login page.
@@ -41,7 +41,7 @@ export type AppState = {
 /**
  * The main configuration to instantiate the `Auth0Provider`.
  */
-export interface Auth0ProviderOptions extends Auth0ClientOptions {
+export interface Auth0ProviderOptions<TUser extends User = User> extends Auth0ClientOptions {
   /**
    * The child nodes your Provider has wrapped
    */
@@ -51,7 +51,7 @@ export interface Auth0ProviderOptions extends Auth0ClientOptions {
    * It uses `window.history` but you might want to overwrite this if you are using a custom router, like `react-router-dom`
    * See the EXAMPLES.md for more info.
    */
-  onRedirectCallback?: (appState?: AppState, user?: User) => void;
+  onRedirectCallback?: (appState?: AppState, user?: TUser) => void;
   /**
    * By default, if the page url has code/state params, the SDK will treat them as Auth0's and attempt to exchange the
    * code for a token. In some cases the code might be for something else (another OAuth SDK perhaps). In these
@@ -83,7 +83,7 @@ export interface Auth0ProviderOptions extends Auth0ClientOptions {
    *
    * For a sample on using multiple Auth0Providers review the [React Account Linking Sample](https://github.com/auth0-samples/auth0-link-accounts-sample/tree/react-variant)
    */
-  context?: React.Context<Auth0ContextInterface>;
+  context?: React.Context<Auth0ContextInterface<TUser>>;
 }
 
 /**
@@ -132,7 +132,7 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
  *
  * Provides the Auth0Context to its child components.
  */
-const Auth0Provider = (opts: Auth0ProviderOptions) => {
+const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUser>) => {
   const {
     children,
     skipRedirectCallback,
@@ -143,7 +143,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
   const [client] = useState(
     () => new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
-  const [state, dispatch] = useReducer(reducer, initialAuthState);
+  const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
   const didInitialise = useRef(false);
 
   const handleError = useCallback((error: Error) => {
@@ -158,7 +158,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
     didInitialise.current = true;
     (async (): Promise<void> => {
       try {
-        let user: User | undefined;
+        let user: TUser | undefined;
         if (hasAuthParams() && !skipRedirectCallback) {
           const { appState } = await client.handleRedirectCallback();
           user = await client.getUser();
@@ -272,7 +272,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
     [client]
   );
 
-  const contextValue = useMemo<Auth0ContextInterface<User>>(() => {
+  const contextValue = useMemo<Auth0ContextInterface<TUser>>(() => {
     return {
       ...state,
       getAccessTokenSilently,
