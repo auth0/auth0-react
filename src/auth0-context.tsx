@@ -9,7 +9,9 @@ import {
   User,
   GetTokenSilentlyVerboseResponse,
   RedirectLoginOptions as SPARedirectLoginOptions,
+  TokenEndpointResponse,
 } from '@auth0/auth0-spa-js';
+import type { CustomTokenExchangeOptions } from '@auth0/auth0-spa-js/dist/typings/TokenExchange';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
 import { AppState } from './auth0-provider';
@@ -25,6 +27,18 @@ export interface RedirectLoginOptions<TAppState = AppState>
  */
 export interface Auth0ContextInterface<TUser extends User = User>
   extends AuthState<TUser> {
+    /**
+     * ```js
+     * const tokenResponse = await exchangeToken(options);
+     * ```
+     *
+     * Exchange a subject token for an Auth0 access token using the OAuth 2.0 Token Exchange flow.
+     * This method allows exchanging tokens from external identity providers for Auth0 tokens.
+     *
+     * @param options The token exchange options including subject_token and subject_token_type
+     * @returns A promise that resolves with the token response containing access_token, id_token, etc.
+     */
+    exchangeToken: (options: CustomTokenExchangeOptions) => Promise<TokenEndpointResponse>;
   /**
    * ```js
    * const token = await getAccessTokenSilently(options);
@@ -162,6 +176,7 @@ export const initialContext = {
   loginWithRedirect: stub,
   loginWithPopup: stub,
   logout: stub,
+  exchangeToken: stub,
   handleRedirectCallback: stub,
 };
 
