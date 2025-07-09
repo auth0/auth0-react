@@ -116,7 +116,7 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
   window.history.replaceState(
     {},
     document.title,
-    appState?.returnTo || window.location.pathname
+    appState?.returnTo ?? window.location.pathname
   );
 };
 
