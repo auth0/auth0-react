@@ -14,8 +14,11 @@ import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
 import { AppState } from './auth0-provider';
 
-export type LogoutOptions = Omit<SPALogoutOptions, 'onRedirect'>;
-export type RedirectLoginOptions<TAppState = AppState> = Omit<SPARedirectLoginOptions<TAppState>, 'onRedirect'>;
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface LogoutOptions extends Omit<SPALogoutOptions, 'onRedirect'> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface RedirectLoginOptions<TAppState = AppState>
+  extends Omit<SPARedirectLoginOptions<TAppState>, 'onRedirect'> {}
 
 /**
  * Contains the authenticated state and authentication methods provided by the `useAuth0` hook.
