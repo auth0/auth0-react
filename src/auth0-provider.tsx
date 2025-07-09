@@ -198,7 +198,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       const user = await client.getUser();
       dispatch({ type: 'LOGIN_POPUP_COMPLETE', user });
     },
-    [client]
+    [client, handleError]
   );
 
   const logout = useCallback(

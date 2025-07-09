@@ -1,5 +1,30 @@
-import { hasAuthParams, loginError, tokenError } from '../src/utils';
+import { hasAuthParams, loginError, tokenError, deprecateRedirectUri } from '../src/utils';
 import { OAuthError } from '../src/errors';
+
+// Define interfaces for testing deprecateRedirectUri function
+interface TestOptionsWithRedirectUri {
+  redirectUri?: string;
+  authorizationParams?: {
+    redirect_uri?: string;
+    scope?: string;
+  };
+}
+
+interface TestOptionsWithAuthorizationParams {
+  authorizationParams: {
+    redirectUri?: string;
+    redirect_uri?: string;
+    scope?: string;
+  };
+}
+
+interface TestOptionsWithBothRedirectUri {
+  redirectUri?: string;
+  authorizationParams: {
+    scope: string;
+    redirect_uri?: string;
+  };
+}
 
 describe('utils hasAuthParams', () => {
   it('should not recognise only the code param', async () => {
@@ -60,5 +85,77 @@ describe('utils error', () => {
     expect(() => {
       throw loginError(error);
     }).toThrowError('Login failed');
+  });
+});
+
+describe('utils deprecateRedirectUri', () => {
+  let consoleSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleSpy.mockRestore();
+  });
+
+  it('should handle options with redirectUri', () => {
+    const options: TestOptionsWithRedirectUri = {
+      redirectUri: 'https://example.com/callback',
+    };
+    
+    deprecateRedirectUri(options);
+    
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Using `redirectUri` has been deprecated, please use `authorizationParams.redirect_uri` instead as `redirectUri` will be no longer supported in a future version'
+    );
+    expect(options.authorizationParams?.redirect_uri).toBe('https://example.com/callback');
+    expect(options.redirectUri).toBeUndefined();
+  });
+
+  it('should handle options with authorizationParams.redirectUri', () => {
+    const options: TestOptionsWithAuthorizationParams = {
+      authorizationParams: {
+        redirectUri: 'https://example.com/callback',
+      },
+    };
+    
+    deprecateRedirectUri(options);
+    
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Using `authorizationParams.redirectUri` has been deprecated, please use `authorizationParams.redirect_uri` instead as `authorizationParams.redirectUri` will be removed in a future version'
+    );
+    expect(options.authorizationParams.redirect_uri).toBe('https://example.com/callback');
+    expect(options.authorizationParams.redirectUri).toBeUndefined();
+  });
+
+  it('should handle options with both redirectUri and existing authorizationParams', () => {
+    const options: TestOptionsWithBothRedirectUri = {
+      redirectUri: 'https://example.com/callback',
+      authorizationParams: {
+        scope: 'openid profile',
+      },
+    };
+    
+    deprecateRedirectUri(options);
+    
+    expect(options.authorizationParams.redirect_uri).toBe('https://example.com/callback');
+    expect(options.authorizationParams.scope).toBe('openid profile');
+    expect(options.redirectUri).toBeUndefined();
+  });
+
+  it('should handle undefined options', () => {
+    deprecateRedirectUri(undefined);
+    expect(consoleSpy).not.toHaveBeenCalled();
+  });
+
+  it('should handle options without redirectUri properties', () => {
+    const options = {
+      domain: 'example.auth0.com',
+      clientId: 'client-id',
+    };
+    
+    deprecateRedirectUri(options);
+    expect(consoleSpy).not.toHaveBeenCalled();
   });
 });
