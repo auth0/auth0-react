@@ -1,5 +1,5 @@
-const SMOKE_TEST_EMAIL = Cypress.env('CYPRESS_USER_EMAIL');
-const USER_PASSWORD = Cypress.env('CYPRESS_USER_PASSWORD');
+const SMOKE_TEST_EMAIL = Cypress.env('USER_EMAIL');
+const USER_PASSWORD = Cypress.env('USER_PASSWORD');
 
 if (!SMOKE_TEST_EMAIL || !USER_PASSWORD) {
   throw new Error(
