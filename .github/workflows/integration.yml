@@ -27,7 +27,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TERM: xterm
       SKIP_PREFLIGHT_CHECK: true
       CYPRESS_USER_EMAIL: ${{secrets.CYPRESS_USER_EMAIL}}
       CYPRESS_USER_PASSWORD: ${{secrets.CYPRESS_USER_PASSWORD}}
@@ -47,24 +46,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Debug - Check if secrets are loaded
-        run: |
-          echo "Checking if CYPRESS_USER_EMAIL is set..."
-          if [ -z "$CYPRESS_USER_EMAIL" ]; then
-            echo "❌ CYPRESS_USER_EMAIL is NOT set or empty"
-            exit 1
-          else
-            echo "✅ CYPRESS_USER_EMAIL is set (value: ${CYPRESS_USER_EMAIL:0:3}***@***)"
-          fi
-
-          echo "Checking if CYPRESS_USER_PASSWORD is set..."
-          if [ -z "$CYPRESS_USER_PASSWORD" ]; then
-            echo "❌ CYPRESS_USER_PASSWORD is NOT set or empty"
-            exit 1
-          else
-            echo "✅ CYPRESS_USER_PASSWORD is set (length: ${#CYPRESS_USER_PASSWORD} characters)"
-          fi
-
       - name: Install dependencies
         run: npm ci
 
@@ -75,20 +56,7 @@ jobs:
         run: npm run install:examples
 
       - name: Run integration test (CRA)
-        run: |
-          CYPRESS_USER_EMAIL="${{secrets.CYPRESS_USER_EMAIL}}" \
-          CYPRESS_USER_PASSWORD="${{secrets.CYPRESS_USER_PASSWORD}}" \
-          npm run test:cra
-        continue-on-error: true
-
-      - name: Upload CRA test artifacts
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cra-test-results
-          path: |
-            cypress/screenshots/
-          retention-days: 30
+        run: npm run test:cra
 
       - name: Run integration test (NextJS)
         run: npm run test:nextjs
