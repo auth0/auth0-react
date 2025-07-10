@@ -1,15 +1,15 @@
-const EMAIL = Cypress.env('CYPRESS_USER_EMAIL');
-const PASSWORD = Cypress.env('CYPRESS_USER_PASSWORD');
+const SMOKE_TEST_EMAIL = Cypress.env('CYPRESS_USER_EMAIL');
+const USER_PASSWORD = Cypress.env('CYPRESS_USER_PASSWORD');
 
-if (!EMAIL || !PASSWORD) {
+if (!SMOKE_TEST_EMAIL || !USER_PASSWORD) {
   throw new Error(
     'You must provide CYPRESS_USER_EMAIL and CYPRESS_USER_PASSWORD environment variables'
   );
 }
 
 const loginToAuth0 = (): void => {
-  cy.get('#username').clear().type(EMAIL);
-  cy.get('#password').clear().type(PASSWORD);
+  cy.get('#username').clear().type(SMOKE_TEST_EMAIL);
+  cy.get('#password').clear().type(USER_PASSWORD);
   cy.get('button[type="submit"][name="action"]').contains(/^continue$/i).click({ force: true });
 };
 
@@ -21,7 +21,7 @@ describe('Smoke tests', () => {
 
     loginToAuth0();
 
-    cy.get('#hello').contains(`Hello, ${EMAIL}!`);
+    cy.get('#hello').contains(`Hello, ${SMOKE_TEST_EMAIL}!`);
     cy.get('#logout').click();
     cy.get('#login').should('exist');
   });

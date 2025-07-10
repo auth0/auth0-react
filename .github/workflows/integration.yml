@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      TERM: xterm
       SKIP_PREFLIGHT_CHECK: true
       CYPRESS_USER_EMAIL: ${{secrets.CYPRESS_USER_EMAIL}}
       CYPRESS_USER_PASSWORD: ${{secrets.CYPRESS_USER_PASSWORD}}
