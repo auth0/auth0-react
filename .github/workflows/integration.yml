@@ -76,7 +76,10 @@ jobs:
         run: npm run install:examples
 
       - name: Run integration test (CRA)
-        run: npm run test:cra
+        run: |
+          CYPRESS_USER_EMAIL="${{secrets.CYPRESS_USER_EMAIL}}" \
+          CYPRESS_USER_PASSWORD="${{secrets.CYPRESS_USER_PASSWORD}}" \
+          npm run test:cra
 
       - name: Run integration test (NextJS)
         run: npm run test:nextjs
