@@ -58,6 +58,15 @@ jobs:
             echo "✅ CYPRESS_USER_EMAIL is set (value: ${CYPRESS_USER_EMAIL:0:3}***@***)"
           fi
 
+          echo "Checking if CYPRESS_USER_PASSWORD is set..."
+          if [ -z "$CYPRESS_USER_PASSWORD" ]; then
+            echo "❌ CYPRESS_USER_PASSWORD is NOT set or empty"
+            exit 1
+          else
+            echo "✅ CYPRESS_USER_PASSWORD is set (length: ${#CYPRESS_USER_PASSWORD} characters)"
+            echo "✅ CYPRESS_USER_PASSWORD is set (value: ${CYPRESS_USER_PASSWORD:0:3}***@***)"
+          fi
+
       - name: Install dependencies
         run: npm ci
 
