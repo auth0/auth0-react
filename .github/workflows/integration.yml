@@ -60,8 +60,8 @@ jobs:
       - name: Run integration test (CRA)
         run: npm run test:cra
 
-      # - name: Run integration test (NextJS)
-      #   run: npm run test:nextjs
+      - name: Run integration test (NextJS)
+        run: npm run test:nextjs
 
       # - name: Run integration test (Gatsby)
       #   run: npm run test:gatsby
