@@ -35,7 +35,7 @@
     "test:cra:watch": "start-server-and-test start:api 3001 start:cra 3000 cypress:open",
     "test:gatsby": "start-server-and-test start:api 3001 start:gatsby http-get://localhost:3000 cypress:run",
     "test:gatsby:watch": "start-server-and-test start:api 3001 start:gatsby 3000 cypress:open",
-    "test:nextjs": "start-server-and-test start:api 3001 start:nextjs 3000 cypress:run",
+    "test:nextjs": "start-server-and-test start:api 3001 start:nextjs http-get://127.0.0.1:3000 cypress:run",
     "test:nextjs:watch": "start-server-and-test start:api 3001 start:nextjs 3000 cypress:open",
     "test:integration": "npm run test:cra && npm run test:gatsby && npm run test:nextjs",
     "cypress:run": "cypress run --spec 'cypress/e2e/smoke.cy.ts'",
