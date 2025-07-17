@@ -14,9 +14,9 @@ import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
 import { AppState } from './auth0-provider';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface LogoutOptions extends Omit<SPALogoutOptions, 'onRedirect'> {}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface RedirectLoginOptions<TAppState = AppState>
   extends Omit<SPARedirectLoginOptions<TAppState>, 'onRedirect'> {}
 

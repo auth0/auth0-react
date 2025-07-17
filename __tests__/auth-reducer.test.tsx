@@ -19,6 +19,7 @@ describe('reducer', () => {
   it('should initialise when not authenticated', async () => {
     const payload = {
       isAuthenticated: false,
+      user: undefined,
     };
     expect(
       reducer(initialAuthState, { type: 'INITIALISED', ...payload })

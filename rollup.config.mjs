@@ -6,7 +6,7 @@ import external from 'rollup-plugin-peer-deps-external';
 import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
-import pkg from './package.json' assert { type: 'json' };
+import pkg from './package.json' with { type: 'json' };
 import analyze from 'rollup-plugin-analyzer';
 import { createApp } from './scripts/oidc-provider.mjs';
 

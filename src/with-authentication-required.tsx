@@ -117,11 +117,11 @@ const withAuthenticationRequired = <P extends object>(
       const opts = {
         ...loginOptions,
         appState: {
-          ...(loginOptions && loginOptions.appState),
+          ...loginOptions?.appState,
           returnTo: typeof returnTo === 'function' ? returnTo() : returnTo,
         },
       };
-      (async (): Promise<void> => {
+      void (async (): Promise<void> => {
         await onBeforeAuthentication();
         await loginWithRedirect(opts);
       })();
