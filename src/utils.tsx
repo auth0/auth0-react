@@ -58,7 +58,7 @@ export const deprecateRedirectUri = (options?: any) => {
     console.warn(
       'Using `redirectUri` has been deprecated, please use `authorizationParams.redirect_uri` instead as `redirectUri` will be no longer supported in a future version'
     );
-    options.authorizationParams = options.authorizationParams || {};
+    options.authorizationParams = options.authorizationParams ?? {};
     options.authorizationParams.redirect_uri = options.redirectUri;
     delete options.redirectUri;
   }

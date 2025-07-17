@@ -9,7 +9,7 @@ type Action =
         | 'LOGIN_POPUP_COMPLETE'
         | 'GET_ACCESS_TOKEN_COMPLETE'
         | 'HANDLE_REDIRECT_COMPLETE';
-      user?: User;
+      user: User | undefined;
     }
   | { type: 'LOGOUT' }
   | { type: 'ERROR'; error: Error };
