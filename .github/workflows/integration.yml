@@ -63,6 +63,5 @@ jobs:
       - name: Run integration test (NextJS)
         run: npm run test:nextjs
 
-      # - name: Run integration test (Gatsby)
-      #   run: npm run test:gatsby
-      # Skipped NextJS and Gatsby integration tests due to dependency issues
+      - name: Run integration test (Gatsby)
+        run: npm run test:gatsby
