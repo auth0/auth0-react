@@ -423,7 +423,7 @@ describe('Auth0Provider', () => {
     await waitFor(() => {
       expect(result.current.logout).toBeInstanceOf(Function);
     });
-    act(() => {
+    await act(() => {
       result.current.logout();
     });
     expect(clientMock.logout).toHaveBeenCalled();

@@ -8,9 +8,9 @@ if (!EMAIL || !PASSWORD) {
 }
 
 const loginToAuth0 = (): void => {
-  cy.get('.auth0-lock-input-username .auth0-lock-input').clear().type(EMAIL);
-  cy.get('.auth0-lock-input-password .auth0-lock-input').clear().type(PASSWORD);
-  cy.get('.auth0-lock-submit').click();
+  cy.get('#username').clear().type(EMAIL);
+  cy.get('#password').clear().type(PASSWORD);
+  cy.get('button[type="submit"][name="action"]').contains(/^continue$/i).click({ force: true });
 };
 
 describe('Smoke tests', () => {
