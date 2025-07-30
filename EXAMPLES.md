@@ -326,18 +326,18 @@ In order to protect a route with a claims check alongside an authentication requ
 
 ```jsx
 const withClaimCheck = (Component, myClaimCheckFunction, returnTo) => {
-  const { user } = useAuth0();
+  const { user } =  useAuth0();
   if (myClaimCheckFunction(user)) {
-    return <Component />;
+    return <Component />
   }
   Router.push(returnTo);
-};
+}
 
 const checkClaims = (claim?: User) => claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN');
 
 // Usage
 const Page = withAuthenticationRequired(
-  withClaimCheck(Component, checkClaims, '/missing-roles')
+  withClaimCheck(Component, checkClaims, '/missing-roles' )
 );
 ```
 
