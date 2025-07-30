@@ -272,6 +272,23 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const getDpopNonce = useCallback(() => client.getDpopNonce(), [client]);
+
+  const setDpopNonce = useCallback(
+    (nonce: string, nonceId?: string) => client.setDpopNonce(nonce, nonceId),
+    [client]
+  );
+
+  const generateDpopProof = useCallback(
+    (params: {
+      url: string;
+      method: string;
+      nonce?: string;
+      accessToken: string;
+    }) => client.generateDpopProof(params),
+    [client]
+  );
+
   const contextValue = useMemo<Auth0ContextInterface<TUser>>(() => {
     return {
       ...state,
@@ -282,6 +299,9 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       loginWithPopup,
       logout,
       handleRedirectCallback,
+      getDpopNonce,
+      setDpopNonce,
+      generateDpopProof,
     };
   }, [
     state,
@@ -292,6 +312,9 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     loginWithPopup,
     logout,
     handleRedirectCallback,
+    getDpopNonce,
+    setDpopNonce,
+    generateDpopProof,
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;

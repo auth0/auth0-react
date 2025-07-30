@@ -8,6 +8,7 @@
 - [Protecting a route in a Next.js app (in SPA mode)](#protecting-a-route-in-a-nextjs-app-in-spa-mode)
 - [Use with Auth0 organizations](#use-with-auth0-organizations)
 - [Protecting a route with a claims check](#protecting-a-route-with-a-claims-check)
+- [Device-bound tokens with DPoP](#device-bound-tokens-with-dpop)
 
 ## Use with a Class Component
 
@@ -325,17 +326,181 @@ In order to protect a route with a claims check alongside an authentication requ
 
 ```jsx
 const withClaimCheck = (Component, myClaimCheckFunction, returnTo) => {
-  const { user } =  useAuth0();
+  const { user } = useAuth0();
   if (myClaimCheckFunction(user)) {
-    return <Component />
+    return <Component />;
   }
   Router.push(returnTo);
-}
+};
 
 const checkClaims = (claim?: User) => claim?.['https://my.app.io/jwt/claims']?.ROLE?.includes('ADMIN');
 
 // Usage
 const Page = withAuthenticationRequired(
-  withClaimCheck(Component, checkClaims, '/missing-roles' )
+  withClaimCheck(Component, checkClaims, '/missing-roles')
 );
+```
+
+## Device-bound tokens with DPoP
+
+**Demonstrating Proof-of-Possession** –or just **DPoP**– is an OAuth 2.0 extension defined in [RFC9449](https://datatracker.ietf.org/doc/html/rfc9449).
+
+It defines a mechanism for securely binding tokens to a specific device by means of cryptographic signatures. Without it, **a token leak caused by XSS or other vulnerability could result in an attacker impersonating the real user.**
+
+In order to support DPoP in `auth0-spa-js`, we require some APIs found in modern browsers:
+
+- [Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Crypto): it allows to create and use cryptographic keys that will be used for creating the proofs (i.e. signatures) used in DPoP.
+
+- [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API): it allows to use cryptographic keys [without giving access to the private material](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto#storing_keys).
+
+The following OAuth 2.0 flows are currently supported by `auth0-spa-js`:
+
+- [Authorization Code Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow) (`authorization_code`).
+
+- [Refresh Token Flow](https://auth0.com/docs/secure/tokens/refresh-tokens) (`refresh_token`).
+
+- [Custom Token Exchange Flow](https://auth0.com/docs/authenticate/custom-token-exchange) (`urn:ietf:params:oauth:grant-type:token-exchange`).
+
+Currently, only the `ES256` algorithm is supported.
+
+### Enabling DPoP
+
+Currently, DPoP is disabled by default. To enable it, set the `useDpop` option to `true` when invoking the provider. For example:
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  useDpop={true} // 👈
+  authorizationParams={{ redirect_uri: window.location.origin }}
+>
+```
+
+After enabling DPoP, supported OAuth 2.0 flows in Auth0 will start transparently issuing tokens that will be cryptographically bound to the current browser.
+
+Note that a DPoP token will have to be sent to a resource server with an `Authorization: DPoP <token>` header instead of `Authorization: Bearer <token>` as usual.
+
+If you're using both types at the same time, you can use the `detailedResponse` option in `getAccessTokenSilently()` to get access to the `token_type` property and know what kind of token you got:
+
+```js
+const headers = {
+  Authorization: `${token.token_type} ${token.access_token}`,
+};
+```
+
+If all your clients are already using DPoP, you may want to increase security and make Auth0 reject non-DPoP interactions by enabling the "Require Token Sender-Constraining" option in your Auth0's application settings. Check [the docs](https://auth0.com/docs/get-started/applications/configure-sender-constraining) for details.
+
+### Clearing DPoP data
+
+When using DPoP some temporary data is stored in the user's browser. When you log the user out with `logout()`, it will be deleted.
+
+### Using DPoP in your own requests
+
+Enabling `useDpop` **protects every internal request that the SDK sends to Auth0** (i.e. the authorization server).
+
+However, if you want to use a DPoP access token to authenticate against a custom API (i.e. a resource server), some extra work is required. `Auth0Provider` has some methods that will provide the needed pieces:
+
+- `getDpopNonce()`
+- `setDpopNonce()`
+- `generateDpopProof()`
+
+This example shows how these coould be used:
+
+```jsx
+import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const Posts = () => {
+  const {
+    getAccessTokenSilently,
+    getDpopNonce,
+    setDpopNonce,
+    generateDpopProof,
+  } = useAuth0();
+
+  const [posts, setPosts] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      // Define an identifier that the SDK will use to reference the nonces.
+      const nonceId = 'my_api_request';
+
+      // Get an access token as usual.
+      const accessToken = await getAccessTokenSilently();
+
+      // Get the current DPoP nonce (if any) and do the request with it.
+      const nonce = await getDpopNonce(nonceId);
+
+      const response = await fetchWithDpop({
+        url: 'https://api.example.com/posts',
+        method: 'GET',
+        accessToken,
+        nonce,
+      });
+
+      setPosts(await response.json());
+
+      async function fetchWithDpop({
+        url,
+        method,
+        body,
+        accessToken,
+        nonce,
+        isDpopNonceRetry,
+      }) {
+        const headers = {
+          // A DPoP access token has the type `DPoP` and not `Bearer`.
+          Authorization: `DPoP ${accessToken}`,
+
+          // Include the DPoP proof, which is cryptographic evidence that we
+          // are in possession of the same key that was used to get the token.
+          DPoP: await generateDpopProof({ url, method, nonce, accessToken }),
+        };
+
+        // Make the request.
+        const response = await fetch(url, { method, headers, body });
+
+        // If there was a nonce in the response, save it.
+        const newNonce = response.headers.get('dpop-nonce');
+
+        if (newNonce) {
+          setDpopNonce(newNonce, nonceId);
+        }
+
+        // If the server rejects the DPoP nonce but it provides a new one, try
+        // the request one last time with the correct nonce.
+        if (
+          response.status === 401 &&
+          response.headers.get('www-authenticate')?.includes('use_dpop_nonce')
+        ) {
+          if (isDpopNonceRetry) {
+            throw new Error('DPoP nonce was rejected twice, giving up');
+          }
+
+          return fetchWithDpop({
+            ...params,
+            nonce: newNonce ?? nonce,
+            isDpopNonceRetry: true,
+          });
+        }
+
+        return response;
+      }
+    })();
+  }, []);
+
+  if (!posts) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <ul>
+      {posts.map((post, index) => {
+        return <li key={index}>{post}</li>;
+      })}
+    </ul>
+  );
+};
+
+export default Posts;
 ```

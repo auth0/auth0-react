@@ -140,6 +140,46 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * @param url The URL to that should be used to retrieve the `state` and `code` values. Defaults to `window.location.href` if not given.
    */
   handleRedirectCallback: (url?: string) => Promise<RedirectLoginResult>;
+
+  /**
+   * Returns the current DPoP nonce used for making requests to Auth0.
+   *
+   * It can return `undefined` because when starting fresh it will not
+   * be populated until after the first response from the server.
+   *
+   * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
+   *
+   * @param nonce The nonce value.
+   * @param id    The identifier of a nonce: if absent, it will set the nonce
+   *              used for requests to Auth0. Otherwise, it will be used to
+   *              select a specific non-Auth0 nonce.
+   */
+  getDpopNonce(id?: string): Promise<string | undefined>;
+
+  /**
+   * Gets the current DPoP nonce used for making requests to Auth0.
+   *
+   * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
+   *
+   * @param nonce The nonce value.
+   * @param id    The identifier of a nonce: if absent, it will set the nonce
+   *              used for requests to Auth0. Otherwise, it will be used to
+   *              select a specific non-Auth0 nonce.
+   */
+  setDpopNonce(nonce: string, id?: string): Promise<void>;
+
+  /**
+   * Returns a string to be used to demonstrate possession of the private
+   * key used to cryptographically bind access tokens with DPoP.
+   *
+   * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
+   */
+  generateDpopProof(params: {
+    url: string;
+    method: string;
+    nonce?: string;
+    accessToken: string;
+  }): Promise<string>;
 }
 
 /**
@@ -163,6 +203,9 @@ export const initialContext = {
   loginWithPopup: stub,
   logout: stub,
   handleRedirectCallback: stub,
+  getDpopNonce: stub,
+  setDpopNonce: stub,
+  generateDpopProof: stub,
 };
 
 /**
