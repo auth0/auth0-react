@@ -440,14 +440,10 @@ const Posts = () => {
 
       setPosts(await response.json());
 
-      async function fetchWithDpop({
-        url,
-        method,
-        body,
-        accessToken,
-        nonce,
-        isDpopNonceRetry,
-      }) {
+      async function fetchWithDpop(params) {
+        const { url, method, body, accessToken, nonce, isDpopNonceRetry } =
+          params;
+
         const headers = {
           // A DPoP access token has the type `DPoP` and not `Bearer`.
           Authorization: `DPoP ${accessToken}`,
