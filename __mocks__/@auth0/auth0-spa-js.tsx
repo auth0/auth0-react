@@ -7,6 +7,7 @@ const getTokenWithPopup = jest.fn();
 const getUser = jest.fn();
 const getIdTokenClaims = jest.fn();
 const isAuthenticated = jest.fn(() => false);
+const isAuthorized = jest.fn();
 const loginWithPopup = jest.fn();
 const loginWithRedirect = jest.fn();
 const logout = jest.fn();
@@ -22,6 +23,7 @@ export const Auth0Client = jest.fn(() => {
     getUser,
     getIdTokenClaims,
     isAuthenticated,
+    isAuthorized,
     loginWithPopup,
     loginWithRedirect,
     logout,
