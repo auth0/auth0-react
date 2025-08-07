@@ -1,9 +1,47 @@
-import React, { ComponentType, useEffect, FC } from 'react';
+import React, {
+  ComponentType,
+  useContext,
+  useEffect,
+  FC,
+  useMemo,
+} from 'react';
 import useAuth0 from './use-auth0';
 import Auth0Context, {
   Auth0ContextInterface,
   RedirectLoginOptions,
 } from './auth0-context';
+import { DefaultErrorComponent } from './default-error';
+
+/**
+ * Creates a wrapped Auth0 context that automatically includes audience and scope
+ * in getAccessTokenSilently calls when they're not explicitly provided
+ */
+const createWrappedAuth0Context = (
+  originalContext: Auth0ContextInterface,
+  audience?: string,
+  scope?: string
+): Auth0ContextInterface => ({
+  ...originalContext,
+  getAccessTokenSilently: ((options: any = {}) => {
+    const mergedOptions = {
+      ...options,
+    };
+
+    if (!mergedOptions.authorizationParams) {
+      mergedOptions.authorizationParams = {};
+    }
+
+    if (audience && !mergedOptions.authorizationParams.audience) {
+      mergedOptions.authorizationParams.audience = audience;
+    }
+
+    if (scope && !mergedOptions.authorizationParams.scope) {
+      mergedOptions.authorizationParams.scope = scope;
+    }
+
+    return originalContext.getAccessTokenSilently(mergedOptions);
+  }) as typeof originalContext.getAccessTokenSilently,
+});
 
 /**
  * @ignore
@@ -11,9 +49,11 @@ import Auth0Context, {
 const defaultOnRedirecting = (): React.JSX.Element => <></>;
 
 /**
-* @ignore
-*/
-const defaultOnBeforeAuthentication = async (): Promise<void> => {/* noop */ };
+ * @ignore
+ */
+const defaultOnBeforeAuthentication = async (): Promise<void> => {
+  /* noop */
+};
 
 /**
  * @ignore
@@ -64,6 +104,19 @@ export interface WithAuthenticationRequiredOptions {
    */
   onBeforeAuthentication?: () => Promise<void>;
   /**
+   * A function that returns a component to display in the event of an authorization error.
+   * An authorization error occurs when the user is authenticated but does not have the required permissions to view the component.
+   * If not provided, a default "Access Denied" page will be shown.
+   *
+   * ```js
+   * withAuthenticationRequired(Admin, {
+   * scope: 'read:admin-messages',
+   * onError: () => <p>You don't have permission to view this page.</p>
+   * })
+   * ```
+   */
+  onError?: () => React.JSX.Element;
+  /**
    * ```js
    * withAuthenticationRequired(Profile, {
    *   loginOptions: {
@@ -105,13 +158,25 @@ const withAuthenticationRequired = <P extends object>(
       onBeforeAuthentication = defaultOnBeforeAuthentication,
       loginOptions,
       context = Auth0Context,
+      onError,
     } = options;
 
-    const { isAuthenticated, isLoading, loginWithRedirect } =
-      useAuth0(context);
+    const audience = loginOptions?.authorizationParams?.audience;
+    const scope = loginOptions?.authorizationParams?.scope;
+
+    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0(
+      context,
+      { audience, scope }
+    );
+    const globalContext = useContext(context);
+
+    const wrappedContextValue = useMemo(
+      () => createWrappedAuth0Context(globalContext, audience, scope),
+      [globalContext, audience, scope]
+    );
 
     useEffect(() => {
-      if (isLoading || isAuthenticated) {
+      if (isLoading || globalContext.isAuthenticated) {
         return;
       }
       const opts = {
@@ -127,14 +192,36 @@ const withAuthenticationRequired = <P extends object>(
       })();
     }, [
       isLoading,
-      isAuthenticated,
+      globalContext.isAuthenticated,
       loginWithRedirect,
       onBeforeAuthentication,
       loginOptions,
       returnTo,
     ]);
 
-    return isAuthenticated ? <Component {...props} /> : onRedirecting();
+    if (isLoading) {
+      return onRedirecting();
+    }
+
+    // If the user is authenticated and has the required permissions, render the component.
+    if (isAuthenticated) {
+      return (
+        <context.Provider value={wrappedContextValue}>
+          <Component {...props} />
+        </context.Provider>
+      );
+    }
+
+    // If the user is authenticated but NOT authorized, show the error UI.
+    if (globalContext.isAuthenticated) {
+      if (onError) {
+        return onError();
+      }
+      return <DefaultErrorComponent />;
+    }
+
+    // Otherwise, the user is not authenticated and is being redirected.
+    return onRedirecting();
   };
 };
 

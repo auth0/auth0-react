@@ -14,6 +14,7 @@ import {
   GetTokenWithPopupOptions,
   RedirectLoginResult,
   GetTokenSilentlyOptions,
+  AuthorizationParams,
   User,
 } from '@auth0/auth0-spa-js';
 import Auth0Context, {
@@ -256,6 +257,18 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
     [client]
   );
 
+  const isAuthorized = useCallback(
+    async (options: AuthorizationParams): Promise<boolean> => {
+      try {
+        return await client.isAuthorized(options);
+      } catch (error) {
+        handleError(tokenError(error));
+        return false;
+      }
+    },
+    [client, handleError]
+  );
+
   const handleRedirectCallback = useCallback(
     async (url?: string): Promise<RedirectLoginResult> => {
       try {
@@ -282,6 +295,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
       loginWithPopup,
       logout,
       handleRedirectCallback,
+      isAuthorized,
     };
   }, [
     state,
@@ -292,6 +306,7 @@ const Auth0Provider = (opts: Auth0ProviderOptions) => {
     loginWithPopup,
     logout,
     handleRedirectCallback,
+    isAuthorized,
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;

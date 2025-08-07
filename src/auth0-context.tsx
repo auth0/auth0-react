@@ -38,7 +38,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * If refresh tokens are used, the token endpoint is called directly with the
    * 'refresh_token' grant. If no refresh token is available to make this call,
-   * the SDK will only fall back to using an iframe to the '/authorize' URL if 
+   * the SDK will only fall back to using an iframe to the '/authorize' URL if
    * the `useRefreshTokensFallback` setting has been set to `true`. By default this
    * setting is `false`.
    *
@@ -140,8 +140,18 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * @param url The URL to that should be used to retrieve the `state` and `code` values. Defaults to `window.location.href` if not given.
    */
   handleRedirectCallback: (url?: string) => Promise<RedirectLoginResult>;
-}
 
+  /**
+   * Validates if the current token contains the required scopes and audience.
+   *
+   * @param options Options for scope and audience validation.
+   * @returns `true` if the token contains the required scopes and audience, otherwise `false`.
+   */
+  isAuthorized?: (options: {
+    audience?: string;
+    scope?: string;
+  }) => Promise<boolean>;
+}
 /**
  * @ignore
  */
@@ -163,6 +173,7 @@ export const initialContext = {
   loginWithPopup: stub,
   logout: stub,
   handleRedirectCallback: stub,
+  isAuthorized: stub,
 };
 
 /**

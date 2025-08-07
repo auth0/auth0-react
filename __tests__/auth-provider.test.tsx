@@ -810,6 +810,127 @@ describe('Auth0Provider', () => {
     });
   });
 
+    it('should provide a isAuthorized method', async () => {
+    clientMock.isAuthorized.mockResolvedValue(true);
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+
+    expect(result.current.isAuthorized).toBeInstanceOf(Function);
+    let isAuthorized;
+    await act(async () => {
+      if (result.current.isAuthorized) {
+        isAuthorized = await result.current.isAuthorized({
+          audience: 'test-audience',
+          scope: 'read:data',
+        });
+      }
+    });
+    expect(clientMock.isAuthorized).toHaveBeenCalledWith({
+      audience: 'test-audience',
+      scope: 'read:data',
+    });
+    expect(isAuthorized).toBe(true);
+  });
+
+  it('should return false from isAuthorized when not authorized', async () => {
+    clientMock.isAuthorized.mockResolvedValue(false);
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+
+    let isAuthorized;
+    await act(async () => {
+      if (result.current.isAuthorized) {
+        isAuthorized = await result.current.isAuthorized({
+          audience: 'test-audience',
+          scope: 'admin:write',
+        });
+      }
+    });
+    expect(clientMock.isAuthorized).toHaveBeenCalledWith({
+      audience: 'test-audience',
+      scope: 'admin:write',
+    });
+    expect(isAuthorized).toBe(false);
+  });
+
+  it('should handle errors from isAuthorized method', async () => {
+    clientMock.isAuthorized.mockRejectedValue(new Error('__test_error__'));
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+
+    await act(async () => {
+      if (result.current.isAuthorized) {
+        await expect(result.current.isAuthorized({
+          audience: 'test-audience',
+          scope: 'read:data',
+        })).rejects.toThrowError('__test_error__');
+      }
+    });
+    expect(clientMock.isAuthorized).toHaveBeenCalledWith({
+      audience: 'test-audience',
+      scope: 'read:data',
+    });
+  });
+
+  it('should normalize errors from isAuthorized method', async () => {
+    clientMock.isAuthorized.mockRejectedValue(new ProgressEvent('error'));
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+
+    await act(async () => {
+      if (result.current.isAuthorized) {
+        await expect(result.current.isAuthorized({
+          audience: 'test-audience',
+          scope: 'read:data',
+        })).rejects.toThrowError('Get access token failed');
+      }
+    });
+  });
+
+  it('should call isAuthorized in the scope of the Auth0 client', async () => {
+    clientMock.isAuthorized.mockReturnThis();
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+
+    await act(async () => {
+      if (result.current.isAuthorized) {
+        const returnedThis = await result.current.isAuthorized({
+          audience: 'test-audience',
+          scope: 'read:data',
+        });
+        expect(returnedThis).toStrictEqual(clientMock);
+      }
+    });
+  });
+
+  it('should memoize the isAuthorized method', async () => {
+    const wrapper = createWrapper();
+    const { result, rerender } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      const memoized = result.current.isAuthorized;
+      rerender();
+      expect(result.current.isAuthorized).toBe(memoized);
+    });
+  });
+
   it('should provide a handleRedirectCallback method', async () => {
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: { redirectUri: '/' },
