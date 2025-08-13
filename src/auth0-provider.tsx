@@ -272,20 +272,23 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
-  const getDpopNonce = useCallback(() => client.getDpopNonce(), [client]);
-
-  const setDpopNonce = useCallback(
-    (nonce: string, nonceId?: string) => client.setDpopNonce(nonce, nonceId),
+  const getDpopNonce = useCallback<Auth0Client['getDpopNonce']>(
+    (id) => client.getDpopNonce(id),
     [client]
   );
 
-  const generateDpopProof = useCallback(
-    (params: {
-      url: string;
-      method: string;
-      nonce?: string;
-      accessToken: string;
-    }) => client.generateDpopProof(params),
+  const setDpopNonce = useCallback<Auth0Client['setDpopNonce']>(
+    (nonce, id) => client.setDpopNonce(nonce, id),
+    [client]
+  );
+
+  const generateDpopProof = useCallback<Auth0Client['generateDpopProof']>(
+    (params) => client.generateDpopProof(params),
+    [client]
+  );
+
+  const createFetcher = useCallback<Auth0Client['createFetcher']>(
+    (config) => client.createFetcher(config),
     [client]
   );
 
@@ -302,6 +305,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       getDpopNonce,
       setDpopNonce,
       generateDpopProof,
+      createFetcher,
     };
   }, [
     state,
@@ -315,6 +319,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     getDpopNonce,
     setDpopNonce,
     generateDpopProof,
+    createFetcher,
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;

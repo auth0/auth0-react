@@ -343,17 +343,17 @@ const Page = withAuthenticationRequired(
 
 ## Device-bound tokens with DPoP
 
-**Demonstrating Proof-of-Possession** –or just **DPoP**– is an OAuth 2.0 extension defined in [RFC9449](https://datatracker.ietf.org/doc/html/rfc9449).
+**Demonstrating Proof-of-Possession** —or simply **DPoP**— is a recent OAuth 2.0 extension defined in [RFC9449](https://datatracker.ietf.org/doc/html/rfc9449).
 
-It defines a mechanism for securely binding tokens to a specific device by means of cryptographic signatures. Without it, **a token leak caused by XSS or other vulnerability could result in an attacker impersonating the real user.**
+It defines a mechanism for securely binding tokens to a specific device using cryptographic signatures. Without it, **a token leak caused by XSS or other vulnerabilities could allow an attacker to impersonate the real user.**
 
-In order to support DPoP in `auth0-spa-js`, we require some APIs found in modern browsers:
+To support DPoP in `auth0-react`, some APIs available in modern browsers are required:
 
-- [Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Crypto): it allows to create and use cryptographic keys that will be used for creating the proofs (i.e. signatures) used in DPoP.
+- [Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Crypto): allows to create and use cryptographic keys, which are used to generate the proofs (i.e. signatures) required for DPoP.
 
-- [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API): it allows to use cryptographic keys [without giving access to the private material](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto#storing_keys).
+- [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API): enables the use of cryptographic keys [without exposing the private material](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto#storing_keys).
 
-The following OAuth 2.0 flows are currently supported by `auth0-spa-js`:
+The following OAuth 2.0 flows are currently supported by `auth0-react`:
 
 - [Authorization Code Flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow) (`authorization_code`).
 
@@ -361,11 +361,12 @@ The following OAuth 2.0 flows are currently supported by `auth0-spa-js`:
 
 - [Custom Token Exchange Flow](https://auth0.com/docs/authenticate/custom-token-exchange) (`urn:ietf:params:oauth:grant-type:token-exchange`).
 
-Currently, only the `ES256` algorithm is supported.
+> [!IMPORTANT]
+> Currently, only the `ES256` algorithm is supported.
 
 ### Enabling DPoP
 
-Currently, DPoP is disabled by default. To enable it, set the `useDpop` option to `true` when invoking the provider. For example:
+DPoP is disabled by default. To enable it, set the `useDpop` option to `true` when invoking the provider. For example:
 
 ```jsx
 <Auth0Provider
@@ -376,127 +377,197 @@ Currently, DPoP is disabled by default. To enable it, set the `useDpop` option t
 >
 ```
 
-After enabling DPoP, supported OAuth 2.0 flows in Auth0 will start transparently issuing tokens that will be cryptographically bound to the current browser.
+After enabling DPoP, **every new session using a supported OAuth 2.0 flow in Auth0 will begin transparently to use tokens that are cryptographically bound to the current browser**.
 
-Note that a DPoP token will have to be sent to a resource server with an `Authorization: DPoP <token>` header instead of `Authorization: Bearer <token>` as usual.
+> [!IMPORTANT]
+> DPoP will only be used for new user sessions created after enabling it. Any previously existing sessions will continue using non-DPoP tokens until the user logs in again.
+>
+> You decide how to handle this transition. For example, you might require users to log in again the next time they use your application.
 
-If you're using both types at the same time, you can use the `detailedResponse` option in `getAccessTokenSilently()` to get access to the `token_type` property and know what kind of token you got:
+> [!IMPORTANT]
+> Using DPoP requires storing some temporary data in the user's browser. When you log the user out with `logout()`, this data is deleted.
 
-```js
-const headers = {
-  Authorization: `${token.token_type} ${token.access_token}`,
-};
-```
-
-If all your clients are already using DPoP, you may want to increase security and make Auth0 reject non-DPoP interactions by enabling the "Require Token Sender-Constraining" option in your Auth0's application settings. Check [the docs](https://auth0.com/docs/get-started/applications/configure-sender-constraining) for details.
-
-### Clearing DPoP data
-
-When using DPoP some temporary data is stored in the user's browser. When you log the user out with `logout()`, it will be deleted.
+> [!IMPORTANT]
+> If all your clients are already using DPoP, you may want to increase security by making Auth0 reject any non-DPoP interactions. See [the docs on Sender Constraining](https://auth0.com/docs/secure/sender-constraining/configure-sender-constraining) for details.
 
 ### Using DPoP in your own requests
 
-Enabling `useDpop` **protects every internal request that the SDK sends to Auth0** (i.e. the authorization server).
+You use a DPoP token the same way as a "traditional" access token, except it must be sent to the server with an `Authorization: DPoP <token>` header instead of the usual `Authorization: Bearer <token>`.
 
-However, if you want to use a DPoP access token to authenticate against a custom API (i.e. a resource server), some extra work is required. `Auth0Provider` has some methods that will provide the needed pieces:
+To determine the type of a token, use the `detailedResponse` option in `getAccessTokenSilently()` to access the `token_type` property, which will be either `DPoP` or `Bearer`.
+
+For internal requests sent by `auth0-react` to Auth0, simply enable the `useDpop` option and **every interaction with Auth0 will be protected**.
+
+However, **to use DPoP with a custom, external API, some additional work is required**. The `useAuth()` hook provides some low-level methods to help with this:
 
 - `getDpopNonce()`
 - `setDpopNonce()`
 - `generateDpopProof()`
 
-This example shows how these coould be used:
+However, due to the nature of how DPoP works, **this is not a trivial task**:
 
-```jsx
-import { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+- When a nonce is missing or expired, the request may need to be retried.
+- Received nonces must be stored and managed.
+- DPoP headers must be generated and included in every request, and regenerated for retries.
 
-const Posts = () => {
-  const {
-    getAccessTokenSilently,
-    getDpopNonce,
-    setDpopNonce,
-    generateDpopProof,
-  } = useAuth0();
+Because of this, we recommend using the provided `fetchWithAuth()` method, which **handles all of this for you**.
 
-  const [posts, setPosts] = useState(null);
+#### Simple usage
 
-  useEffect(() => {
-    (async () => {
-      // Define an identifier that the SDK will use to reference the nonces.
-      const nonceId = 'my_api_request';
+The `fetchWithAuth()` method is a drop-in replacement for the native `fetch()` function from the Fetch API, so if you're already using it, the change will be minimal.
 
-      // Get an access token as usual.
-      const accessToken = await getAccessTokenSilently();
+For example, if you had this code:
 
-      // Get the current DPoP nonce (if any) and do the request with it.
-      const nonce = await getDpopNonce(nonceId);
+```js
+await fetch('https://api.example.com/foo', {
+  method: 'GET',
+  headers: { 'user-agent': 'My Client 1.0' }
+});
 
-      const response = await fetchWithDpop({
-        url: 'https://api.example.com/posts',
-        method: 'GET',
-        accessToken,
-        nonce,
-      });
+console.log(response.status);
+console.log(response.headers);
+console.log(await response.json());
+```
 
-      setPosts(await response.json());
+You would change it as follows:
 
-      async function fetchWithDpop(params) {
-        const { url, method, body, accessToken, nonce, isDpopNonceRetry } =
-          params;
+```js
+const { createFetcher } = useAuth0();
 
-        const headers = {
-          // A DPoP access token has the type `DPoP` and not `Bearer`.
-          Authorization: `DPoP ${accessToken}`,
+const fetcher = createFetcher({
+  dpopNonceId: 'my_api_request'
+});
 
-          // Include the DPoP proof, which is cryptographic evidence that we
-          // are in possession of the same key that was used to get the token.
-          DPoP: await generateDpopProof({ url, method, nonce, accessToken }),
-        };
+await fetcher.fetchWithAuth('https://api.example.com/foo', {
+  method: 'GET',
+  headers: { 'user-agent': 'My Client 1.0' }
+});
 
-        // Make the request.
-        const response = await fetch(url, { method, headers, body });
+console.log(response.status);
+console.log(response.headers);
+console.log(await response.json());
+```
 
-        // If there was a nonce in the response, save it.
-        const newNonce = response.headers.get('dpop-nonce');
+When using `fetchWithAuth()`, the following will be handled for you automatically:
 
-        if (newNonce) {
-          setDpopNonce(newNonce, nonceId);
-        }
+- Use `getAccessTokenSilently()` to get the access token to inject in the headers.
+- Generate and inject DPoP headers when needed.
+- Store and update any DPoP nonces.
+- Handle retries caused by a rejected nonce.
 
-        // If the server rejects the DPoP nonce but it provides a new one, try
-        // the request one last time with the correct nonce.
-        if (
-          response.status === 401 &&
-          response.headers.get('www-authenticate')?.includes('use_dpop_nonce')
-        ) {
-          if (isDpopNonceRetry) {
-            throw new Error('DPoP nonce was rejected twice, giving up');
-          }
+> [!IMPORTANT]
+> If DPoP is enabled in the provider, a `dpopNonceId` **must** be present in the `createFetcher()` parameters, since it’s used to keep track of the DPoP nonces for each request.
 
-          return fetchWithDpop({
-            ...params,
-            nonce: newNonce ?? nonce,
-            isDpopNonceRetry: true,
-          });
-        }
+#### Advanced usage
 
-        return response;
+If you need something more complex than the example above, you can provide a custom implementation in the `fetch` property.
+
+However, since `auth0-react` needs to make decisions based on HTTP responses, your implementation **must return an object with _at least_ two properties**:
+
+1. `status`: the response status code as a number.
+2. `headers`: the response headers as a plain object or as a Fetch API’s Headers-like interface.
+
+Whatever it returns, it will be passed as the output of the `fetchWithAuth()` method.
+
+Your implementation will be called with a standard, ready-to-use [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object, which will contain any headers needed for authorization and DPoP usage (if enabled). Depending on your needs, you can use this object directly or treat it as a container with everything required to make the request your own way.
+
+##### Example with `axios`
+
+```js
+const { createFetcher } = useAuth0();
+
+const fetcher = createFetcher({
+  dpopNonceId: 'my_api_request',
+  fetch: (request) =>
+    // The `Request` object has everything you need to do a request in a
+    // different library. Make sure that your output meets the requirements
+    // about the `status` and `headers` properties.
+    axios.request({
+      url: request.url,
+      method: request.method,
+      data: request.body,
+      headers: Object.fromEntries(request.headers),
+      timeout: 2000,
+      // etc.
+    }),
+  },
+});
+
+const response = await fetcher.fetchWithAuth('https://api.example.com/foo', {
+  method: 'POST',
+  body: JSON.stringify({ name: 'John Doe' }),
+  headers: { 'user-agent': 'My Client 1.0' },
+});
+
+console.log(response.status);
+console.log(response.headers);
+console.log(response.data);
+```
+
+##### Timeouts with native `fetch()`
+
+The Fetch API doesn’t support passing a timeout value directly; instead, you’re expected to use an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal). For example:
+
+```js
+const { createFetcher } = useAuth0();
+
+const fetcher = createFetcher();
+
+await fetcher.fetchWithAuth('https://api.example.com/foo', {
+  signal: AbortSignal.timeout(2000)
+});
+```
+
+This works, but if you define your request parameters statically when your app starts and then call `fetchWithAuth()` after an indeterminate amount of time, you'll find that **the request will timeout immediately**. This happens because the `AbortSignal` **starts counting time as soon as it is created**.
+
+To work around this, you can pass a thin wrapper over the native `fetch()` so that a new `AbortSignal` is created each time a request is made:
+
+```js
+const { createFetcher } = useAuth0();
+
+const fetcher = createFetcher({
+  fetch: (request) => signal: AbortSignal.timeout(2000),
+});
+
+await fetcher.fetchWithAuth('https://api.example.com/foo');
+```
+
+##### Having a base URL
+
+If you need to make requests to different endpoints of the same API, passing a `baseUrl` to `createFetcher()` can be useful:
+
+```js
+const { createFetcher } = useAuth0();
+
+const fetcher = createFetcher({
+  baseUrl: 'https://api.example.com'
+});
+
+await fetcher.fetchWithAuth('/foo'); // => https://api.example.com/foo
+await fetcher.fetchWithAuth('/bar'); // => https://api.example.com/bar
+await fetcher.fetchWithAuth('/xyz'); // => https://api.example.com/xyz
+
+// If the passed URL is absolute, `baseUrl` will be ignored for convenience:
+await fetcher.fetchWithAuth('https://other-api.example.com/foo');
+```
+
+##### Passing an access token
+
+The `fetchWithAuth()` method assumes you’re using the SDK to get the access token for the request. This means that by default, it will always call `getAccessTokenSilently()` internally before making the request.
+
+However, if you already have an access token or need to pass specific parameters to `getAccessTokenSilently()`, you can override this behavior with a custom access token factory, like so:
+
+```js
+const { createFetcher, getAccessTokenSilently } = useAuth0();
+
+createFetcher({
+  getAccessToken: () =>
+    getAccessTokenSilently({
+      authorizationParams: {
+        audience: '<SOME_AUDIENCE>',
+        scope: '<SOME_SCOPE>'
+        // etc.
       }
-    })();
-  }, []);
-
-  if (!posts) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <ul>
-      {posts.map((post, index) => {
-        return <li key={index}>{post}</li>;
-      })}
-    </ul>
-  );
-};
-
-export default Posts;
+    })
+});
 ```

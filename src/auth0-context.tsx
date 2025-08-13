@@ -9,6 +9,7 @@ import {
   User,
   GetTokenSilentlyVerboseResponse,
   RedirectLoginOptions as SPARedirectLoginOptions,
+  type Auth0Client,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -150,11 +151,11 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
    *
    * @param nonce The nonce value.
-   * @param id    The identifier of a nonce: if absent, it will set the nonce
+   * @param id    The identifier of a nonce: if absent, it will get the nonce
    *              used for requests to Auth0. Otherwise, it will be used to
    *              select a specific non-Auth0 nonce.
    */
-  getDpopNonce(id?: string): Promise<string | undefined>;
+  getDpopNonce: Auth0Client['getDpopNonce'];
 
   /**
    * Gets the current DPoP nonce used for making requests to Auth0.
@@ -166,7 +167,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *              used for requests to Auth0. Otherwise, it will be used to
    *              select a specific non-Auth0 nonce.
    */
-  setDpopNonce(nonce: string, id?: string): Promise<void>;
+  setDpopNonce: Auth0Client['setDpopNonce'];
 
   /**
    * Returns a string to be used to demonstrate possession of the private
@@ -174,12 +175,9 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
    */
-  generateDpopProof(params: {
-    url: string;
-    method: string;
-    nonce?: string;
-    accessToken: string;
-  }): Promise<string>;
+  generateDpopProof: Auth0Client['generateDpopProof'];
+
+  createFetcher: Auth0Client['createFetcher'];
 }
 
 /**
@@ -206,6 +204,7 @@ export const initialContext = {
   getDpopNonce: stub,
   setDpopNonce: stub,
   generateDpopProof: stub,
+  createFetcher: stub,
 };
 
 /**
