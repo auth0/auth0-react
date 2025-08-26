@@ -158,7 +158,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
   getDpopNonce: Auth0Client['getDpopNonce'];
 
   /**
-   * Gets the current DPoP nonce used for making requests to Auth0.
+   * Sets the current DPoP nonce used for making requests to Auth0.
    *
    * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
    *
@@ -177,6 +177,14 @@ export interface Auth0ContextInterface<TUser extends User = User>
    */
   generateDpopProof: Auth0Client['generateDpopProof'];
 
+  /**
+   * Returns a new `Fetcher` class that will contain a `fetchWithAuth()` method.
+   * This is a drop-in replacement for the Fetch API's `fetch()` method, but will
+   * handle certain authentication logic for you, like building the proper auth
+   * headers or managing DPoP nonces and retries automatically.
+   * 
+   * Check the `EXAMPLES.md` file for a deeper look into this method.
+   */
   createFetcher: Auth0Client['createFetcher'];
 }
 
