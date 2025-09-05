@@ -9,6 +9,7 @@ import {
   User,
   GetTokenSilentlyVerboseResponse,
   RedirectLoginOptions as SPARedirectLoginOptions,
+  type Auth0Client,
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -140,6 +141,51 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * @param url The URL to that should be used to retrieve the `state` and `code` values. Defaults to `window.location.href` if not given.
    */
   handleRedirectCallback: (url?: string) => Promise<RedirectLoginResult>;
+
+  /**
+   * Returns the current DPoP nonce used for making requests to Auth0.
+   *
+   * It can return `undefined` because when starting fresh it will not
+   * be populated until after the first response from the server.
+   *
+   * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
+   *
+   * @param nonce The nonce value.
+   * @param id    The identifier of a nonce: if absent, it will get the nonce
+   *              used for requests to Auth0. Otherwise, it will be used to
+   *              select a specific non-Auth0 nonce.
+   */
+  getDpopNonce: Auth0Client['getDpopNonce'];
+
+  /**
+   * Sets the current DPoP nonce used for making requests to Auth0.
+   *
+   * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
+   *
+   * @param nonce The nonce value.
+   * @param id    The identifier of a nonce: if absent, it will set the nonce
+   *              used for requests to Auth0. Otherwise, it will be used to
+   *              select a specific non-Auth0 nonce.
+   */
+  setDpopNonce: Auth0Client['setDpopNonce'];
+
+  /**
+   * Returns a string to be used to demonstrate possession of the private
+   * key used to cryptographically bind access tokens with DPoP.
+   *
+   * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
+   */
+  generateDpopProof: Auth0Client['generateDpopProof'];
+
+  /**
+   * Returns a new `Fetcher` class that will contain a `fetchWithAuth()` method.
+   * This is a drop-in replacement for the Fetch API's `fetch()` method, but will
+   * handle certain authentication logic for you, like building the proper auth
+   * headers or managing DPoP nonces and retries automatically.
+   * 
+   * Check the `EXAMPLES.md` file for a deeper look into this method.
+   */
+  createFetcher: Auth0Client['createFetcher'];
 }
 
 /**
@@ -163,6 +209,10 @@ export const initialContext = {
   loginWithPopup: stub,
   logout: stub,
   handleRedirectCallback: stub,
+  getDpopNonce: stub,
+  setDpopNonce: stub,
+  generateDpopProof: stub,
+  createFetcher: stub,
 };
 
 /**
