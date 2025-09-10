@@ -10,6 +10,10 @@ const isAuthenticated = jest.fn(() => false);
 const loginWithPopup = jest.fn();
 const loginWithRedirect = jest.fn();
 const logout = jest.fn();
+const getDpopNonce = jest.fn();
+const setDpopNonce = jest.fn();
+const generateDpopProof = jest.fn();
+const createFetcher = jest.fn();
 
 export const Auth0Client = jest.fn(() => {
   return {
@@ -25,5 +29,9 @@ export const Auth0Client = jest.fn(() => {
     loginWithPopup,
     loginWithRedirect,
     logout,
+    getDpopNonce,
+    setDpopNonce,
+    generateDpopProof,
+    createFetcher,
   };
 });
