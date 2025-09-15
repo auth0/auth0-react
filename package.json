@@ -95,6 +95,6 @@
     "react-dom": "^16.11.0 || ^17 || ^18 || ^19"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^2.2.0"
+    "@auth0/auth0-spa-js": "^2.4.1"
   }
 }

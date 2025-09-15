@@ -36,6 +36,8 @@ export {
   PopupTimeoutError,
   AuthenticationError,
   MissingRefreshTokenError,
-  GenericError
+  GenericError,
+  UseDpopNonceError,
+  type FetcherConfig
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
