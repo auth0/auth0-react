@@ -1,5 +1,20 @@
 # Change Log
 
+## [v2.5.0](https://github.com/auth0/auth0-react/tree/v2.5.0) (2025-09-17)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.4.0...v2.5.0)
+
+**Added**
+- Add support for DPoP [\#869](https://github.com/auth0/auth0-react/pull/869) ([martinml](https://github.com/martinml))
+
+## [v2.4.0](https://github.com/auth0/auth0-react/tree/v2.4.0) (2025-07-22)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.3.0...v2.4.0)
+
+**Added**
+- Bump @auth0/auth0-spa-js from 2.2.0 to 2.3.0 [\#858](https://github.com/auth0/auth0-react/pull/858) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+**Fixed**
+- Enhance type safety in Auth0Provider and reducer by introducing generic user type [\#842](https://github.com/auth0/auth0-react/pull/842) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+
 ## [v2.3.0](https://github.com/auth0/auth0-react/tree/v2.3.0) (2025-01-21)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.2.4...v2.3.0)
 
