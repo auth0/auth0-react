@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.5.0](https://github.com/auth0/auth0-react/tree/v2.5.0) (2025-09-17)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.4.0...v2.5.0)
+
+**Added**
+- Add support for DPoP [\#869](https://github.com/auth0/auth0-react/pull/869) ([martinml](https://github.com/martinml))
+
 ## [v2.4.0](https://github.com/auth0/auth0-react/tree/v2.4.0) (2025-07-22)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.3.0...v2.4.0)
 
