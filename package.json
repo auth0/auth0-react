@@ -1,7 +1,7 @@
 {
   "author": "Auth0",
   "name": "@auth0/auth0-react",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Auth0 SDK for React Single Page Applications (SPA)",
   "keywords": [
     "auth0",
@@ -55,8 +55,8 @@
     "@rollup/plugin-replace": "^5.0.1",
     "@rollup/plugin-terser": "^0.4.3",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "6.6.3",
-    "@testing-library/react": "16.1.0",
+    "@testing-library/jest-dom": "6.8.0",
+    "@testing-library/react": "16.3.0",
     "@types/jest": "^29.5.14",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
@@ -95,6 +95,6 @@
     "react-dom": "^16.11.0 || ^17 || ^18 || ^19"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^2.2.0"
+    "@auth0/auth0-spa-js": "^2.4.1"
   }
 }

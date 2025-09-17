@@ -522,6 +522,7 @@ describe('Auth0Provider', () => {
       access_token: '123',
       id_token: '456',
       expires_in: 2,
+      token_type: 'Bearer',
     };
     (clientMock.getTokenSilently as jest.Mock).mockResolvedValue(tokenResponse);
     const wrapper = createWrapper();
@@ -938,6 +939,54 @@ describe('Auth0Provider', () => {
         redirectUri: '/',
       },
     });
+  });
+
+  it('should provide a getDpopNonce method', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+    expect(result.current.getDpopNonce).toBeInstanceOf(Function);
+    await act(() => result.current.getDpopNonce());
+    expect(clientMock.getDpopNonce).toHaveBeenCalled();
+  });
+
+  it('should provide a setDpopNonce method', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+    const nonce = 'n-123456';
+    const id = 'my-nonce';
+
+    expect(result.current.setDpopNonce).toBeInstanceOf(Function);
+    await act(() => result.current.setDpopNonce(nonce, id));
+    expect(clientMock.setDpopNonce).toHaveBeenCalledWith(nonce, id);
+  });
+
+  it('should provide a generateDpopProof method', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+    const params = {
+      url: 'https://api.example.com/foo',
+      method: 'GET',
+      nonce: 'n-123456',
+      accessToken: 'at-123456',
+    };
+
+    expect(result.current.generateDpopProof).toBeInstanceOf(Function);
+    await act(() => result.current.generateDpopProof(params));
+    expect(clientMock.generateDpopProof).toHaveBeenCalledWith(params);
+  });
+
+  it('should provide a createFetcher method', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+    const config = { dpopNonceId: 'my_dpop_nonce_test_id' };
+
+    expect(result.current.createFetcher).toBeInstanceOf(Function);
+    await act(() => result.current.createFetcher(config));
+    expect(clientMock.createFetcher).toHaveBeenCalledWith(config);
   });
 
   it('should not update context value after rerender with no state change', async () => {
