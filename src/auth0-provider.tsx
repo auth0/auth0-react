@@ -4,7 +4,6 @@ import React, {
   useMemo,
   useReducer,
   useRef,
-  useState,
 } from 'react';
 import {
   Auth0Client,
@@ -140,8 +139,15 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     context = Auth0Context,
     ...clientOpts
   } = opts;
-  const [client] = useState(
-    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
+  const client = useMemo(
+    () => new Auth0Client(toAuth0ClientOptions(clientOpts)),
+    [
+      clientOpts.domain,
+      clientOpts.clientId,
+      clientOpts.authorizationParams?.audience,
+      clientOpts.authorizationParams?.scope,
+      clientOpts.authorizationParams?.redirect_uri,
+    ]
   );
   const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
   const didInitialise = useRef(false);
