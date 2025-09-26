@@ -1087,3 +1087,95 @@ describe('Auth0Provider', () => {
     expect(screen.queryByText('__main_user__')).not.toBeInTheDocument();
   });
 });
+
+describe('Auth0Provider - useMemo dependency behavior', () => {
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    window.history.pushState({}, document.title, '/');
+  });
+
+  const TestComponent = ({ 
+    clientId = '__test_client_id__', 
+    audience = '__test_audience__',
+    scope = 'read:profile openid'
+  }) => (
+    <Auth0Provider 
+      domain="__test_domain__" 
+      clientId={clientId}
+      authorizationParams={{
+        audience,
+        scope
+      }}
+    >
+      <div>test</div>
+    </Auth0Provider>
+  );
+
+  it('should recreate Auth0Client when clientId changes', async () => {
+    const { rerender } = render(<TestComponent />);
+
+    // Initial render
+    expect(Auth0Client).toHaveBeenCalledTimes(1);
+    expect(Auth0Client).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        clientId: '__test_client_id__',
+        authorizationParams: {
+          audience: '__test_audience__',
+          scope: 'read:profile openid'
+        }
+      })
+    );
+
+    // Change clientId - should recreate client
+    rerender(<TestComponent clientId="__new_client_id__" />);
+    expect(Auth0Client).toHaveBeenCalledTimes(2);
+    expect(Auth0Client).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        clientId: '__new_client_id__',
+        authorizationParams: {
+          audience: '__test_audience__',
+          scope: 'read:profile openid'
+        }
+      })
+    );
+  });
+
+  it('should recreate Auth0Client when audience changes', async () => {
+    const { rerender } = render(<TestComponent />);
+
+    expect(Auth0Client).toHaveBeenCalledTimes(1);
+
+    // Change audience - should recreate client
+    rerender(<TestComponent audience="__new_audience__" />);
+    expect(Auth0Client).toHaveBeenCalledTimes(2);
+    expect(Auth0Client).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        clientId: '__test_client_id__',
+        authorizationParams: {
+          audience: '__new_audience__',
+          scope: 'read:profile openid'
+        }
+      })
+    );
+  });
+
+  it('should recreate Auth0Client when scope changes', async () => {
+    const { rerender } = render(<TestComponent />);
+
+    expect(Auth0Client).toHaveBeenCalledTimes(1);
+
+    // Change scope with multiple permissions - should recreate client
+    rerender(<TestComponent scope="read:users write:users admin:all" />);
+    expect(Auth0Client).toHaveBeenCalledTimes(2);
+    expect(Auth0Client).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        clientId: '__test_client_id__',
+        authorizationParams: {
+          audience: '__test_audience__',
+          scope: 'read:users write:users admin:all'
+        }
+      })
+    );
+  });
+});
