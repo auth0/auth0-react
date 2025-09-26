@@ -1095,13 +1095,19 @@ describe('Auth0Provider - useMemo dependency behavior', () => {
     window.history.pushState({}, document.title, '/');
   });
 
-  const TestComponent = ({ 
-    clientId = '__test_client_id__', 
+  interface TestComponentProps {
+    clientId?: string;
+    audience?: string;
+    scope?: string;
+  }
+
+  const TestComponent: React.FC<TestComponentProps> = ({
+    clientId = '__test_client_id__',
     audience = '__test_audience__',
     scope = 'read:profile openid'
   }) => (
-    <Auth0Provider 
-      domain="__test_domain__" 
+    <Auth0Provider
+      domain="__test_domain__"
       clientId={clientId}
       authorizationParams={{
         audience,
