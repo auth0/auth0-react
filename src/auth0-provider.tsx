@@ -147,9 +147,6 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       clientOpts.authorizationParams?.audience,
       clientOpts.authorizationParams?.scope,
       clientOpts.authorizationParams?.redirect_uri,
-      clientOpts.cacheLocation,
-      clientOpts.useRefreshTokens,
-      clientOpts.useCookiesForTransactions,
     ]
   );
   const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
