@@ -9,6 +9,7 @@
 - [Use with Auth0 organizations](#use-with-auth0-organizations)
 - [Protecting a route with a claims check](#protecting-a-route-with-a-claims-check)
 - [Device-bound tokens with DPoP](#device-bound-tokens-with-dpop)
+- [Using Multi Resource Refresh Tokens]()
 
 ## Use with a Class Component
 
@@ -571,3 +572,28 @@ createFetcher({
     })
 });
 ```
+
+## Using Multi-Resource Refresh Tokens
+
+With **Multi-Resource Refresh Tokens** -or simply **MRRT**- now a refresh token from one API, can be used to request a new access token from another different API. Read more about how MRRT works for browser-based applications to help you decide, wether you need or not, to use this functionality.
+
+- [Multi-Resource Refresh Token](https://auth0.com/docs/secure/tokens/refresh-tokens/multi-resource-refresh-token)
+
+## Enabling MRRT
+
+MRRT is disabled by default. To enable it, set the `useMrrt` option to `true` when invoking the provider. You will need to set `useRefreshTokens` and `useRefreshTokensFallback` to `true` as well For example:
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  useRefreshTokens={true}
+  useRefreshTokensFallback={true}
+  useMrrt={true} // 👈
+  authorizationParams={{ redirect_uri: window.location.origin }}
+>
+```
+
+> [!IMPORTANT]
+> In order MRRT to work, it needs a previous configuration setting the refresh token policies.
+> Visit [configure and implement MRRT.](https://auth0.com/docs/secure/tokens/refresh-tokens/multi-resource-refresh-token/configure-and-implement-multi-resource-refresh-token)
