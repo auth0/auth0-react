@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.6.0](https://github.com/auth0/auth0-react/tree/v2.6.0) (2025-10-06)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.5.0...v2.6.0)
+
+**Added**
+- Implement MRRT [\#906](https://github.com/auth0/auth0-react/pull/906) ([aridibag](https://github.com/aridibag))
+
 ## [v2.5.0](https://github.com/auth0/auth0-react/tree/v2.5.0) (2025-09-17)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.4.0...v2.5.0)
 
