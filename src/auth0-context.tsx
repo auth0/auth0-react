@@ -10,6 +10,8 @@ import {
   GetTokenSilentlyVerboseResponse,
   RedirectLoginOptions as SPARedirectLoginOptions,
   type Auth0Client,
+  RedirectConnectAccountOptions,
+  ConnectAccountRedirectResult
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -122,6 +124,28 @@ export interface Auth0ContextInterface<TUser extends User = User>
 
   /**
    * ```js
+   * await connectAccountWithRedirect({
+   *   connection: 'google-oauth2',
+   *   authorizationParams: {
+   *     access_type: 'offline',
+   *     scope: 'openid profile email https://www.googleapis.com/auth/drive.readonly',
+   *   }
+   * });
+   * ```
+   *
+   * Redirects to the `/connect` URL using the parameters
+   * provided as arguments. This then redirects to the connection's login page
+   * where the user can authenticate and authorize the account to be connected.
+   *
+   * If connecting the account is successful `onRedirectCallback` will be called
+   * with the details of the connected account.
+   */
+  connectAccountWithRedirect: (
+    options: RedirectConnectAccountOptions
+  ) => Promise<void>;
+
+  /**
+   * ```js
    * auth0.logout({ logoutParams: { returnTo: window.location.origin } });
    * ```
    *
@@ -140,7 +164,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * @param url The URL to that should be used to retrieve the `state` and `code` values. Defaults to `window.location.href` if not given.
    */
-  handleRedirectCallback: (url?: string) => Promise<RedirectLoginResult>;
+  handleRedirectCallback: (url?: string) => Promise<RedirectLoginResult | ConnectAccountRedirectResult>;
 
   /**
    * Returns the current DPoP nonce used for making requests to Auth0.
@@ -207,6 +231,7 @@ export const initialContext = {
   getIdTokenClaims: stub,
   loginWithRedirect: stub,
   loginWithPopup: stub,
+  connectAccountWithRedirect: stub,
   logout: stub,
   handleRedirectCallback: stub,
   getDpopNonce: stub,

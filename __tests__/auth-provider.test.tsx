@@ -1,6 +1,7 @@
 import {
-  Auth0Client,
+  Auth0Client, ConnectAccountRedirectResult,
   GetTokenSilentlyVerboseResponse,
+  ResponseType
 } from '@auth0/auth0-spa-js';
 import '@testing-library/jest-dom';
 import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
@@ -192,6 +193,7 @@ describe('Auth0Provider', () => {
     );
     clientMock.handleRedirectCallback.mockResolvedValueOnce({
       appState: undefined,
+      response_type: ResponseType.Code
     });
     const wrapper = createWrapper();
     renderHook(() => useContext(Auth0Context), {
@@ -214,6 +216,7 @@ describe('Auth0Provider', () => {
     );
     clientMock.handleRedirectCallback.mockResolvedValueOnce({
       appState: { returnTo: '/foo' },
+      response_type: ResponseType.Code
     });
     const wrapper = createWrapper();
     renderHook(() => useContext(Auth0Context), {
@@ -257,6 +260,7 @@ describe('Auth0Provider', () => {
     clientMock.getUser.mockResolvedValue(user);
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: { foo: 'bar' },
+      response_type: ResponseType.Code
     });
     const onRedirectCallback = jest.fn();
     const wrapper = createWrapper({
@@ -266,7 +270,43 @@ describe('Auth0Provider', () => {
       wrapper,
     });
     await waitFor(() => {
-      expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar' }, user);
+      expect(onRedirectCallback).toHaveBeenCalledWith({ foo: 'bar', response_type: ResponseType.Code }, user);
+    });
+  });
+
+  it('should handle connect account redirect and call a custom handler', async () => {
+    window.history.pushState(
+      {},
+      document.title,
+      '/?connect_code=__test_code__&state=__test_state__'
+    );
+    const user = { name: '__test_user__' };
+    const connectedAccount = {
+      id: 'abc123',
+      connection: 'google-oauth2',
+      access_type: 'offline' as ConnectAccountRedirectResult['access_type'],
+      created_at: '2024-01-01T00:00:00.000Z',
+      expires_at: '2024-01-02T00:00:00.000Z',
+    }
+    clientMock.getUser.mockResolvedValue(user);
+    clientMock.handleRedirectCallback.mockResolvedValue({
+      appState: { foo: 'bar' },
+      response_type: ResponseType.ConnectCode,
+      ...connectedAccount,
+    });
+    const onRedirectCallback = jest.fn();
+    const wrapper = createWrapper({
+      onRedirectCallback,
+    });
+    renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(onRedirectCallback).toHaveBeenCalledWith({
+        foo: 'bar',
+        response_type: ResponseType.ConnectCode,
+        connectedAccount
+      }, user);
     });
   });
 
@@ -410,6 +450,35 @@ describe('Auth0Provider', () => {
       },
     });
     expect(warn).toHaveBeenCalled();
+  });
+
+  it('should provide a connectAccountWithRedirect method', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.connectAccountWithRedirect).toBeInstanceOf(Function);
+    });
+    await result.current.connectAccountWithRedirect({
+      connection: 'google-apps'
+    });
+    expect(clientMock.connectAccountWithRedirect).toHaveBeenCalledWith({
+      connection: 'google-apps',
+    });
+  });
+
+  it('should handle errors from connectAccountWithRedirect', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    clientMock.connectAccountWithRedirect.mockRejectedValue(new Error('__test_error__'));
+    await act(async () => {
+      await expect(result.current.connectAccountWithRedirect).rejects.toThrow('__test_error__');
+    });
   });
 
   it('should provide a logout method', async () => {
@@ -814,6 +883,7 @@ describe('Auth0Provider', () => {
   it('should provide a handleRedirectCallback method', async () => {
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: { redirectUri: '/' },
+      response_type: ResponseType.Code
     });
     const wrapper = createWrapper();
     const { result } = renderHook(
@@ -827,6 +897,7 @@ describe('Auth0Provider', () => {
         appState: {
           redirectUri: '/',
         },
+        response_type: ResponseType.Code
       });
     });
     expect(clientMock.handleRedirectCallback).toHaveBeenCalled();
@@ -926,6 +997,7 @@ describe('Auth0Provider', () => {
       appState: {
         redirectUri: '/',
       },
+      response_type: ResponseType.Code
     });
     clientMock.getUser.mockResolvedValue(undefined);
     const wrapper = createWrapper();
@@ -938,6 +1010,7 @@ describe('Auth0Provider', () => {
       appState: {
         redirectUri: '/',
       },
+      response_type: ResponseType.Code
     });
   });
 
@@ -1012,6 +1085,7 @@ describe('Auth0Provider', () => {
     );
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: undefined,
+      response_type: ResponseType.Code
     });
     render(
       <StrictMode>
