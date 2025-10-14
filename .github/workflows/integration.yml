@@ -58,7 +58,9 @@ jobs:
         run: npm run install:examples
 
       - name: Run integration test (CRA)
-        run: npm run test:cra
+        run: npm run test:cra -- --browser chrome
+        env:
+          CI: true
 
       - name: Upload cypress screeshots (CRA)
         if: failure()
