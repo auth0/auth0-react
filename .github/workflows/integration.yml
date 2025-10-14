@@ -60,6 +60,15 @@ jobs:
       - name: Run integration test (CRA)
         run: npm run test:cra
 
+      - name: Upload cypress screeshots (CRA)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-cra-${{ github.run_id }}
+          path: cypress/screenshots/**
+          retention-days: 30
+          compression-level: 6
+
       - name: Run integration test (NextJS)
         run: npm run test:nextjs
 
