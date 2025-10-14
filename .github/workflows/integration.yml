@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots-cra-${{ github.run_id }}
-          path: examples/cra-react-router/cypress/screenshots/
+          path: cypress/screenshots/**
           retention-days: 30
           compression-level: 6
 
