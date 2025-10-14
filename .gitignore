@@ -109,5 +109,3 @@ test-results
 cypress/screenshots
 cypress/videos
 .npmrc
-
-!auth0-auth0-spa-js-2.6.0-connected-accounts.tgz
