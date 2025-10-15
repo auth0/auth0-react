@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.7.0](https://github.com/auth0/auth0-react/tree/v2.7.0) (2025-10-15)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.6.0...v2.7.0)
+
+**Added**
+- Add support for connected accounts [\#912](https://github.com/auth0/auth0-react/pull/912) ([adamjmcgrath](https://github.com/adamjmcgrath))
+
 ## [v2.6.0](https://github.com/auth0/auth0-react/tree/v2.6.0) (2025-10-06)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.5.0...v2.6.0)
 
