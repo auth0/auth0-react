@@ -57,12 +57,10 @@ jobs:
       - name: Install examples
         run: npm run install:examples
 
-      - name: Start CRA app in background
+      - name: Start servers
         run: |
-          npm run start:cra > app.log 2>&1 &
-          sleep 10
-          echo "=== Dumping app.log ==="
-          tail -n 50 app.log
+          npm run start:api > api.log 2>&1 &
+          npm run start:cra > cra.log 2>&1 &
 
       - name: Wait for app to be reachable
         run: |
@@ -77,8 +75,7 @@ jobs:
           done
 
       - name: Run integration test (CRA)
-        run: |
-          npx start-server-and-test start:api 3001 start:cra http-get://127.0.0.1:3000 "npm run cypress:run -- --browser chrome --headless"
+        run: npm run cypress:run -- --browser chrome --headless
         env:
           CI: true
 
