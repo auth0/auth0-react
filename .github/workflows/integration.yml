@@ -57,6 +57,13 @@ jobs:
       - name: Install examples
         run: npm run install:examples
 
+      - name: Start CRA app in background
+        run: |
+          npm run start:cra > app.log 2>&1 &
+          sleep 10
+          echo "=== Dumping app.log ==="
+          tail -n 50 app.log
+
       - name: Wait for app to be reachable
         run: |
           echo "Waiting for CRA app to respond on port 3000..."
