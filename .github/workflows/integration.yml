@@ -57,6 +57,18 @@ jobs:
       - name: Install examples
         run: npm run install:examples
 
+      - name: Wait for app to be reachable
+        run: |
+          echo "Waiting for CRA app to respond on port 3000..."
+          for i in {1..20}; do
+            if curl -s http://127.0.0.1:3000 > /dev/null; then
+              echo "App is up!"
+              break
+            fi
+            echo "Still waiting... ($i)"
+            sleep 3
+          done
+
       - name: Run integration test (CRA)
         run: |
           npx start-server-and-test start:api 3001 start:cra http-get://127.0.0.1:3000 "npm run cypress:run -- --browser chrome --headless"
