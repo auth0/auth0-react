@@ -59,7 +59,7 @@ jobs:
 
       - name: Run integration test (CRA)
         run: |
-          npx start-server-and-test start:api 3001 start:cra http-get://127.0.0.1:3000 "npm run cypress:run -- --browser chrome --headless --config baseUrl=http://localhost:3000"
+          npx start-server-and-test start:api 3001 start:cra http-get://127.0.0.1:3000 "npm run cypress:run -- --browser chrome --headless --config baseUrl=http://127.0.0.1:3000" --timeout 6000
         env:
           CI: true
 
