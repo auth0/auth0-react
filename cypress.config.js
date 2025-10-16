@@ -17,6 +17,7 @@ module.exports = defineConfig({
           launchOptions.args.push('--no-sandbox')
           launchOptions.args.push('--disable-gpu')
           launchOptions.args.push('--disable-dev-shm-usage')
+          launchOptions.args.push('--disable-software-rasterizer')
         }
         return launchOptions
       })
