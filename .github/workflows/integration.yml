@@ -28,19 +28,19 @@ jobs:
 
     env:
       SKIP_PREFLIGHT_CHECK: true
-      CYPRESS_USER_EMAIL: ${{secrets.CYPRESS_USER_EMAIL}}
-      CYPRESS_USER_PASSWORD: ${{secrets.CYPRESS_USER_PASSWORD}}
-      REACT_APP_DOMAIN: ${{secrets.TEST_DOMAIN}}
-      REACT_APP_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
-      REACT_APP_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
-      GATSBY_DOMAIN: ${{secrets.TEST_DOMAIN}}
-      GATSBY_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
-      GATSBY_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
-      NEXT_PUBLIC_DOMAIN: ${{secrets.TEST_DOMAIN}}
-      NEXT_PUBLIC_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
-      NEXT_PUBLIC_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
-      DOMAIN: ${{secrets.TEST_DOMAIN}}
-      AUDIENCE: ${{secrets.TEST_AUDIENCE}}
+      CYPRESS_USER_EMAIL: yogesh.chaudhary@okta.com
+      CYPRESS_USER_PASSWORD: '!Okta123'
+      REACT_APP_DOMAIN: yogesh.jp.auth0.com
+      REACT_APP_CLIENT_ID: H8LjiM9RmBmC7Xmo1bL4u3VDxuCwvOOP
+      REACT_APP_AUDIENCE: https://api.example.com/users
+      GATSBY_DOMAIN: yogesh.jp.auth0.com
+      GATSBY_CLIENT_ID: H8LjiM9RmBmC7Xmo1bL4u3VDxuCwvOOP
+      GATSBY_AUDIENCE: https://api.example.com/users
+      NEXT_PUBLIC_DOMAIN: yogesh.jp.auth0.com
+      NEXT_PUBLIC_CLIENT_ID: H8LjiM9RmBmC7Xmo1bL4u3VDxuCwvOOP
+      NEXT_PUBLIC_AUDIENCE: https://api.example.com/users
+      DOMAIN: yogesh.jp.auth0.com
+      AUDIENCE: https://api.example.com/users
 
     steps:
       - name: Checkout code
