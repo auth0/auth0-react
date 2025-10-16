@@ -76,7 +76,7 @@ jobs:
 
       - name: Run integration test (CRA)
         run: |
-          npm wait-on http://127.0.0.1:3000
+          npx wait-on http://127.0.0.1:3000
           npx cypress run --spec 'cypress/e2e/smoke.cy.ts' --browser chrome --headless
         env:
           CI: true
