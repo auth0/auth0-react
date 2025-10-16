@@ -75,7 +75,10 @@ jobs:
           done
 
       - name: Run integration test (CRA)
-        run: npm run cypress:run -- --browser chrome --headless
+        run: |
+          npx cypress run --spec 'cypress/e2e/smoke.cy.ts' \
+            --browser chrome --headless \
+            --no-sandbox --disable-gpu --disable-dev-shm-usage
         env:
           CI: true
 
