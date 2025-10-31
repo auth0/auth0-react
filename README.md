@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@auth0/auth0-react.svg?style=flat)](https://www.npmjs.com/package/@auth0/auth0-react)
 [![codecov](https://img.shields.io/codecov/c/github/auth0/auth0-react/main.svg?style=flat)](https://codecov.io/gh/auth0/auth0-react)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/auth0/auth0-react)
 ![Downloads](https://img.shields.io/npm/dw/@auth0/auth0-react)
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=main&style=flat)](https://circleci.com/gh/auth0/auth0-react)

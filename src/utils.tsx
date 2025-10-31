@@ -1,6 +1,6 @@
 import { OAuthError } from './errors';
 
-const CODE_RE = /[?&]code=[^&]+/;
+const CODE_RE = /[?&](?:connect_)?code=[^&]+/;
 const STATE_RE = /[?&]state=[^&]+/;
 const ERROR_RE = /[?&]error=[^&]+/;
 

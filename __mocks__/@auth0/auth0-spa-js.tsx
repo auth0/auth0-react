@@ -1,3 +1,5 @@
+const actual = jest.requireActual('@auth0/auth0-spa-js');
+
 const handleRedirectCallback = jest.fn(() => ({ appState: {} }));
 const buildLogoutUrl = jest.fn();
 const buildAuthorizeUrl = jest.fn();
@@ -9,6 +11,7 @@ const getIdTokenClaims = jest.fn();
 const isAuthenticated = jest.fn(() => false);
 const loginWithPopup = jest.fn();
 const loginWithRedirect = jest.fn();
+const connectAccountWithRedirect = jest.fn();
 const logout = jest.fn();
 const getDpopNonce = jest.fn();
 const setDpopNonce = jest.fn();
@@ -28,6 +31,7 @@ export const Auth0Client = jest.fn(() => {
     isAuthenticated,
     loginWithPopup,
     loginWithRedirect,
+    connectAccountWithRedirect,
     logout,
     getDpopNonce,
     setDpopNonce,
@@ -35,3 +39,5 @@ export const Auth0Client = jest.fn(() => {
     createFetcher,
   };
 });
+
+export const ResponseType = actual.ResponseType;

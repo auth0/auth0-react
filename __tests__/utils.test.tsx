@@ -42,6 +42,15 @@ describe('utils hasAuthParams', () => {
     ].forEach((search) => expect(hasAuthParams(search)).toBeTruthy());
   });
 
+  it('should recognise the connect_code and state param', async () => {
+    [
+      '?connect_code=1&state=2',
+      '?foo=1&state=2&connect_code=3',
+      '?connect_code=1&foo=2&state=3',
+      '?state=1&connect_code=2&foo=3',
+    ].forEach((search) => expect(hasAuthParams(search)).toBeTruthy());
+  });
+
   it('should recognise the error and state param', async () => {
     [
       '?error=1&state=2',

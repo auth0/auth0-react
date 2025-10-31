@@ -7,8 +7,8 @@
     "@auth0/auth0-react": "file:../..",
     "bootstrap": "^5.0.0",
     "gatsby": "^5.0.1",
-    "react": "file:../../node_modules/react",
-    "react-dom": "file:../../node_modules/react-dom"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "prettier": "2.0.5",

@@ -42,6 +42,9 @@ const config = {
     webMessageResponseMode: {
       enabled: true,
     },
+    dPoP: {
+      enabled: true,
+    }
   },
   rotateRefreshToken: true,
   interactions: {

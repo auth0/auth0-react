@@ -15,6 +15,9 @@ import {
   RedirectLoginResult,
   GetTokenSilentlyOptions,
   User,
+  RedirectConnectAccountOptions,
+  ConnectAccountRedirectResult,
+  ResponseType
 } from '@auth0/auth0-spa-js';
 import Auth0Context, {
   Auth0ContextInterface,
@@ -31,10 +34,18 @@ import { reducer } from './reducer';
 import { initialAuthState, type AuthState } from './auth-state';
 
 /**
- * The state of the application before the user was redirected to the login page.
+ * The account that has been connected during the connect flow.
+ */
+export type ConnectedAccount = Omit<ConnectAccountRedirectResult, 'appState' | 'response_type'>;
+
+/**
+ * The state of the application before the user was redirected to the login page
+ * and any account that the user may have connected to.
  */
 export type AppState = {
   returnTo?: string;
+  connectedAccount?: ConnectedAccount;
+  response_type?: ResponseType;
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
@@ -116,7 +127,7 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
   window.history.replaceState(
     {},
     document.title,
-    appState?.returnTo ?? window.location.pathname
+    appState!.returnTo ?? window.location.pathname
   );
 };
 
@@ -160,8 +171,12 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       try {
         let user: TUser | undefined;
         if (hasAuthParams() && !skipRedirectCallback) {
-          const { appState } = await client.handleRedirectCallback();
+          const { appState = {}, response_type, ...result } = await client.handleRedirectCallback();
           user = await client.getUser();
+          appState.response_type = response_type;
+          if (response_type === ResponseType.ConnectCode) {
+            appState.connectedAccount = result as ConnectedAccount;
+          }
           onRedirectCallback(appState, user);
         } else {
           await client.checkSession();
@@ -251,13 +266,21 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const connectAccountWithRedirect = useCallback(
+    (options: RedirectConnectAccountOptions) =>
+      client.connectAccountWithRedirect(options),
+    [client]
+  );
+
   const getIdTokenClaims = useCallback(
     () => client.getIdTokenClaims(),
     [client]
   );
 
   const handleRedirectCallback = useCallback(
-    async (url?: string): Promise<RedirectLoginResult> => {
+    async (
+      url?: string
+    ): Promise<RedirectLoginResult | ConnectAccountRedirectResult> => {
       try {
         return await client.handleRedirectCallback(url);
       } catch (error) {
@@ -300,6 +323,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       getIdTokenClaims,
       loginWithRedirect,
       loginWithPopup,
+      connectAccountWithRedirect,
       logout,
       handleRedirectCallback,
       getDpopNonce,
@@ -314,6 +338,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     getIdTokenClaims,
     loginWithRedirect,
     loginWithPopup,
+    connectAccountWithRedirect,
     logout,
     handleRedirectCallback,
     getDpopNonce,
