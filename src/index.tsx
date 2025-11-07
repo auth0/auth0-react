@@ -43,6 +43,8 @@ export {
   RedirectConnectAccountOptions,
   ConnectAccountRedirectResult,
   ResponseType,
-  ConnectError
+  ConnectError,
+  CustomTokenExchangeOptions,
+  TokenEndpointResponse
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';

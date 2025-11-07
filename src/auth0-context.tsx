@@ -11,7 +11,9 @@ import {
   RedirectLoginOptions as SPARedirectLoginOptions,
   type Auth0Client,
   RedirectConnectAccountOptions,
-  ConnectAccountRedirectResult
+  ConnectAccountRedirectResult,
+  CustomTokenExchangeOptions,
+  TokenEndpointResponse
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -89,6 +91,35 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * Returns all claims from the id_token if available.
    */
   getIdTokenClaims: () => Promise<IdToken | undefined>;
+
+  /**
+   * ```js
+   * const tokenResponse = await exchangeToken({
+   *   subject_token: 'external_token_value',
+   *   subject_token_type: 'urn:acme:legacy-system-token',
+   *   scope: 'openid profile email'
+   * });
+   * ```
+   *
+   * Exchanges an external subject token for Auth0 tokens via a token exchange request.
+   *
+   * This method implements the token exchange grant as specified in RFC 8693.
+   * It performs a token exchange by sending a request to the `/oauth/token` endpoint
+   * with the external token and returns Auth0 tokens (access token, ID token, etc.).
+   *
+   * The request includes the following parameters:
+   * - `grant_type`: Hard-coded to "urn:ietf:params:oauth:grant-type:token-exchange"
+   * - `subject_token`: The external token to be exchanged
+   * - `subject_token_type`: A namespaced URI identifying the token type (must be under your organization's control)
+   * - `audience`: The target audience (falls back to the SDK's default audience if not provided)
+   * - `scope`: Space-separated list of scopes (merged with the SDK's default scopes)
+   *
+   * @param options - The options required to perform the token exchange
+   * @returns A promise that resolves to the token endpoint response containing Auth0 tokens
+   */
+  exchangeToken: (
+    options: CustomTokenExchangeOptions
+  ) => Promise<TokenEndpointResponse>;
 
   /**
    * ```js
@@ -229,6 +260,7 @@ export const initialContext = {
   getAccessTokenSilently: stub,
   getAccessTokenWithPopup: stub,
   getIdTokenClaims: stub,
+  exchangeToken: stub,
   loginWithRedirect: stub,
   loginWithPopup: stub,
   connectAccountWithRedirect: stub,

@@ -880,6 +880,101 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should provide an exchangeToken method', async () => {
+    const tokenResponse = {
+      access_token: '__test_access_token__',
+      id_token: '__test_id_token__',
+      token_type: 'Bearer',
+      expires_in: 86400,
+      scope: 'openid profile email',
+    };
+    clientMock.exchangeToken.mockResolvedValue(tokenResponse);
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.exchangeToken).toBeInstanceOf(Function);
+    });
+    let response;
+    await act(async () => {
+      response = await result.current.exchangeToken({
+        subject_token: '__test_token__',
+        subject_token_type: 'urn:test:token-type',
+        scope: 'openid profile email',
+      });
+    });
+    expect(clientMock.exchangeToken).toHaveBeenCalledWith({
+      subject_token: '__test_token__',
+      subject_token_type: 'urn:test:token-type',
+      scope: 'openid profile email',
+    });
+    expect(response).toStrictEqual(tokenResponse);
+  });
+
+  it('should handle errors when exchanging tokens', async () => {
+    clientMock.exchangeToken.mockRejectedValue(new Error('__test_error__'));
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.exchangeToken).toBeInstanceOf(Function);
+    });
+    await act(async () => {
+      await expect(
+        result.current.exchangeToken({
+          subject_token: '__test_token__',
+          subject_token_type: 'urn:test:token-type',
+        })
+      ).rejects.toThrow('__test_error__');
+    });
+    expect(clientMock.exchangeToken).toHaveBeenCalled();
+  });
+
+  it('should update auth state after successful token exchange', async () => {
+    const user = { name: '__test_user__' };
+    const tokenResponse = {
+      access_token: '__test_access_token__',
+      id_token: '__test_id_token__',
+      token_type: 'Bearer',
+      expires_in: 86400,
+    };
+    clientMock.exchangeToken.mockResolvedValue(tokenResponse);
+    clientMock.getUser.mockResolvedValue(user);
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.exchangeToken).toBeInstanceOf(Function);
+    });
+    await act(async () => {
+      await result.current.exchangeToken({
+        subject_token: '__test_token__',
+        subject_token_type: 'urn:test:token-type',
+      });
+    });
+    expect(clientMock.getUser).toHaveBeenCalled();
+    expect(result.current.user).toStrictEqual(user);
+  });
+
+  it('should memoize the exchangeToken method', async () => {
+    const wrapper = createWrapper();
+    const { result, rerender } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      const memoized = result.current.exchangeToken;
+      rerender();
+      expect(result.current.exchangeToken).toBe(memoized);
+    });
+  });
+
   it('should provide a handleRedirectCallback method', async () => {
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: { redirectUri: '/' },

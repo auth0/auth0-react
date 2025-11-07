@@ -14,6 +14,7 @@ import Auth0Context, { Auth0ContextInterface } from './auth0-context';
  *   getAccessTokenSilently,
  *   getAccessTokenWithPopup,
  *   getIdTokenClaims,
+ *   exchangeToken,
  *   loginWithRedirect,
  *   loginWithPopup,
  *   logout,
