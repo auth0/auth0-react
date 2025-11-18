@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.9.0](https://github.com/auth0/auth0-react/tree/v2.9.0) (2025-11-18)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.8.0...v2.9.0)
+
+**Added**
+- Refactor connectAccountWithRedirect to Use Top-Level Scopes and Upgrade Auth0 SPA JS to v2.9.0 [\#933](https://github.com/auth0/auth0-react/pull/933) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+- docs: Add Ask DeepWiki badge to README [\#922](https://github.com/auth0/auth0-react/pull/922) ([arpit-jn](https://github.com/arpit-jn))
+
 ## [v2.8.0](https://github.com/auth0/auth0-react/tree/v2.8.0) (2025-10-17)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.7.0...v2.8.0)
 
