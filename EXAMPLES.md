@@ -9,6 +9,8 @@
 - [Use with Auth0 organizations](#use-with-auth0-organizations)
 - [Protecting a route with a claims check](#protecting-a-route-with-a-claims-check)
 - [Device-bound tokens with DPoP](#device-bound-tokens-with-dpop)
+- [Using Multi Resource Refresh Tokens](#using-multi-resource-refresh-tokens)
+- [Connect Accounts for using Token Vault](#connect-accounts-for-using-token-vault)
 
 ## Use with a Class Component
 
@@ -571,3 +573,113 @@ createFetcher({
     })
 });
 ```
+
+## Using Multi-Resource Refresh Tokens
+
+With **Multi-Resource Refresh Tokens** -or simply **MRRT**- now a refresh token from one API, can be used to request a new access token from another different API. Read more about how MRRT works for browser-based applications to help you decide, wether you need or not, to use this functionality.
+
+- [Multi-Resource Refresh Token](https://auth0.com/docs/secure/tokens/refresh-tokens/multi-resource-refresh-token)
+
+## Enabling MRRT
+
+MRRT is disabled by default. To enable it, set the `useMrrt` option to `true` when invoking the provider. You will need to set `useRefreshTokens` and `useRefreshTokensFallback` to `true` as well For example:
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  useRefreshTokens={true}
+  useRefreshTokensFallback={true}
+  useMrrt={true} // 👈
+  authorizationParams={{ redirect_uri: window.location.origin }}
+>
+```
+
+> [!IMPORTANT]
+> In order MRRT to work, it needs a previous configuration setting the refresh token policies.
+> Visit [configure and implement MRRT.](https://auth0.com/docs/secure/tokens/refresh-tokens/multi-resource-refresh-token/configure-and-implement-multi-resource-refresh-token)
+
+## Connect Accounts for using Token Vault
+
+The Connect Accounts feature uses the Auth0 My Account API to allow users to link multiple third party accounts to a single Auth0 user profile.
+
+When using Connected Accounts, Auth0 acquires tokens from upstream Identity Providers (like Google) and stores them in a secure [Token Vault](https://auth0.com/docs/secure/tokens/token-vault). These tokens can then be used to access third-party APIs (like Google Calendar) on behalf of the user.
+
+The tokens in the Token Vault are then accessible to [Resource Servers](https://auth0.com/docs/get-started/apis) (APIs) configured in Auth0. The SPA application can then issue requests to the API, which can retrieve the tokens from the Token Vault and use them to access the third-party APIs.
+
+This is particularly useful for applications that require access to different resources on behalf of a user, like AI Agents.
+
+### Configure the SDK
+
+The SDK must be configured with an audience (an API Identifier) - this will be the resource server that uses the tokens from the Token Vault.
+
+The SDK must also be configured to use refresh tokens and MRRT ([Multiple Resource Refresh Tokens](https://auth0.com/docs/secure/tokens/refresh-tokens/multi-resource-refresh-token)) since we will use the refresh token grant to get Access Tokens for the My Account API in addition to the API we are calling.
+
+The My Account API requires DPoP tokens, so we also need to enable DPoP.
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  authorizationParams={{
+    redirect_uri: window.location.origin,
+    audience: '<AUTH0 API IDENTIFIER>' // The API that will use the tokens from the Token Vault
+  }}
+  useRefreshTokens={true}
+  useMrrt={true}
+  useDpop={true}
+>
+  <App />
+</Auth0Provider>
+```
+
+### Login to the application
+
+Use the login methods to authenticate to the application and get a refresh and access token for the API.
+
+```jsx
+const Login = () => {
+  const { loginWithRedirect } = useAuth0();
+  return <button onClick={() => loginWithRedirect({
+    authorizationParams: {
+      audience: '<AUTH0 API IDENTIFIER>', // The API that will use the tokens from the Token Vault
+      scope: 'openid profile email offline_access read:calendar' // Make sure you get a Refresh Token as you're using MRRT to get access to the My Account API
+    }
+  })}>Login</button>;
+};
+```
+
+### Connect to a third party account
+
+Use the new `connectAccountWithRedirect` method to redirect the user to the third party Identity Provider to connect their account.
+
+```jsx
+const ConnectAccount = () => {
+  const { connectAccountWithRedirect } = useAuth0();
+  return <button onClick={() => connectAccountWithRedirect({
+    connection: '<CONNECTION eg, google-apps-connection>',
+    access_type: 'offline', // You must also request a refresh token from the third party Identity Provider for it to be stored in Token Vault.
+    authorization_params: {
+      scope: '<SCOPE eg https://www.googleapis.com/auth/calendar.acls.readonly>'
+    }
+  })}>Connect Google Calendar</button>;
+};
+```
+
+When the redirect completes, the user will be returned to the application and the tokens from the third party Identity Provider will be stored in the Token Vault.
+
+```jsx
+<Auth0Provider
+  // ...
+  onRedirectCallback={(appState) => {
+    if (appState.connectedAccount) {
+      console.log(`You've connected to ${appState.connectedAccount.connection}`);
+    }
+    window.history.replaceState({}, document.title, '/');
+  }}
+>
+  <App />
+</Auth0Provider>
+```
+
+You can now [call the API](#calling-an-api) with your access token and the API can use [Access Token Exchange with Token Vault](https://auth0.com/docs/secure/tokens/token-vault/access-token-exchange-with-token-vault) to get tokens from the Token Vault to access third party APIs on behalf of the user.
