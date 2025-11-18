@@ -108,3 +108,4 @@ test-results
 
 cypress/screenshots
 cypress/videos
+.npmrc
