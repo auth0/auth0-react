@@ -65,3 +65,13 @@ jobs:
 
       - name: Run integration test (Gatsby)
         run: npm run test:gatsby
+
+      - name: Upload Cypress screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-${{ github.run_id }}
+          path: cypress/screenshots
+          retention-days: 30
+          compression-level: 6
+          if-no-files-found: ignore
