@@ -658,9 +658,9 @@ const ConnectAccount = () => {
   const { connectAccountWithRedirect } = useAuth0();
   return <button onClick={() => connectAccountWithRedirect({
     connection: '<CONNECTION eg, google-apps-connection>',
-    access_type: 'offline', // You must also request a refresh token from the third party Identity Provider for it to be stored in Token Vault.
+    scopes: ['<SCOPE eg https://www.googleapis.com/auth/calendar.acls.readonly>'],
     authorization_params: {
-      scope: '<SCOPE eg https://www.googleapis.com/auth/calendar.acls.readonly>'
+      // additional authorization params to forward to the authorization server
     }
   })}>Connect Google Calendar</button>;
 };

@@ -126,9 +126,9 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * ```js
    * await connectAccountWithRedirect({
    *   connection: 'google-oauth2',
-   *   authorizationParams: {
-   *     access_type: 'offline',
-   *     scope: 'openid profile email https://www.googleapis.com/auth/drive.readonly',
+   *   scopes: ['openid', 'profile', 'email', 'https://www.googleapis.com/auth/drive.readonly'],
+   *   authorization_params: {
+   *     // additional authorization params to forward to the authorization server
    *   }
    * });
    * ```
