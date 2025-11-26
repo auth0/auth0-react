@@ -289,6 +289,10 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       } catch (error) {
         throw tokenError(error);
       } finally {
+        // We dispatch the standard GET_ACCESS_TOKEN_COMPLETE action here to maintain 
+        // backward compatibility and consistency with the getAccessTokenSilently flow. 
+        // This ensures the SDK's internal state lifecycle (loading/user updates) remains 
+        // identical regardless of whether the token was retrieved via silent auth or CTE.
         dispatch({
           type: 'GET_ACCESS_TOKEN_COMPLETE',
           user: await client.getUser(),

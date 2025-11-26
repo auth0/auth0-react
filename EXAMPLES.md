@@ -152,6 +152,7 @@ export default TokenExchange;
 - The external token must be validated in Auth0 Actions using strong cryptographic verification
 - This method implements RFC 8693 token exchange grant type
 - The audience and scope can be provided directly in the options or will fall back to SDK defaults
+- **State Management:** This method triggers the `GET_ACCESS_TOKEN_COMPLETE` action internally upon completion. This ensures that the SDK's `isLoading` and `isAuthenticated` states behave identically to the standard `getAccessTokenSilently` flow.
 
 ## Protecting a route in a `react-router-dom v6` app
 
