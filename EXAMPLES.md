@@ -99,6 +99,61 @@ const Posts = () => {
 export default Posts;
 ```
 
+## Custom token exchange
+
+Exchange an external subject token for Auth0 tokens using the token exchange flow (RFC 8693):
+
+```jsx
+import React, { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const TokenExchange = () => {
+  const { exchangeToken } = useAuth0();
+  const [tokens, setTokens] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleExchange = async (externalToken) => {
+    try {
+      const tokenResponse = await exchangeToken({
+        subject_token: externalToken,
+        subject_token_type: 'urn:your-company:legacy-system-token',
+        audience: 'https://api.example.com/',
+        scope: 'openid profile email',
+      });
+
+      setTokens(tokenResponse);
+      setError(null);
+
+      // Use the returned tokens
+      console.log('Access Token:', tokenResponse.access_token);
+      console.log('ID Token:', tokenResponse.id_token);
+    } catch (e) {
+      console.error('Token exchange failed:', e);
+      setError(e.message);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={() => handleExchange('your-external-token')}>
+        Exchange Token
+      </button>
+      {tokens && <div>Token exchange successful!</div>}
+      {error && <div>Error: {error}</div>}
+    </div>
+  );
+};
+
+export default TokenExchange;
+```
+
+**Important Notes:**
+- The `subject_token_type` must be a namespaced URI under your organization's control
+- The external token must be validated in Auth0 Actions using strong cryptographic verification
+- This method implements RFC 8693 token exchange grant type
+- The audience and scope can be provided directly in the options or will fall back to SDK defaults
+- **State Management:** This method triggers the `GET_ACCESS_TOKEN_COMPLETE` action internally upon completion. This ensures that the SDK's `isLoading` and `isAuthenticated` states behave identically to the standard `getAccessTokenSilently` flow.
+
 ## Protecting a route in a `react-router-dom v6` app
 
 We need to access the `useNavigate` hook so we can use `navigate` in `onRedirectCallback` to return us to our `returnUrl`.

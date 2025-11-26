@@ -17,7 +17,9 @@ import {
   User,
   RedirectConnectAccountOptions,
   ConnectAccountRedirectResult,
-  ResponseType
+  ResponseType,
+  CustomTokenExchangeOptions,
+  TokenEndpointResponse
 } from '@auth0/auth0-spa-js';
 import Auth0Context, {
   Auth0ContextInterface,
@@ -277,6 +279,30 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const exchangeToken = useCallback(
+    async (
+      options: CustomTokenExchangeOptions
+    ): Promise<TokenEndpointResponse> => {
+      let tokenResponse;
+      try {
+        tokenResponse = await client.exchangeToken(options);
+      } catch (error) {
+        throw tokenError(error);
+      } finally {
+        // We dispatch the standard GET_ACCESS_TOKEN_COMPLETE action here to maintain 
+        // backward compatibility and consistency with the getAccessTokenSilently flow. 
+        // This ensures the SDK's internal state lifecycle (loading/user updates) remains 
+        // identical regardless of whether the token was retrieved via silent auth or CTE.
+        dispatch({
+          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          user: await client.getUser(),
+        });
+      }
+      return tokenResponse;
+    },
+    [client]
+  );
+
   const handleRedirectCallback = useCallback(
     async (
       url?: string
@@ -321,6 +347,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       getAccessTokenSilently,
       getAccessTokenWithPopup,
       getIdTokenClaims,
+      exchangeToken,
       loginWithRedirect,
       loginWithPopup,
       connectAccountWithRedirect,
@@ -336,6 +363,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     getAccessTokenSilently,
     getAccessTokenWithPopup,
     getIdTokenClaims,
+    exchangeToken,
     loginWithRedirect,
     loginWithPopup,
     connectAccountWithRedirect,
