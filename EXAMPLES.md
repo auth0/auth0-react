@@ -117,10 +117,8 @@ const TokenExchange = () => {
       const tokenResponse = await exchangeToken({
         subject_token: externalToken,
         subject_token_type: 'urn:your-company:legacy-system-token',
-        authorizationParams: {
-          audience: 'https://api.example.com/',
-          scope: 'openid profile email',
-        },
+        audience: 'https://api.example.com/',
+        scope: 'openid profile email',
       });
 
       setTokens(tokenResponse);
