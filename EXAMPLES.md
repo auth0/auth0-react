@@ -151,7 +151,7 @@ export default TokenExchange;
 - The `subject_token_type` must be a namespaced URI under your organization's control
 - The external token must be validated in Auth0 Actions using strong cryptographic verification
 - This method implements RFC 8693 token exchange grant type
-- The audience and scope can be provided through `authorizationParams` or will fall back to SDK defaults
+- The audience and scope can be provided directly in the options or will fall back to SDK defaults
 
 ## Protecting a route in a `react-router-dom v6` app
 
