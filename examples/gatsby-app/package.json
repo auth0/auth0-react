@@ -2,7 +2,7 @@
   "name": "gatsby-starter-default",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
+  "version": "2.10.0",
   "dependencies": {
     "@auth0/auth0-react": "file:../..",
     "bootstrap": "^5.0.0",
