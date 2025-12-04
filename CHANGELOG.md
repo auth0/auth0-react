@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.10.0](https://github.com/auth0/auth0-react/tree/v2.10.0) (2025-12-05)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.9.0...v2.10.0)
+
+**Added**
+- feat: add custom token exchange support [\#928](https://github.com/auth0/auth0-react/pull/928) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+
 ## [v2.9.0](https://github.com/auth0/auth0-react/tree/v2.9.0) (2025-11-18)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.8.0...v2.9.0)
 
