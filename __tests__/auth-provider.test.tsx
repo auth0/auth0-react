@@ -903,12 +903,14 @@ describe('Auth0Provider', () => {
         subject_token: '__test_token__',
         subject_token_type: 'urn:test:token-type',
         scope: 'openid profile email',
+        organization: 'org_123',
       });
     });
     expect(clientMock.exchangeToken).toHaveBeenCalledWith({
       subject_token: '__test_token__',
       subject_token_type: 'urn:test:token-type',
       scope: 'openid profile email',
+      organization: 'org_123',
     });
     expect(response).toStrictEqual(tokenResponse);
   });
