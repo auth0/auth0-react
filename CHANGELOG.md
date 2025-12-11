@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.11.0](https://github.com/auth0/auth0-react/tree/v2.11.0) (2025-12-11)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.10.0...v2.11.0)
+
+**Added**
+- chore: upgrade @auth0/auth0-spa-js to v2.11.0 [\#948](https://github.com/auth0/auth0-react/pull/948) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.10.0](https://github.com/auth0/auth0-react/tree/v2.10.0) (2025-12-05)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.9.0...v2.10.0)
 
