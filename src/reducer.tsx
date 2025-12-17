@@ -1,5 +1,6 @@
 import { User } from '@auth0/auth0-spa-js';
 import { AuthState } from './auth-state';
+import { isEqual } from 'lodash-es';
 
 type Action =
   | { type: 'LOGIN_POPUP_STARTED' }
@@ -35,7 +36,7 @@ export const reducer = <TUser extends User = User>(state: AuthState<TUser>, acti
       };
     case 'HANDLE_REDIRECT_COMPLETE':
     case 'GET_ACCESS_TOKEN_COMPLETE':
-      if (state.user === action.user) {
+      if (isEqual(state.user, action.user)) {
         return state;
       }
       return {
