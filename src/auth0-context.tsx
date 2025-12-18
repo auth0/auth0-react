@@ -241,6 +241,28 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * Check the `EXAMPLES.md` file for a deeper look into this method.
    */
   createFetcher: Auth0Client['createFetcher'];
+
+  /**
+   * ```js
+   * const domain = auth0.getDomain();
+   * ```
+   *
+   * Returns the Auth0 domain that was configured in the Auth0Provider.
+   * This is useful for UI components that need to access the domain without
+   * requiring it to be passed as a prop.
+   */
+  getDomain: () => string;
+
+  /**
+   * ```js
+   * const clientId = auth0.getClientId();
+   * ```
+   *
+   * Returns the Auth0 client ID that was configured in the Auth0Provider.
+   * This is useful for UI components that need to access the client ID without
+   * requiring it to be passed as a prop.
+   */
+  getClientId: () => string;
 }
 
 /**
@@ -270,6 +292,8 @@ export const initialContext = {
   setDpopNonce: stub,
   generateDpopProof: stub,
   createFetcher: stub,
+  getDomain: stub,
+  getClientId: stub,
 };
 
 /**

@@ -159,6 +159,10 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
   const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
   const didInitialise = useRef(false);
 
+  // Store domain and clientId for later access
+  const domainRef = useRef(clientOpts.domain);
+  const clientIdRef = useRef(clientOpts.clientId);
+
   const handleError = useCallback((error: Error) => {
     dispatch({ type: 'ERROR', error });
     return error;
@@ -341,6 +345,10 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const getDomain = useCallback(() => domainRef.current, []);
+
+  const getClientId = useCallback(() => clientIdRef.current, []);
+
   const contextValue = useMemo<Auth0ContextInterface<TUser>>(() => {
     return {
       ...state,
@@ -357,6 +365,8 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       setDpopNonce,
       generateDpopProof,
       createFetcher,
+      getDomain,
+      getClientId,
     };
   }, [
     state,
@@ -373,6 +383,8 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     setDpopNonce,
     generateDpopProof,
     createFetcher,
+    getDomain,
+    getClientId,
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;
