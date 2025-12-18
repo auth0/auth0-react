@@ -243,24 +243,17 @@ export interface Auth0ContextInterface<TUser extends User = User>
   createFetcher: Auth0Client['createFetcher'];
 
   /**
-   * ```js
-   * const domain = auth0.getDomain();
-   * ```
-   *
-   * Returns the Auth0 domain that was configured in the Auth0Provider.
-   * This is useful for UI components that need to access the domain without
-   * requiring it to be passed as a prop.
-   */
+  *
+  * Returns the Auth0 domain configured in the Auth0Provider.
+  * **Use Cases:**
+  * - Advanced integrations requiring the tenant domain
+  * 
+  * @returns The Auth0 domain (e.g., "tenant.auth0.com")
+  */
   getDomain: () => string;
 
   /**
-   * ```js
-   * const clientId = auth0.getClientId();
-   * ```
-   *
    * Returns the Auth0 client ID that was configured in the Auth0Provider.
-   * This is useful for UI components that need to access the client ID without
-   * requiring it to be passed as a prop.
    */
   getClientId: () => string;
 }

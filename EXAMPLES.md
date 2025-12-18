@@ -98,7 +98,7 @@ const Posts = () => {
 };
 
 export default Posts;
-
+```
 ## Custom token exchange
 
 Exchange an external subject token for Auth0 tokens using the token exchange flow (RFC 8693):
@@ -741,24 +741,23 @@ You can now [call the API](#calling-an-api) with your access token and the API c
 
 ## Access Auth0 Configuration
 
-Access the Auth0 domain and client ID that were configured in the `Auth0Provider`. This is useful when building UI components that need access to the configuration without requiring it to be passed as props:
+Access the Auth0 domain and client ID that were configured in the `Auth0Provider`:
 
 ```jsx
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const ConfigDisplay = () => {
-  const { getDomain, getClientId, isAuthenticated, user } = useAuth0();
+const MyComponent = () => {
+  const { getDomain, getClientId } = useAuth0();
 
-  return (
-    <div>
-      <h3>Auth0 Configuration</h3>
-      <p>Domain: {getDomain()}</p>
-      <p>Client ID: {getClientId()}</p>
-      {isAuthenticated && <p>Logged in as: {user.name}</p>}
-    </div>
-  );
+  const domain = getDomain();
+  const clientId = getClientId();
+
+  // Use domain and clientId as needed
+  // ...
+
+  return <div>{/* Your component */}</div>;
 };
 
-export default ConfigDisplay;
+export default MyComponent;
 ```
