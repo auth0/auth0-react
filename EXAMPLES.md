@@ -11,6 +11,7 @@
 - [Device-bound tokens with DPoP](#device-bound-tokens-with-dpop)
 - [Using Multi Resource Refresh Tokens](#using-multi-resource-refresh-tokens)
 - [Connect Accounts for using Token Vault](#connect-accounts-for-using-token-vault)
+- [Access Auth0 Configuration](#access-auth0-configuration)
 
 ## Use with a Class Component
 
@@ -98,7 +99,6 @@ const Posts = () => {
 
 export default Posts;
 ```
-
 ## Custom token exchange
 
 Exchange an external subject token for Auth0 tokens using the token exchange flow (RFC 8693):
@@ -738,3 +738,26 @@ When the redirect completes, the user will be returned to the application and th
 ```
 
 You can now [call the API](#calling-an-api) with your access token and the API can use [Access Token Exchange with Token Vault](https://auth0.com/docs/secure/tokens/token-vault/access-token-exchange-with-token-vault) to get tokens from the Token Vault to access third party APIs on behalf of the user.
+
+## Access Auth0 Configuration
+
+Access the Auth0 domain and client ID that were configured in the `Auth0Provider`:
+
+```jsx
+import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const MyComponent = () => {
+  const { getDomain, getClientId } = useAuth0();
+
+  const domain = getDomain();
+  const clientId = getClientId();
+
+  // Use domain and clientId as needed
+  // ...
+
+  return <div>{/* Your component */}</div>;
+};
+
+export default MyComponent;
+```

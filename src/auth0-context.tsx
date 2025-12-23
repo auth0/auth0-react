@@ -241,6 +241,21 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * Check the `EXAMPLES.md` file for a deeper look into this method.
    */
   createFetcher: Auth0Client['createFetcher'];
+
+  /**
+  *
+  * Returns the Auth0 domain configured in the Auth0Provider.
+  * **Use Cases:**
+  * - Advanced integrations requiring the tenant domain
+  * 
+  * @returns The Auth0 domain (e.g., "tenant.auth0.com")
+  */
+  getDomain: () => string;
+
+  /**
+   * Returns the Auth0 client ID that was configured in the Auth0Provider.
+   */
+  getClientId: () => string;
 }
 
 /**
@@ -270,6 +285,8 @@ export const initialContext = {
   setDpopNonce: stub,
   generateDpopProof: stub,
   createFetcher: stub,
+  getDomain: stub,
+  getClientId: stub,
 };
 
 /**

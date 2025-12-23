@@ -134,6 +134,21 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should expose getDomain and getClientId methods', async () => {
+    const opts = {
+      clientId: 'test-client-id',
+      domain: 'test-domain.auth0.com',
+    };
+    const wrapper = createWrapper(opts);
+    const { result } = renderHook(() => useAuth0(), {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(result.current.getDomain()).toBe('test-domain.auth0.com');
+      expect(result.current.getClientId()).toBe('test-client-id');
+    });
+  });
+
   it('should check session when logged out', async () => {
     const wrapper = createWrapper();
     const { result } = renderHook(
