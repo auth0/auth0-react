@@ -491,6 +491,7 @@ describe('Auth0Provider', () => {
     );
     await waitFor(() => {
       expect(result.current.logout).toBeInstanceOf(Function);
+      expect(result.current.isAuthenticated).toBe(true);
     });
     await act(() => {
       result.current.logout();
