@@ -18,6 +18,7 @@ const getDpopNonce = jest.fn();
 const setDpopNonce = jest.fn();
 const generateDpopProof = jest.fn();
 const createFetcher = jest.fn();
+const getConfiguration = jest.fn();
 
 export const Auth0Client = jest.fn(() => {
   return {
@@ -39,6 +40,7 @@ export const Auth0Client = jest.fn(() => {
     setDpopNonce,
     generateDpopProof,
     createFetcher,
+    getConfiguration,
   };
 });
 

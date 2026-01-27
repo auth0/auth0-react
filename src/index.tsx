@@ -45,6 +45,7 @@ export {
   ResponseType,
   ConnectError,
   CustomTokenExchangeOptions,
-  TokenEndpointResponse
+  TokenEndpointResponse,
+  ClientConfiguration,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
