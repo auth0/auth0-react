@@ -237,10 +237,21 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * This is a drop-in replacement for the Fetch API's `fetch()` method, but will
    * handle certain authentication logic for you, like building the proper auth
    * headers or managing DPoP nonces and retries automatically.
-   * 
+   *
    * Check the `EXAMPLES.md` file for a deeper look into this method.
    */
   createFetcher: Auth0Client['createFetcher'];
+
+  /**
+   * ```js
+   * const config = getConfiguration();
+   * // { domain: 'tenant.auth0.com', clientId: 'abc123' }
+   * ```
+   *
+   * Returns a readonly copy of the initialization configuration
+   * containing the domain and clientId.
+   */
+  getConfiguration: Auth0Client['getConfiguration'];
 }
 
 /**
@@ -270,6 +281,7 @@ export const initialContext = {
   setDpopNonce: stub,
   generateDpopProof: stub,
   createFetcher: stub,
+  getConfiguration: stub,
 };
 
 /**

@@ -1257,4 +1257,28 @@ describe('Auth0Provider', () => {
     expect(screen.queryByText('__custom_user__')).toBeInTheDocument();
     expect(screen.queryByText('__main_user__')).not.toBeInTheDocument();
   });
+
+  describe('getConfiguration', () => {
+    it('should return configuration from Auth0Client', async () => {
+      clientMock.getConfiguration.mockReturnValue({
+        domain: 'test.auth0.com',
+        clientId: 'test-client-id'
+      });
+
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      const config = result.current.getConfiguration();
+
+      expect(clientMock.getConfiguration).toHaveBeenCalled();
+      expect(config).toEqual({
+        domain: 'test.auth0.com',
+        clientId: 'test-client-id'
+      });
+    });
+  });
 });
