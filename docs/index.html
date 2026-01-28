@@ -6,17 +6,14 @@
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/:license-mit-blue.svg?style=flat" alt="License"></a>
 <a href="https://circleci.com/gh/auth0/auth0-react"><img src="https://img.shields.io/circleci/build/github/auth0/auth0-react.svg?branch=main&amp;style=flat" alt="CircleCI"></a></p>
 <p>📚 <a href="#documentation">Documentation</a> - 🚀 <a href="#getting-started">Getting Started</a> - 💻 <a href="#api-reference">API Reference</a> - 💬 <a href="#feedback">Feedback</a></p>
-<h2 id="documentation" class="tsd-anchor-link">Documentation<a href="#documentation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<ul>
+<h2 id="documentation" class="tsd-anchor-link">Documentation<a href="#documentation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
 <li><a href="https://auth0.com/docs/quickstart/spa/react">Quickstart</a> - our interactive guide for quickly adding login, logout and user information to a React app using Auth0.</li>
 <li><a href="https://github.com/auth0-samples/auth0-react-samples/tree/master/Sample-01">Sample App</a> - a full-fledged React application integrated with Auth0.</li>
 <li><a href="https://github.com/auth0/auth0-react/blob/main/FAQ.md">FAQs</a> - frequently asked questions about the auth0-react SDK.</li>
 <li><a href="https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md">Examples</a> - code samples for common React authentication scenario's.</li>
 <li><a href="https://www.auth0.com/docs">Docs site</a> - explore our docs site and learn more about Auth0.</li>
 </ul>
-<h2 id="getting-started" class="tsd-anchor-link">Getting started<a href="#getting-started" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<h3 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<p>Using <a href="https://npmjs.org/">npm</a></p>
+<h2 id="getting-started" class="tsd-anchor-link">Getting started<a href="#getting-started" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Using <a href="https://npmjs.org/">npm</a></p>
 <pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@auth0/auth0-react</span>
 </code><button type="button">Copy</button></pre>
 
@@ -24,8 +21,7 @@
 <pre><code class="bash"><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-2">add</span><span class="hl-1"> </span><span class="hl-2">@auth0/auth0-react</span>
 </code><button type="button">Copy</button></pre>
 
-<h3 id="configure-auth0" class="tsd-anchor-link">Configure Auth0<a href="#configure-auth0" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<p>Create a <strong>Single Page Application</strong> in the <a href="https://manage.auth0.com/#/applications">Auth0 Dashboard</a>.</p>
+<h3 id="configure-auth0" class="tsd-anchor-link">Configure Auth0<a href="#configure-auth0" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Create a <strong>Single Page Application</strong> in the <a href="https://manage.auth0.com/#/applications">Auth0 Dashboard</a>.</p>
 <blockquote>
 <p><strong>If you're using an existing application</strong>, verify that you have configured the following settings in your Single Page Application:</p>
 <ul>
@@ -45,8 +41,7 @@
 <p>These URLs should reflect the origins that your application is running on. <strong>Allowed Callback URLs</strong> may also include a path, depending on where you're handling the callback.</p>
 </blockquote>
 <p>Take note of the <strong>Client ID</strong> and <strong>Domain</strong> values under the &quot;Basic Information&quot; section. You'll need these values in the next step.</p>
-<h3 id="configure-the-sdk" class="tsd-anchor-link">Configure the SDK<a href="#configure-the-sdk" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<p>Configure the SDK by wrapping your application in <code>Auth0Provider</code>:</p>
+<h3 id="configure-the-sdk" class="tsd-anchor-link">Configure the SDK<a href="#configure-the-sdk" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Configure the SDK by wrapping your application in <code>Auth0Provider</code>:</p>
 <pre><code class="jsx"><span class="hl-3">// src/index.js</span><br/><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-5">React</span><span class="hl-1"> </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">createRoot</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-dom/client&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">Auth0Provider</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@auth0/auth0-react&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-5">App</span><span class="hl-1"> </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;./App&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-6">const</span><span class="hl-1"> </span><span class="hl-7">root</span><span class="hl-1"> = </span><span class="hl-0">createRoot</span><span class="hl-1">(</span><span class="hl-5">document</span><span class="hl-1">.</span><span class="hl-0">getElementById</span><span class="hl-1">(</span><span class="hl-2">&#39;app&#39;</span><span class="hl-1">));</span><br/><br/><span class="hl-5">root</span><span class="hl-1">.</span><span class="hl-0">render</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-8">&lt;</span><span class="hl-9">Auth0Provider</span><br/><span class="hl-1">    </span><span class="hl-10">domain</span><span class="hl-1">=</span><span class="hl-2">&quot;YOUR_AUTH0_DOMAIN&quot;</span><br/><span class="hl-1">    </span><span class="hl-10">clientId</span><span class="hl-1">=</span><span class="hl-2">&quot;YOUR_AUTH0_CLIENT_ID&quot;</span><br/><span class="hl-1">    </span><span class="hl-10">authorizationParams</span><span class="hl-1">=</span><span class="hl-6">{</span><span class="hl-11">{</span><br/><span class="hl-11">      </span><span class="hl-5">redirect_uri:</span><span class="hl-11"> </span><span class="hl-5">window</span><span class="hl-11">.</span><span class="hl-5">location</span><span class="hl-11">.</span><span class="hl-5">origin</span><span class="hl-11">,</span><br/><span class="hl-11">    }</span><span class="hl-6">}</span><br/><span class="hl-1">  </span><span class="hl-8">&gt;</span><br/><span class="hl-1">    </span><span class="hl-8">&lt;</span><span class="hl-9">App</span><span class="hl-1"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-1">  </span><span class="hl-8">&lt;/</span><span class="hl-9">Auth0Provider</span><span class="hl-8">&gt;</span><br/><span class="hl-1">);</span>
 </code><button type="button">Copy</button></pre>
 
@@ -62,8 +57,7 @@
 </code><button type="button">Copy</button></pre>
 
 <p>For more code samples on how to integrate <strong>auth0-react</strong> SDK in your <strong>React</strong> application, have a look at our <a href="https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md">examples</a>.</p>
-<h2 id="api-reference" class="tsd-anchor-link">API reference<a href="#api-reference" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<p>Explore public API's available in auth0-react.</p>
+<h2 id="api-reference" class="tsd-anchor-link">API reference<a href="#api-reference" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Explore public API's available in auth0-react.</p>
 <ul>
 <li><a href="https://auth0.github.io/auth0-react/functions/Auth0Provider.html">Auth0Provider</a></li>
 <li><a href="https://auth0.github.io/auth0-react/interfaces/Auth0ProviderOptions.html">Auth0ProviderOptions</a></li>
@@ -71,18 +65,14 @@
 <li><a href="https://auth0.github.io/auth0-react/functions/withAuth0.html">withAuth0</a></li>
 <li><a href="https://auth0.github.io/auth0-react/functions/withAuthenticationRequired.html">withAuthenticationRequired</a></li>
 </ul>
-<h2 id="feedback" class="tsd-anchor-link">Feedback<a href="#feedback" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<h3 id="contributing" class="tsd-anchor-link">Contributing<a href="#contributing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<p>We appreciate feedback and contribution to this repo! Before you get started, please see the following:</p>
+<h2 id="feedback" class="tsd-anchor-link">Feedback<a href="#feedback" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><h3 id="contributing" class="tsd-anchor-link">Contributing<a href="#contributing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>We appreciate feedback and contribution to this repo! Before you get started, please see the following:</p>
 <ul>
 <li><a href="https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md">Auth0's general contribution guidelines</a></li>
 <li><a href="https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md">Auth0's code of conduct guidelines</a></li>
 <li><a href="https://github.com/auth0/auth0-react/blob/main/CONTRIBUTING.md">This repo's contribution guide</a></li>
 </ul>
-<h3 id="raise-an-issue" class="tsd-anchor-link">Raise an issue<a href="#raise-an-issue" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<p>To provide feedback or report a bug, please <a href="https://github.com/auth0/auth0-react/issues">raise an issue on our issue tracker</a>.</p>
-<h3 id="vulnerability-reporting" class="tsd-anchor-link">Vulnerability Reporting<a href="#vulnerability-reporting" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<p>Please do not report security vulnerabilities on the public GitHub issue tracker. The <a href="https://auth0.com/responsible-disclosure-policy">Responsible Disclosure Program</a> details the procedure for disclosing security issues.</p>
+<h3 id="raise-an-issue" class="tsd-anchor-link">Raise an issue<a href="#raise-an-issue" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>To provide feedback or report a bug, please <a href="https://github.com/auth0/auth0-react/issues">raise an issue on our issue tracker</a>.</p>
+<h3 id="vulnerability-reporting" class="tsd-anchor-link">Vulnerability Reporting<a href="#vulnerability-reporting" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Please do not report security vulnerabilities on the public GitHub issue tracker. The <a href="https://auth0.com/responsible-disclosure-policy">Responsible Disclosure Program</a> details the procedure for disclosing security issues.</p>
 <hr>
 <p align="center">
   <picture>
