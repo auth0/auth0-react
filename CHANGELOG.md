@@ -1,14 +1,5 @@
 # Change Log
 
-## [v2.12.0](https://github.com/auth0/auth0-react/tree/v2.12.0) (2026-01-28)
-[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.11.0...v2.12.0)
-
-**Added**
-- feat: add getConfiguration method to Auth0Client and updated documentation [\#991](https://github.com/auth0/auth0-react/pull/991) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
-
-**Security**
-- Security: Example app update Next.js dependency for CVE-2025-55184 and CVE-2025-55183 [\#951](https://github.com/auth0/auth0-react/pull/951) ([tusharpandey13](https://github.com/tusharpandey13))
-
 ## [v2.11.0](https://github.com/auth0/auth0-react/tree/v2.11.0) (2025-12-11)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.10.0...v2.11.0)
 
