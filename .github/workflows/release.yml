@@ -17,7 +17,7 @@ jobs:
   rl-scanner:
     uses: ./.github/workflows/rl-secure.yml
     with:
-      node-version: 18
+      node-version: 22
       artifact-name: 'auth0-react.tgz'
     secrets:
       RLSECURE_LICENSE: ${{ secrets.RLSECURE_LICENSE }}
@@ -30,7 +30,7 @@ jobs:
     uses: ./.github/workflows/npm-release.yml
     needs: rl-scanner
     with:
-      node-version: 18
+      node-version: 22
       require-build: true
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
