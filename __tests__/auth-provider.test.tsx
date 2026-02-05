@@ -881,6 +881,103 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should provide a loginWithCustomTokenExchange method', async () => {
+    const tokenResponse = {
+      access_token: '__test_access_token__',
+      id_token: '__test_id_token__',
+      token_type: 'Bearer',
+      expires_in: 86400,
+      scope: 'openid profile email',
+    };
+    clientMock.loginWithCustomTokenExchange.mockResolvedValue(tokenResponse);
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.loginWithCustomTokenExchange).toBeInstanceOf(Function);
+    });
+    let response;
+    await act(async () => {
+      response = await result.current.loginWithCustomTokenExchange({
+        subject_token: '__test_token__',
+        subject_token_type: 'urn:test:token-type',
+        scope: 'openid profile email',
+        organization: 'org_123',
+      });
+    });
+    expect(clientMock.loginWithCustomTokenExchange).toHaveBeenCalledWith({
+      subject_token: '__test_token__',
+      subject_token_type: 'urn:test:token-type',
+      scope: 'openid profile email',
+      organization: 'org_123',
+    });
+    expect(response).toStrictEqual(tokenResponse);
+  });
+
+  it('should handle errors when using loginWithCustomTokenExchange', async () => {
+    clientMock.loginWithCustomTokenExchange.mockRejectedValue(new Error('__test_error__'));
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.loginWithCustomTokenExchange).toBeInstanceOf(Function);
+    });
+    await act(async () => {
+      await expect(
+        result.current.loginWithCustomTokenExchange({
+          subject_token: '__test_token__',
+          subject_token_type: 'urn:test:token-type',
+        })
+      ).rejects.toThrow('__test_error__');
+    });
+    expect(clientMock.loginWithCustomTokenExchange).toHaveBeenCalled();
+  });
+
+  it('should update auth state after successful loginWithCustomTokenExchange', async () => {
+    const user = { name: '__test_user__' };
+    const tokenResponse = {
+      access_token: '__test_access_token__',
+      id_token: '__test_id_token__',
+      token_type: 'Bearer',
+      expires_in: 86400,
+    };
+    clientMock.loginWithCustomTokenExchange.mockResolvedValue(tokenResponse);
+    clientMock.getUser.mockResolvedValue(user);
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.loginWithCustomTokenExchange).toBeInstanceOf(Function);
+    });
+    await act(async () => {
+      await result.current.loginWithCustomTokenExchange({
+        subject_token: '__test_token__',
+        subject_token_type: 'urn:test:token-type',
+      });
+    });
+    expect(clientMock.getUser).toHaveBeenCalled();
+    expect(result.current.user).toStrictEqual(user);
+  });
+
+  it('should memoize the loginWithCustomTokenExchange method', async () => {
+    const wrapper = createWrapper();
+    const { result, rerender } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      const memoized = result.current.loginWithCustomTokenExchange;
+      rerender();
+      expect(result.current.loginWithCustomTokenExchange).toBe(memoized);
+    });
+  });
+
   it('should provide an exchangeToken method', async () => {
     const tokenResponse = {
       access_token: '__test_access_token__',
@@ -889,7 +986,7 @@ describe('Auth0Provider', () => {
       expires_in: 86400,
       scope: 'openid profile email',
     };
-    clientMock.exchangeToken.mockResolvedValue(tokenResponse);
+    clientMock.loginWithCustomTokenExchange.mockResolvedValue(tokenResponse);
     const wrapper = createWrapper();
     const { result } = renderHook(
       () => useContext(Auth0Context),
@@ -907,7 +1004,7 @@ describe('Auth0Provider', () => {
         organization: 'org_123',
       });
     });
-    expect(clientMock.exchangeToken).toHaveBeenCalledWith({
+    expect(clientMock.loginWithCustomTokenExchange).toHaveBeenCalledWith({
       subject_token: '__test_token__',
       subject_token_type: 'urn:test:token-type',
       scope: 'openid profile email',
@@ -916,8 +1013,8 @@ describe('Auth0Provider', () => {
     expect(response).toStrictEqual(tokenResponse);
   });
 
-  it('should handle errors when exchanging tokens', async () => {
-    clientMock.exchangeToken.mockRejectedValue(new Error('__test_error__'));
+  it('should handle errors when exchanging tokens (deprecated method)', async () => {
+    clientMock.loginWithCustomTokenExchange.mockRejectedValue(new Error('__test_error__'));
     const wrapper = createWrapper();
     const { result } = renderHook(
       () => useContext(Auth0Context),
@@ -934,10 +1031,10 @@ describe('Auth0Provider', () => {
         })
       ).rejects.toThrow('__test_error__');
     });
-    expect(clientMock.exchangeToken).toHaveBeenCalled();
+    expect(clientMock.loginWithCustomTokenExchange).toHaveBeenCalled();
   });
 
-  it('should update auth state after successful token exchange', async () => {
+  it('should update auth state after successful token exchange (deprecated method)', async () => {
     const user = { name: '__test_user__' };
     const tokenResponse = {
       access_token: '__test_access_token__',
@@ -945,7 +1042,7 @@ describe('Auth0Provider', () => {
       token_type: 'Bearer',
       expires_in: 86400,
     };
-    clientMock.exchangeToken.mockResolvedValue(tokenResponse);
+    clientMock.loginWithCustomTokenExchange.mockResolvedValue(tokenResponse);
     clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
     const { result } = renderHook(

@@ -94,6 +94,60 @@ export interface Auth0ContextInterface<TUser extends User = User>
 
   /**
    * ```js
+   * await loginWithCustomTokenExchange(options);
+   * ```
+   *
+   * Exchanges an external subject token for Auth0 tokens and logs the user in.
+   * This method implements the Custom Token Exchange grant as specified in RFC 8693.
+   *
+   * The exchanged tokens are automatically cached, establishing an authenticated session.
+   * After calling this method, you can use `getUser()`, `getIdTokenClaims()`, and
+   * `getTokenSilently()` to access the user's information and tokens.
+   *
+   * @param options - The options required to perform the token exchange.
+   *
+   * @returns A promise that resolves to the token endpoint response,
+   * which contains the issued Auth0 tokens (access_token, id_token, etc.).
+   *
+   * The request includes the following parameters:
+   * - `grant_type`: "urn:ietf:params:oauth:grant-type:token-exchange"
+   * - `subject_token`: The external token to exchange
+   * - `subject_token_type`: The type identifier of the external token
+   * - `scope`: Merged scopes from the request and SDK defaults
+   * - `audience`: Target audience (defaults to SDK configuration)
+   * - `organization`: Optional organization ID/name for org-scoped authentication
+   *
+   * **Example Usage:**
+   *
+   * ```js
+   * const options = {
+   *   subject_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...',
+   *   subject_token_type: 'urn:acme:legacy-system-token',
+   *   scope: 'openid profile email',
+   *   audience: 'https://api.example.com',
+   *   organization: 'org_12345'
+   * };
+   *
+   * try {
+   *   const tokenResponse = await loginWithCustomTokenExchange(options);
+   *   console.log('Access token:', tokenResponse.access_token);
+   *
+   *   // User is now logged in - access user info
+   *   const user = await getUser();
+   *   console.log('Logged in user:', user);
+   * } catch (error) {
+   *   console.error('Token exchange failed:', error);
+   * }
+   * ```
+   */
+  loginWithCustomTokenExchange: (
+    options: CustomTokenExchangeOptions
+  ) => Promise<TokenEndpointResponse>;
+
+  /**
+   * @deprecated Use `loginWithCustomTokenExchange()` instead. This method will be removed in the next major version.
+   *
+   * ```js
    * const tokenResponse = await exchangeToken({
    *   subject_token: 'external_token_value',
    *   subject_token_type: 'urn:acme:legacy-system-token',
@@ -101,18 +155,20 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * });
    * ```
    *
-   * Exchanges an external subject token for Auth0 tokens via a token exchange request.
+   * Exchanges an external subject token for Auth0 tokens and logs the user in.
    *
    * This method implements the token exchange grant as specified in RFC 8693.
    * It performs a token exchange by sending a request to the `/oauth/token` endpoint
    * with the external token and returns Auth0 tokens (access token, ID token, etc.).
    *
-   * The request includes the following parameters:
-   * - `grant_type`: Hard-coded to "urn:ietf:params:oauth:grant-type:token-exchange"
-   * - `subject_token`: The external token to be exchanged
-   * - `subject_token_type`: A namespaced URI identifying the token type (must be under your organization's control)
-   * - `audience`: The target audience (falls back to the SDK's default audience if not provided)
-   * - `scope`: Space-separated list of scopes (merged with the SDK's default scopes)
+   * **Example:**
+   * ```js
+   * // Instead of:
+   * const tokens = await exchangeToken(options);
+   *
+   * // Use:
+   * const tokens = await loginWithCustomTokenExchange(options);
+   * ```
    *
    * @param options - The options required to perform the token exchange
    * @returns A promise that resolves to the token endpoint response containing Auth0 tokens
@@ -271,6 +327,7 @@ export const initialContext = {
   getAccessTokenSilently: stub,
   getAccessTokenWithPopup: stub,
   getIdTokenClaims: stub,
+  loginWithCustomTokenExchange: stub,
   exchangeToken: stub,
   loginWithRedirect: stub,
   loginWithPopup: stub,
