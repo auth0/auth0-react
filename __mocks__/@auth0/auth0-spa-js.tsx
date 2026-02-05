@@ -8,6 +8,7 @@ const getTokenSilently = jest.fn();
 const getTokenWithPopup = jest.fn();
 const getUser = jest.fn();
 const getIdTokenClaims = jest.fn();
+const loginWithCustomTokenExchange = jest.fn();
 const exchangeToken = jest.fn();
 const isAuthenticated = jest.fn(() => false);
 const loginWithPopup = jest.fn();
@@ -30,6 +31,7 @@ export const Auth0Client = jest.fn(() => {
     getTokenWithPopup,
     getUser,
     getIdTokenClaims,
+    loginWithCustomTokenExchange,
     exchangeToken,
     isAuthenticated,
     loginWithPopup,

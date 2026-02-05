@@ -279,19 +279,19 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
-  const exchangeToken = useCallback(
+  const loginWithCustomTokenExchange = useCallback(
     async (
       options: CustomTokenExchangeOptions
     ): Promise<TokenEndpointResponse> => {
       let tokenResponse;
       try {
-        tokenResponse = await client.exchangeToken(options);
+        tokenResponse = await client.loginWithCustomTokenExchange(options);
       } catch (error) {
         throw tokenError(error);
       } finally {
-        // We dispatch the standard GET_ACCESS_TOKEN_COMPLETE action here to maintain 
-        // backward compatibility and consistency with the getAccessTokenSilently flow. 
-        // This ensures the SDK's internal state lifecycle (loading/user updates) remains 
+        // We dispatch the standard GET_ACCESS_TOKEN_COMPLETE action here to maintain
+        // backward compatibility and consistency with the getAccessTokenSilently flow.
+        // This ensures the SDK's internal state lifecycle (loading/user updates) remains
         // identical regardless of whether the token was retrieved via silent auth or CTE.
         dispatch({
           type: 'GET_ACCESS_TOKEN_COMPLETE',
@@ -301,6 +301,15 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       return tokenResponse;
     },
     [client]
+  );
+
+  const exchangeToken = useCallback(
+    async (
+      options: CustomTokenExchangeOptions
+    ): Promise<TokenEndpointResponse> => {
+      return loginWithCustomTokenExchange(options);
+    },
+    [loginWithCustomTokenExchange]
   );
 
   const handleRedirectCallback = useCallback(
@@ -352,6 +361,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       getAccessTokenSilently,
       getAccessTokenWithPopup,
       getIdTokenClaims,
+      loginWithCustomTokenExchange,
       exchangeToken,
       loginWithRedirect,
       loginWithPopup,
@@ -369,6 +379,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     getAccessTokenSilently,
     getAccessTokenWithPopup,
     getIdTokenClaims,
+    loginWithCustomTokenExchange,
     exchangeToken,
     loginWithRedirect,
     loginWithPopup,

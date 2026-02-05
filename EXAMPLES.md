@@ -109,13 +109,13 @@ import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const TokenExchange = () => {
-  const { exchangeToken } = useAuth0();
+  const { loginWithCustomTokenExchange } = useAuth0();
   const [tokens, setTokens] = useState(null);
   const [error, setError] = useState(null);
 
   const handleExchange = async (externalToken) => {
     try {
-      const tokenResponse = await exchangeToken({
+      const tokenResponse = await loginWithCustomTokenExchange({
         subject_token: externalToken,
         subject_token_type: 'urn:your-company:legacy-system-token',
         audience: 'https://api.example.com/',
@@ -147,6 +147,8 @@ const TokenExchange = () => {
 
 export default TokenExchange;
 ```
+
+> **Note:** The `exchangeToken` method is deprecated and will be removed in the next major version. Use `loginWithCustomTokenExchange` instead.
 
 **Important Notes:**
 - The `subject_token_type` must be a namespaced URI under your organization's control
