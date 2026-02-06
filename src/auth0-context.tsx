@@ -400,7 +400,7 @@ export const initialContext = {
     challenge: stub,
     verify: stub,
     getEnrollmentFactors: stub,
-  } as MfaApiClient,
+  } as unknown as MfaApiClient,
 };
 
 /**

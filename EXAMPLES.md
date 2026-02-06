@@ -902,39 +902,20 @@ const { mfa } = useAuth0();
 const authenticators = await mfa.getAuthenticators(mfaToken);
 
 // For OTP: Challenge is OPTIONAL - code already available in authenticator app
-// Skip directly to verify() with the 6-digit code
-
-// For SMS: Challenge REQUIRED to send code
-const smsResponse = await mfa.challenge({
+// Skip directly to verify() with the 6-digit code, or optionally challenge with:
+const otpResponse = await mfa.challenge({
   mfaToken,
-  challengeType: 'sms',
+  challengeType: 'otp',
   authenticatorId: authenticators[0].id
 });
-console.log('OOB Code:', smsResponse.oobCode);  // SMS sent to phone
 
-// For Voice: Challenge REQUIRED to initiate call
-const voiceResponse = await mfa.challenge({
+// For SMS/Voice/Email/Push: Challenge REQUIRED to send code (use 'oob' type)
+const oobResponse = await mfa.challenge({
   mfaToken,
-  challengeType: 'voice',
-  authenticatorId: authenticators[0].id
+  challengeType: 'oob',  // Use 'oob' for all out-of-band authenticators
+  authenticatorId: authenticators[0].id  // ID of SMS/Voice/Email/Push authenticator
 });
-console.log('OOB Code:', voiceResponse.oobCode);  // Voice call initiated
-
-// For Email: Challenge REQUIRED to send email
-const emailResponse = await mfa.challenge({
-  mfaToken,
-  challengeType: 'email',
-  authenticatorId: authenticators[0].id
-});
-console.log('OOB Code:', emailResponse.oobCode);  // Email sent
-
-// For Push: Challenge REQUIRED to send notification
-await mfa.challenge({
-  mfaToken,
-  challengeType: 'push',
-  authenticatorId: authenticators[0].id
-});
-// Push notification sent to Guardian app
+console.log('OOB Code:', oobResponse.oobCode);  // Code sent via SMS/Voice/Email/Push
 ```
 
 ### Verifying Challenges
