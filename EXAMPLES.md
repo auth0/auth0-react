@@ -170,11 +170,25 @@ import React from 'react';
 import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import Profile from './Profile';
+import Settings from './Settings';
 
-const ProtectedRoute = ({ component, ...args }) => {
-  const Component = withAuthenticationRequired(component, args);
-  return <Component />;
+// Pattern 1: Direct usage at module level
+const ProtectedProfile = withAuthenticationRequired(Profile, {
+  onRedirecting: () => <div>Redirecting to login...</div>,
+});
+
+// Pattern 2: Factory pattern (use when you need hooks in the wrapper)
+const createProtectedRoute = (Component, options) => {
+  const ProtectedComponent = withAuthenticationRequired(Component, options);
+  return (props) => {
+    // You can use any React hooks here (useParams, useLocation, useAuth0, etc.)
+    return <ProtectedComponent {...props} />;
+  };
 };
+
+const ProtectedSettings = createProtectedRoute(Settings, {
+  onRedirecting: () => <div>Redirecting to login...</div>,
+});
 
 const Auth0ProviderWithRedirectCallback = ({ children, ...props }) => {
   const navigate = useNavigate();
@@ -200,10 +214,8 @@ export default function App() {
       >
         <Routes>
           <Route path="/" exact />
-          <Route
-            path="/profile"
-            element={<ProtectedRoute component={Profile} />}
-          />
+          <Route path="/profile" element={<ProtectedProfile />} />
+          <Route path="/settings" element={<ProtectedSettings />} />
         </Routes>
       </Auth0ProviderWithRedirectCallback>
     </BrowserRouter>
