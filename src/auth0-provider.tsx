@@ -373,6 +373,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       generateDpopProof,
       createFetcher,
       getConfiguration,
+      mfa: client.mfa,
     };
   }, [
     state,

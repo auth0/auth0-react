@@ -767,3 +767,222 @@ export default ConfigInfo;
 ```
 
 This is useful for debugging, logging, or building custom Auth0-related URLs without duplicating configuration values.
+
+## Multi-Factor Authentication (MFA)
+
+Access MFA operations through the `mfa` property from `useAuth0()`. All operations require an `mfa_token` from the MFA required error.
+
+### Setup
+
+Before using the MFA API, configure MFA in your [Auth0 Dashboard](https://manage.auth0.com) under **Security** > **Multi-factor Auth**. For detailed configuration, see the [Auth0 MFA documentation](https://auth0.com/docs/secure/multi-factor-authentication/customize-mfa/customize-mfa-enrollments-universal-login).
+
+#### Understanding the MFA Response
+
+When MFA is required, the error payload contains an `mfa_requirements` object that indicates either a **challenge** flow (user has enrolled authenticators) or an **enroll** flow (user needs to set up MFA).
+
+**Challenge Flow Response** (user has existing authenticators):
+
+```json
+{
+  "error": "mfa_required",
+  "error_description": "Multifactor authentication required",
+  "mfa_token": "Fe26.2*...",
+  "mfa_requirements": {
+    "challenge": [
+      { "type": "otp" },
+      { "type": "email" }
+      ...
+    ]
+  }
+}
+```
+
+**Enroll Flow Response** (user needs to enroll an authenticator):
+
+```json
+{
+  "error": "mfa_required",
+  "error_description": "Multifactor authentication required",
+  "mfa_token": "Fe26.2*...",
+  "mfa_requirements": {
+    "enroll": [
+      { "type": "otp" },
+      { "type": "phone" },
+      { "type": "push-notification" }
+      ...
+    ]
+  }
+}
+```
+
+Based on the response:
+- **`mfa_requirements.challenge`**: User has enrolled authenticators → proceed with **List Authenticators → Challenge → Verify** flow
+- **`mfa_requirements.enroll`**: User needs to set up MFA → proceed with **Enroll → Verify** flow
+
+> [!NOTE]
+> The SDK handles this logic automatically. When you call `getEnrollmentFactors()` or `getAuthenticators()`, the SDK uses the stored context to return the appropriate data.
+
+
+### Handling MFA Required Error
+When MFA is required, the SDK automatically stores the context. You can then call MFA methods with just the token:
+
+```jsx
+import { useAuth0, MfaRequiredError } from '@auth0/auth0-react';
+
+try {
+  await getAccessTokenSilently();
+} catch (error) {
+  if (error instanceof MfaRequiredError) {
+    const mfaToken = error.mfa_token;
+    
+    // Check if user needs to enroll
+    const factors = await mfa.getEnrollmentFactors(mfaToken);
+    if (factors.length > 0) {
+      // Show enrollment UI
+    } else {
+       // User has enrolled authenticators - get the list of enrolled authenticator
+      const authenticators = await mfa.getAuthenticators(error.mfa_token);
+
+      // proceed with challenge
+    }
+  }
+}
+```
+
+### Enrolling Authenticators
+
+```jsx
+const { mfa } = useAuth0();
+
+// Enroll any factor type
+const enrollment = await mfa.enroll({
+  mfaToken,
+  factorType: 'otp'  // 'otp' | 'sms' | 'email' | 'voice' | 'push'
+});
+
+// For OTP: Display QR code
+console.log('Scan:', enrollment.barcodeUri);
+console.log('Recovery codes:', enrollment.recoveryCodes);
+
+// For SMS: Include phone number
+await mfa.enroll({
+  mfaToken,
+  factorType: 'sms',
+  phoneNumber: '+12025551234'  // E.164 format
+});
+
+// For Voice: Include phone number
+await mfa.enroll({
+  mfaToken,
+  factorType: 'voice',
+  phoneNumber: '+12025551234'  // E.164 format
+});
+
+// For Email: Include email address
+await mfa.enroll({
+  mfaToken,
+  factorType: 'email',
+  email: 'user@example.com'
+});
+
+// For Push: Returns authenticator for mobile app
+const pushEnrollment = await mfa.enroll({
+  mfaToken,
+  factorType: 'push'
+});
+console.log('Authenticator ID:', pushEnrollment.id);  // Use with Guardian app
+```
+
+### Challenging Authenticators
+
+```jsx
+const { mfa } = useAuth0();
+
+// Get enrolled authenticators
+const authenticators = await mfa.getAuthenticators(mfaToken);
+
+// For OTP: Challenge is OPTIONAL - code already available in authenticator app
+// Skip directly to verify() with the 6-digit code
+
+// For SMS: Challenge REQUIRED to send code
+const smsResponse = await mfa.challenge({
+  mfaToken,
+  challengeType: 'sms',
+  authenticatorId: authenticators[0].id
+});
+console.log('OOB Code:', smsResponse.oobCode);  // SMS sent to phone
+
+// For Voice: Challenge REQUIRED to initiate call
+const voiceResponse = await mfa.challenge({
+  mfaToken,
+  challengeType: 'voice',
+  authenticatorId: authenticators[0].id
+});
+console.log('OOB Code:', voiceResponse.oobCode);  // Voice call initiated
+
+// For Email: Challenge REQUIRED to send email
+const emailResponse = await mfa.challenge({
+  mfaToken,
+  challengeType: 'email',
+  authenticatorId: authenticators[0].id
+});
+console.log('OOB Code:', emailResponse.oobCode);  // Email sent
+
+// For Push: Challenge REQUIRED to send notification
+await mfa.challenge({
+  mfaToken,
+  challengeType: 'push',
+  authenticatorId: authenticators[0].id
+});
+// Push notification sent to Guardian app
+```
+
+### Verifying Challenges
+
+```jsx
+const { mfa } = useAuth0();
+
+// Verify with OTP code (for OTP authenticators)
+const tokens = await mfa.verify({
+  mfaToken,
+  otp: '123456'  // 6-digit code from authenticator app
+});
+
+// Verify with OOB code (for SMS/Voice/Email authenticators)
+const tokens = await mfa.verify({
+  mfaToken,
+  oobCode: smsResponse.oobCode,
+  bindingCode: '123456'  // Optional: code shown in challenge
+});
+
+// Verify with recovery code (works for any authenticator)
+const tokens = await mfa.verify({
+  mfaToken,
+  recoveryCode: 'recovery-code-here'
+});
+
+// Tokens are now cached - user is authenticated
+console.log('Access token:', tokens.access_token);
+```
+
+### Error Handling
+
+```jsx
+import {
+  MfaEnrollmentError,
+  MfaChallengeError,
+  MfaVerifyError
+} from '@auth0/auth0-react';
+
+try {
+  await mfa.verify({ mfaToken, otp });
+} catch (error) {
+  if (error instanceof MfaVerifyError) {
+    console.error('Invalid code:', error.error_description);
+  } else if (error instanceof MfaChallengeError) {
+    console.error('Challenge failed:', error.error_description);
+  } else if (error instanceof MfaEnrollmentError) {
+    console.error('Enrollment failed:', error.error_description);
+  }
+}
+```
