@@ -355,6 +355,8 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const mfa = useMemo(() => client.mfa, [client]);
+
   const contextValue = useMemo<Auth0ContextInterface<TUser>>(() => {
     return {
       ...state,
@@ -373,7 +375,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       generateDpopProof,
       createFetcher,
       getConfiguration,
-      mfa: client.mfa,
+      mfa,
     };
   }, [
     state,
@@ -392,6 +394,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     generateDpopProof,
     createFetcher,
     getConfiguration,
+    mfa,
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;

@@ -12,6 +12,7 @@
 - [Using Multi Resource Refresh Tokens](#using-multi-resource-refresh-tokens)
 - [Connect Accounts for using Token Vault](#connect-accounts-for-using-token-vault)
 - [Access SDK Configuration](#access-sdk-configuration)
+- [Multi-Factor Authentication (MFA)](#multi-factor-authentication-mfa)
 
 ## Use with a Class Component
 
@@ -783,6 +784,16 @@ This is useful for debugging, logging, or building custom Auth0-related URLs wit
 ## Multi-Factor Authentication (MFA)
 
 Access MFA operations through the `mfa` property from `useAuth0()`. All operations require an `mfa_token` from the MFA required error.
+
+> [!NOTE]
+> Multi Factor Authentication support via SDKs is currently in Early Access. To request access to this feature, contact your Auth0 representative.
+
+- [Setup](#setup)
+- [Handling MFA Required Error](#handling-mfa-required-error)
+- [Enrolling Authenticators](#enrolling-authenticators)
+- [Challenging Authenticators](#challenging-authenticators)
+- [Verifying Challenges](#verifying-challenges)
+- [Error Handling](#error-handling)
 
 ### Setup
 
