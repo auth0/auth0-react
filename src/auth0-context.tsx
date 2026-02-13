@@ -13,7 +13,8 @@ import {
   RedirectConnectAccountOptions,
   ConnectAccountRedirectResult,
   CustomTokenExchangeOptions,
-  TokenEndpointResponse
+  TokenEndpointResponse,
+  type MfaApiClient
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -308,6 +309,60 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * containing the domain and clientId.
    */
   getConfiguration: Auth0Client['getConfiguration'];
+
+  /**
+   * ```js
+   * const { mfa } = useAuth0();
+   * const authenticators = await mfa.getAuthenticators(mfaToken);
+   * ```
+   *
+   * MFA API client for Multi-Factor Authentication operations.
+   *
+   * Provides access to all MFA-related methods:
+   * - `getAuthenticators(mfaToken)` - List enrolled authenticators
+   * - `enroll(params)` - Enroll new authenticators (OTP, SMS, Voice, Email, Push)
+   * - `challenge(params)` - Initiate MFA challenges
+   * - `verify(params)` - Verify MFA challenges and complete authentication
+   * - `getEnrollmentFactors(mfaToken)` - Get available enrollment factors
+   *
+   * @example
+   * ```js
+   * const { mfa, getAccessTokenSilently } = useAuth0();
+   *
+   * try {
+   *   await getAccessTokenSilently();
+   * } catch (error) {
+   *   if (error.error === 'mfa_required') {
+   *     // Check if enrollment is needed
+   *     const factors = await mfa.getEnrollmentFactors(error.mfa_token);
+   *
+   *     if (factors.length > 0) {
+   *       // Enroll in OTP
+   *       const enrollment = await mfa.enroll({
+   *         mfaToken: error.mfa_token,
+   *         factorType: 'otp'
+   *       });
+   *       console.log('QR Code:', enrollment.barcodeUri);
+   *     }
+   *
+   *     // Get authenticators and challenge
+   *     const authenticators = await mfa.getAuthenticators(error.mfa_token);
+   *     await mfa.challenge({
+   *       mfaToken: error.mfa_token,
+   *       challengeType: 'otp',
+   *       authenticatorId: authenticators[0].id
+   *     });
+   *
+   *     // Verify with user's code
+   *     const tokens = await mfa.verify({
+   *       mfaToken: error.mfa_token,
+   *       otp: userCode
+   *     });
+   *   }
+   * }
+   * ```
+   */
+  mfa: MfaApiClient;
 }
 
 /**
@@ -339,6 +394,13 @@ export const initialContext = {
   generateDpopProof: stub,
   createFetcher: stub,
   getConfiguration: stub,
+  mfa: {
+    getAuthenticators: stub,
+    enroll: stub,
+    challenge: stub,
+    verify: stub,
+    getEnrollmentFactors: stub,
+  } as unknown as MfaApiClient,
 };
 
 /**

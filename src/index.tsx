@@ -47,5 +47,27 @@ export {
   CustomTokenExchangeOptions,
   TokenEndpointResponse,
   ClientConfiguration,
+  // MFA Types
+  type MfaApiClient,
+  type Authenticator,
+  type MfaFactorType,
+  type EnrollParams,
+  type EnrollOtpParams,
+  type EnrollSmsParams,
+  type EnrollVoiceParams,
+  type EnrollEmailParams,
+  type EnrollPushParams,
+  type EnrollmentResponse,
+  type ChallengeAuthenticatorParams,
+  type ChallengeResponse,
+  type VerifyParams,
+  type EnrollmentFactor,
+  // MFA Errors
+  MfaError,
+  MfaListAuthenticatorsError,
+  MfaEnrollmentError,
+  MfaChallengeError,
+  MfaVerifyError,
+  MfaEnrollmentFactorsError,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
