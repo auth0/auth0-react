@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.14.0](https://github.com/auth0/auth0-react/tree/v2.14.0) (2026-02-13)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.13.0...v2.14.0)
+
+**Added**
+- feat: add Multi-Factor Authentication (MFA) support  [\#1014](https://github.com/auth0/auth0-react/pull/1014) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+
+**Changed**
+- chore: bump @auth0/auth0-spa-js to v2.15.0 [\#1017](https://github.com/auth0/auth0-react/pull/1017) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.13.0](https://github.com/auth0/auth0-react/tree/v2.13.0) (2026-02-05)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.12.0...v2.13.0)
 
