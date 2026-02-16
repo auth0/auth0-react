@@ -13,6 +13,7 @@
 - [Connect Accounts for using Token Vault](#connect-accounts-for-using-token-vault)
 - [Access SDK Configuration](#access-sdk-configuration)
 - [Multi-Factor Authentication (MFA)](#multi-factor-authentication-mfa)
+- [Step-Up Authentication](#step-up-authentication)
 
 ## Use with a Class Component
 
@@ -990,3 +991,82 @@ try {
   }
 }
 ```
+
+## Step-Up Authentication
+
+When a protected API requires MFA (step-up authentication), `getAccessTokenSilently` will receive an `mfa_required` error from Auth0. By configuring the `interactiveErrorHandler` option, the SDK can automatically handle this by opening a Universal Login popup for the user to complete MFA, then return the token transparently. No custom MFA UI is required — the entire flow is handled via Auth0's Universal Login.
+
+If you need full control over the MFA experience (custom UI for enrollment, challenge, and verification), see the [Multi-Factor Authentication (MFA)](#multi-factor-authentication-mfa) section instead.
+
+> [!WARNING]
+> This feature only works with the refresh token flow (`useRefreshTokens={true}`) and only handles `mfa_required` errors. Other interactive errors are not intercepted.
+
+### Setup
+
+Configure `Auth0Provider` with `interactiveErrorHandler` set to `"popup"` and refresh tokens enabled:
+
+```jsx
+import { Auth0Provider } from '@auth0/auth0-react';
+
+function App() {
+  return (
+    <Auth0Provider
+      domain="YOUR_AUTH0_DOMAIN"
+      clientId="YOUR_AUTH0_CLIENT_ID"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        audience: 'https://api.example.com/',
+      }}
+      useRefreshTokens={true}
+      interactiveErrorHandler="popup"
+    >
+      <MyApp />
+    </Auth0Provider>
+  );
+}
+```
+
+### Usage
+
+With this configuration, `getAccessTokenSilently` automatically opens a popup when the token request triggers an `mfa_required` error. Once the user completes MFA in the popup, the token is returned as if the call succeeded normally:
+
+```jsx
+import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const ProtectedResource = () => {
+  const { getAccessTokenSilently } = useAuth0();
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        // If MFA is required, a popup opens automatically.
+        // The token is returned after the user completes MFA.
+        const token = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: 'https://api.example.com/',
+            scope: 'read:sensitive',
+          },
+        });
+        const response = await fetch('https://api.example.com/sensitive', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setData(await response.json());
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, [getAccessTokenSilently]);
+
+  if (!data) return <div>Loading...</div>;
+  return <div>{JSON.stringify(data)}</div>;
+};
+
+export default ProtectedResource;
+```
+
+### Error Handling
+
+If the popup is blocked, cancelled, or times out, `getAccessTokenSilently` throws `PopupOpenError`, `PopupCancelledError`, or `PopupTimeoutError` respectively. These can be imported from `@auth0/auth0-react`.
+
