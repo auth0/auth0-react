@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.15.0](https://github.com/auth0/auth0-react/tree/v2.15.0) (2026-02-17)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.14.0...v2.15.0)
+
+**Added**
+- feat: add Step-Up Authentication section and related examples to documentation [\#1023](https://github.com/auth0/auth0-react/pull/1023) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+
 ## [v2.14.0](https://github.com/auth0/auth0-react/tree/v2.14.0) (2026-02-13)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.13.0...v2.14.0)
 
