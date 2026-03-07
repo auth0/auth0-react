@@ -97,6 +97,33 @@ export interface Auth0ProviderOptions<TUser extends User = User> extends Auth0Cl
    * For a sample on using multiple Auth0Providers review the [React Account Linking Sample](https://github.com/auth0-samples/auth0-link-accounts-sample/tree/react-variant)
    */
   context?: React.Context<Auth0ContextInterface<TUser>>;
+  /**
+   * A pre-configured Auth0Client instance to use for authentication operations.
+   *
+   * When provided, this client will be used instead of creating a new one internally.
+   * This is useful for:
+   * - Sharing a single Auth0Client instance across multiple components
+   * - Using a client with custom configuration or advanced setup
+   * - Testing scenarios where you need to inject a mock client
+   * - Scenarios where you need fine-grained control over client initialization timing
+   *
+   * If not provided, the Auth0Provider will automatically create a new Auth0Client
+   * instance using the other configuration options passed to the provider.
+   *
+   * @example
+   * ```tsx
+   * const customClient = new Auth0Client({
+   *   domain: 'your-domain.auth0.com',
+   *   clientId: 'your-client-id',
+   *   // ... other options
+   * });
+   *
+   * <Auth0Provider client={customClient}>
+   *   <App />
+   * </Auth0Provider>
+   * ```
+   */
+  client?: Auth0Client;
 }
 
 /**
@@ -151,10 +178,11 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
     context = Auth0Context,
+    client: providedClient,
     ...clientOpts
   } = opts;
   const [client] = useState(
-    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
+    () => providedClient ?? new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
   const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
   const didInitialise = useRef(false);

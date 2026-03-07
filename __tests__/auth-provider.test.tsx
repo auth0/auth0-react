@@ -61,6 +61,22 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should support Auth0Client instance', async () => {
+    const opts = {
+      clientId: 'foo',
+      domain: 'bar',
+      client: clientMock,
+    };
+    const wrapper = createWrapper(opts);
+    renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+
+    await waitFor(() => {
+      expect(Auth0Client).not.toHaveBeenCalled();
+    });
+  });
+
   it('should support redirectUri', async () => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const opts = {
