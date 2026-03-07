@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth0 React - MFA APIs Integration</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="bg-light">
+    <div id="app"></div>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/babel-polyfill@6/dist/polyfill.min.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="auth0-react.js"></script>
+
+    <script type="text/babel" data-presets="es2015,es2016,es2017,stage-3,react">
+      const { Auth0Provider, useAuth0 } = reactAuth0;
+      const { useState, useEffect, useCallback } = React;
+
+      // ─── Helpers ───────────────────────────────────────────────
+
+      const STORAGE_KEY = 'mfa-settings';
+
+      function loadSettings() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveSettings(s) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+      }
+
+      const CHALLENGE_TYPE_MAP = {
+        otp: 'otp',
+        oob: 'oob',
+        'recovery-code': 'recovery-code',
+      };
+
+      const CODE_PARAM_MAP = {
+        otp: 'otp',
+        oob: 'bindingCode',
+        'recovery-code': 'recoveryCode',
+      };
+
+      const ENROLLMENT_OPTION_MAP = {
+        otp: { type: 'otp', label: 'Authenticator App (OTP)', description: 'Use Google Authenticator, Okta Verify, or similar apps' },
+        oob: { type: 'sms', label: 'SMS', description: 'Receive codes via text message' },
+        phone: { type: 'sms', label: 'SMS', description: 'Receive codes via text message' },
+        email: { type: 'email', label: 'Email', description: 'Receive codes via email' },
+          'push-notification': {
+                            type: 'push-notification',
+                            label: 'Push Notification',
+                            description: 'Receive codes via push notification'
+                        }
+      };
+
+      // ─── Config Form (shown before login) ─────────────────────
+
+      function ConfigForm({ onSubmit }) {
+        const saved = loadSettings();
+        const [domain, setDomain] = useState(saved.domain || '');
+        const [clientId, setClientId] = useState(saved.clientId || '');
+        const [audience, setAudience] = useState(saved.audience || '');
+        const [scopes, setScopes] = useState(saved.scopes || 'openid profile email');
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          const cfg = { domain, clientId, audience, scopes };
+          saveSettings(cfg);
+          onSubmit(cfg);
+        };
+
+        return (
+          <form onSubmit={handleSubmit} className="mb-3">
+            <div className="form-group">
+              <label htmlFor="domain">Domain</label>
+              <input id="domain" className="form-control" required value={domain} onChange={(e) => setDomain(e.target.value)} />
+              <small className="form-text text-muted">Your Auth0 tenant domain (e.g., dev-xxx.us.auth0.com)</small>
+            </div>
+            <div className="form-group">
+              <label htmlFor="clientId">Client ID</label>
+              <input id="clientId" className="form-control" required value={clientId} onChange={(e) => setClientId(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="audience">Audience</label>
+              <input id="audience" className="form-control" value={audience} onChange={(e) => setAudience(e.target.value)} />
+              <small className="form-text text-muted">Optional API identifier</small>
+            </div>
+            <div className="form-group">
+              <label htmlFor="scopes">Scopes</label>
+              <input id="scopes" className="form-control" value={scopes} onChange={(e) => setScopes(e.target.value)} />
+              <small className="form-text text-muted">Default: <code>openid profile email</code></small>
+            </div>
+            <button type="submit" className="btn btn-primary btn-block">Login with Auth0</button>
+          </form>
+        );
+      }
+
+      // ─── User Profile Card ────────────────────────────────────
+
+      function UserProfile({ user, onLogout, onReset }) {
+        return (
+          <div className="card bg-light mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Logged In</h5>
+              <div className="d-flex align-items-center mb-3">
+                {user.picture && <img src={user.picture} className="rounded-circle mr-3" width="60" height="60" />}
+                <div>
+                  <p className="mb-0"><strong>{user.name || user.email}</strong></p>
+                  <p className="mb-0 text-muted">{user.email}</p>
+                </div>
+              </div>
+              <button onClick={onLogout} className="btn btn-outline-secondary btn-sm">Logout</button>
+              <button onClick={onReset} className="btn btn-outline-primary btn-sm ml-2">Reset</button>
+            </div>
+          </div>
+        );
+      }
+
+      // ─── MFA Requirements Display ─────────────────────────────
+
+      function MfaRequirementsDisplay({ mfaToken, mfaRequirements }) {
+        if (!mfaToken || !mfaRequirements) return null;
+        return (
+          <div className="alert alert-info mt-3">
+            <h6>MFA Required</h6>
+            <pre className="bg-white p-3 border rounded mb-0" style={{ maxHeight: 200, overflowY: 'auto' }}>
+              {JSON.stringify(mfaRequirements, null, 2)}
+            </pre>
+            <p className="mb-0 mt-2">
+              <strong>MFA Token:</strong> <code>{mfaToken.substring(0, 20)}...</code>
+            </p>
+          </div>
+        );
+      }
+
+      // ─── Success Message ──────────────────────────────────────
+
+      function SuccessMessage({ message, tokens }) {
+        if (!message) return null;
+        return (
+          <div className="alert alert-success mt-3">
+            <h6>{message}</h6>
+            {tokens && (
+              <div className="mt-2">
+                <p className="mb-1"><strong>Access Token:</strong></p>
+                <code className="d-block bg-white p-2 border rounded text-dark" style={{ wordBreak: 'break-all' }}>
+                  {tokens.access_token.substring(0, 100)}...
+                </code>
+                <p className="mb-1 mt-2"><strong>ID Token:</strong></p>
+                <code className="d-block bg-white p-2 border rounded text-dark" style={{ wordBreak: 'break-all' }}>
+                  {tokens.id_token ? tokens.id_token.substring(0, 100) + '...' : 'N/A'}
+                </code>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      // ─── Authenticators Table ─────────────────────────────────
+
+      function AuthenticatorsTable({ authenticators, loading, onChallenge }) {
+        return (
+          <div className="card mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Authenticators</h5>
+              {loading ? (
+                <div className="text-center py-3">
+                  <div className="spinner-border spinner-border-sm" role="status"><span className="sr-only">Loading...</span></div>
+                  <p className="text-muted mt-2">Loading authenticators...</p>
+                </div>
+              ) : authenticators.length ? (
+                <div className="table-responsive">
+                  <table className="table table-sm table-bordered">
+                    <thead className="thead-light">
+                      <tr><th>Type</th><th>ID</th><th>Active</th><th>Name</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                      {authenticators.map((auth) => (
+                        <tr key={auth.id}>
+                          <td><span className="badge badge-primary">{auth.authenticatorType}</span></td>
+                          <td><code>{auth.id}</code></td>
+                          <td>{auth.active ? <span className="badge badge-success">Active</span> : <span className="badge badge-secondary">Inactive</span>}</td>
+                          <td>{auth.name || '-'}</td>
+                          <td><button onClick={() => onChallenge(auth)} className="btn btn-sm btn-primary" disabled={!auth.active}>Verify</button></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="text-muted mb-0">No authenticators found.</p>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      // ─── Enrollment Section ───────────────────────────────────
+
+      function EnrollmentSection({ enrollmentOptions, mfaToken, mfa, onSuccess, setError }) {
+        const [enrollmentType, setEnrollmentType] = useState(null);
+        const [enrollmentData, setEnrollmentData] = useState(null);
+        const [verificationCode, setVerificationCode] = useState('');
+        const [phoneNumber, setPhoneNumber] = useState('');
+        const [emailAddress, setEmailAddress] = useState('');
+        const [loadingEnrollment, setLoadingEnrollment] = useState(false);
+        const [loadingVerification, setLoadingVerification] = useState(false);
+
+        const cancel = () => {
+          setEnrollmentType(null);
+          setEnrollmentData(null);
+          setVerificationCode('');
+          setPhoneNumber('');
+          setEmailAddress('');
+          setError('');
+        };
+
+        const selectType = async (type) => {
+          setEnrollmentType(type);
+          setError('');
+          if (type === 'otp' || type === 'push-notification') {
+            setLoadingEnrollment(true);
+            try {
+              var factorType = type === 'push-notification' ? 'push' : 'otp';
+              const data = await mfa.enroll({ mfaToken, factorType: factorType });
+              console.log(">>>>>>details push", data)
+              setEnrollmentData(data);
+            } catch (e) {
+              setError(e.message || e.error_description || String(e));
+              setEnrollmentType(null);
+            } finally {
+              setLoadingEnrollment(false);
+            }
+          }
+        };
+
+        const enrollOob = async (e) => {
+          e.preventDefault();
+          setLoadingEnrollment(true);
+          setError('');
+          try {
+            const data = await mfa.enroll({ mfaToken, factorType: enrollmentType, phoneNumber });
+            setEnrollmentData(data);
+          } catch (err) {
+            setError(err.message || err.error_description || String(err));
+            setEnrollmentType(null);
+            setPhoneNumber('');
+          } finally {
+            setLoadingEnrollment(false);
+          }
+        };
+
+        const enrollEmail = async (e) => {
+          e.preventDefault();
+          setLoadingEnrollment(true);
+          setError('');
+          try {
+            const params = { mfaToken, factorType: 'email' };
+            if (emailAddress) params.email = emailAddress;
+            const data = await mfa.enroll(params);
+            setEnrollmentData(data);
+          } catch (err) {
+            setError(err.message || err.error_description || String(err));
+            setEnrollmentType(null);
+            setEmailAddress('');
+          } finally {
+            setLoadingEnrollment(false);
+          }
+        };
+
+        const verifyEnrollment = async (e) => {
+          e.preventDefault();
+          setLoadingVerification(true);
+          setError('');
+          try {
+            const params = { mfaToken };
+            if (enrollmentType === 'otp') {
+              params.otp = verificationCode;
+            } else {
+              params.oobCode = enrollmentData.oobCode;
+              params.bindingCode = verificationCode;
+            }
+            const tokens = await mfa.verify(params);
+            onSuccess(`${enrollmentType.toUpperCase()} Authenticator enrolled successfully!`, tokens);
+            cancel();
+          } catch (err) {
+            setError(err.message || err.error_description || String(err));
+          } finally {
+            setLoadingVerification(false);
+          }
+        };
+
+        return (
+          <div className="card mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Enroll New Authenticator</h5>
+
+              {!enrollmentType ? (
+                <div className="list-group">
+                  <p className="text-muted mb-3">Available enrollment options:</p>
+                  {enrollmentOptions.map((opt) => (
+                    <button key={opt.type} onClick={() => selectType(opt.type)} className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                      <span><strong>{opt.label}</strong><br /><small className="text-muted">{opt.description}</small></span>
+                      <span className="badge badge-primary badge-pill">Enroll</span>
+                    </button>
+                  ))}
+                </div>
+              ) : enrollmentType === 'otp' ? (
+                loadingEnrollment ? (
+                  <div className="text-center py-3">
+                    <div className="spinner-border spinner-border-sm" role="status" />
+                    <p className="text-muted mt-2">Setting up authenticator...</p>
+                  </div>
+                ) : enrollmentData ? (
+                  <div>
+                    <div className="alert alert-info">
+                      <p className="mb-2"><strong>Scan this QR code with your authenticator app:</strong></p>
+                      <div className="text-center my-3">
+                        <img src={enrollmentData.barcodeUri} alt="QR Code" className="img-fluid" style={{ maxWidth: 200 }} />
+                      </div>
+                      <p className="mb-1"><strong>Or enter this secret manually:</strong></p>
+                      <code className="d-block bg-white p-2 border rounded">{enrollmentData.secret}</code>
+                    </div>
+                    <form onSubmit={verifyEnrollment} className="mt-3">
+                      <div className="form-group">
+                        <label htmlFor="enrollOtp">Enter code from authenticator app</label>
+                        <input id="enrollOtp" className="form-control" placeholder="123456" required value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} disabled={loadingVerification} />
+                      </div>
+                      <button type="submit" className="btn btn-success btn-block" disabled={loadingVerification || !verificationCode}>
+                        {loadingVerification ? <span><span className="spinner-border spinner-border-sm" role="status" /> Verifying...</span> : 'Complete Enrollment'}
+                      </button>
+                      <button type="button" onClick={cancel} className="btn btn-outline-secondary btn-block mt-2" disabled={loadingVerification}>Cancel</button>
+                    </form>
+                  </div>
+                ) : null
+              ) : (enrollmentType === 'sms' || enrollmentType === 'voice') ? (
+                !enrollmentData ? (
+                  <form onSubmit={enrollOob} className="mt-3">
+                    <div className="form-group">
+                      <label htmlFor="phoneNumber">Phone Number (E.164 format)</label>
+                      <input id="phoneNumber" type="tel" className="form-control" placeholder="+12025551234" required value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} disabled={loadingEnrollment} />
+                      <small className="form-text text-muted">Include country code (e.g., +1 for US)</small>
+                    </div>
+                    <button type="submit" className="btn btn-primary btn-block" disabled={loadingEnrollment || !phoneNumber}>
+                      {loadingEnrollment ? <span><span className="spinner-border spinner-border-sm" role="status" /> Enrolling...</span> : 'Send Code'}
+                    </button>
+                    <button type="button" onClick={cancel} className="btn btn-outline-secondary btn-block mt-2" disabled={loadingEnrollment}>Cancel</button>
+                  </form>
+                ) : (
+                  <div>
+                    <div className="alert alert-info"><p className="mb-0">A verification code has been sent to <strong>{phoneNumber}</strong></p></div>
+                    <form onSubmit={verifyEnrollment} className="mt-3">
+                      <div className="form-group">
+                        <label htmlFor="enrollOobCode">Enter verification code</label>
+                        <input id="enrollOobCode" className="form-control" placeholder="123456" required value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} disabled={loadingVerification} />
+                      </div>
+                      <button type="submit" className="btn btn-success btn-block" disabled={loadingVerification || !verificationCode}>
+                        {loadingVerification ? <span><span className="spinner-border spinner-border-sm" role="status" /> Verifying...</span> : 'Complete Enrollment'}
+                      </button>
+                      <button type="button" onClick={cancel} className="btn btn-outline-secondary btn-block mt-2" disabled={loadingVerification}>Cancel</button>
+                    </form>
+                  </div>
+                )
+              ) : enrollmentType === 'push-notification' ? (
+                loadingEnrollment ? (
+                  <div className="text-center py-3">
+                    <div className="spinner-border spinner-border-sm" role="status" />
+                    <p className="text-muted mt-2">Setting up push notification...</p>
+                  </div>
+                ) : enrollmentData ? (
+                  <div>
+                    {enrollmentData.barcodeUri && (
+                      <div className="alert alert-info">
+                        <p className="mb-2"><strong>Scan this QR code with the Auth0 Guardian app:</strong></p>
+                        <div className="text-center my-3">
+                          <img src={enrollmentData.barcodeUri} alt="QR Code" className="img-fluid" style={{ maxWidth: 200 }} />
+                        </div>
+                      </div>
+                    )}
+                    {!enrollmentData.barcodeUri && (
+                      <div className="alert alert-info">
+                        <p className="mb-0">Push notification authenticator created. Use the Auth0 Guardian app to complete setup.</p>
+                      </div>
+                    )}
+                    {enrollmentData.id && (
+                      <p className="mb-2"><strong>Authenticator ID:</strong> <code>{enrollmentData.id}</code></p>
+                    )}
+                    {enrollmentData.recoveryCodes && enrollmentData.recoveryCodes.length > 0 && (
+                      <div className="alert alert-warning mt-2">
+                        <strong>Save these recovery codes securely!</strong>
+                        <div className="bg-light p-3 border rounded mt-2">
+                          {enrollmentData.recoveryCodes.map(function(c, i) { return <code key={i} className="d-block">{c}</code>; })}
+                        </div>
+                      </div>
+                    )}
+                    <form onSubmit={verifyEnrollment} className="mt-3">
+                      <div className="form-group">
+                        <label htmlFor="enrollPushCode">Enter verification code from Guardian app</label>
+                        <input id="enrollPushCode" className="form-control" placeholder="123456" required value={verificationCode} onChange={function(e) { setVerificationCode(e.target.value); }} disabled={loadingVerification} />
+                      </div>
+                      <button type="submit" className="btn btn-success btn-block" disabled={loadingVerification || !verificationCode}>
+                        {loadingVerification ? <span><span className="spinner-border spinner-border-sm" role="status" /> Verifying...</span> : 'Complete Enrollment'}
+                      </button>
+                      <button type="button" onClick={cancel} className="btn btn-outline-secondary btn-block mt-2" disabled={loadingVerification}>Cancel</button>
+                    </form>
+                  </div>
+                ) : null
+              ) : enrollmentType === 'email' ? (
+                !enrollmentData ? (
+                  <form onSubmit={enrollEmail} className="mt-3">
+                    <div className="form-group">
+                      <label htmlFor="emailAddress">Email Address</label>
+                      <input id="emailAddress" type="email" className="form-control" placeholder="user@example.com" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} disabled={loadingEnrollment} />
+                      <small className="form-text text-muted">Leave empty to use your account email</small>
+                    </div>
+                    <button type="submit" className="btn btn-primary btn-block" disabled={loadingEnrollment}>
+                      {loadingEnrollment ? <span><span className="spinner-border spinner-border-sm" role="status" /> Enrolling...</span> : 'Send Code'}
+                    </button>
+                    <button type="button" onClick={cancel} className="btn btn-outline-secondary btn-block mt-2" disabled={loadingEnrollment}>Cancel</button>
+                  </form>
+                ) : (
+                  <div>
+                    <div className="alert alert-info"><p className="mb-0">A verification code has been sent to your email</p></div>
+                    <form onSubmit={verifyEnrollment} className="mt-3">
+                      <div className="form-group">
+                        <label htmlFor="enrollEmailCode">Enter verification code</label>
+                        <input id="enrollEmailCode" className="form-control" placeholder="123456" required value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} disabled={loadingVerification} />
+                      </div>
+                      <button type="submit" className="btn btn-success btn-block" disabled={loadingVerification || !verificationCode}>
+                        {loadingVerification ? <span><span className="spinner-border spinner-border-sm" role="status" /> Verifying...</span> : 'Complete Enrollment'}
+                      </button>
+                      <button type="button" onClick={cancel} className="btn btn-outline-secondary btn-block mt-2" disabled={loadingVerification}>Cancel</button>
+                    </form>
+                  </div>
+                )
+              ) : null}
+            </div>
+          </div>
+        );
+      }
+
+      // ─── Challenge / Verification Section ─────────────────────
+
+      function ChallengeSection({ authenticator, challengeData, loadingChallenge, mfaToken, mfa, onSuccess, onCancel, setError }) {
+        const [code, setCode] = useState('');
+        const [loading, setLoading] = useState(false);
+
+        const verify = async (e) => {
+          e.preventDefault();
+          setLoading(true);
+          setError('');
+          try {
+            const paramName = CODE_PARAM_MAP[authenticator.authenticatorType] || 'otp';
+            const params = { mfaToken, [paramName]: code };
+            if (challengeData.oobCode) params.oobCode = challengeData.oobCode;
+            const tokens = await mfa.verify(params);
+            onSuccess('MFA Verification Successful!', tokens);
+          } catch (err) {
+            setError(err.message || err.error_description || String(err));
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        return (
+          <div className="card mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Verify MFA Challenge</h5>
+              <p className="mb-2">
+                <strong>Authenticator:</strong>{' '}
+                <span className="badge badge-primary">{authenticator.authenticatorType}</span>
+                <code className="ml-2">{authenticator.id}</code>
+              </p>
+              {loadingChallenge ? (
+                <div className="text-center py-3">
+                  <div className="spinner-border spinner-border-sm" role="status" />
+                  <p className="text-muted mt-2">Initiating challenge...</p>
+                </div>
+              ) : challengeData ? (
+                <div>
+                  {challengeData.oobCode && (
+                    <div className="alert alert-info">
+                      <p className="mb-0"><strong>OOB Code:</strong> <code>{challengeData.oobCode}</code></p>
+                      <small>A code has been sent. Please check your device.</small>
+                    </div>
+                  )}
+                  <form onSubmit={verify} className="mt-3">
+                    <div className="form-group">
+                      <label htmlFor="verificationCode">Enter Verification Code</label>
+                      <input id="verificationCode" className="form-control" placeholder="e.g., 123456" required value={code} onChange={(e) => setCode(e.target.value)} disabled={loading} />
+                    </div>
+                    <button type="submit" className="btn btn-success btn-block" disabled={loading || !code}>
+                      {loading ? <span><span className="spinner-border spinner-border-sm" role="status" /> Verifying...</span> : 'Verify Code'}
+                    </button>
+                    <button type="button" onClick={onCancel} className="btn btn-outline-secondary btn-block mt-2" disabled={loading}>Cancel</button>
+                  </form>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        );
+      }
+
+      // ─── Recovery Codes Section ───────────────────────────────
+
+      function RecoveryCodesSection({ recoveryCodes, mfaToken, mfa, onSuccess, setError }) {
+        const [code, setCode] = useState('');
+        const [loading, setLoading] = useState(false);
+
+        const verify = async (e) => {
+          e.preventDefault();
+          setLoading(true);
+          setError('');
+          try {
+            const tokens = await mfa.verify({ mfaToken, recoveryCode: code });
+            onSuccess('MFA Verification with Recovery Code Successful!', tokens);
+            setCode('');
+          } catch (err) {
+            setError(err.message || err.error_description || String(err));
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        return (
+          <div className="card mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Recovery Codes</h5>
+              {recoveryCodes.length > 0 && (
+                <div>
+                  <div className="alert alert-warning"><strong>Save these codes securely!</strong> Each code can only be used once.</div>
+                  <div className="bg-light p-3 border rounded mb-3">
+                    {recoveryCodes.map((c, i) => <code key={i} className="d-block">{c}</code>)}
+                  </div>
+                </div>
+              )}
+              <form onSubmit={verify} className="mt-3">
+                <div className="form-group">
+                  <label htmlFor="recoveryCodeInput">Use a Recovery Code</label>
+                  <input id="recoveryCodeInput" className="form-control" placeholder="XXXX-XXXX-XXXX" value={code} onChange={(e) => setCode(e.target.value)} disabled={loading} />
+                </div>
+                <button type="submit" className="btn btn-primary btn-block" disabled={loading || !code}>
+                  {loading ? <span><span className="spinner-border spinner-border-sm" role="status" /> Verifying...</span> : 'Verify with Recovery Code'}
+                </button>
+              </form>
+            </div>
+          </div>
+        );
+      }
+
+      // ─── Main MFA Playground (inside Auth0Provider) ───────────
+
+      function MfaPlayground({ config }) {
+        const { user, isAuthenticated, isLoading, getAccessTokenSilently, loginWithRedirect, logout: auth0Logout, mfa } = useAuth0();
+
+        const [error, setError] = useState('');
+        const [successMessage, setSuccessMessage] = useState('');
+        const [tokens, setTokens] = useState(null);
+        const [mfaToken, setMfaToken] = useState(null);
+        const [mfaRequirements, setMfaRequirements] = useState(null);
+        const [authenticators, setAuthenticators] = useState([]);
+        const [loadingAuthenticators, setLoadingAuthenticators] = useState(false);
+        const [enrollmentOptions, setEnrollmentOptions] = useState([]);
+        const [selectedAuthenticator, setSelectedAuthenticator] = useState(null);
+        const [challengeData, setChallengeData] = useState(null);
+        const [loadingChallenge, setLoadingChallenge] = useState(false);
+        const [recoveryCodes, setRecoveryCodes] = useState([]);
+
+        const resetMfaFlow = () => {
+          setError('');
+          setSuccessMessage('');
+          setTokens(null);
+          setMfaToken(null);
+          setMfaRequirements(null);
+          setAuthenticators([]);
+          setSelectedAuthenticator(null);
+          setChallengeData(null);
+          setEnrollmentOptions([]);
+          setRecoveryCodes([]);
+        };
+
+        const handleLogout = () => {
+          auth0Logout({ logoutParams: { returnTo: window.location.href.split('?')[0] } });
+        };
+
+        const getAuthenticators = async (token) => {
+          setLoadingAuthenticators(true);
+          setError('');
+          try {
+            const auths = await mfa.getAuthenticators(token);
+            setAuthenticators(auths);
+          } catch (e) {
+            setError(e.message || e.error_description || String(e));
+          } finally {
+            setLoadingAuthenticators(false);
+          }
+        };
+
+        const getEnrollmentFactors = async (token) => {
+          try {
+            const factors = await mfa.getEnrollmentFactors(token);
+            const options = factors.map((f) => ENROLLMENT_OPTION_MAP[f.type]).filter(Boolean);
+            setEnrollmentOptions(options);
+          } catch (e) {
+            console.warn('Could not get enrollment factors:', e.message);
+            setEnrollmentOptions([]);
+          }
+        };
+
+        const triggerMFA = async () => {
+          setError('');
+          setSuccessMessage('');
+          setTokens(null);
+          setMfaToken(null);
+          setMfaRequirements(null);
+          setAuthenticators([]);
+          setEnrollmentOptions([]);
+
+
+          try {
+            await getAccessTokenSilently({
+              cacheMode: 'off',
+              authorizationParams: {
+                ...(config.audience && { audience: config.audience }),
+              },
+            });
+          } catch (e) {
+            if (e.error === 'mfa_required') {
+              setMfaToken(e.mfa_token);
+              const reqs = e.mfa_requirements || {};
+              setMfaRequirements(reqs);
+              if (reqs.challenge) {
+                await getAuthenticators(e.mfa_token);
+              } else {
+                await getEnrollmentFactors(e.mfa_token);
+              }
+            } else {
+              setError(e.message || e.error_description || String(e));
+            }
+          }
+        };
+
+        const handleChallenge = async (authenticator) => {
+          setSelectedAuthenticator(authenticator);
+          setChallengeData(null);
+          setError('');
+          setLoadingChallenge(true);
+          try {
+            const challengeType = CHALLENGE_TYPE_MAP[authenticator.authenticatorType] || authenticator.authenticatorType;
+            const data = await mfa.challenge({
+              mfaToken,
+              challengeType,
+              authenticatorId: authenticator.id,
+            });
+            setChallengeData(data);
+          } catch (e) {
+            setError(e.message || e.error_description || String(e));
+            setSelectedAuthenticator(null);
+          } finally {
+            setLoadingChallenge(false);
+          }
+        };
+
+        const handleVerifySuccess = (msg, tkns) => {
+          setSuccessMessage(msg);
+          setTokens(tkns);
+          setSelectedAuthenticator(null);
+          setChallengeData(null);
+        };
+
+        const handleEnrollSuccess = async (msg, tkns) => {
+          setSuccessMessage(msg);
+          setTokens(tkns);
+          if (mfaRequirements && mfaRequirements.challenge) {
+            await getAuthenticators(mfaToken);
+          } else {
+            await getEnrollmentFactors(mfaToken);
+          }
+        };
+
+        if (isLoading) {
+          return <div className="text-center py-5"><div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div></div>;
+        }
+
+        if (!isAuthenticated) {
+          loginWithRedirect();
+          return (
+            <div className="text-center py-5">
+              <div className="spinner-border" role="status"><span className="sr-only">Redirecting...</span></div>
+              <p className="text-muted mt-3">Redirecting to Auth0 login...</p>
+            </div>
+          );
+        }
+
+        return (
+          <div>
+            <UserProfile user={user} onLogout={handleLogout} onReset={resetMfaFlow} />
+
+            <div className="mb-3">
+              <button onClick={triggerMFA} className="btn btn-success btn-block" disabled={!!mfaToken}>
+                Get token silently (Trigger MFA)
+              </button>
+            </div>
+
+            <MfaRequirementsDisplay mfaToken={mfaToken} mfaRequirements={mfaRequirements} />
+            <SuccessMessage message={successMessage} tokens={tokens} />
+
+            {mfaToken && (
+              <div>
+                <AuthenticatorsTable authenticators={authenticators} loading={loadingAuthenticators} onChallenge={handleChallenge} />
+                <EnrollmentSection enrollmentOptions={enrollmentOptions} mfaToken={mfaToken} mfa={mfa} onSuccess={handleEnrollSuccess} setError={setError} />
+                {selectedAuthenticator && (
+                  <ChallengeSection
+                    authenticator={selectedAuthenticator}
+                    challengeData={challengeData}
+                    loadingChallenge={loadingChallenge}
+                    mfaToken={mfaToken}
+                    mfa={mfa}
+                    onSuccess={handleVerifySuccess}
+                    onCancel={() => { setSelectedAuthenticator(null); setChallengeData(null); setError(''); }}
+                    setError={setError}
+                  />
+                )}
+                <RecoveryCodesSection recoveryCodes={recoveryCodes} mfaToken={mfaToken} mfa={mfa} onSuccess={handleVerifySuccess} setError={setError} />
+              </div>
+            )}
+
+            {error && <div className="alert alert-danger mt-3">{error}</div>}
+          </div>
+        );
+      }
+
+      // ─── App Root ─────────────────────────────────────────────
+
+      function App() {
+        const [config, setConfig] = useState(null);
+
+        const handleConfigSubmit = (cfg) => setConfig(cfg);
+
+        if (!config || !config.domain || !config.clientId) {
+          return (
+            <div className="container py-5">
+              <div className="row justify-content-center">
+                <div className="col-md-8 col-lg-8">
+                  <div className="card shadow-sm">
+                    <div className="card-body">
+                      <h2 className="card-title text-center mb-4">Auth0 MFA APIs Integration (React)</h2>
+                      <ConfigForm onSubmit={handleConfigSubmit} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <Auth0Provider
+            domain={config.domain}
+            clientId={config.clientId}
+            useRefreshTokens={true}
+            cacheLocation="localstorage"
+            authorizationParams={{
+              redirect_uri: window.location.href.split('?')[0],
+              ...(config.audience && { audience: config.audience }),
+              ...(config.scopes && { scope: config.scopes }),
+            }}
+          >
+            <div className="container py-5">
+              <div className="row justify-content-center">
+                <div className="col-md-8 col-lg-8">
+                  <div className="card shadow-sm">
+                    <div className="card-body">
+                      <h2 className="card-title text-center mb-4">Auth0 MFA APIs Integration (React)</h2>
+                      <MfaPlayground config={config} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Auth0Provider>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('app'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
