@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
 import React, { StrictMode, useContext } from 'react';
 import pkg from '../package.json';
-import { Auth0Provider, useAuth0 } from '../src';
+import { Auth0Provider, createAuth0Client, useAuth0 } from '../src';
 import Auth0Context, {
   Auth0ContextInterface,
   initialContext,
@@ -132,6 +132,27 @@ describe('Auth0Provider', () => {
         })
       );
     });
+  });
+
+  it('should use provided client instance without creating a new one', async () => {
+    const wrapper = createWrapper({ client: clientMock });
+    renderHook(() => useContext(Auth0Context), { wrapper });
+    await waitFor(() => {
+      expect(Auth0Client).not.toHaveBeenCalled();
+      expect(clientMock.checkSession).toHaveBeenCalled();
+    });
+  });
+
+  it('should inject auth0-react telemetry when using createAuth0Client', async () => {
+    createAuth0Client({ clientId: 'foo', domain: 'bar' });
+    expect(Auth0Client).toHaveBeenCalledWith(
+      expect.objectContaining({
+        auth0Client: {
+          name: 'auth0-react',
+          version: pkg.version,
+        },
+      })
+    );
   });
 
   it('should check session when logged out', async () => {
