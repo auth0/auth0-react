@@ -108,7 +108,7 @@ export type Auth0ProviderWithConfigOptions<TUser extends User = User> =
  * Use `createAuth0Client` to create the client so telemetry is set correctly.
  */
 export type Auth0ProviderWithClientOptions<TUser extends User = User> =
-  Auth0ProviderBaseOptions<TUser> & Partial<Auth0ClientOptions> & { client: Auth0Client };
+  Auth0ProviderBaseOptions<TUser> & { client: Auth0Client };
 
 /**
  * The main configuration to instantiate the `Auth0Provider`.
