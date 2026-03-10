@@ -102,6 +102,64 @@ const Posts = () => {
 export default Posts;
 ```
 
+## Use Auth0 outside of React
+
+If you need to access the `Auth0Client` outside of the React tree — for example in middleware, axios interceptors, or TanStack Router loaders — use `createAuth0Client` to create a shared instance and pass it to `Auth0Provider` via the `client` prop.
+
+Using `createAuth0Client` ensures the `auth0-react` telemetry header is set correctly on the client.
+
+```jsx
+// auth0-client.js
+import { createAuth0Client } from '@auth0/auth0-react';
+
+export const auth0Client = createAuth0Client({
+  domain: 'YOUR_AUTH0_DOMAIN',
+  clientId: 'YOUR_AUTH0_CLIENT_ID',
+  authorizationParams: {
+    redirect_uri: window.location.origin,
+  },
+});
+```
+
+Pass the client to `Auth0Provider`:
+
+```jsx
+import { Auth0Provider } from '@auth0/auth0-react';
+import { auth0Client } from './auth0-client';
+
+export default function App() {
+  return (
+    <Auth0Provider client={auth0Client}>
+      <MyApp />
+    </Auth0Provider>
+  );
+}
+```
+
+Use the same client instance directly outside React, for example in an axios interceptor:
+
+```js
+import axios from 'axios';
+import { auth0Client } from './auth0-client';
+
+axios.interceptors.request.use(async (config) => {
+  const token = await auth0Client.getTokenSilently();
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+```
+
+Or in a TanStack Router middleware:
+
+```js
+import { auth0Client } from './auth0-client';
+
+export const authMiddleware = createMiddleware().server(async ({ next }) => {
+  const token = await auth0Client.getTokenSilently();
+  return next({ context: { token } });
+});
+```
+
 ## Custom token exchange
 
 Exchange an external subject token for Auth0 tokens using the token exchange flow (RFC 8693):
