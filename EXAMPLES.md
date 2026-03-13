@@ -3,6 +3,7 @@
 - [Use with a Class Component](#use-with-a-class-component)
 - [Protect a Route](#protect-a-route)
 - [Call an API](#call-an-api)
+- [Use Auth0 outside of React](#use-auth0-outside-of-react)
 - [Protecting a route in a `react-router-dom v6` app](#protecting-a-route-in-a-react-router-dom-v6-app)
 - [Protecting a route in a Gatsby app](#protecting-a-route-in-a-gatsby-app)
 - [Protecting a route in a Next.js app (in SPA mode)](#protecting-a-route-in-a-nextjs-app-in-spa-mode)
@@ -104,7 +105,7 @@ export default Posts;
 
 ## Use Auth0 outside of React
 
-If you need to access the `Auth0Client` outside of the React tree — for example in middleware, axios interceptors, or TanStack Router loaders — use `createAuth0Client` to create a shared instance and pass it to `Auth0Provider` via the `client` prop.
+If you need to share an `Auth0Client` instance between the React tree and code that has no access to React's lifecycle — such as Redux middleware — use `createAuth0Client` to create a shared instance and pass it to `Auth0Provider` via the `client` prop.
 
 Using `createAuth0Client` ensures the `auth0-react` telemetry header is set correctly on the client.
 
@@ -136,29 +137,21 @@ export default function App() {
 }
 ```
 
-Use the same client instance directly outside React, for example in an axios interceptor:
-
-```js
-import axios from 'axios';
-import { auth0Client } from './auth0-client';
-
-axios.interceptors.request.use(async (config) => {
-  const token = await auth0Client.getTokenSilently();
-  config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
-```
-
-Or in a TanStack Router middleware:
+Use the same client instance in Redux middleware:
 
 ```js
 import { auth0Client } from './auth0-client';
 
-export const authMiddleware = createMiddleware().server(async ({ next }) => {
-  const token = await auth0Client.getTokenSilently();
-  return next({ context: { token } });
-});
+export const authMiddleware = store => next => async action => {
+  if (action.requiresAuth) {
+    const token = await auth0Client.getTokenSilently();
+    return next({ ...action, token });
+  }
+  return next(action);
+};
 ```
+
+> **Note:** `getTokenSilently()` requires an active session. Ensure `Auth0Provider` has mounted and completed initialization before calling it outside React.
 
 ## Custom token exchange
 
