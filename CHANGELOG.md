@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.15.1](https://github.com/auth0/auth0-react/tree/v2.15.1) (2026-03-13)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.15.0...v2.15.1)
+
+**Changed**
+- chore(deps): update @auth0/auth0-spa-js to version 2.17.1 [\#1045](https://github.com/auth0/auth0-react/pull/1045) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+
 ## [v2.15.0](https://github.com/auth0/auth0-react/tree/v2.15.0) (2026-02-17)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.14.0...v2.15.0)
 
