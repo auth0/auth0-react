@@ -105,7 +105,7 @@ export default Posts;
 
 ## Use Auth0 outside of React
 
-If you need to share an `Auth0Client` instance between the React tree and code that has no access to React's lifecycle — such as Redux middleware — use `createAuth0Client` to create a shared instance and pass it to `Auth0Provider` via the `client` prop.
+If you need to share an `Auth0Client` instance between the React tree and code that has no access to React's lifecycle — such as TanStack Start client function middleware — use `createAuth0Client` to create a shared instance and pass it to `Auth0Provider` via the `client` prop.
 
 Using `createAuth0Client` ensures the `auth0-react` telemetry header is set correctly on the client.
 
@@ -137,21 +137,25 @@ export default function App() {
 }
 ```
 
-Use the same client instance in Redux middleware:
+> **Note:** `getTokenSilently()` requires an active session. Ensure `Auth0Provider` has mounted and completed initialization before calling it outside React.
+
+Use the same client instance in a TanStack Start client function middleware:
 
 ```js
+import { createMiddleware } from '@tanstack/react-start';
 import { auth0Client } from './auth0-client';
 
-export const authMiddleware = store => next => async action => {
-  if (action.requiresAuth) {
+export const authMiddleware = createMiddleware({ type: 'function' }).client(
+  async ({ next }) => {
     const token = await auth0Client.getTokenSilently();
-    return next({ ...action, token });
-  }
-  return next(action);
-};
+    return next({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+);
 ```
-
-> **Note:** `getTokenSilently()` requires an active session. Ensure `Auth0Provider` has mounted and completed initialization before calling it outside React.
 
 ## Custom token exchange
 

@@ -147,13 +147,13 @@ const toAuth0ClientOptions = (
  * Creates a new `Auth0Client` with the `auth0-react` SDK telemetry header set.
  *
  * Use this when you need to share a single client instance with `Auth0Provider`
- * and also access Auth0 outside of React (e.g. in Redux middleware).
+ * and also access Auth0 outside of React (e.g. in TanStack Start client function middleware).
  *
  * @example
  * ```tsx
  * const client = createAuth0Client({ domain, clientId });
  *
- * // Use outside React (e.g. in Redux middleware)
+ * // Use outside React (e.g. in TanStack Start client function middleware)
  * const token = await client.getTokenSilently();
  *
  * // Use inside React
