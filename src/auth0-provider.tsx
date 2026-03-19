@@ -198,6 +198,13 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     client: providedClient,
     ...clientOpts
   } = opts as Auth0ProviderBaseOptions<TUser> & Auth0ClientOptions & { client?: Auth0Client };
+  if (providedClient && (clientOpts.domain || clientOpts.clientId)) {
+    console.warn(
+      'Auth0Provider: the `client` prop takes precedence over `domain`/`clientId` and other ' +
+      'configuration options. Remove `domain`, `clientId`, and any other Auth0Client configuration ' +
+      'props when using the `client` prop.'
+    );
+  }
   const [client] = useState(
     () => providedClient ?? new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
