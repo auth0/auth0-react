@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
 import React, { StrictMode, useContext } from 'react';
 import pkg from '../package.json';
-import { Auth0Provider, createAuth0Client, useAuth0 } from '../src';
+import { Auth0Provider, Auth0ProviderOptions, createAuth0Client, useAuth0 } from '../src';
 import Auth0Context, {
   Auth0ContextInterface,
   initialContext,
@@ -157,7 +157,7 @@ describe('Auth0Provider', () => {
 
   it('should warn when client prop is used alongside domain or clientId', async () => {
     const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
-    const wrapper = createWrapper({ client: clientMock, domain: 'foo', clientId: 'bar' } as any);
+    const wrapper = createWrapper({ client: clientMock, domain: 'foo', clientId: 'bar' } as unknown as Partial<Auth0ProviderOptions>);
     renderHook(() => useContext(Auth0Context), { wrapper });
     await waitFor(() => {
       expect(warn).toHaveBeenCalledWith(
