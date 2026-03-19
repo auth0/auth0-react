@@ -137,7 +137,9 @@ export default function App() {
 }
 ```
 
-> **Note:** `getTokenSilently()` requires an active session. Ensure `Auth0Provider` has mounted and completed initialization before calling it outside React.
+> **Note:**
+> - The raw `Auth0Client` method is `getTokenSilently()`, not `getAccessTokenSilently()`. They share the same token cache but the hook version also updates React state.
+> - Calling methods on the raw client does not update React state. For token fetching this is fine since the cache is shared. Avoid calling `client.logout()` directly — use the `logout` method from `useAuth0` instead so React state stays in sync.
 
 Use the same client instance in a TanStack Start client function middleware:
 
