@@ -109,7 +109,7 @@ If you need to share an `Auth0Client` instance between the React tree and code t
 
 ```jsx
 // auth0-client.js
-import { Auth0Client } from '@auth0/auth0-react';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 
 export const auth0Client = new Auth0Client({
   domain: 'YOUR_AUTH0_DOMAIN',

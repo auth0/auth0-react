@@ -4,7 +4,7 @@ export {
   Auth0ProviderWithConfigOptions,
   Auth0ProviderWithClientOptions,
   AppState,
-  ConnectedAccount,
+  ConnectedAccount
 } from './auth0-provider';
 export { default as useAuth0 } from './use-auth0';
 export { default as withAuth0, WithAuth0Props } from './with-auth0';
@@ -20,7 +20,6 @@ export {
   RedirectLoginOptions,
 } from './auth0-context';
 export {
-  Auth0Client,
   AuthorizationParams,
   PopupLoginOptions,
   PopupConfigOptions,
