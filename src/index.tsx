@@ -1,6 +1,8 @@
 export {
   default as Auth0Provider,
   Auth0ProviderOptions,
+  Auth0ProviderWithConfigOptions,
+  Auth0ProviderWithClientOptions,
   AppState,
   ConnectedAccount
 } from './auth0-provider';

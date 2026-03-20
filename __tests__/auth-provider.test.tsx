@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
 import React, { StrictMode, useContext } from 'react';
 import pkg from '../package.json';
-import { Auth0Provider, useAuth0 } from '../src';
+import { Auth0Provider, Auth0ProviderOptions, useAuth0 } from '../src';
 import Auth0Context, {
   Auth0ContextInterface,
   initialContext,
@@ -132,6 +132,40 @@ describe('Auth0Provider', () => {
         })
       );
     });
+  });
+
+  it('should use provided client instance without creating a new one', async () => {
+    const wrapper = createWrapper({ client: clientMock });
+    renderHook(() => useContext(Auth0Context), { wrapper });
+    await waitFor(() => {
+      expect(Auth0Client).not.toHaveBeenCalled();
+      expect(clientMock.checkSession).toHaveBeenCalled();
+    });
+  });
+
+  it('should warn when client prop is used alongside domain or clientId', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const wrapper = createWrapper({ client: clientMock, domain: 'foo', clientId: 'bar' } as unknown as Partial<Auth0ProviderOptions>);
+    renderHook(() => useContext(Auth0Context), { wrapper });
+    await waitFor(() => {
+      expect(warn).toHaveBeenCalledWith(
+        expect.stringContaining('the `client` prop takes precedence')
+      );
+    });
+    warn.mockRestore();
+  });
+
+  it('should not warn when only client prop is provided', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const wrapper = createWrapper({ client: clientMock });
+    renderHook(() => useContext(Auth0Context), { wrapper });
+    await waitFor(() => {
+      expect(clientMock.checkSession).toHaveBeenCalled();
+    });
+    expect(warn).not.toHaveBeenCalledWith(
+      expect.stringContaining('the `client` prop takes precedence')
+    );
+    warn.mockRestore();
   });
 
   it('should check session when logged out', async () => {

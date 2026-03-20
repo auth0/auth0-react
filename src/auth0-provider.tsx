@@ -51,10 +51,7 @@ export type AppState = {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
-/**
- * The main configuration to instantiate the `Auth0Provider`.
- */
-export interface Auth0ProviderOptions<TUser extends User = User> extends Auth0ClientOptions {
+type Auth0ProviderBaseOptions<TUser extends User = User> = {
   /**
    * The child nodes your Provider has wrapped
    */
@@ -97,7 +94,30 @@ export interface Auth0ProviderOptions<TUser extends User = User> extends Auth0Cl
    * For a sample on using multiple Auth0Providers review the [React Account Linking Sample](https://github.com/auth0-samples/auth0-link-accounts-sample/tree/react-variant)
    */
   context?: React.Context<Auth0ContextInterface<TUser>>;
-}
+};
+
+/**
+ * Options for `Auth0Provider` when configuring Auth0 via `domain` and `clientId`.
+ * Use this type when building wrapper components around `Auth0Provider`.
+ */
+export type Auth0ProviderWithConfigOptions<TUser extends User = User> =
+  Auth0ProviderBaseOptions<TUser> & Auth0ClientOptions & { client?: never };
+
+/**
+ * Options for `Auth0Provider` when supplying a pre-configured `Auth0Client` instance.
+ */
+export type Auth0ProviderWithClientOptions<TUser extends User = User> =
+  Auth0ProviderBaseOptions<TUser> & { client: Auth0Client };
+
+/**
+ * The main configuration to instantiate the `Auth0Provider`.
+ *
+ * Either provide `domain` and `clientId` (`Auth0ProviderWithConfigOptions`)
+ * or a pre-configured `client` instance (`Auth0ProviderWithClientOptions`).
+ */
+export type Auth0ProviderOptions<TUser extends User = User> =
+  | Auth0ProviderWithConfigOptions<TUser>
+  | Auth0ProviderWithClientOptions<TUser>;
 
 /**
  * Replaced by the package version at build time.
@@ -109,7 +129,7 @@ declare const __VERSION__: string;
  * @ignore
  */
 const toAuth0ClientOptions = (
-  opts: Auth0ProviderOptions
+  opts: Auth0ClientOptions
 ): Auth0ClientOptions => {
   deprecateRedirectUri(opts);
 
@@ -151,10 +171,18 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     skipRedirectCallback,
     onRedirectCallback = defaultOnRedirectCallback,
     context = Auth0Context,
+    client: providedClient,
     ...clientOpts
-  } = opts;
+  } = opts as Auth0ProviderBaseOptions<TUser> & Auth0ClientOptions & { client?: Auth0Client };
+  if (providedClient && (clientOpts.domain || clientOpts.clientId)) {
+    console.warn(
+      'Auth0Provider: the `client` prop takes precedence over `domain`/`clientId` and other ' +
+      'configuration options. Remove `domain`, `clientId`, and any other Auth0Client configuration ' +
+      'props when using the `client` prop.'
+    );
+  }
   const [client] = useState(
-    () => new Auth0Client(toAuth0ClientOptions(clientOpts))
+    () => providedClient ?? new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
   const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
   const didInitialise = useRef(false);

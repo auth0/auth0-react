@@ -3,6 +3,7 @@
 - [Use with a Class Component](#use-with-a-class-component)
 - [Protect a Route](#protect-a-route)
 - [Call an API](#call-an-api)
+- [Use Auth0 outside of React](#use-auth0-outside-of-react)
 - [Protecting a route in a `react-router-dom v6` app](#protecting-a-route-in-a-react-router-dom-v6-app)
 - [Protecting a route in a Gatsby app](#protecting-a-route-in-a-gatsby-app)
 - [Protecting a route in a Next.js app (in SPA mode)](#protecting-a-route-in-a-nextjs-app-in-spa-mode)
@@ -100,6 +101,60 @@ const Posts = () => {
 };
 
 export default Posts;
+```
+
+## Use Auth0 outside of React
+
+If you need to share an `Auth0Client` instance between the React tree and code that has no access to React's lifecycle — such as TanStack Start client function middleware — create an `Auth0Client` and pass it to `Auth0Provider` via the `client` prop.
+
+```jsx
+// auth0-client.js
+import { Auth0Client } from '@auth0/auth0-spa-js';
+
+export const auth0Client = new Auth0Client({
+  domain: 'YOUR_AUTH0_DOMAIN',
+  clientId: 'YOUR_AUTH0_CLIENT_ID',
+  authorizationParams: {
+    redirect_uri: window.location.origin,
+  },
+});
+```
+
+Pass the client to `Auth0Provider`:
+
+```jsx
+import { Auth0Provider } from '@auth0/auth0-react';
+import { auth0Client } from './auth0-client';
+
+export default function App() {
+  return (
+    <Auth0Provider client={auth0Client}>
+      <MyApp />
+    </Auth0Provider>
+  );
+}
+```
+
+> **Note:**
+> - The raw `Auth0Client` method is `getTokenSilently()`, not `getAccessTokenSilently()`. They share the same token cache but the hook version also updates React state.
+> - Calling methods on the raw client does not update React state. For token fetching this is fine since the cache is shared. Avoid calling `client.logout()` directly — use the `logout` method from `useAuth0` instead so React state stays in sync.
+
+Use the same client instance in a TanStack Start client function middleware:
+
+```js
+import { createMiddleware } from '@tanstack/react-start';
+import { auth0Client } from './auth0-client';
+
+export const authMiddleware = createMiddleware({ type: 'function' }).client(
+  async ({ next }) => {
+    const token = await auth0Client.getTokenSilently();
+    return next({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+);
 ```
 
 ## Custom token exchange
