@@ -105,15 +105,13 @@ export default Posts;
 
 ## Use Auth0 outside of React
 
-If you need to share an `Auth0Client` instance between the React tree and code that has no access to React's lifecycle — such as TanStack Start client function middleware — use `createAuth0Client` to create a shared instance and pass it to `Auth0Provider` via the `client` prop.
-
-Using `createAuth0Client` ensures the `auth0-react` telemetry header is set correctly on the client.
+If you need to share an `Auth0Client` instance between the React tree and code that has no access to React's lifecycle — such as TanStack Start client function middleware — create an `Auth0Client` and pass it to `Auth0Provider` via the `client` prop.
 
 ```jsx
 // auth0-client.js
-import { createAuth0Client } from '@auth0/auth0-react';
+import { Auth0Client } from '@auth0/auth0-react';
 
-export const auth0Client = createAuth0Client({
+export const auth0Client = new Auth0Client({
   domain: 'YOUR_AUTH0_DOMAIN',
   clientId: 'YOUR_AUTH0_CLIENT_ID',
   authorizationParams: {

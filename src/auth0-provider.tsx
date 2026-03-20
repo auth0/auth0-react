@@ -105,7 +105,6 @@ export type Auth0ProviderWithConfigOptions<TUser extends User = User> =
 
 /**
  * Options for `Auth0Provider` when supplying a pre-configured `Auth0Client` instance.
- * Use `createAuth0Client` to create the client so telemetry is set correctly.
  */
 export type Auth0ProviderWithClientOptions<TUser extends User = User> =
   Auth0ProviderBaseOptions<TUser> & { client: Auth0Client };
@@ -141,29 +140,6 @@ const toAuth0ClientOptions = (
       version: __VERSION__,
     },
   };
-};
-
-/**
- * Creates a new `Auth0Client` with the `auth0-react` SDK telemetry header set.
- *
- * Use this when you need to share a single client instance with `Auth0Provider`
- * and also access Auth0 outside of React (e.g. in TanStack Start client function middleware).
- *
- * @example
- * ```tsx
- * const client = createAuth0Client({ domain, clientId });
- *
- * // Use outside React (e.g. in TanStack Start client function middleware)
- * const token = await client.getTokenSilently();
- *
- * // Use inside React
- * function App() {
- *   return <Auth0Provider client={client}><MyApp /></Auth0Provider>;
- * }
- * ```
- */
-export const createAuth0Client = (options: Auth0ClientOptions): Auth0Client => {
-  return new Auth0Client(toAuth0ClientOptions(options));
 };
 
 /**

@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
 import React, { StrictMode, useContext } from 'react';
 import pkg from '../package.json';
-import { Auth0Provider, Auth0ProviderOptions, createAuth0Client, useAuth0 } from '../src';
+import { Auth0Provider, Auth0ProviderOptions, useAuth0 } from '../src';
 import Auth0Context, {
   Auth0ContextInterface,
   initialContext,
@@ -141,18 +141,6 @@ describe('Auth0Provider', () => {
       expect(Auth0Client).not.toHaveBeenCalled();
       expect(clientMock.checkSession).toHaveBeenCalled();
     });
-  });
-
-  it('should inject auth0-react telemetry when using createAuth0Client', async () => {
-    createAuth0Client({ clientId: 'foo', domain: 'bar' });
-    expect(Auth0Client).toHaveBeenCalledWith(
-      expect.objectContaining({
-        auth0Client: {
-          name: 'auth0-react',
-          version: pkg.version,
-        },
-      })
-    );
   });
 
   it('should warn when client prop is used alongside domain or clientId', async () => {
