@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.16.0](https://github.com/auth0/auth0-react/tree/v2.16.0) (2026-03-25)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.15.1...v2.16.0)
+
+**Added**
+- feat: add client prop to Auth0Provider [\#1041](https://github.com/auth0/auth0-react/pull/1041) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
+**Changed**
+- chore(deps): bump @auth0/auth0-spa-js from 2.17.1 to 2.18.0 [\#1059](https://github.com/auth0/auth0-react/pull/1059) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.15.1](https://github.com/auth0/auth0-react/tree/v2.15.1) (2026-03-13)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.15.0...v2.15.1)
 
