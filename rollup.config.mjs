@@ -19,7 +19,10 @@ const globals = {
 };
 const plugins = [
   del({ targets: 'dist/*', runOnce: true }),
-  typescript({ useTsconfigDeclarationDir: true }),
+  typescript({
+    useTsconfigDeclarationDir: true,
+    include: ['src/**/*.ts', 'src/**/*.tsx'],
+  }),
   external(),
   resolve(),
   replace({ __VERSION__: `'${pkg.version}'`, preventAssignment: true }),
