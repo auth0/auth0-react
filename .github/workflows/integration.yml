@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  NODE_VERSION: 18
+  NODE_VERSION: 22
 
 jobs:
   test-examples:
