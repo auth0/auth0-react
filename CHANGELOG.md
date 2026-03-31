@@ -12,6 +12,7 @@
 
 **Added**
 - feat: add client prop to Auth0Provider [\#1041](https://github.com/auth0/auth0-react/pull/1041) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+- Native to Web SSO support (via [auth0-spa-js v2.18.0](https://github.com/auth0/auth0-spa-js/releases/tag/v2.18.0))
 
 **Changed**
 - chore(deps): bump @auth0/auth0-spa-js from 2.17.1 to 2.18.0 [\#1059](https://github.com/auth0/auth0-react/pull/1059) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))

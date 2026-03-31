@@ -15,6 +15,7 @@
 - [Access SDK Configuration](#access-sdk-configuration)
 - [Multi-Factor Authentication (MFA)](#multi-factor-authentication-mfa)
 - [Step-Up Authentication](#step-up-authentication)
+- [Native to Web SSO](#native-to-web-sso)
 
 ## Use with a Class Component
 
@@ -1125,3 +1126,60 @@ export default ProtectedResource;
 
 If the popup is blocked, cancelled, or times out, `getAccessTokenSilently` throws `PopupOpenError`, `PopupCancelledError`, or `PopupTimeoutError` respectively. These can be imported from `@auth0/auth0-react`.
 
+## Native to Web SSO
+
+[Native to Web SSO](https://auth0.com/docs/authenticate/single-sign-on/native-to-web) enables seamless single sign-on when users transition from a native mobile app to a web app. The SDK can automatically extract a session transfer token from the URL and include it in the authorization request.
+
+The feature is **disabled by default**. To enable it, set `sessionTransferTokenQueryParamName` on `Auth0Provider` with the name of the query parameter your native app appends to the web app URL:
+
+```jsx
+import { Auth0Provider } from '@auth0/auth0-react';
+
+function App() {
+  return (
+    <Auth0Provider
+      domain="YOUR_AUTH0_DOMAIN"
+      clientId="YOUR_AUTH0_CLIENT_ID"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+      sessionTransferTokenQueryParamName="session_transfer_token"
+    >
+      <MyApp />
+    </Auth0Provider>
+  );
+}
+```
+
+When the web app is opened with `?session_transfer_token=xyz` in the URL, the SDK extracts the token, includes it in the `/authorize` request, and removes it from the URL via `window.history.replaceState()`.
+
+### Using a custom parameter name
+
+If your native app uses a different query parameter name, configure that name instead. The token is always forwarded to Auth0 as `session_transfer_token` regardless:
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  authorizationParams={{
+    redirect_uri: window.location.origin,
+  }}
+  sessionTransferTokenQueryParamName="stt"
+>
+  <MyApp />
+</Auth0Provider>
+```
+
+### Manually providing the session transfer token
+
+You can pass the token directly via `authorizationParams`. This takes precedence over automatic URL detection:
+
+```jsx
+const { loginWithRedirect } = useAuth0();
+
+await loginWithRedirect({
+  authorizationParams: {
+    session_transfer_token: 'YOUR_SESSION_TRANSFER_TOKEN',
+  },
+});
+```
