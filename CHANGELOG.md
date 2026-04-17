@@ -1,11 +1,5 @@
 # Change Log
 
-## [v2.16.2](https://github.com/auth0/auth0-react/tree/v2.16.2) (2026-04-17)
-[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.16.1...v2.16.2)
-
-**Changed**
-- chore(deps): bump @auth0/auth0-spa-js from 2.18.0 to 2.19.2 [\#1093](https://github.com/auth0/auth0-react/pull/1093) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
-
 ## [v2.16.1](https://github.com/auth0/auth0-react/tree/v2.16.1) (2026-03-31)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.16.0...v2.16.1)
 
