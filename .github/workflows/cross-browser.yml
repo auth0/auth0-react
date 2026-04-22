@@ -47,7 +47,7 @@ jobs:
           node: ${{ env.NODE_VERSION }}
 
       - name: Run cross-browser tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           browser: ${{ matrix.browser }}
           start: npm start
