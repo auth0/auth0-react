@@ -51,7 +51,6 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
-          package-manager-cache: false
 
       - name: Install dependencies
         run: npm i --include=dev
