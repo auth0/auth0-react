@@ -215,6 +215,59 @@ export default TokenExchange;
 - The audience and scope can be provided directly in the options or will fall back to SDK defaults
 - **State Management:** This method triggers the `GET_ACCESS_TOKEN_COMPLETE` action internally upon completion. This ensures that the SDK's `isLoading` and `isAuthenticated` states behave identically to the standard `getAccessTokenSilently` flow.
 
+### Delegation and Impersonation
+
+Use `customTokenExchange` when one principal needs to act on behalf of another — for example, an AI agent acting on behalf of a user. Unlike `loginWithCustomTokenExchange`, this method has no side effects: it does not update the session or affect `isAuthenticated` / `user`.
+
+Pass `actor_token` and `actor_token_type` alongside the subject token to identify the acting party per [RFC 8693](https://tools.ietf.org/html/rfc8693):
+
+```jsx
+import React, { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const DelegatedAction = () => {
+  const { customTokenExchange } = useAuth0();
+  const [accessToken, setAccessToken] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleDelegation = async (userToken, agentToken) => {
+    try {
+      const tokenResponse = await customTokenExchange({
+        subject_token: userToken,
+        subject_token_type: 'urn:acme:user-token',
+        actor_token: agentToken,
+        actor_token_type: 'https://idp.example.com/token-type/agent',
+        audience: 'https://api.example.com',
+      });
+
+      setAccessToken(tokenResponse.access_token);
+      setError(null);
+
+      // Use tokenResponse.access_token to call a downstream API
+      // The current user session is unchanged
+    } catch (e) {
+      console.error('Delegation failed:', e);
+      setError(e.message);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={() => handleDelegation('<USER_TOKEN>', '<AGENT_TOKEN>')}>
+        Act on Behalf of User
+      </button>
+      {accessToken && <div>Delegation successful!</div>}
+      {error && <div>Error: {error}</div>}
+    </div>
+  );
+};
+
+export default DelegatedAction;
+```
+
+[Token Exchange Documentation](https://auth0.com/docs/authenticate/login/token-exchange)
+[RFC 8693 Spec](https://tools.ietf.org/html/rfc8693)
+
 ## Protecting a route in a `react-router-dom v6` app
 
 We need to access the `useNavigate` hook so we can use `navigate` in `onRedirectCallback` to return us to our `returnUrl`.
