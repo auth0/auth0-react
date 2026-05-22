@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.17.0](https://github.com/auth0/auth0-react/tree/v2.17.0) (2026-05-22)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.16.2...v2.17.0)
+
+**Added**
+- feat: CTE delegation and impersonation support [\#1109](https://github.com/auth0/auth0-react/pull/1109) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.16.2](https://github.com/auth0/auth0-react/tree/v2.16.2) (2026-04-17)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.16.1...v2.16.2)
 
