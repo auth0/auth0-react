@@ -331,6 +331,12 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const customTokenExchange = useCallback(
+    (options: CustomTokenExchangeOptions): Promise<TokenEndpointResponse> =>
+      client.customTokenExchange(options),
+    [client]
+  );
+
   const exchangeToken = useCallback(
     async (
       options: CustomTokenExchangeOptions
@@ -392,6 +398,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       getAccessTokenWithPopup,
       getIdTokenClaims,
       loginWithCustomTokenExchange,
+      customTokenExchange,
       exchangeToken,
       loginWithRedirect,
       loginWithPopup,
@@ -411,6 +418,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     getAccessTokenWithPopup,
     getIdTokenClaims,
     loginWithCustomTokenExchange,
+    customTokenExchange,
     exchangeToken,
     loginWithRedirect,
     loginWithPopup,
