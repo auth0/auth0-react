@@ -1109,6 +1109,99 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should provide a customTokenExchange method', async () => {
+    const tokenResponse = {
+      access_token: '__test_access_token__',
+      id_token: '__test_id_token__',
+      token_type: 'Bearer',
+      expires_in: 86400,
+    };
+    clientMock.customTokenExchange.mockResolvedValue(tokenResponse);
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.customTokenExchange).toBeInstanceOf(Function);
+    });
+    let response;
+    await act(async () => {
+      response = await result.current.customTokenExchange({
+        subject_token: '__test_token__',
+        subject_token_type: 'urn:test:token-type',
+        actor_token: '__test_actor_token__',
+        actor_token_type: 'https://idp.example.com/token-type/agent',
+      });
+    });
+    expect(clientMock.customTokenExchange).toHaveBeenCalledWith({
+      subject_token: '__test_token__',
+      subject_token_type: 'urn:test:token-type',
+      actor_token: '__test_actor_token__',
+      actor_token_type: 'https://idp.example.com/token-type/agent',
+    });
+    expect(response).toStrictEqual(tokenResponse);
+  });
+
+  it('should not update auth state after customTokenExchange', async () => {
+    const tokenResponse = {
+      access_token: '__test_access_token__',
+      id_token: '__test_id_token__',
+      token_type: 'Bearer',
+      expires_in: 86400,
+    };
+    clientMock.customTokenExchange.mockResolvedValue(tokenResponse);
+    clientMock.getUser.mockResolvedValue(undefined);
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.customTokenExchange).toBeInstanceOf(Function);
+    });
+    await act(async () => {
+      await result.current.customTokenExchange({
+        subject_token: '__test_token__',
+        subject_token_type: 'urn:test:token-type',
+      });
+    });
+    expect(result.current.isAuthenticated).toBe(false);
+  });
+
+  it('should propagate errors from customTokenExchange', async () => {
+    clientMock.customTokenExchange.mockRejectedValue(new Error('__test_error__'));
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.customTokenExchange).toBeInstanceOf(Function);
+    });
+    await act(async () => {
+      await expect(
+        result.current.customTokenExchange({
+          subject_token: '__test_token__',
+          subject_token_type: 'urn:test:token-type',
+        })
+      ).rejects.toThrow('__test_error__');
+    });
+  });
+
+  it('should memoize the customTokenExchange method', async () => {
+    const wrapper = createWrapper();
+    const { result, rerender } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      const memoized = result.current.customTokenExchange;
+      rerender();
+      expect(result.current.customTokenExchange).toBe(memoized);
+    });
+  });
+
   it('should provide a handleRedirectCallback method', async () => {
     clientMock.handleRedirectCallback.mockResolvedValue({
       appState: { redirectUri: '/' },

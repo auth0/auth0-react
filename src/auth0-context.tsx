@@ -146,6 +146,33 @@ export interface Auth0ContextInterface<TUser extends User = User>
   ) => Promise<TokenEndpointResponse>;
 
   /**
+   * ```js
+   * const tokenResponse = await customTokenExchange({
+   *   subject_token: 'ey...',
+   *   subject_token_type: 'urn:acme:legacy-system-token',
+   *   actor_token: 'ey...',
+   *   actor_token_type: 'https://idp.example.com/token-type/agent',
+   * });
+   * ```
+   *
+   * Exchanges an external subject token for Auth0 tokens without affecting the current session.
+   *
+   * Unlike `loginWithCustomTokenExchange`, this method has no side effects — it does not cache
+   * tokens, does not update the authenticated session, and does not affect `isAuthenticated`
+   * or `user`. Use this for delegation or impersonation scenarios where you need a downstream
+   * API token without changing who the current user is.
+   *
+   * When `actor_token` is present Auth0 suppresses refresh token issuance; a missing
+   * `refresh_token` in the response is expected and will not cause an error.
+   *
+   * @param options - The options required to perform the token exchange.
+   * @returns A promise that resolves to the token endpoint response.
+   */
+  customTokenExchange: (
+    options: CustomTokenExchangeOptions
+  ) => Promise<TokenEndpointResponse>;
+
+  /**
    * @deprecated Use `loginWithCustomTokenExchange()` instead. This method will be removed in the next major version.
    *
    * ```js
@@ -383,6 +410,7 @@ export const initialContext = {
   getAccessTokenWithPopup: stub,
   getIdTokenClaims: stub,
   loginWithCustomTokenExchange: stub,
+  customTokenExchange: stub,
   exchangeToken: stub,
   loginWithRedirect: stub,
   loginWithPopup: stub,

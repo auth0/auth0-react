@@ -48,6 +48,7 @@ export {
   ConnectError,
   CustomTokenExchangeOptions,
   TokenEndpointResponse,
+  ActClaim,
   ClientConfiguration,
   // MFA Errors
   MfaError,
