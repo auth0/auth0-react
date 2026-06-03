@@ -57,6 +57,11 @@ export {
   MfaChallengeError,
   MfaVerifyError,
   MfaEnrollmentFactorsError,
+  // Passkey Errors
+  PasskeyError,
+  PasskeyRegisterError,
+  PasskeyChallengeError,
+  PasskeyGetTokenError,
 } from '@auth0/auth0-spa-js';
 export type {
   FetcherConfig,
@@ -76,5 +81,16 @@ export type {
   ChallengeResponse,
   VerifyParams,
   EnrollmentFactor,
+  // Passkey Types
+  PasskeyApiClient,
+  PasskeySignupOptions,
+  PasskeyLoginOptions,
+  PasskeyCredentialResponse,
+  PasskeySignupChallengeOptions,
+  PasskeySignupChallengeResponse,
+  PasskeyLoginChallengeOptions,
+  PasskeyLoginChallengeResponse,
+  PasskeyCreationOptions,
+  PasskeyRequestOptions,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';

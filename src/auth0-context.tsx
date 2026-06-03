@@ -14,7 +14,8 @@ import {
   ConnectAccountRedirectResult,
   CustomTokenExchangeOptions,
   TokenEndpointResponse,
-  type MfaApiClient
+  type MfaApiClient,
+  type PasskeyApiClient
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -390,6 +391,22 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * ```
    */
   mfa: MfaApiClient;
+
+  /**
+   * ```js
+   * const { passkey } = useAuth0();
+   * const tokens = await passkey.signup({ email: 'user@example.com' });
+   * ```
+   *
+   * Passkey API client for WebAuthn-based passwordless authentication.
+   *
+   * - `signup(options)` — register a new user and create a passkey credential
+   * - `login(options?)` — authenticate an existing user via passkey assertion
+   *
+   * Both methods exchange the WebAuthn credential for Auth0 tokens and update
+   * `isAuthenticated` / `user` in the same way as `loginWithPopup`.
+   */
+  passkey: PasskeyApiClient;
 }
 
 /**
@@ -429,6 +446,10 @@ export const initialContext = {
     verify: stub,
     getEnrollmentFactors: stub,
   } as unknown as MfaApiClient,
+  passkey: {
+    signup: stub,
+    login: stub,
+  } as unknown as PasskeyApiClient,
 };
 
 /**

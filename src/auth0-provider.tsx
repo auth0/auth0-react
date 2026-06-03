@@ -19,7 +19,10 @@ import {
   ConnectAccountRedirectResult,
   ResponseType,
   CustomTokenExchangeOptions,
-  TokenEndpointResponse
+  TokenEndpointResponse,
+  type PasskeyApiClient,
+  type PasskeySignupOptions,
+  type PasskeyLoginOptions
 } from '@auth0/auth0-spa-js';
 import Auth0Context, {
   Auth0ContextInterface,
@@ -391,6 +394,47 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
 
   const mfa = useMemo(() => client.mfa, [client]);
 
+  const passkeySignup = useCallback(
+    async (options: PasskeySignupOptions): Promise<TokenEndpointResponse> => {
+      let tokenResponse;
+      try {
+        tokenResponse = await client.passkey.signup(options);
+      } catch (error) {
+        throw tokenError(error);
+      } finally {
+        dispatch({
+          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          user: await client.getUser(),
+        });
+      }
+      return tokenResponse;
+    },
+    [client]
+  );
+
+  const passkeyLogin = useCallback(
+    async (options?: PasskeyLoginOptions): Promise<TokenEndpointResponse> => {
+      let tokenResponse;
+      try {
+        tokenResponse = await client.passkey.login(options);
+      } catch (error) {
+        throw tokenError(error);
+      } finally {
+        dispatch({
+          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          user: await client.getUser(),
+        });
+      }
+      return tokenResponse;
+    },
+    [client]
+  );
+
+  const passkey = useMemo(
+    () => ({ signup: passkeySignup, login: passkeyLogin }) as unknown as PasskeyApiClient,
+    [passkeySignup, passkeyLogin]
+  );
+
   const contextValue = useMemo<Auth0ContextInterface<TUser>>(() => {
     return {
       ...state,
@@ -411,6 +455,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       createFetcher,
       getConfiguration,
       mfa,
+      passkey,
     };
   }, [
     state,
@@ -431,6 +476,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     createFetcher,
     getConfiguration,
     mfa,
+    passkey,
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;
