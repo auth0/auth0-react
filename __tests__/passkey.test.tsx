@@ -1,4 +1,4 @@
-import { Auth0Client } from '@auth0/auth0-spa-js';
+import { Auth0Client, TokenEndpointResponse } from '@auth0/auth0-spa-js';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import useAuth0 from '../src/use-auth0';
 import { createWrapper } from './helpers';
@@ -34,14 +34,14 @@ describe('Passkey API', () => {
 
       await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-      let tokenResponse: any;
+      let tokenResponse: TokenEndpointResponse | undefined;
       await act(async () => {
         tokenResponse = await result.current.passkey.signup({ email: 'user@example.com' });
       });
 
       expect(tokenResponse).toBeDefined();
-      expect(tokenResponse.access_token).toBe('passkey-token');
-      expect(tokenResponse.id_token).toBe('passkey-id-token');
+      expect(tokenResponse?.access_token).toBe('passkey-token');
+      expect(tokenResponse?.id_token).toBe('passkey-id-token');
     });
 
     it('should dispatch state update after signup', async () => {
@@ -82,13 +82,13 @@ describe('Passkey API', () => {
 
       await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-      let tokenResponse: any;
+      let tokenResponse: TokenEndpointResponse | undefined;
       await act(async () => {
         tokenResponse = await result.current.passkey.login();
       });
 
       expect(tokenResponse).toBeDefined();
-      expect(tokenResponse.access_token).toBe('passkey-token');
+      expect(tokenResponse?.access_token).toBe('passkey-token');
     });
 
     it('should forward options to the underlying client', async () => {
