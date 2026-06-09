@@ -16,6 +16,7 @@
 - [Multi-Factor Authentication (MFA)](#multi-factor-authentication-mfa)
 - [Step-Up Authentication](#step-up-authentication)
 - [Native to Web SSO](#native-to-web-sso)
+- [Passkeys](#passkeys)
 
 ## Use with a Class Component
 
@@ -1236,3 +1237,146 @@ await loginWithRedirect({
   },
 });
 ```
+
+## Passkeys
+
+Passkeys provide password-less authentication using platform biometrics (Face ID, Touch ID, Windows Hello) or security keys via the WebAuthn standard. The SDK supports two flows:
+
+- **Signup**: Register a new user with a passkey
+- **Login**: Authenticate an existing user with a passkey
+
+- [Setup](#setup)
+- [Important: Use Refresh Tokens with Passkeys](#important-use-refresh-tokens-with-passkeys)
+- [Signup with Passkey](#signup-with-passkey)
+- [Login with Passkey](#login-with-passkey)
+- [Complete Passkey Flow Example](#complete-passkey-flow-example)
+- [Error Handling](#passkey-error-handling)
+
+### Setup
+
+Before using passkeys, ensure the following are configured in your [Auth0 Dashboard](https://manage.auth0.com):
+
+1. **Enable passkey authentication method**: Go to **Authentication** > **Database** > your connection > **Authentication Methods** > **Passkey**.
+2. **Enable the WebAuthn passkey grant**: Go to your **Application** > **Advanced Settings** > **Grant Types** and enable the **Passkey** grant.
+3. **Custom domain required**: Passkeys are bound to an origin (domain). A [custom domain](https://auth0.com/docs/customize/custom-domains) must be configured — passkeys will not work on the default `*.auth0.com` domain.
+
+### Important: Use Refresh Tokens with Passkeys
+
+> [!IMPORTANT]
+> When using passkeys, you **must** configure `Auth0Provider` with `useRefreshTokens={true}`.
+
+Passkey authentication uses a direct token exchange (`/oauth/token` with the WebAuthn grant type) and does **not** create an Auth0 session cookie. Without refresh tokens, `getAccessTokenSilently()` will fail with `login_required` when the access token expires — or worse, silently return tokens for a different user if a prior redirect-based session cookie exists.
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  useRefreshTokens={true}
+  authorizationParams={{ redirect_uri: window.location.origin }}
+>
+  <App />
+</Auth0Provider>
+```
+
+You must also enable **Refresh Token Rotation** in your Auth0 Dashboard under **Applications** > your app > **Settings** > **Refresh Token Rotation**.
+
+### Signup with Passkey
+
+Register a new user with a passkey. The SDK handles the entire flow internally — requesting a challenge from Auth0, triggering the browser's WebAuthn credential creation ceremony, and exchanging the credential for tokens. After a successful call, `isAuthenticated`, `user`, and `getAccessTokenSilently()` all work as expected.
+
+```jsx
+const { passkey } = useAuth0();
+
+const tokens = await passkey.signup({
+  email: 'user@example.com',
+  name: 'Jane Doe' // optional display name
+});
+```
+
+You can also pass `scope` and `audience` to control the access token:
+
+```jsx
+const tokens = await passkey.signup({
+  email: 'user@example.com',
+  scope: 'openid profile email read:products',
+  audience: 'https://api.example.com'
+});
+```
+
+### Login with Passkey
+
+Authenticate an existing user with their registered passkey. A single call handles the entire assertion flow.
+
+```jsx
+const { passkey } = useAuth0();
+
+const tokens = await passkey.login();
+// Or with optional params:
+const tokens = await passkey.login({ realm, organization, scope, audience });
+```
+
+### Complete Passkey Flow Example
+
+```jsx
+import { useAuth0, PasskeyError, PasskeyRegisterError } from '@auth0/auth0-react';
+
+function PasskeyAuth() {
+  const { passkey, isAuthenticated, user } = useAuth0();
+
+  const handleSignup = async () => {
+    try {
+      await passkey.signup({ email: 'user@example.com' });
+      // isAuthenticated and user are now updated automatically
+    } catch (error) {
+      if (error instanceof PasskeyRegisterError) {
+        console.error('Registration failed:', error.message);
+      } else if (error instanceof PasskeyError) {
+        console.error('Passkey error:', error.message);
+      }
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      await passkey.login();
+      // isAuthenticated and user are now updated automatically
+    } catch (error) {
+      if (error instanceof PasskeyError) {
+        console.error('Passkey error:', error.message);
+      }
+    }
+  };
+
+  if (isAuthenticated) {
+    return <p>Welcome, {user.name}!</p>;
+  }
+
+  return (
+    <>
+      <button onClick={handleSignup}>Sign up with Passkey</button>
+      <button onClick={handleLogin}>Sign in with Passkey</button>
+    </>
+  );
+}
+```
+
+### Passkey Error Handling
+
+```jsx
+import { PasskeyError, PasskeyRegisterError } from '@auth0/auth0-react';
+
+const { passkey } = useAuth0();
+
+try {
+  await passkey.signup({ email: 'user@example.com' });
+} catch (error) {
+  if (error instanceof PasskeyRegisterError) {
+    console.error('Registration failed:', error.message);
+  } else {
+    console.error('Passkey error:', error.message);
+  }
+}
+```
+
+> [!TIP]
+> Both `signup()` and `login()` throw an error if the user cancels the biometric prompt. Wrap calls in `try/catch` to handle cancellation, network failures, or misconfigured connections.

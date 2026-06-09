@@ -27,6 +27,9 @@ const mfaChallenge = jest.fn(() => Promise.resolve({ challengeType: 'otp', oobCo
 const mfaVerify = jest.fn(() => Promise.resolve({ access_token: 'test-token', id_token: 'test-id-token' }));
 const mfaGetEnrollmentFactors = jest.fn(() => Promise.resolve([]));
 
+const passkeySignup = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
+const passkeyLogin = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
+
 export const Auth0Client = jest.fn(() => {
   return {
     buildAuthorizeUrl,
@@ -57,6 +60,10 @@ export const Auth0Client = jest.fn(() => {
       verify: mfaVerify,
       getEnrollmentFactors: mfaGetEnrollmentFactors,
     },
+    passkey: {
+      signup: passkeySignup,
+      login: passkeyLogin,
+    },
   };
 });
 
@@ -68,3 +75,8 @@ export const MfaEnrollmentError = actual.MfaEnrollmentError;
 export const MfaChallengeError = actual.MfaChallengeError;
 export const MfaVerifyError = actual.MfaVerifyError;
 export const MfaEnrollmentFactorsError = actual.MfaEnrollmentFactorsError;
+
+export const PasskeyError = actual.PasskeyError;
+export const PasskeyRegisterError = actual.PasskeyRegisterError;
+export const PasskeyChallengeError = actual.PasskeyChallengeError;
+export const PasskeyGetTokenError = actual.PasskeyGetTokenError;
