@@ -1246,6 +1246,7 @@ Passkeys provide password-less authentication using platform biometrics (Face ID
 - **Login**: Authenticate an existing user with a passkey
 
 - [Setup](#setup)
+- [Important: Use Refresh Tokens with Passkeys](#important-use-refresh-tokens-with-passkeys)
 - [Signup with Passkey](#signup-with-passkey)
 - [Login with Passkey](#login-with-passkey)
 - [Complete Passkey Flow Example](#complete-passkey-flow-example)
@@ -1258,6 +1259,26 @@ Before using passkeys, ensure the following are configured in your [Auth0 Dashbo
 1. **Enable passkey authentication method**: Go to **Authentication** > **Database** > your connection > **Authentication Methods** > **Passkey**.
 2. **Enable the WebAuthn passkey grant**: Go to your **Application** > **Advanced Settings** > **Grant Types** and enable the **Passkey** grant.
 3. **Custom domain required**: Passkeys are bound to an origin (domain). A [custom domain](https://auth0.com/docs/customize/custom-domains) must be configured — passkeys will not work on the default `*.auth0.com` domain.
+
+### Important: Use Refresh Tokens with Passkeys
+
+> [!IMPORTANT]
+> When using passkeys, you **must** configure `Auth0Provider` with `useRefreshTokens={true}`.
+
+Passkey authentication uses a direct token exchange (`/oauth/token` with the WebAuthn grant type) and does **not** create an Auth0 session cookie. Without refresh tokens, `getAccessTokenSilently()` will fail with `login_required` when the access token expires — or worse, silently return tokens for a different user if a prior redirect-based session cookie exists.
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  useRefreshTokens={true}
+  authorizationParams={{ redirect_uri: window.location.origin }}
+>
+  <App />
+</Auth0Provider>
+```
+
+You must also enable **Refresh Token Rotation** in your Auth0 Dashboard under **Applications** > your app > **Settings** > **Refresh Token Rotation**.
 
 ### Signup with Passkey
 
