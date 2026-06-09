@@ -1240,34 +1240,35 @@ await loginWithRedirect({
 
 ## Passkeys
 
-Access passkey operations through the `passkey` property from `useAuth0()`. The SDK handles the entire WebAuthn flow internally — requesting a challenge from Auth0, triggering the browser's biometric prompt, and exchanging the credential for tokens.
+Passkeys provide password-less authentication using platform biometrics (Face ID, Touch ID, Windows Hello) or security keys via the WebAuthn standard. The SDK supports two flows:
 
-> [!NOTE]
-> Passkeys support is currently in Early Access. To request access to this feature, contact your Auth0 representative.
+- **Signup**: Register a new user with a passkey
+- **Login**: Authenticate an existing user with a passkey
 
-- [Setup](#passkey-setup)
+- [Setup](#setup)
 - [Signup with Passkey](#signup-with-passkey)
 - [Login with Passkey](#login-with-passkey)
+- [Complete Passkey Flow Example](#complete-passkey-flow-example)
 - [Error Handling](#passkey-error-handling)
 
-### Passkey Setup
+### Setup
 
 Before using passkeys, ensure the following are configured in your [Auth0 Dashboard](https://manage.auth0.com):
 
 1. **Enable passkey authentication method**: Go to **Authentication** > **Database** > your connection > **Authentication Methods** > **Passkey**.
 2. **Enable the WebAuthn passkey grant**: Go to your **Application** > **Advanced Settings** > **Grant Types** and enable the **Passkey** grant.
-3. **Custom domain required**: Passkeys are bound to an origin. A [custom domain](https://auth0.com/docs/customize/custom-domains) must be configured — passkeys will not work on the default `*.auth0.com` domain.
+3. **Custom domain required**: Passkeys are bound to an origin (domain). A [custom domain](https://auth0.com/docs/customize/custom-domains) must be configured — passkeys will not work on the default `*.auth0.com` domain.
 
 ### Signup with Passkey
 
-Register a new user with a passkey. After a successful call, `isAuthenticated`, `user`, and `getAccessTokenSilently()` all work as expected.
+Register a new user with a passkey. The SDK handles the entire flow internally — requesting a challenge from Auth0, triggering the browser's WebAuthn credential creation ceremony, and exchanging the credential for tokens. After a successful call, `isAuthenticated`, `user`, and `getAccessTokenSilently()` all work as expected.
 
 ```jsx
 const { passkey } = useAuth0();
 
 const tokens = await passkey.signup({
   email: 'user@example.com',
-  name: 'Jane Doe'  // optional display name
+  name: 'Jane Doe' // optional display name
 });
 ```
 
@@ -1289,6 +1290,53 @@ Authenticate an existing user with their registered passkey. A single call handl
 const { passkey } = useAuth0();
 
 const tokens = await passkey.login();
+// Or with optional params:
+const tokens = await passkey.login({ realm, organization, scope, audience });
+```
+
+### Complete Passkey Flow Example
+
+```jsx
+import { useAuth0, PasskeyError, PasskeyRegisterError } from '@auth0/auth0-react';
+
+function PasskeyAuth() {
+  const { passkey, isAuthenticated, user } = useAuth0();
+
+  const handleSignup = async () => {
+    try {
+      await passkey.signup({ email: 'user@example.com' });
+      // isAuthenticated and user are now updated automatically
+    } catch (error) {
+      if (error instanceof PasskeyRegisterError) {
+        console.error('Registration failed:', error.message);
+      } else if (error instanceof PasskeyError) {
+        console.error('Passkey error:', error.message);
+      }
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      await passkey.login();
+      // isAuthenticated and user are now updated automatically
+    } catch (error) {
+      if (error instanceof PasskeyError) {
+        console.error('Passkey error:', error.message);
+      }
+    }
+  };
+
+  if (isAuthenticated) {
+    return <p>Welcome, {user.name}!</p>;
+  }
+
+  return (
+    <>
+      <button onClick={handleSignup}>Sign up with Passkey</button>
+      <button onClick={handleLogin}>Sign in with Passkey</button>
+    </>
+  );
+}
 ```
 
 ### Passkey Error Handling
