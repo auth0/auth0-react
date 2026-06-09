@@ -85,12 +85,5 @@ export type {
   PasskeyApiClient,
   PasskeySignupOptions,
   PasskeyLoginOptions,
-  PasskeyCredentialResponse,
-  PasskeySignupChallengeOptions,
-  PasskeySignupChallengeResponse,
-  PasskeyLoginChallengeOptions,
-  PasskeyLoginChallengeResponse,
-  PasskeyCreationOptions,
-  PasskeyRequestOptions,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
