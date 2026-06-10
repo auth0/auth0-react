@@ -5,7 +5,7 @@
 
 **Added**
 - feat: add passkey API support for signup and login methods [\#1114](https://github.com/auth0/auth0-react/pull/1114) ([amitsingh05667](https://github.com/amitsingh05667))
-- docs: add delegation and impersonation example for CTE [\#1111](https://github.com/auth0/auth0-react/pull/1111) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 
 ## [v2.17.0](https://github.com/auth0/auth0-react/tree/v2.17.0) (2026-05-22)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.16.2...v2.17.0)
