@@ -15,7 +15,8 @@ import {
   CustomTokenExchangeOptions,
   TokenEndpointResponse,
   type MfaApiClient,
-  type PasskeyApiClient
+  type PasskeyApiClient,
+  type MyAccountApiClient
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -407,6 +408,42 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * `isAuthenticated` / `user` in the same way as `loginWithPopup`.
    */
   passkey: PasskeyApiClient;
+
+  /**
+   * ```js
+   * const { myAccount } = useAuth0();
+   * const factors = await myAccount.getFactors();
+   * ```
+   *
+   * MyAccount API client for self-service account management operations.
+   *
+   * Provides access to methods for managing the authenticated user's authentication
+   * methods and factors:
+   * - `getFactors()` - List available authentication factors
+   * - `getAuthenticationMethods(type?)` - List enrolled authentication methods, optionally filtered by type
+   * - `getAuthenticationMethod(id)` - Get a specific authentication method by ID
+   * - `updateAuthenticationMethod(id, data)` - Update an authentication method (e.g. rename)
+   * - `deleteAuthenticationMethod(id)` - Remove an enrolled authentication method
+   * - `enrollmentChallenge(options)` - Initiate a two-step enrollment challenge
+   * - `enrollmentVerify(options)` - Complete a two-step enrollment by verifying the challenge
+   *
+   * @example
+   * ```js
+   * const { myAccount } = useAuth0();
+   *
+   * // List all enrolled authentication methods
+   * const methods = await myAccount.getAuthenticationMethods();
+   *
+   * // Enroll a new passkey
+   * const challenge = await myAccount.enrollmentChallenge({ type: 'passkey' });
+   * const credential = await navigator.credentials.create({ publicKey: challenge.authn_params_public_key });
+   * await myAccount.enrollmentVerify({ type: 'passkey', auth_session: challenge.auth_session, location: challenge.location, authn_response: credential });
+   *
+   * // Remove an authentication method
+   * await myAccount.deleteAuthenticationMethod('method-id');
+   * ```
+   */
+  myAccount: MyAccountApiClient;
 }
 
 /**
@@ -450,6 +487,15 @@ export const initialContext = {
     signup: stub,
     login: stub,
   } as unknown as PasskeyApiClient,
+  myAccount: {
+    getFactors: stub,
+    getAuthenticationMethods: stub,
+    getAuthenticationMethod: stub,
+    updateAuthenticationMethod: stub,
+    deleteAuthenticationMethod: stub,
+    enrollmentChallenge: stub,
+    enrollmentVerify: stub,
+  } as unknown as MyAccountApiClient,
 };
 
 /**

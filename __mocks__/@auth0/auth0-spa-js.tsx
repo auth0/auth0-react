@@ -30,6 +30,14 @@ const mfaGetEnrollmentFactors = jest.fn(() => Promise.resolve([]));
 const passkeySignup = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
 const passkeyLogin = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
 
+const myAccountGetFactors = jest.fn(() => Promise.resolve([]));
+const myAccountGetAuthenticationMethods = jest.fn(() => Promise.resolve([]));
+const myAccountGetAuthenticationMethod = jest.fn(() => Promise.resolve({ id: 'test-method-id' }));
+const myAccountUpdateAuthenticationMethod = jest.fn(() => Promise.resolve({ id: 'test-method-id' }));
+const myAccountDeleteAuthenticationMethod = jest.fn(() => Promise.resolve());
+const myAccountEnrollmentChallenge = jest.fn(() => Promise.resolve({ id: 'test-challenge-id', location: 'https://example.auth0.com/enroll', auth_session: 'test-auth-session', type: 'totp', barcode_uri: 'otpauth://totp/...' }));
+const myAccountEnrollmentVerify = jest.fn(() => Promise.resolve({ id: 'test-method-id' }));
+
 export const Auth0Client = jest.fn(() => {
   return {
     buildAuthorizeUrl,
@@ -64,6 +72,15 @@ export const Auth0Client = jest.fn(() => {
       signup: passkeySignup,
       login: passkeyLogin,
     },
+    myAccount: {
+      getFactors: myAccountGetFactors,
+      getAuthenticationMethods: myAccountGetAuthenticationMethods,
+      getAuthenticationMethod: myAccountGetAuthenticationMethod,
+      updateAuthenticationMethod: myAccountUpdateAuthenticationMethod,
+      deleteAuthenticationMethod: myAccountDeleteAuthenticationMethod,
+      enrollmentChallenge: myAccountEnrollmentChallenge,
+      enrollmentVerify: myAccountEnrollmentVerify,
+    },
   };
 });
 
@@ -80,3 +97,4 @@ export const PasskeyError = actual.PasskeyError;
 export const PasskeyRegisterError = actual.PasskeyRegisterError;
 export const PasskeyChallengeError = actual.PasskeyChallengeError;
 export const PasskeyGetTokenError = actual.PasskeyGetTokenError;
+export const MyAccountApiError = actual.MyAccountApiError;
