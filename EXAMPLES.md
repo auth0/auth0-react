@@ -17,6 +17,7 @@
 - [Step-Up Authentication](#step-up-authentication)
 - [Native to Web SSO](#native-to-web-sso)
 - [Passkeys](#passkeys)
+- [MyAccount API](#myaccount-api)
 
 ## Use with a Class Component
 
@@ -1380,3 +1381,238 @@ try {
 
 > [!TIP]
 > Both `signup()` and `login()` throw an error if the user cancels the biometric prompt. Wrap calls in `try/catch` to handle cancellation, network failures, or misconfigured connections.
+
+## MyAccount API
+
+The MyAccount API lets you manage the current user's authentication methods, factors, and connected accounts directly from the SPA.
+
+> [!NOTE]
+> The MyAccount API requires refresh tokens and MRRT if your app is configured with a custom API audience. DPoP is supported but optional.
+
+### Factors
+
+Get the list of MFA factors and their enabled status for the current user.
+
+```jsx
+const { myAccount } = useAuth0();
+
+const factors = await myAccount.getFactors();
+// [{ type: 'totp', usage: ['secondary'] }, { type: 'phone', usage: ['secondary'] }]
+```
+
+### Authentication Methods
+
+#### List All
+
+```jsx
+const { myAccount } = useAuth0();
+
+const methods = await myAccount.getAuthenticationMethods();
+```
+
+#### Filter by Type
+
+```jsx
+const passkeys = await myAccount.getAuthenticationMethods('passkey');
+```
+
+#### Get by ID
+
+```jsx
+const method = await myAccount.getAuthenticationMethod('am_abc123');
+```
+
+#### Delete
+
+```jsx
+await myAccount.deleteAuthenticationMethod('am_abc123');
+```
+
+#### Update
+
+```jsx
+// Rename any method
+const updated = await myAccount.updateAuthenticationMethod('am_abc123', {
+  name: 'My Work Laptop'
+});
+```
+
+```jsx
+// Change preferred delivery method for phone
+const updated = await myAccount.updateAuthenticationMethod('am_abc123', {
+  preferred_authentication_method: 'voice'
+});
+```
+
+### Enrollment
+
+Enrollment is a two-step flow: get a challenge, then verify the credential.
+
+#### Passkey
+
+```jsx
+const { myAccount } = useAuth0();
+
+// Step 1: get the WebAuthn creation challenge
+const challenge = await myAccount.enrollmentChallenge({ type: 'passkey' });
+
+// Step 2: trigger the browser ceremony
+const credential = await navigator.credentials.create({
+  publicKey: {
+    ...challenge.authn_params_public_key,
+    challenge: base64urlToBuffer(challenge.authn_params_public_key.challenge),
+    user: {
+      ...challenge.authn_params_public_key.user,
+      id: base64urlToBuffer(challenge.authn_params_public_key.user.id)
+    }
+  }
+});
+
+// Step 3: verify and complete enrollment
+const method = await myAccount.enrollmentVerify({
+  type: 'passkey',
+  id: challenge.id,
+  auth_session: challenge.auth_session,
+  authn_response: serializeCredential(credential)
+});
+```
+
+#### Phone
+
+```jsx
+// Step 1: request OTP to the phone number
+const challenge = await myAccount.enrollmentChallenge({
+  type: 'phone',
+  phone_number: '+15551234567',
+  preferred_authentication_method: 'sms'
+});
+
+// Step 2: verify with the OTP the user received
+await myAccount.enrollmentVerify({
+  type: 'phone',
+  id: challenge.id,
+  auth_session: challenge.auth_session,
+  otp_code: '123456'
+});
+```
+
+#### Email
+
+```jsx
+const challenge = await myAccount.enrollmentChallenge({
+  type: 'email',
+  email: 'user@example.com'
+});
+
+await myAccount.enrollmentVerify({
+  type: 'email',
+  id: challenge.id,
+  auth_session: challenge.auth_session,
+  otp_code: '123456'
+});
+```
+
+#### TOTP
+
+```jsx
+const challenge = await myAccount.enrollmentChallenge({ type: 'totp' });
+// challenge.barcode_uri — show this as a QR code for the user to scan
+// challenge.manual_input_code — fallback manual entry code
+
+await myAccount.enrollmentVerify({
+  type: 'totp',
+  id: challenge.id,
+  auth_session: challenge.auth_session,
+  otp_code: '123456'
+});
+```
+
+#### WebAuthn Platform / Roaming
+
+Same flow as [Passkey](#passkey) above — just change the `type`:
+
+```jsx
+// Platform authenticator (e.g. Touch ID, Windows Hello)
+const challenge = await myAccount.enrollmentChallenge({ type: 'webauthn-platform' });
+
+// Roaming authenticator (e.g. a hardware security key)
+const challenge = await myAccount.enrollmentChallenge({ type: 'webauthn-roaming' });
+
+// The credential creation ceremony and verify call are identical to passkey
+await myAccount.enrollmentVerify({
+  type: 'webauthn-platform', // or 'webauthn-roaming'
+  id: challenge.id,
+  auth_session: challenge.auth_session,
+  authn_response: serializeCredential(credential)
+});
+```
+
+#### Push Notification
+
+```jsx
+const challenge = await myAccount.enrollmentChallenge({ type: 'push-notification' });
+// challenge.barcode_uri — show this as a QR code to link the authenticator app
+
+// No OTP needed — user approves on their device
+await myAccount.enrollmentVerify({
+  type: 'push-notification',
+  id: challenge.id,
+  auth_session: challenge.auth_session
+});
+```
+
+#### Recovery Code
+
+```jsx
+const challenge = await myAccount.enrollmentChallenge({ type: 'recovery-code' });
+// challenge.recovery_code — display this to the user to save securely
+
+// Verify just confirms the user has saved the code
+await myAccount.enrollmentVerify({
+  type: 'recovery-code',
+  id: challenge.id,
+  auth_session: challenge.auth_session
+});
+```
+
+#### Password
+
+```jsx
+const challenge = await myAccount.enrollmentChallenge({ type: 'password' });
+
+await myAccount.enrollmentVerify({
+  type: 'password',
+  id: challenge.id,
+  auth_session: challenge.auth_session,
+  new_password: 'newSecurePassword123!'
+});
+```
+
+### Error Handling
+
+All MyAccount API errors throw `MyAccountApiError` with RFC 7807 fields.
+
+```jsx
+import { MyAccountApiError } from '@auth0/auth0-react';
+
+const { myAccount } = useAuth0();
+
+try {
+  await myAccount.enrollmentChallenge({ type: 'passkey' });
+} catch (err) {
+  if (err instanceof MyAccountApiError) {
+    console.error(err.status, err.title, err.detail);
+    if (err.validation_errors) {
+      err.validation_errors.forEach(e => console.error(e.field, e.detail));
+    }
+  }
+}
+
+try {
+  await myAccount.deleteAuthenticationMethod('am_abc123');
+} catch (err) {
+  if (err instanceof MyAccountApiError) {
+    console.error(err.status, err.title, err.detail);
+  }
+}
+```

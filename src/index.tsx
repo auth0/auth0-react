@@ -62,6 +62,8 @@ export {
   PasskeyRegisterError,
   PasskeyChallengeError,
   PasskeyGetTokenError,
+  // MyAccount Errors
+  MyAccountApiError,
 } from '@auth0/auth0-spa-js';
 export type {
   FetcherConfig,
@@ -85,5 +87,14 @@ export type {
   PasskeyApiClient,
   PasskeySignupOptions,
   PasskeyLoginOptions,
+  // MyAccount Types
+  MyAccountApiClient,
+  AuthenticationMethod,
+  AuthenticationMethodType,
+  Factor,
+  UpdateAuthenticationMethodRequest,
+  EnrollmentChallengeOptions,
+  EnrollmentChallengeResponse,
+  EnrollmentVerifyOptions,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';
