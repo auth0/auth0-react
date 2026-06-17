@@ -1471,7 +1471,7 @@ const credential = await navigator.credentials.create({
 // Step 3: verify and complete enrollment
 const method = await myAccount.enrollmentVerify({
   type: 'passkey',
-  id: challenge.id,
+  location: challenge.location,
   auth_session: challenge.auth_session,
   authn_response: serializeCredential(credential)
 });
@@ -1490,7 +1490,7 @@ const challenge = await myAccount.enrollmentChallenge({
 // Step 2: verify with the OTP the user received
 await myAccount.enrollmentVerify({
   type: 'phone',
-  id: challenge.id,
+  location: challenge.location,
   auth_session: challenge.auth_session,
   otp_code: '123456'
 });
@@ -1506,7 +1506,7 @@ const challenge = await myAccount.enrollmentChallenge({
 
 await myAccount.enrollmentVerify({
   type: 'email',
-  id: challenge.id,
+  location: challenge.location,
   auth_session: challenge.auth_session,
   otp_code: '123456'
 });
@@ -1521,7 +1521,7 @@ const challenge = await myAccount.enrollmentChallenge({ type: 'totp' });
 
 await myAccount.enrollmentVerify({
   type: 'totp',
-  id: challenge.id,
+  location: challenge.location,
   auth_session: challenge.auth_session,
   otp_code: '123456'
 });
@@ -1541,7 +1541,7 @@ const challenge = await myAccount.enrollmentChallenge({ type: 'webauthn-roaming'
 // The credential creation ceremony and verify call are identical to passkey
 await myAccount.enrollmentVerify({
   type: 'webauthn-platform', // or 'webauthn-roaming'
-  id: challenge.id,
+  location: challenge.location,
   auth_session: challenge.auth_session,
   authn_response: serializeCredential(credential)
 });
@@ -1556,7 +1556,7 @@ const challenge = await myAccount.enrollmentChallenge({ type: 'push-notification
 // No OTP needed — user approves on their device
 await myAccount.enrollmentVerify({
   type: 'push-notification',
-  id: challenge.id,
+  location: challenge.location,
   auth_session: challenge.auth_session
 });
 ```
@@ -1570,7 +1570,7 @@ const challenge = await myAccount.enrollmentChallenge({ type: 'recovery-code' })
 // Verify just confirms the user has saved the code
 await myAccount.enrollmentVerify({
   type: 'recovery-code',
-  id: challenge.id,
+  location: challenge.location,
   auth_session: challenge.auth_session
 });
 ```
@@ -1582,7 +1582,7 @@ const challenge = await myAccount.enrollmentChallenge({ type: 'password' });
 
 await myAccount.enrollmentVerify({
   type: 'password',
-  id: challenge.id,
+  location: challenge.location,
   auth_session: challenge.auth_session,
   new_password: 'newSecurePassword123!'
 });
