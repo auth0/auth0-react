@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.19.0](https://github.com/auth0/auth0-react/tree/v2.19.0) (2026-06-18)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.18.0...v2.19.0)
+
+**Added**
+- feat: add MyAccount API client support [\#1121](https://github.com/auth0/auth0-react/pull/1121) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.18.0](https://github.com/auth0/auth0-react/tree/v2.18.0) (2026-06-10)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.17.0...v2.18.0)
 
