@@ -18,6 +18,7 @@
 - [Native to Web SSO](#native-to-web-sso)
 - [Passkeys](#passkeys)
 - [MyAccount API](#myaccount-api)
+- [Session Expiry from Upstream IdP (IPSIE)](#session-expiry-from-upstream-idp-ipsie)
 
 ## Use with a Class Component
 
@@ -1616,3 +1617,82 @@ try {
   }
 }
 ```
+
+## Session Expiry from Upstream IdP (IPSIE)
+
+When using an Okta or OIDC enterprise connection configured with `id_token_session_expiry_supported: true`, Auth0 includes a `session_expiry` claim in the ID token. This is an absolute Unix timestamp (seconds) that acts as a hard ceiling on the local session — the SDK will not return tokens or a user once this point in time is reached.
+
+You can also emit the claim from a Post-Login Action:
+
+```js
+exports.onExecutePostLogin = async (event, api) => {
+  // Value must be Unix seconds, not milliseconds.
+  api.idToken.setCustomClaim('session_expiry', Math.floor(Date.now() / 1000) + 7200); // 2-hour ceiling
+};
+```
+
+### Behavior
+
+When the ceiling is reached, `useAuth0()` reflects the expired state on the next render:
+
+- `isAuthenticated` becomes `false`
+- `user` becomes `undefined`
+- `getAccessTokenSilently()` returns `undefined` (no error thrown)
+
+If your routes are wrapped with `withAuthenticationRequired`, no code changes are required — the state change triggers a redirect to login automatically. Components that call `getAccessTokenSilently()` imperatively (e.g. in a click handler or `useEffect`) need an explicit null check; see [Upgrading existing apps](#upgrading-existing-apps) below.
+
+```jsx
+// This component already handles the session_expiry ceiling with no changes.
+// When the ceiling passes, isAuthenticated becomes false and the HOC redirects to login.
+export default withAuthenticationRequired(Dashboard);
+```
+
+### Reading the claim
+
+`session_expiry` is a standard ID token claim and is available via `getIdTokenClaims()`:
+
+```jsx
+import { useAuth0 } from '@auth0/auth0-react';
+
+function SessionInfo() {
+  const { getIdTokenClaims } = useAuth0();
+
+  useEffect(() => {
+    getIdTokenClaims().then((claims) => {
+      if (claims?.session_expiry) {
+        const ceiling = new Date(claims.session_expiry * 1000);
+        console.log('Session ceiling:', ceiling.toISOString());
+      }
+    });
+  }, [getIdTokenClaims]);
+
+  return null;
+}
+```
+
+### Upgrading existing apps
+
+Once the feature is enabled, `user` and `getAccessTokenSilently()` can return `undefined` for a previously authenticated user when the ceiling is reached. Apps that assume these are always set after login should add null checks:
+
+```jsx
+function CallApi() {
+  const { getAccessTokenSilently } = useAuth0();
+
+  async function fetchData() {
+    const token = await getAccessTokenSilently();
+
+    if (!token) {
+      // Ceiling was reached — return here and let the re-render cycle handle
+      // the redirect via withAuthenticationRequired or your route guard.
+      // Calling loginWithRedirect() directly risks a double redirect if a HOC is present.
+      return;
+    }
+
+    await fetch('/api/data', { headers: { Authorization: `Bearer ${token}` } });
+  }
+
+  return <button onClick={fetchData}>Fetch</button>;
+}
+```
+
+Using `withAuthenticationRequired` on protected routes is the simpler alternative — the redirect happens automatically without the null check.

@@ -1506,4 +1506,27 @@ describe('Auth0Provider', () => {
       });
     });
   });
+
+  describe('session_expiry ceiling (IPSIE SL1)', () => {
+    it('should return undefined and clear auth state when session ceiling is breached during getAccessTokenSilently', async () => {
+      clientMock.getUser.mockResolvedValue({ sub: '__test_user__', name: 'Test User' });
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isAuthenticated).toBe(true));
+
+      (clientMock.getTokenSilently as jest.Mock).mockResolvedValue(undefined);
+      clientMock.getUser.mockResolvedValue(undefined);
+
+      let token: string | undefined;
+      await act(async () => {
+        token = await result.current.getAccessTokenSilently();
+      });
+
+      expect(token).toBeUndefined();
+      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.user).toBeUndefined();
+      expect(result.current.error).toBeUndefined();
+    });
+  });
 });
