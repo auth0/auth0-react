@@ -470,8 +470,8 @@ ReactDOM.render(
       domain="YOUR_AUTH0_DOMAIN"
       clientId="YOUR_AUTH0_CLIENT_ID"
       authorizationParams={{
-        organization: "YOUR_ORGANIZATION_ID_OR_NAME"
-        redirectUri: window.location.origin,
+        organization: "YOUR_ORGANIZATION_ID_OR_NAME",
+        redirect_uri: window.location.origin,
       }}
     >
       <App />
