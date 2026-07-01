@@ -1633,25 +1633,26 @@ exports.onExecutePostLogin = async (event, api) => {
 
 ### Behavior
 
-When the ceiling is reached, `useAuth0()` reflects the expired state on the next render:
+When the ceiling is reached, `useAuth0()` reflects the expired state on the next call to `getAccessTokenSilently`, `getUser`, or `getIdTokenClaims` — there is no background timer or automatic re-check:
 
 - `isAuthenticated` becomes `false`
 - `user` becomes `undefined`
 - `getAccessTokenSilently()` returns `undefined` (no error thrown)
 
-If your routes are wrapped with `withAuthenticationRequired`, no code changes are required — the state change triggers a redirect to login automatically. Components that call `getAccessTokenSilently()` imperatively (e.g. in a click handler or `useEffect`) need an explicit null check; see [Upgrading existing apps](#upgrading-existing-apps) below.
+If your routes are wrapped with `withAuthenticationRequired`, no code changes are required — the next time a component calls `getAccessTokenSilently` or `getUser`, the state updates and the HOC redirects to login. A user sitting on a page that makes no token or user calls will remain authenticated in the React state until the next such call.
 
 ```jsx
-// This component already handles the session_expiry ceiling with no changes.
-// When the ceiling passes, isAuthenticated becomes false and the HOC redirects to login.
+// When a token or user call occurs after the ceiling, isAuthenticated becomes false
+// and the HOC redirects to login.
 export default withAuthenticationRequired(Dashboard);
 ```
 
 ### Reading the claim
 
-`session_expiry` is a standard ID token claim and is available via `getIdTokenClaims()`:
+`session_expiry` is a standard ID token claim and is available via `getIdTokenClaims()`. Note that `getIdTokenClaims()` returns `undefined` once the ceiling is reached — this is useful for displaying time remaining before expiry, not for detecting expiry itself.
 
 ```jsx
+import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function SessionInfo() {
