@@ -40,6 +40,8 @@ export {
   PopupOpenError,
   AuthenticationError,
   MissingRefreshTokenError,
+  MissingScopesError,
+  InvalidConfigurationError,
   GenericError,
   UseDpopNonceError,
   RedirectConnectAccountOptions,
@@ -50,6 +52,7 @@ export {
   TokenEndpointResponse,
   ActClaim,
   ClientConfiguration,
+  RefreshTokenMode,
   // MFA Errors
   MfaError,
   MfaListAuthenticatorsError,
