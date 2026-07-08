@@ -11,6 +11,7 @@
 - [Protecting a route with a claims check](#protecting-a-route-with-a-claims-check)
 - [Device-bound tokens with DPoP](#device-bound-tokens-with-dpop)
 - [Using Multi Resource Refresh Tokens](#using-multi-resource-refresh-tokens)
+- [Revoke Refresh Token](#revoke-refresh-token)
 - [Connect Accounts for using Token Vault](#connect-accounts-for-using-token-vault)
 - [Access SDK Configuration](#access-sdk-configuration)
 - [Multi-Factor Authentication (MFA)](#multi-factor-authentication-mfa)
@@ -782,6 +783,44 @@ MRRT is disabled by default. To enable it, set the `useMrrt` option to `true` wh
 > [!IMPORTANT]
 > In order MRRT to work, it needs a previous configuration setting the refresh token policies.
 > Visit [configure and implement MRRT.](https://auth0.com/docs/secure/tokens/refresh-tokens/multi-resource-refresh-token/configure-and-implement-multi-resource-refresh-token)
+
+## Revoke Refresh Token
+
+Invalidate the current refresh token via the `/oauth/revoke` endpoint. Once revoked, the token can no longer be used to obtain new access tokens. This is useful when you want to force re-authentication on the next token request — for example, after a password change or detecting suspicious activity — without performing a full logout.
+
+> [!NOTE]
+> This is a no-op if `useRefreshTokens` is not enabled.
+
+```jsx
+import { useAuth0 } from '@auth0/auth0-react';
+
+const RevokeTokenButton = () => {
+  const { revokeRefreshToken } = useAuth0();
+
+  const handleRevoke = async () => {
+    try {
+      await revokeRefreshToken();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  return <button onClick={handleRevoke}>Revoke Refresh Token</button>;
+};
+
+export default RevokeTokenButton;
+```
+
+To target a specific audience, pass it as an option:
+
+```jsx
+const { revokeRefreshToken } = useAuth0();
+
+await revokeRefreshToken({ audience: 'https://api.example.com' });
+```
+
+> [!IMPORTANT]
+> With [MRRT](#using-multi-resource-refresh-tokens) enabled, all audiences share the same underlying refresh token — revoking for one audience invalidates it for all of them.
 
 ## Connect Accounts for using Token Vault
 

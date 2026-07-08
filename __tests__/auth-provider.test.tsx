@@ -603,6 +603,53 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should provide a revokeRefreshToken method', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.revokeRefreshToken).toBeInstanceOf(Function);
+    });
+    await act(async () => {
+      await result.current.revokeRefreshToken({ audience: 'https://api.example.com' });
+    });
+    expect(clientMock.revokeRefreshToken).toHaveBeenCalledWith({
+      audience: 'https://api.example.com',
+    });
+  });
+
+  it('should propagate errors from revokeRefreshToken', async () => {
+    clientMock.revokeRefreshToken.mockRejectedValue(new Error('__test_error__'));
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.revokeRefreshToken).toBeInstanceOf(Function);
+    });
+    await act(async () => {
+      await expect(result.current.revokeRefreshToken()).rejects.toThrow(
+        '__test_error__'
+      );
+    });
+  });
+
+  it('should memoize the revokeRefreshToken method', async () => {
+    const wrapper = createWrapper();
+    const { result, rerender } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      const memoized = result.current.revokeRefreshToken;
+      rerender();
+      expect(result.current.revokeRefreshToken).toBe(memoized);
+    });
+  });
+
   it('should provide a getAccessTokenSilently method', async () => {
     clientMock.getTokenSilently.mockResolvedValue('token');
     const wrapper = createWrapper();

@@ -47,6 +47,7 @@ export {
   ResponseType,
   ConnectError,
   CustomTokenExchangeOptions,
+  RevokeRefreshTokenOptions,
   TokenEndpointResponse,
   ActClaim,
   ClientConfiguration,
