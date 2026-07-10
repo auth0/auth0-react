@@ -14,6 +14,7 @@ import {
   ConnectAccountRedirectResult,
   CustomTokenExchangeOptions,
   TokenEndpointResponse,
+  type RevokeRefreshTokenOptions,
   type MfaApiClient,
   type PasskeyApiClient,
   type MyAccountApiClient
@@ -274,6 +275,23 @@ export interface Auth0ContextInterface<TUser extends User = User>
   logout: (options?: LogoutOptions) => Promise<void>;
 
   /**
+   * ```js
+   * await revokeRefreshToken();
+   * // or for a specific audience:
+   * await revokeRefreshToken({ audience: 'https://api.example.com' });
+   * ```
+   *
+   * Revokes the refresh token for the current session by calling the
+   * `/oauth/revoke` endpoint. Once revoked, the token can no longer be
+   * used to obtain new access tokens.
+   *
+   * If `useRefreshTokens` is not enabled this is a no-op.
+   * When multiple audiences share the same refresh token, revoking for
+   * one audience invalidates it for all of them.
+   */
+  revokeRefreshToken: (options?: RevokeRefreshTokenOptions) => Promise<void>;
+
+  /**
    * After the browser redirects back to the callback page,
    * call `handleRedirectCallback` to handle success and error
    * responses from Auth0. If the response is successful, results
@@ -470,6 +488,7 @@ export const initialContext = {
   loginWithPopup: stub,
   connectAccountWithRedirect: stub,
   logout: stub,
+  revokeRefreshToken: stub,
   handleRedirectCallback: stub,
   getDpopNonce: stub,
   setDpopNonce: stub,

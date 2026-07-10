@@ -20,6 +20,7 @@ import {
   ResponseType,
   CustomTokenExchangeOptions,
   TokenEndpointResponse,
+  type RevokeRefreshTokenOptions,
   type PasskeyApiClient,
   type PasskeySignupOptions,
   type PasskeyLoginOptions
@@ -259,6 +260,12 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const revokeRefreshToken = useCallback(
+    (options?: RevokeRefreshTokenOptions): Promise<void> =>
+      client.revokeRefreshToken(options),
+    [client]
+  );
+
   const getAccessTokenSilently = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async (opts?: GetTokenSilentlyOptions): Promise<any> => {
@@ -449,6 +456,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       loginWithPopup,
       connectAccountWithRedirect,
       logout,
+      revokeRefreshToken,
       handleRedirectCallback,
       getDpopNonce,
       setDpopNonce,
@@ -471,6 +479,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     loginWithPopup,
     connectAccountWithRedirect,
     logout,
+    revokeRefreshToken,
     handleRedirectCallback,
     getDpopNonce,
     setDpopNonce,

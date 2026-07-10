@@ -16,6 +16,7 @@ const loginWithPopup = jest.fn();
 const loginWithRedirect = jest.fn();
 const connectAccountWithRedirect = jest.fn();
 const logout = jest.fn();
+const revokeRefreshToken = jest.fn();
 const getDpopNonce = jest.fn();
 const setDpopNonce = jest.fn();
 const generateDpopProof = jest.fn();
@@ -56,6 +57,7 @@ export const Auth0Client = jest.fn(() => {
     loginWithRedirect,
     connectAccountWithRedirect,
     logout,
+    revokeRefreshToken,
     getDpopNonce,
     setDpopNonce,
     generateDpopProof,
