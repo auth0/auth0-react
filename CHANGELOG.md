@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.21.0](https://github.com/auth0/auth0-react/tree/v2.21.0) (2026-07-10)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.20.0...v2.21.0)
+
+**Added**
+- feat: expose revokeRefreshToken [\#1147](https://github.com/auth0/auth0-react/pull/1147) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.20.0](https://github.com/auth0/auth0-react/tree/v2.20.0) (2026-07-02)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.19.0...v2.20.0)
 
