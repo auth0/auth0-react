@@ -47,7 +47,6 @@ export {
   ResponseType,
   ConnectError,
   CustomTokenExchangeOptions,
-  RevokeRefreshTokenOptions,
   TokenEndpointResponse,
   ActClaim,
   ClientConfiguration,
@@ -67,6 +66,7 @@ export {
   MyAccountApiError,
 } from '@auth0/auth0-spa-js';
 export type {
+  RevokeRefreshTokenOptions,
   FetcherConfig,
   InteractiveErrorHandler,
   // MFA Types

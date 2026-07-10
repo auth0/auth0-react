@@ -261,8 +261,8 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
   );
 
   const revokeRefreshToken = useCallback(
-    (opts?: RevokeRefreshTokenOptions): Promise<void> =>
-      client.revokeRefreshToken(opts),
+    (options?: RevokeRefreshTokenOptions): Promise<void> =>
+      client.revokeRefreshToken(options),
     [client]
   );
 

@@ -822,6 +822,14 @@ await revokeRefreshToken({ audience: 'https://api.example.com' });
 > [!IMPORTANT]
 > With [MRRT](#using-multi-resource-refresh-tokens) enabled, all audiences share the same underlying refresh token — revoking for one audience invalidates it for all of them.
 
+> [!NOTE]
+> Revoking the refresh token does not update the React auth state — `isAuthenticated` remains `true` and the current access token stays valid until it expires. The next call to `getAccessTokenSilently` will fail with `login_required`. If you want to immediately tear down the session, call `logout()` after revoking:
+>
+> ```js
+> await revokeRefreshToken();
+> await logout({ openUrl: false });
+> ```
+
 ## Connect Accounts for using Token Vault
 
 The Connect Accounts feature uses the Auth0 My Account API to allow users to link multiple third party accounts to a single Auth0 user profile.
