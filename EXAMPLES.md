@@ -824,8 +824,8 @@ await revokeRefreshToken({ audience: 'https://api.example.com' });
 
 > [!NOTE]
 > Revoking the refresh token does not update the React auth state — `isAuthenticated` remains `true` and the current access token stays valid until it expires. The next call to `getAccessTokenSilently` will fail with `login_required`. If you want to immediately tear down the session, call `logout()` after revoking:
->
 > ```js
+> const { revokeRefreshToken, logout } = useAuth0();
 > await revokeRefreshToken();
 > await logout({ openUrl: false });
 > ```
