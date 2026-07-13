@@ -1,0 +1,7 @@
+reviews:
+  auto_review:
+    ignore_branches:
+      - 'release/**'
+  path_filters:
+    - '!dist/**'
+    - '!CHANGELOG.md'
