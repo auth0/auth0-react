@@ -730,6 +730,8 @@ describe('Auth0Provider', () => {
         await result.current.revokeRefreshToken();
       })
     ).rejects.toThrow('The token has been revoked');
+    expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toBe(user);
   });
 
   it('should memoize the revokeRefreshToken method', async () => {

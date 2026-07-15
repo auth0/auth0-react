@@ -873,18 +873,45 @@ import { Auth0Provider, RefreshTokenMode } from '@auth0/auth0-react';
 
 ### Configuration validation
 
-If `refreshTokenMode={RefreshTokenMode.Online}` is set without `useRefreshTokens={true}` and `useDpop={true}`, the underlying `Auth0Client` constructor throws an `InvalidConfigurationError`. Because `Auth0Provider` constructs the client during render, wrap it in an error boundary or validate your configuration up front:
+If `refreshTokenMode={RefreshTokenMode.Online}` is set without `useRefreshTokens={true}` and `useDpop={true}`, the underlying `Auth0Client` constructor throws an `InvalidConfigurationError`.
+
+`Auth0Provider` constructs the `Auth0Client` inside `useState()` during render, so this throw surfaces as a React render error — a `try/catch` around `<Auth0Provider />` at the call site will **not** catch it. Wrap `Auth0Provider` in a [React error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) instead:
 
 ```jsx
+import React from 'react';
 import { InvalidConfigurationError } from '@auth0/auth0-react';
 
-try {
-  // Constructing without useDpop={true} throws InvalidConfigurationError
-} catch (e) {
-  if (e instanceof InvalidConfigurationError) {
-    console.error(e.error_description); // includes the suggested fix
+class Auth0ConfigErrorBoundary extends React.Component {
+  state = { error: null };
+
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+
+  render() {
+    if (this.state.error instanceof InvalidConfigurationError) {
+      // this.state.error.error_description includes the suggested fix
+      return <div>Auth0 misconfigured: {this.state.error.error_description}</div>;
+    }
+    if (this.state.error) {
+      throw this.state.error;
+    }
+    return this.props.children;
   }
 }
+
+<Auth0ConfigErrorBoundary>
+  <Auth0Provider
+    domain="YOUR_AUTH0_DOMAIN"
+    clientId="YOUR_AUTH0_CLIENT_ID"
+    useRefreshTokens={true}
+    refreshTokenMode={RefreshTokenMode.Online}
+    useDpop={false} // 👈 missing useDpop — throws InvalidConfigurationError, caught by the boundary above
+    authorizationParams={{ redirect_uri: window.location.origin }}
+  >
+    <App />
+  </Auth0Provider>
+</Auth0ConfigErrorBoundary>
 ```
 
 ### Revoking the Online Refresh Token
