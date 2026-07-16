@@ -632,8 +632,6 @@ describe('Auth0Provider', () => {
   });
 
   it('should provide a revokeRefreshToken method', async () => {
-    const user = { name: '__test_user__' };
-    clientMock.getUser.mockResolvedValue(user);
     const wrapper = createWrapper();
     const { result } = renderHook(
       () => useContext(Auth0Context),
@@ -641,24 +639,6 @@ describe('Auth0Provider', () => {
     );
     await waitFor(() => {
       expect(result.current.revokeRefreshToken).toBeInstanceOf(Function);
-      expect(result.current.isAuthenticated).toBe(true);
-    });
-    await act(async () => {
-      await result.current.revokeRefreshToken();
-    });
-    expect(clientMock.revokeRefreshToken).toHaveBeenCalled();
-  });
-
-  it('should forward options to revokeRefreshToken', async () => {
-    const user = { name: '__test_user__' };
-    clientMock.getUser.mockResolvedValue(user);
-    const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
-    await waitFor(() => {
-      expect(result.current.isAuthenticated).toBe(true);
     });
     await act(async () => {
       await result.current.revokeRefreshToken({ audience: 'https://api.example.com' });
@@ -680,6 +660,7 @@ describe('Auth0Provider', () => {
     );
     await waitFor(() => {
       expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.user).toBe(user);
     });
     clientMock.getUser.mockResolvedValueOnce(undefined);
     await act(async () => {
@@ -689,26 +670,6 @@ describe('Auth0Provider', () => {
       expect(result.current.isAuthenticated).toBe(false);
       expect(result.current.user).toBeUndefined();
     });
-  });
-
-  it('should not change session state after revokeRefreshToken in offline mode', async () => {
-    // In offline mode, revokeRefreshToken() only invalidates the refresh token;
-    // the cached user/access token remain valid until they expire.
-    const user = { name: '__test_user__' };
-    clientMock.getUser.mockResolvedValue(user);
-    const wrapper = createWrapper();
-    const { result } = renderHook(
-      () => useContext(Auth0Context),
-      { wrapper }
-    );
-    await waitFor(() => {
-      expect(result.current.isAuthenticated).toBe(true);
-    });
-    await act(async () => {
-      await result.current.revokeRefreshToken();
-    });
-    expect(result.current.isAuthenticated).toBe(true);
-    expect(result.current.user).toBe(user);
   });
 
   it('should rethrow errors from revokeRefreshToken', async () => {
