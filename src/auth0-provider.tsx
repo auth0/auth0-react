@@ -272,7 +272,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
         // revocation fails, nothing was actually revoked, so this re-read simply
         // reflects the unchanged cached user/session.
         dispatch({
-          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          type: 'SYNC_USER',
           user: await client.getUser(),
         });
       }

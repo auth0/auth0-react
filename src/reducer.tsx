@@ -8,7 +8,8 @@ type Action =
         | 'INITIALISED'
         | 'LOGIN_POPUP_COMPLETE'
         | 'GET_ACCESS_TOKEN_COMPLETE'
-        | 'HANDLE_REDIRECT_COMPLETE';
+        | 'HANDLE_REDIRECT_COMPLETE'
+        | 'SYNC_USER';
       user: User | undefined;
     }
   | { type: 'LOGOUT' }
@@ -35,6 +36,7 @@ export const reducer = <TUser extends User = User>(state: AuthState<TUser>, acti
       };
     case 'HANDLE_REDIRECT_COMPLETE':
     case 'GET_ACCESS_TOKEN_COMPLETE':
+    case 'SYNC_USER':
       if (state.user === action.user) {
         return state;
       }
