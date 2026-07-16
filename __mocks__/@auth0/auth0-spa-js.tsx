@@ -87,6 +87,9 @@ export const Auth0Client = jest.fn(() => {
 });
 
 export const ResponseType = actual.ResponseType;
+export const RefreshTokenMode = actual.RefreshTokenMode;
+export const InvalidConfigurationError = actual.InvalidConfigurationError;
+export const MissingScopesError = actual.MissingScopesError;
 
 export const MfaError = actual.MfaError;
 export const MfaListAuthenticatorsError = actual.MfaListAuthenticatorsError;

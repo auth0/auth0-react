@@ -281,13 +281,25 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * await revokeRefreshToken({ audience: 'https://api.example.com' });
    * ```
    *
-   * Revokes the refresh token for the current session by calling the
-   * `/oauth/revoke` endpoint. Once revoked, the token can no longer be
-   * used to obtain new access tokens.
+   * Revokes the refresh token via the `/oauth/revoke` endpoint. This invalidates the
+   * refresh token so it can no longer be used to obtain new access tokens.
    *
-   * If `useRefreshTokens` is not enabled this is a no-op.
+   * If `useRefreshTokens` is disabled, this method does nothing.
    * When multiple audiences share the same refresh token, revoking for
    * one audience invalidates it for all of them.
+   *
+   * **Online mode** (`refreshTokenMode: RefreshTokenMode.Online`): revoking the Online
+   * Refresh Token also terminates the Auth0 session server-side and clears the entire
+   * local cache. `isAuthenticated` and `user` update immediately to reflect the
+   * terminated session — no redirect required. Use `logout()` instead if you want a
+   * redirect-based sign-out.
+   *
+   * **Offline mode**: only the refresh token is invalidated; the cached access token
+   * and user profile remain valid until the access token expires. `isAuthenticated`
+   * and `user` are unaffected until then.
+   *
+   * @param options - Optional parameters to identify which refresh token to revoke.
+   *   Defaults to the audience configured in `authorizationParams`.
    */
   revokeRefreshToken: (options?: RevokeRefreshTokenOptions) => Promise<void>;
 

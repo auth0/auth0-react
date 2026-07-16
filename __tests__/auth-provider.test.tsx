@@ -1,7 +1,8 @@
 import {
   Auth0Client, ConnectAccountRedirectResult,
   GetTokenSilentlyVerboseResponse,
-  ResponseType
+  ResponseType,
+  RefreshTokenMode
 } from '@auth0/auth0-spa-js';
 import '@testing-library/jest-dom';
 import { act, render, renderHook, screen, waitFor } from '@testing-library/react';
@@ -56,6 +57,33 @@ describe('Auth0Provider', () => {
             max_age: 'qux',
             extra_param: '__test_extra_param__',
           },
+        })
+      );
+    });
+  });
+
+  it('should forward online-access options to Auth0Client', async () => {
+    const opts = {
+      clientId: 'foo',
+      domain: 'bar',
+      useRefreshTokens: true,
+      useDpop: true,
+      useMrrt: true,
+      refreshTokenMode: RefreshTokenMode.Online,
+    };
+    const wrapper = createWrapper(opts);
+    renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(Auth0Client).toHaveBeenCalledWith(
+        expect.objectContaining({
+          clientId: 'foo',
+          domain: 'bar',
+          useRefreshTokens: true,
+          useDpop: true,
+          useMrrt: true,
+          refreshTokenMode: 'online',
         })
       );
     });
@@ -620,21 +648,51 @@ describe('Auth0Provider', () => {
     });
   });
 
-  it('should propagate errors from revokeRefreshToken', async () => {
-    clientMock.revokeRefreshToken.mockRejectedValue(new Error('__test_error__'));
+  it('should reflect cleared session state after revokeRefreshToken in online mode', async () => {
+    // In online mode, revokeRefreshToken() clears the entire local session server-side.
+    // getUser() reflects this by resolving to undefined afterward.
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValueOnce(user);
     const wrapper = createWrapper();
     const { result } = renderHook(
       () => useContext(Auth0Context),
       { wrapper }
     );
     await waitFor(() => {
-      expect(result.current.revokeRefreshToken).toBeInstanceOf(Function);
+      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.user).toBe(user);
     });
+    clientMock.getUser.mockResolvedValueOnce(undefined);
     await act(async () => {
-      await expect(result.current.revokeRefreshToken()).rejects.toThrow(
-        '__test_error__'
-      );
+      await result.current.revokeRefreshToken();
     });
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.user).toBeUndefined();
+    });
+  });
+
+  it('should rethrow errors from revokeRefreshToken', async () => {
+    const user = { name: '__test_user__' };
+    clientMock.getUser.mockResolvedValue(user);
+    clientMock.revokeRefreshToken.mockRejectedValueOnce(
+      new Error('The token has been revoked')
+    );
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.isAuthenticated).toBe(true);
+    });
+    await expect(
+      act(async () => {
+        await result.current.revokeRefreshToken();
+      })
+    ).rejects.toThrow('The token has been revoked');
+    expect(result.current.isAuthenticated).toBe(true);
+    expect(result.current.user).toBe(user);
   });
 
   it('should memoize the revokeRefreshToken method', async () => {

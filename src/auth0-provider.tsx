@@ -261,8 +261,22 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
   );
 
   const revokeRefreshToken = useCallback(
-    (options?: RevokeRefreshTokenOptions): Promise<void> =>
-      client.revokeRefreshToken(options),
+    async (opts?: RevokeRefreshTokenOptions): Promise<void> => {
+      try {
+        await client.revokeRefreshToken(opts);
+      } finally {
+        // Online mode clears the entire local session as part of revocation; offline
+        // mode leaves the cached access token/user untouched. Re-reading the user from
+        // the client after either case keeps isAuthenticated/user consistent with
+        // whatever the SDK actually did, without assuming which mode is active. If
+        // revocation fails, nothing was actually revoked, so this re-read simply
+        // reflects the unchanged cached user/session.
+        dispatch({
+          type: 'SYNC_USER',
+          user: await client.getUser(),
+        });
+      }
+    },
     [client]
   );
 
