@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.22.0](https://github.com/auth0/auth0-react/tree/v2.22.0) (2026-07-17)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.21.0...v2.22.0)
+
+**Added**
+- feat: add support for Online Access (Online Refresh Tokens) [\#1133](https://github.com/auth0/auth0-react/pull/1133) ([NandanPrabhu](https://github.com/NandanPrabhu))
+
 ## [v2.21.0](https://github.com/auth0/auth0-react/tree/v2.21.0) (2026-07-10)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.20.0...v2.21.0)
 
