@@ -31,6 +31,7 @@ async function run() {
     const result = await lint(prTitle, config.rules, {
       defaultIgnores: config.defaultIgnores,
       helpUrl: config.helpUrl,
+      parserOpts: config.parserPreset?.parserOpts,
     });
 
     // 4. Report the results
