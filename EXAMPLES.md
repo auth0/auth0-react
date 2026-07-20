@@ -846,7 +846,10 @@ Read more about [Online Refresh Tokens](https://auth0.com/docs/secure/tokens/ref
 > [!IMPORTANT]
 > Online access requires DPoP. Sender-constraining the token via [DPoP](#device-bound-tokens-with-dpop) is mandatory because the ORT is non-rotating — binding it to the browser's key pair is what mitigates token replay if it is exfiltrated. You must set `useDpop={true}` explicitly; the SDK does not enable it for you.
 >
-> This also requires the `online_refresh_tokens` flag to be enabled for your Auth0 tenant, and `allow_online_access` to be enabled on the resource server you log in with (on by default).
+> This also requires `allow_online_access` to be enabled on the resource server you log in with.
+
+> [!WARNING]
+> Online Refresh Tokens do not currently support resource servers with **Ephemeral Sessions** enabled. If a resource server has both `allow_online_access` and "Allow for Ephemeral Sessions" enabled, the authorization server issues an Online Refresh Token at login that is then rejected with `invalid_grant` (`"Unknown or invalid refresh token"`) on the very next refresh — this is a known backend limitation, not a client-side defect. Until Ephemeral Sessions support is added for Online Refresh Tokens, disable "Allow for Ephemeral Sessions" on any resource server used with `refreshTokenMode: RefreshTokenMode.Online`.
 
 ### Enabling Online Access
 
