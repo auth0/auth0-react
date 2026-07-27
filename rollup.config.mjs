@@ -13,6 +13,11 @@ import { createApp } from './scripts/oidc-provider.mjs';
 const isProduction = process.env.NODE_ENV === 'production';
 const name = 'reactAuth0';
 const input = 'src/index.tsx';
+// Mark the bundle as a client module so it can be imported into a React Server
+// Component graph (Next.js App Router). Rollup drops the 'use client' directives
+// from the source modules when bundling, so we re-add it at the bundle top via
+// output.banner. Applied only to the RSC-consumed CJS + ESM outputs (not UMD).
+const useClientBanner = "'use client';";
 const globals = {
   react: 'React',
   'react-dom': 'ReactDOM',
@@ -79,6 +84,7 @@ export default [
             file: pkg.main,
             format: 'cjs',
             sourcemap: true,
+            banner: useClientBanner,
           },
           plugins,
         },
@@ -88,6 +94,7 @@ export default [
             file: pkg.module,
             format: 'esm',
             sourcemap: true,
+            banner: useClientBanner,
           },
           plugins,
         },

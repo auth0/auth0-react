@@ -7,6 +7,7 @@
 - [Protecting a route in a `react-router-dom v6` app](#protecting-a-route-in-a-react-router-dom-v6-app)
 - [Protecting a route in a Gatsby app](#protecting-a-route-in-a-gatsby-app)
 - [Protecting a route in a Next.js app (in SPA mode)](#protecting-a-route-in-a-nextjs-app-in-spa-mode)
+- [Using with the Next.js App Router (Server Components)](#using-with-the-nextjs-app-router-server-components)
 - [Use with Auth0 organizations](#use-with-auth0-organizations)
 - [Protecting a route with a claims check](#protecting-a-route-with-a-claims-check)
 - [Device-bound tokens with DPoP](#device-bound-tokens-with-dpop)
@@ -459,6 +460,74 @@ export default withAuthenticationRequired(Profile);
 ```
 
 See [Next.js example app](./examples/nextjs-app)
+
+## Using with the Next.js App Router (Server Components)
+
+In the Next.js App Router every module is a React Server Component by default. `@auth0/auth0-react` is a client-only library (it relies on React hooks and browser APIs), and its published ESM and CommonJS bundles ship the `'use client'` directive baked in. That means you can import `Auth0Provider` **directly** into a Server Component such as your root `app/layout.tsx`, without writing your own `'use client'` wrapper.
+
+The `redirect_uri` value is evaluated where the JSX is authored — the Server Component — where `window` is not available. So pass an explicit `redirect_uri` from an environment variable (or another value known at build/server time) rather than `window.location.origin`:
+
+```tsx
+// app/layout.tsx  (Server Component, no 'use client' directive needed)
+import { Auth0Provider } from '@auth0/auth0-react';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <Auth0Provider
+          domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string}
+          clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID as string}
+          authorizationParams={{
+            redirect_uri: process.env.NEXT_PUBLIC_BASE_URL as string,
+          }}
+        >
+          {children}
+        </Auth0Provider>
+      </body>
+    </html>
+  );
+}
+```
+
+Any component that **calls** a hook such as `useAuth0()` runs on the client, so that component must be a Client Component. This is a standard React Server Components rule (hooks cannot execute during server render), not something the SDK can remove: mark the file with `'use client'`.
+
+```tsx
+// app/page.tsx
+'use client';
+
+import { useAuth0 } from '@auth0/auth0-react';
+
+export default function Home() {
+  const { isAuthenticated, isLoading, loginWithRedirect, logout, user } =
+    useAuth0();
+
+  if (isLoading) return <p>Loading...</p>;
+
+  return isAuthenticated ? (
+    <>
+      <p>Signed in as {user?.name}</p>
+      <button
+        onClick={() =>
+          logout({ logoutParams: { returnTo: window.location.origin } })
+        }
+      >
+        Log out
+      </button>
+    </>
+  ) : (
+    <button onClick={() => loginWithRedirect()}>Log in</button>
+  );
+}
+```
+
+Reading `window.location.origin` is safe here precisely because `app/page.tsx` is a Client Component (marked with `'use client'`), so `window` exists at runtime — unlike in the Server Component above.
+
+In short: the provider can live in a Server Component, while components that consume the hooks opt into the client, exactly as with any other client-only React library.
 
 ## Use with Auth0 organizations
 
