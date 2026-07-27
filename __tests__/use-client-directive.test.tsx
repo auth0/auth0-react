@@ -11,12 +11,12 @@
  * are the CJS (main) and ESM (module) outputs; the UMD <script> builds
  * intentionally do NOT carry it.
  *
- * dist/ is not built by `npm test` (which is just `jest --coverage`). Locally,
- * when the bundles are absent these tests skip with a clear message; run
- * `npm run test:dist` to build first and assert against fresh output. Under CI
- * (process.env.CI) missing bundles are a hard error rather than a silent skip,
- * so the guarantee can never masquerade as a pass. Files are read as TEXT
- * (never imported), so nothing here is pulled into coverage collection.
+ * dist/ is not built by `npm test` (which is just `jest --coverage`), so when the
+ * bundles are absent these tests skip with a clear message. Run `npm run test:dist`
+ * to build first and assert against fresh output. The dedicated CI job sets
+ * ASSERT_USE_CLIENT, under which missing bundles are a hard error rather than a
+ * silent skip, so the guarantee can never masquerade as a pass. Files are read as
+ * TEXT (never imported), so nothing here is pulled into coverage collection.
  */
 import { existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
@@ -52,10 +52,13 @@ const umdBundles = ['auth0-react.js', 'auth0-react.min.js'];
 const distBuilt = [...rscBundles, ...umdBundles].every((f) => existsSync(dist(f)));
 
 if (!distBuilt) {
-  if (process.env.CI) {
+  // The dedicated CI job sets ASSERT_USE_CLIENT (after building the bundles), so a
+  // missing dist/ there is a hard error (the guarantee can never silently pass). Any
+  // other run (e.g. `npm test`, which doesn't build) just skips.
+  if (process.env.ASSERT_USE_CLIENT) {
     throw new Error(
-      "dist/ bundles are missing but CI must assert the 'use client' directive. " +
-        'Ensure the build runs before jest (see the `test:dist` script / rsc-directive CI job).'
+      "dist/ bundles are missing but the 'use client' directive must be asserted. " +
+        'Run `npm run test:dist`, which builds the bundles before running this suite.'
     );
   }
   console.warn(
