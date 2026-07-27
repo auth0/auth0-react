@@ -65,8 +65,6 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   rsc-directive:
-    needs: build # Require build to complete before running tests
-
     name: Verify 'use client' directive
     runs-on: ubuntu-latest
 
