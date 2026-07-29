@@ -21,6 +21,45 @@
 - [Passkeys](#passkeys)
 - [MyAccount API](#myaccount-api)
 - [Session Expiry from Upstream IdP (IPSIE)](#session-expiry-from-upstream-idp-ipsie)
+- [Use Suspense for loading state (React 19+)](#use-suspense-for-loading-state-react-19)
+
+## Use Suspense for loading state (React 19+)
+
+On React 19 and later, `useAuth0Suspense` lets a `<Suspense>` boundary handle the
+auth loading state and an Error Boundary handle initialization errors, so your
+component code stays focused on rendering. Unlike `useAuth0`, it does not return
+`isLoading` (the component suspends until auth is ready) or `error` (it is thrown
+to the nearest Error Boundary).
+
+```jsx
+import { Suspense } from 'react';
+import { Auth0Provider, useAuth0Suspense } from '@auth0/auth0-react';
+
+function App() {
+  return (
+    <Auth0Provider
+      domain="YOUR_DOMAIN"
+      clientId="YOUR_CLIENT_ID"
+      authorizationParams={{ redirect_uri: window.location.origin }}
+    >
+      <MyErrorBoundary fallback={<p>Could not sign you in.</p>}>
+        <Suspense fallback={<p>Loading...</p>}>
+          <UserGreeting />
+        </Suspense>
+      </MyErrorBoundary>
+    </Auth0Provider>
+  );
+}
+
+function UserGreeting() {
+  const { user, isAuthenticated } = useAuth0Suspense();
+  return isAuthenticated ? <p>Hello, {user?.name}!</p> : <p>Please log in</p>;
+}
+```
+
+`useAuth0Suspense` requires React 19; calling it on an earlier version throws a
+clear error. All the auth methods available on `useAuth0` (`loginWithRedirect`,
+`logout`, `getAccessTokenSilently`, etc.) are also available here.
 
 ## Use with a Class Component
 
