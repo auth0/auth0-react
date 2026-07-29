@@ -494,7 +494,7 @@ export default function RootLayout({
 }
 ```
 
-Any component that **calls** a hook such as `useAuth0()` runs on the client, so that component must be a Client Component. This is a standard React Server Components rule (hooks cannot execute during server render), not something the SDK can remove: mark the file with `'use client'`.
+Any component that **calls** a hook such as `useAuth0()` runs on the client, so that component must be a Client Component. Because `useAuth0()` reads the client-side Auth0 context, the component that calls it must be marked with `'use client'`.
 
 ```tsx
 // app/page.tsx
