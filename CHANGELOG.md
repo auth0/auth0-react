@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.22.1](https://github.com/auth0/auth0-react/tree/v2.22.1) (2026-07-29)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.22.0...v2.22.1)
+
+**Changed**
+- chore(deps): bump @auth0/auth0-spa-js minimum version to ^2.24.1 [\#1182](https://github.com/auth0/auth0-react/pull/1182) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.22.0](https://github.com/auth0/auth0-react/tree/v2.22.0) (2026-07-17)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.21.0...v2.22.0)
 
