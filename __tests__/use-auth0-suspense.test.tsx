@@ -106,6 +106,27 @@ describe('useAuth0Suspense', () => {
     );
   });
 
+  it('returns the auth methods, omitting isLoading and _initPromise', async () => {
+    clientMock.checkSession.mockResolvedValue(undefined);
+    clientMock.getUser.mockResolvedValue({ name: 'Bob' });
+
+    let captured: Record<string, unknown> | undefined;
+    function Capture() {
+      captured = useAuth0Suspense() as unknown as Record<string, unknown>;
+      return <div>captured</div>;
+    }
+
+    await renderWithProvider(<Capture />);
+    await waitFor(() =>
+      expect(screen.getByText('captured')).toBeInTheDocument()
+    );
+
+    expect(captured).not.toHaveProperty('isLoading');
+    expect(captured).not.toHaveProperty('_initPromise');
+    expect(captured).toHaveProperty('error');
+    expect(typeof captured!.loginWithRedirect).toBe('function');
+  });
+
   it('throws a clear error when used outside an Auth0Provider', () => {
     expect(() => renderHook(() => useAuth0Suspense())).toThrowError(
       /must be used within/
