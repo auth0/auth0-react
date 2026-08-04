@@ -1,4 +1,5 @@
 {
+    "conventionalCommits": true,
     "files": {
         ".version": []
     },
