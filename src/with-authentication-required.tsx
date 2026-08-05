@@ -18,8 +18,14 @@ const defaultOnBeforeAuthentication = async (): Promise<void> => {/* noop */ };
 /**
  * @ignore
  */
-const defaultReturnTo = (): string =>
-  `${window.location.pathname}${window.location.search}`;
+const defaultReturnTo = (): string => {
+  // Normalize the pathname to prevent protocol-relative open redirects.
+  // A URL like https://app.example.com//evil.com produces a pathname of
+  // //evil.com, which routers (react-router, next.js, gatsby) interpret as a
+  // protocol-relative URL and redirect the user to an external host.
+  const pathname = window.location.pathname.replace(/^\/\/+/, '/');
+  return `${pathname}${window.location.search}`;
+};
 
 /**
  * Options for the withAuthenticationRequired Higher Order Component
