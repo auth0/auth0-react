@@ -1,5 +1,14 @@
 # Change Log
 
+## [v2.23.0](https://github.com/auth0/auth0-react/tree/v2.23.0) (2026-08-05)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.22.1...v2.23.0)
+
+**Added**
+- feat: add 'use client' directive to bundles for RSC support [\#1179](https://github.com/auth0/auth0-react/pull/1179) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+
+**Fixed**
+- fix: prevent open redirect via protocol-relative returnTo [\#1185](https://github.com/auth0/auth0-react/pull/1185) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.22.1](https://github.com/auth0/auth0-react/tree/v2.22.1) (2026-07-29)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.22.0...v2.22.1)
 
