@@ -37,6 +37,15 @@ jobs:
         with:
           node: ${{ env.NODE_VERSION }}
 
+      # Let downstream jobs consume the build instead of rebuilding.
+      - name: Upload build output
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 1
+
   unit:
     needs: build # Require build to complete before running tests
 
@@ -65,6 +74,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   rsc-directive:
+    needs: build # Reuse its build output
+
     name: Verify 'use client' directive
     runs-on: ubuntu-latest
 
@@ -81,7 +92,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build bundles and assert 'use client' directive
-        run: npm run test:dist
+      - name: Download build output
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: dist
+          path: dist
+
+      - name: Assert 'use client' directive
+        run: npm run test:dist:only
         env:
           ASSERT_USE_CLIENT: '1'
