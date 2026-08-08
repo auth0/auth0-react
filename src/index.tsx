@@ -7,6 +7,10 @@ export {
   ConnectedAccount
 } from './auth0-provider';
 export { default as useAuth0 } from './use-auth0';
+export {
+  default as useAuth0Suspense,
+  Auth0SuspenseContextInterface,
+} from './use-auth0-suspense';
 export { default as withAuth0, WithAuth0Props } from './with-auth0';
 export {
   default as withAuthenticationRequired,

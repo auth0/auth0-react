@@ -1635,4 +1635,40 @@ describe('Auth0Provider', () => {
       expect(result.current.error).toBeUndefined();
     });
   });
+
+  describe('Auth0Provider _initPromise', () => {
+    it('exposes an _initPromise that resolves after successful init', async () => {
+      clientMock.getUser.mockResolvedValue({ name: 'Bob' });
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+      expect(result.current._initPromise).toBeInstanceOf(Promise);
+      // resolves (not rejects) once init completes
+      await expect(result.current._initPromise).resolves.toBeUndefined();
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+    });
+
+    it('rejects _initPromise when init fails', async () => {
+      clientMock.checkSession.mockRejectedValueOnce({
+        error: '__test_error__',
+        error_description: '__test_error_description__',
+      });
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+
+      await expect(result.current._initPromise).rejects.toThrowError(
+        '__test_error_description__'
+      );
+    });
+
+    it('keeps a stable _initPromise reference across re-renders', async () => {
+      clientMock.getUser.mockResolvedValue({ name: 'Bob' });
+      const wrapper = createWrapper();
+      const { result, rerender } = renderHook(() => useContext(Auth0Context), { wrapper });
+      const first = result.current._initPromise;
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+      rerender();
+      expect(result.current._initPromise).toBe(first);
+    });
+  });
 });

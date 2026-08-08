@@ -194,6 +194,18 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     () => providedClient ?? new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
   const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
+  const [initDeferred] = useState(() => {
+    let resolve!: () => void;
+    let reject!: (error: Error) => void;
+    const promise = new Promise<void>((res, rej) => {
+      resolve = res;
+      reject = rej;
+    });
+    // Avoid unhandled-rejection warnings when no one is consuming the promise
+    // (i.e. useAuth0Suspense is not used). useAuth0Suspense attaches its own handler via use().
+    promise.catch(() => undefined);
+    return { promise, resolve, reject };
+  });
   const didInitialise = useRef(false);
 
   const handleError = useCallback((error: Error) => {
@@ -222,11 +234,14 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
           user = await client.getUser();
         }
         dispatch({ type: 'INITIALISED', user });
+        initDeferred.resolve();
       } catch (error) {
-        handleError(loginError(error));
+        const err = loginError(error);
+        handleError(err);
+        initDeferred.reject(err);
       }
     })();
-  }, [client, onRedirectCallback, skipRedirectCallback, handleError]);
+  }, [client, onRedirectCallback, skipRedirectCallback, handleError, initDeferred]);
 
   const loginWithRedirect = useCallback(
     (opts?: RedirectLoginOptions): Promise<void> => {
@@ -485,6 +500,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       mfa,
       passkey,
       myAccount,
+      _initPromise: initDeferred.promise,
     };
   }, [
     state,
@@ -508,6 +524,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     mfa,
     passkey,
     myAccount,
+    initDeferred,
   ]);
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;
