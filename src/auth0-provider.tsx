@@ -158,6 +158,32 @@ const defaultOnRedirectCallback = (appState?: AppState): void => {
 };
 
 /**
+ * @ignore
+ */
+interface InitDeferred {
+  promise: Promise<void>;
+  resolve: () => void;
+  reject: (error: Error) => void;
+}
+
+/**
+ * @ignore
+ */
+const createInitDeferred = (): InitDeferred => {
+  let resolve!: () => void;
+  let reject!: (error: Error) => void;
+  const promise = new Promise<void>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  // Avoid unhandled-rejection warnings when no one is consuming the promise
+  // (i.e. useAuth0Suspense is not used). useAuth0Suspense attaches its own
+  // handler via use().
+  promise.catch(() => undefined);
+  return { promise, resolve, reject };
+};
+
+/**
  * ```jsx
  * <Auth0Provider
  *   domain={domain}
@@ -189,18 +215,17 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     () => providedClient ?? new Auth0Client(toAuth0ClientOptions(clientOpts))
   );
   const [state, dispatch] = useReducer(reducer<TUser>, initialAuthState  as AuthState<TUser>);
-  const [initDeferred] = useState(() => {
-    let resolve!: () => void;
-    let reject!: (error: Error) => void;
-    const promise = new Promise<void>((res, rej) => {
-      resolve = res;
-      reject = rej;
-    });
-    // Avoid unhandled-rejection warnings when no one is consuming the promise
-    // (i.e. useAuth0Suspense is not used). useAuth0Suspense attaches its own handler via use().
-    promise.catch(() => undefined);
-    return { promise, resolve, reject };
-  });
+  // In state so the init retry below can swap in a fresh, non-rejected promise.
+  // Without that swap the first rejection would re-throw on every later render,
+  // making Error Boundary retries useless.
+  const [initDeferred, setInitDeferred] = useState(createInitDeferred);
+  // Set only once initialization has genuinely rejected. State, not a ref, so
+  // the retry effect re-evaluates when init fails *after* the app has become
+  // authenticated by some other means.
+  const [initFailed, setInitFailed] = useState(false);
+  // Guards against retrying more than once: a retry that also fails would
+  // otherwise re-trigger the effect for as long as the user stays signed in.
+  const initRetried = useRef(false);
   const didInitialise = useRef(false);
 
   const handleError = useCallback((error: Error) => {
@@ -208,15 +233,15 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     return error;
   }, []);
 
-  useEffect(() => {
-    if (didInitialise.current) {
-      return;
-    }
-    didInitialise.current = true;
-    (async (): Promise<void> => {
+  // Settles `deferred` according to what initialization actually did, so
+  // `_initPromise` never claims success that did not happen. `allowRedirect`
+  // is false on a retry: the redirect callback is single-use, so a retry can
+  // only re-verify the session.
+  const runInit = useCallback(
+    async (deferred: InitDeferred, allowRedirect: boolean): Promise<void> => {
       try {
         let user: TUser | undefined;
-        if (hasAuthParams() && !skipRedirectCallback) {
+        if (allowRedirect && hasAuthParams() && !skipRedirectCallback) {
           const { appState = {}, response_type, ...result } = await client.handleRedirectCallback();
           user = await client.getUser();
           appState.response_type = response_type;
@@ -229,14 +254,44 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
           user = await client.getUser();
         }
         dispatch({ type: 'INITIALISED', user });
-        initDeferred.resolve();
+        deferred.resolve();
       } catch (error) {
         const err = loginError(error);
         handleError(err);
-        initDeferred.reject(err);
+        setInitFailed(true);
+        deferred.reject(err);
       }
-    })();
-  }, [client, onRedirectCallback, skipRedirectCallback, handleError, initDeferred]);
+    },
+    [client, onRedirectCallback, skipRedirectCallback, handleError]
+  );
+
+  useEffect(() => {
+    if (didInitialise.current) {
+      return;
+    }
+    didInitialise.current = true;
+    // Always the first deferred: `didInitialise` means this only ever runs once,
+    // so a later swap by the retry effect re-runs this effect but returns above.
+    void runInit(initDeferred, true);
+  }, [runInit, initDeferred]);
+
+  // A rejected promise stays rejected forever, so React.use() would re-throw on
+  // every later render and an Error Boundary retry could never recover. Once
+  // init has failed but the app has since become authenticated by some other
+  // means (loginWithPopup, a silent token, a passkey login), re-run the session
+  // check against a fresh deferred. The promise then reflects a real
+  // checkSession() outcome rather than an assumption that things are fine --
+  // if the session is still bad it rejects again and the boundary keeps showing
+  // the error.
+  useEffect(() => {
+    if (!initFailed || initRetried.current || !state.isAuthenticated) {
+      return;
+    }
+    initRetried.current = true;
+    const retry = createInitDeferred();
+    setInitDeferred(retry);
+    void runInit(retry, false);
+  }, [initFailed, state.isAuthenticated, runInit]);
 
   const loginWithRedirect = useCallback(
     (opts?: RedirectLoginOptions): Promise<void> => {

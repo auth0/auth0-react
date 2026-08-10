@@ -23,7 +23,6 @@
 - [Session Expiry from Upstream IdP (IPSIE)](#session-expiry-from-upstream-idp-ipsie)
 - [Use Suspense for loading state (React 19+)](#use-suspense-for-loading-state-react-19)
 
-
 ## Use with a Class Component
 
 Use the `withAuth0` higher order component to add the `auth0` property to Class components:
@@ -1911,3 +1910,9 @@ function UserGreeting() {
 `useAuth0Suspense` requires React 19; calling it on an earlier version throws a
 clear error. All the auth methods available on `useAuth0` (`loginWithRedirect`,
 `logout`, `getAccessTokenSilently`, etc.) are also available here.
+
+If initialization fails and the user subsequently signs in by some other means —
+for example a `loginWithPopup` triggered from outside the boundary — the SDK
+re-checks the session once. If that check succeeds, retrying your Error Boundary
+renders the subtree normally; if it fails again, the boundary keeps showing the
+error.

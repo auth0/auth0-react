@@ -32,6 +32,10 @@ export type Auth0SuspenseContextInterface<TUser extends User = User> = Omit<
  * and throws initialization errors so the nearest Error Boundary can handle
  * them. Requires React 19 or later.
  *
+ * If initialization fails and the app later becomes authenticated by other
+ * means, the session is re-checked once; retrying the Error Boundary then
+ * renders if that check succeeded, or throws again if it did not.
+ *
  * TUser is an optional type param to provide a type to the `user` field.
  */
 const useAuth0Suspense = <TUser extends User = User>(
@@ -54,9 +58,14 @@ const useAuth0Suspense = <TUser extends User = User>(
   // Suspends until the init promise resolves; re-throws if it rejected.
   React.use(ctx._initPromise);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { isLoading, _initPromise, ...rest } = ctx;
-  return rest;
+  // Memoized so the returned object is referentially stable across renders,
+  // matching useAuth0, which hands back the provider's memoized context.
+  // Without this, `useEffect(..., [auth])` in a consumer re-runs every render.
+  return React.useMemo(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { isLoading, _initPromise, ...rest } = ctx;
+    return rest;
+  }, [ctx]);
 };
 
 export default useAuth0Suspense;
