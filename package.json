@@ -1,7 +1,7 @@
 {
   "author": "Auth0",
   "name": "@auth0/auth0-react",
-  "version": "2.22.1",
+  "version": "2.23.0",
   "description": "Auth0 SDK for React Single Page Applications (SPA)",
   "keywords": [
     "auth0",
@@ -24,6 +24,8 @@
     "lint": "eslint --ext=tsx ./src ./__tests__",
     "start": "rollup -cw",
     "test": "jest --coverage",
+    "test:dist": "npm run build && npm run test:dist:only",
+    "test:dist:only": "jest use-client-directive",
     "prepack": "npm run build",
     "docs": "typedoc --options typedoc.js src",
     "install:examples": "npm i --prefix=examples/cra-react-router --no-package-lock --legacy-peer-deps && npm i --prefix=examples/gatsby-app --no-package-lock --legacy-peer-deps && npm i --prefix=examples/nextjs-app --no-package-lock --legacy-peer-deps && npm ci --prefix=examples/users-api",
@@ -58,8 +60,8 @@
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@types/jest": "^29.5.14",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
     "cypress": "^15.18.0",

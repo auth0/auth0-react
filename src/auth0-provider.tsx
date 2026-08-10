@@ -194,6 +194,11 @@ const createInitDeferred = (): InitDeferred => {
  * ```
  *
  * Provides the Auth0Context to its child components.
+ *
+ * The SDK is a client-only module (its published ESM and CommonJS bundles ship the
+ * `'use client'` directive), so in a Next.js App Router app you can import and render
+ * `Auth0Provider` directly from a Server Component such as `app/layout.tsx`.
+ * Components that call hooks like `useAuth0` must still be Client Components.
  */
 const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUser>) => {
   const {

@@ -182,6 +182,36 @@ describe('withAuthenticationRequired', () => {
     );
   });
 
+  it('should sanitize protocol-relative returnTo paths to prevent open redirect', async () => {
+    // Simulate a URL like https://app.example.com//evil.com whose pathname is //evil.com.
+    // Routers (react-router, next.js, gatsby) treat //evil.com as a protocol-relative URL
+    // and redirect the user to http://evil.com.
+    const originalUrl = window.location.href;
+    window.history.replaceState({}, '', 'https://www.example.com//evil.com');
+
+    try {
+      mockClient.getUser.mockResolvedValue(undefined);
+      const MyComponent = () => <>Private</>;
+      const WrappedComponent = withAuthenticationRequired(MyComponent);
+      render(
+        <Auth0Provider clientId="__test_client_id__" domain="__test_domain__">
+          <WrappedComponent />
+        </Auth0Provider>
+      );
+      await waitFor(() =>
+        expect(mockClient.loginWithRedirect).toHaveBeenCalledWith(
+          expect.objectContaining({
+            appState: expect.objectContaining({
+              returnTo: '/evil.com',
+            }),
+          })
+        )
+      );
+    } finally {
+      window.history.replaceState({}, '', originalUrl);
+    }
+  });
+
   it('should call loginWithRedirect only once even if parent state changes', async () => {
     mockClient.getUser.mockResolvedValue(undefined);
     const MyComponent = () => <>Private</>;
