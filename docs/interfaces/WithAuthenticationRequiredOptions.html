@@ -15,7 +15,7 @@
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">WithAuthenticationRequiredOptions</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#context">context</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><a href="Auth0ContextInterface.html" class="tsd-signature-type tsd-kind-interface">Auth0ContextInterface</a><span class="tsd-signature-symbol">&lt;</span><a href="../classes/User.html" class="tsd-signature-type tsd-kind-class">User</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#loginoptions">loginOptions</a><span class="tsd-signature-symbol">?:</span> <a href="RedirectLoginOptions.html" class="tsd-signature-type tsd-kind-interface">RedirectLoginOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/AppState.html" class="tsd-signature-type tsd-kind-type-alias">AppState</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#onbeforeauthentication">onBeforeAuthentication</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#onredirecting">onRedirecting</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#returnto">returnTo</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> (<span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">string</span>)<span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/7f3517a93911471fb7d587c0a7e4a1a966e89819/src/with-authentication-required.tsx#L33">src/with-authentication-required.tsx:33</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b357ff7d1dc874c9b9ca807b84c6c2257ee71cec/src/with-authentication-required.tsx#L33">src/with-authentication-required.tsx:33</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -40,7 +40,7 @@ within your application and you wish to tie a specific component to a Auth0Provi
 associated with the default Auth0Context.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/7f3517a93911471fb7d587c0a7e4a1a966e89819/src/with-authentication-required.tsx#L92">src/with-authentication-required.tsx:92</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b357ff7d1dc874c9b9ca807b84c6c2257ee71cec/src/with-authentication-required.tsx#L92">src/with-authentication-required.tsx:92</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="loginoptions"><code class="tsd-tag">Optional</code><span>login<wbr/>Options</span><a href="#loginoptions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">loginOptions</span><span class="tsd-signature-symbol">?:</span> <a href="RedirectLoginOptions.html" class="tsd-signature-type tsd-kind-interface">RedirectLoginOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/AppState.html" class="tsd-signature-type tsd-kind-type-alias">AppState</a><span class="tsd-signature-symbol">&gt;</span></div>
@@ -51,7 +51,7 @@ associated with the default Auth0Context.</p>
 This will be merged with the <code>returnTo</code> option used by the <code>onRedirectCallback</code> handler.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/7f3517a93911471fb7d587c0a7e4a1a966e89819/src/with-authentication-required.tsx#L86">src/with-authentication-required.tsx:86</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b357ff7d1dc874c9b9ca807b84c6c2257ee71cec/src/with-authentication-required.tsx#L86">src/with-authentication-required.tsx:86</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="onbeforeauthentication"><code class="tsd-tag">Optional</code><span>on<wbr/>Before<wbr/>Authentication</span><a href="#onbeforeauthentication" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">onBeforeAuthentication</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></div>
@@ -61,7 +61,7 @@ This will be merged with the <code>returnTo</code> option used by the <code>onRe
 <p>Allows executing logic before the user is redirected to the login page.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/7f3517a93911471fb7d587c0a7e4a1a966e89819/src/with-authentication-required.tsx#L71">src/with-authentication-required.tsx:71</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b357ff7d1dc874c9b9ca807b84c6c2257ee71cec/src/with-authentication-required.tsx#L71">src/with-authentication-required.tsx:71</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="onredirecting"><code class="tsd-tag">Optional</code><span>on<wbr/>Redirecting</span><a href="#onredirecting" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">onRedirecting</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">Element</span></div>
@@ -71,7 +71,7 @@ This will be merged with the <code>returnTo</code> option used by the <code>onRe
 <p>Render a message to show that the user is being redirected to the login.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/7f3517a93911471fb7d587c0a7e4a1a966e89819/src/with-authentication-required.tsx#L61">src/with-authentication-required.tsx:61</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b357ff7d1dc874c9b9ca807b84c6c2257ee71cec/src/with-authentication-required.tsx#L61">src/with-authentication-required.tsx:61</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="returnto"><code class="tsd-tag">Optional</code><span>return<wbr/>To</span><a href="#returnto" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">returnTo</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> (<span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">string</span>)</div>
@@ -85,7 +85,7 @@ This will be merged with the <code>returnTo</code> option used by the <code>onRe
 <p>Add a path for the <code>onRedirectCallback</code> handler to return the user to after login.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/7f3517a93911471fb7d587c0a7e4a1a966e89819/src/with-authentication-required.tsx#L51">src/with-authentication-required.tsx:51</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/auth0/auth0-react/blob/b357ff7d1dc874c9b9ca807b84c6c2257ee71cec/src/with-authentication-required.tsx#L51">src/with-authentication-required.tsx:51</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

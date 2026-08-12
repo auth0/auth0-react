@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.24.0](https://github.com/auth0/auth0-react/tree/v2.24.0) (2026-08-12)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.23.0...v2.24.0)
+
+**Added**
+- feat: add useAuth0Suspense hook for handling auth loading state with React 19+ [\#1184](https://github.com/auth0/auth0-react/pull/1184) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+
 ## [v2.23.0](https://github.com/auth0/auth0-react/tree/v2.23.0) (2026-08-05)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.22.1...v2.23.0)
 
