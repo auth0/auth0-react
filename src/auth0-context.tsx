@@ -474,6 +474,16 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * ```
    */
   myAccount: MyAccountApiClient;
+
+  /**
+   * Internal. A promise that resolves when Auth0 initialization completes and
+   * rejects with the initialization error if it fails. Consumed by
+   * `useAuth0Suspense`, which also treats its absence as "no provider" — do not
+   * add a stub value for this field to `initialContext`. Not part of the
+   * supported public API.
+   * @ignore
+   */
+  _initPromise?: Promise<void>;
 }
 
 /**
