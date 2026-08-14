@@ -20,3 +20,6 @@ updates:
         patterns:
           - "react"
           - "react-dom"
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/*"
