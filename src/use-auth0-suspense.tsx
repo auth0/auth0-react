@@ -1,7 +1,9 @@
-// Namespace import: `use` only exists as a named export from React 19, so
-// `import { use }` fails at link time for React 16-18 consumers even if they
-// never call this hook. Property access stays late-bound.
-import * as React from 'react';
+// Default import, NOT `import * as React`: webpack checks namespace member names
+// against the module's export list, so `React.use` on a namespace binding warns
+// for React 16-18 consumers even if they never call this hook (#1205). A default
+// import is react's module.exports object, so the read is unchecked. Named
+// (`import { use }`) is worse still: it fails at link time.
+import React, { useContext, useMemo } from 'react';
 import { User } from '@auth0/auth0-spa-js';
 import Auth0Context, { Auth0ContextInterface } from './auth0-context';
 
@@ -47,7 +49,7 @@ const useAuth0Suspense = <TUser extends User = User>(
     );
   }
 
-  const ctx = React.useContext(context) as Auth0ContextInterface<TUser>;
+  const ctx = useContext(context) as Auth0ContextInterface<TUser>;
 
   if (!ctx._initPromise) {
     throw new Error(
@@ -61,7 +63,7 @@ const useAuth0Suspense = <TUser extends User = User>(
   // Memoized so the returned object is referentially stable across renders,
   // matching useAuth0, which hands back the provider's memoized context.
   // Without this, `useEffect(..., [auth])` in a consumer re-runs every render.
-  return React.useMemo(() => {
+  return useMemo(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { isLoading, _initPromise, ...rest } = ctx;
     return rest;
