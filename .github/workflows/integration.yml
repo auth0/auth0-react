@@ -63,8 +63,23 @@ jobs:
       - name: Build SDK
         run: npm run build
 
+      - name: Pack SDK
+        run: npm pack
+
       - name: Install examples
         run: npm run install:examples
+
+      - name: Install local SDK into CRA example
+        run: npm install --prefix=examples/cra-react-router $(ls auth0-auth0-react-*.tgz)
+
+      - name: Build CRA example (production)
+        run: npm run build --prefix=examples/cra-react-router
+
+      - name: Build Next.js example (production)
+        run: npm run build --prefix=examples/nextjs-app
+
+      - name: Build Gatsby example (production)
+        run: npm run build --prefix=examples/gatsby-app
 
       - name: Run integration test (CRA)
         run: npm run test:cra
