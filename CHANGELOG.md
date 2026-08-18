@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.24.1](https://github.com/auth0/auth0-react/tree/v2.24.1) (2026-08-18)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.24.0...v2.24.1)
+
+**Fixed**
+- fix: update import style in useAuth0Suspense for compatibility with React older version [\#1206](https://github.com/auth0/auth0-react/pull/1206) ([gyaneshgouraw-okta](https://github.com/gyaneshgouraw-okta))
+
 ## [v2.24.0](https://github.com/auth0/auth0-react/tree/v2.24.0) (2026-08-12)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.23.0...v2.24.0)
 
