@@ -19,7 +19,20 @@ Do not swallow the error or wrap the entire component in a generic error boundar
 
 ## 4. URL not cleaned up after redirect
 
-If you do not supply `onRedirectCallback`, the default uses `window.history.replaceState` to strip `?code=&state=` from the URL. With a client-side router (React Router, Next.js router), supply a custom callback that calls `router.replace(appState?.returnTo ?? '/')` — otherwise the router's internal location state stays stale and back-button navigation breaks.
+If you do not supply `onRedirectCallback`, the default uses `window.history.replaceState` to strip `?code=&state=` from the URL. With a client-side router (React Router, Next.js router), supply a custom callback — validate `returnTo` before navigating to prevent open-redirect attacks, then fall back to `/`:
+
+```ts
+onRedirectCallback={(appState) => {
+  const returnTo = appState?.returnTo;
+  const safeReturnTo =
+    returnTo?.startsWith('/') && !returnTo.startsWith('//')
+      ? returnTo
+      : '/';
+  router.replace(safeReturnTo);
+}}
+```
+
+Without a custom callback the router's internal location state stays stale and back-button navigation breaks.
 
 ## 5. Multiple `Auth0Provider` instances sharing state
 
