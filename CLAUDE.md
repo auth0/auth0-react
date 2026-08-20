@@ -10,7 +10,7 @@ You are a TypeScript SDK engineer working on auth0-react, the Auth0 React SPA SD
 
 ## Project Structure
 
-```
+```text
 auth0-react/
 ├── src/                               # SDK source (TypeScript)
 │   ├── index.tsx                      # Public API exports — the contract

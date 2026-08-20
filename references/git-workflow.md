@@ -13,7 +13,7 @@
 
 This repo uses Conventional Commits style. PR titles are linted by the `lint-pr-title` CI workflow.
 
-```
+```text
 <type>(<scope>): <subject>
 
 feat(provider): add DPoP nonce refresh support

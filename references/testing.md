@@ -56,6 +56,8 @@ See `examples/README.md` for example app setup instructions.
 The manual mock at `__mocks__/@auth0/auth0-spa-js.tsx` provides `jest.fn()` stubs for every `Auth0Client` method. Configure per-test behaviour with `.mockResolvedValueOnce`:
 
 ```ts
+import { Auth0Client } from '@auth0/auth0-spa-js';
+
 const clientMock = jest.mocked(new Auth0Client({ clientId: '', domain: '' }));
 
 // Configure for a specific test scenario
