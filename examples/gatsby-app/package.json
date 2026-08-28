@@ -33,5 +33,10 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
+  "overrides": {
+    "gatsby-sharp": {
+      "sharp": ">=0.35.0"
+    }
   }
 }
