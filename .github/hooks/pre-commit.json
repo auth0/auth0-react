@@ -1,0 +1,22 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "npm run lint",
+        "cwd": ".",
+        "timeout": 30,
+        "linux": "cd /workspaces/auth0-react && npm run lint"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "npm test",
+        "cwd": ".",
+        "timeout": 60,
+        "linux": "cd /workspaces/auth0-react && npm test 2>&1 | grep -E '(PASS|FAIL|Test Suites|Coverage summary|100%|✓|✗)' | tail -20"
+      }
+    ]
+  }
+}
