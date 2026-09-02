@@ -24,5 +24,6 @@
     "noUncheckedIndexedAccess": true,
     "verbatimModuleSyntax": false
   },
-  "include": ["src"]
+  "include": ["src"],
+  "files": ["type-augments/auth0-spa-js-augment.d.ts"]
 }
