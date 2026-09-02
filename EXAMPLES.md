@@ -1985,3 +1985,87 @@ for example a `loginWithPopup` triggered from outside the boundary — the SDK
 re-checks the session once. If that check succeeds, retrying your Error Boundary
 renders the subtree normally; if it fails again, the boundary keeps showing the
 error.
+
+## Enterprise Connect
+
+> Enterprise Connect is an Early Access feature. Confirm the tenant-side
+> requirements with your Auth0 contact.
+
+Enterprise Connect layers enterprise SSO on top of your own auth server. The
+`useEnterpriseConnect` hook exposes `isFederatedDomain` (WebFinger domain
+discovery against your configured Auth0 domain) and `loginWithSSO` (a
+`loginWithRedirect` that sets `login_hint`).
+
+Login form: discover the domain, then route to SSO or your own login.
+
+```jsx
+import { useEnterpriseConnect } from '@auth0/auth0-react';
+
+export function LoginForm() {
+  const { isFederatedDomain, loginWithSSO } = useEnterpriseConnect();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const emailDomain = email.split('@')[1];
+
+    if (await isFederatedDomain(emailDomain)) {
+      await loginWithSSO(email, {
+        appState: { returnTo: window.location.pathname },
+      });
+    } else {
+      // your existing login flow
+      showPasswordForm(email);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="email" type="email" required />
+      <button type="submit">Continue</button>
+    </form>
+  );
+}
+```
+
+Callback route: complete the login, validate the organization, then read the
+enriched claims.
+
+```jsx
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect, useRef } from 'react';
+
+const ALLOWED_ORGS = ['org_123'];
+
+export function Callback() {
+  const { handleRedirectCallback, getIdTokenClaims, logout } = useAuth0();
+  const handled = useRef(false);
+
+  useEffect(() => {
+    if (handled.current) return;
+    handled.current = true;
+
+    (async () => {
+      await handleRedirectCallback();
+      const claims = await getIdTokenClaims();
+
+      if (!claims?.org_id || !ALLOWED_ORGS.includes(claims.org_id)) {
+        await logout({ logoutParams: { returnTo: window.location.origin } });
+        return;
+      }
+
+      console.log('Logged in as', claims.email, 'in org', claims.org_id);
+    })();
+  }, [handleRedirectCallback, getIdTokenClaims, logout]);
+
+  return <p>Completing login...</p>;
+}
+```
+
+Logout must be federated to end the enterprise IdP session:
+
+```jsx
+await logout({
+  logoutParams: { federated: true, returnTo: window.location.origin },
+});
+```
