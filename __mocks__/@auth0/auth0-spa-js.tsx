@@ -103,3 +103,5 @@ export const PasskeyRegisterError = actual.PasskeyRegisterError;
 export const PasskeyChallengeError = actual.PasskeyChallengeError;
 export const PasskeyGetTokenError = actual.PasskeyGetTokenError;
 export const MyAccountApiError = actual.MyAccountApiError;
+
+export const isFederatedDomain = jest.fn();
