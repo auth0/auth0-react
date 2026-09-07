@@ -4,7 +4,7 @@
 - [Protect a Route](#protect-a-route)
 - [Call an API](#call-an-api)
 - [Use Auth0 outside of React](#use-auth0-outside-of-react)
-- [Protecting a route in a `react-router-dom v7` app](#protecting-a-route-in-a-react-router-dom-v6-app)
+- [Protecting a route in a `react-router-dom v7` app](#protecting-a-route-in-a-react-router-dom-v7-app)
 - [Protecting a route in a Gatsby app](#protecting-a-route-in-a-gatsby-app)
 - [Protecting a route in a Next.js app (in SPA mode)](#protecting-a-route-in-a-nextjs-app-in-spa-mode)
 - [Using with the Next.js App Router (Server Components)](#using-with-the-nextjs-app-router-server-components)
