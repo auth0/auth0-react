@@ -27,12 +27,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SKIP_PREFLIGHT_CHECK: true
       CYPRESS_USER_EMAIL: ${{secrets.CYPRESS_USER_EMAIL}}
       CYPRESS_USER_PASSWORD: ${{secrets.CYPRESS_USER_PASSWORD}}
-      REACT_APP_DOMAIN: ${{secrets.TEST_DOMAIN}}
-      REACT_APP_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
-      REACT_APP_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
+      VITE_DOMAIN: ${{secrets.TEST_DOMAIN}}
+      VITE_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
+      VITE_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
       GATSBY_DOMAIN: ${{secrets.TEST_DOMAIN}}
       GATSBY_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
       GATSBY_AUDIENCE: ${{secrets.TEST_AUDIENCE}}

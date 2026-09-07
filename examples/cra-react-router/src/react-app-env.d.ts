@@ -1,8 +1,12 @@
-declare namespace NodeJS {
-  interface ProcessEnv {
-    REACT_APP_DOMAIN: string;
-    REACT_APP_CLIENT_ID: string;
-    REACT_APP_AUDIENCE: string;
-    REACT_APP_API_PORT: number;
-  }
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_DOMAIN: string;
+  readonly VITE_CLIENT_ID: string;
+  readonly VITE_AUDIENCE: string;
+  readonly VITE_API_PORT: number;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }
