@@ -341,7 +341,7 @@ export default function App() {
 }
 ```
 
-See [react-router example app](./examples/cra-react-router)
+See [react-router example app](./examples/vite-react-router)
 
 ## Protecting a route in a Gatsby app
 
