@@ -4,7 +4,7 @@
 - [Protect a Route](#protect-a-route)
 - [Call an API](#call-an-api)
 - [Use Auth0 outside of React](#use-auth0-outside-of-react)
-- [Protecting a route in a `react-router-dom v6` app](#protecting-a-route-in-a-react-router-dom-v6-app)
+- [Protecting a route in a `react-router-dom v7` app](#protecting-a-route-in-a-react-router-dom-v6-app)
 - [Protecting a route in a Gatsby app](#protecting-a-route-in-a-gatsby-app)
 - [Protecting a route in a Next.js app (in SPA mode)](#protecting-a-route-in-a-nextjs-app-in-spa-mode)
 - [Using with the Next.js App Router (Server Components)](#using-with-the-nextjs-app-router-server-components)
@@ -275,7 +275,7 @@ export default DelegatedAction;
 [Token Exchange Documentation](https://auth0.com/docs/authenticate/login/token-exchange)
 [RFC 8693 Spec](https://tools.ietf.org/html/rfc8693)
 
-## Protecting a route in a `react-router-dom v6` app
+## Protecting a route in a `react-router-dom v7` app
 
 We need to access the `useNavigate` hook so we can use `navigate` in `onRedirectCallback` to return us to our `returnUrl`.
 
