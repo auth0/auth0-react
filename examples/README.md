@@ -8,7 +8,7 @@
 
 ### Follow the steps to run each of the example applications:
 
-- [Create React App](./cra-react-router/README.md)
+- [Vite + React Router](./vite-react-router/README.md)
 - [Gatsby](./gatsby-app/README.md)
 - [NextJS](./nextjs-app/README.md)
 - [Users API](./users-api/README.md)
