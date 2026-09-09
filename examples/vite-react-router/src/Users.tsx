@@ -3,7 +3,7 @@ import React from 'react';
 import { Loading } from './Loading';
 import { Error } from './Error';
 
-const PORT = process.env.REACT_APP_API_PORT || 3001;
+const PORT = import.meta.env.VITE_API_PORT || 3001;
 
 export function Users() {
   const {
@@ -11,7 +11,7 @@ export function Users() {
     error,
     data: users = [],
   } = useApi(`http://localhost:${PORT}/users`, {
-    audience: process.env.REACT_APP_AUDIENCE,
+    audience: import.meta.env.VITE_AUDIENCE,
     scope: 'profile email read:users',
   });
 

@@ -1,0 +1,23 @@
+{
+  "name": "vite-react-router",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@auth0/auth0-react": "2.2.4",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "^7.18.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "typescript": "^5.0.0",
+    "vite": "^8.2.2"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build"
+  }
+}

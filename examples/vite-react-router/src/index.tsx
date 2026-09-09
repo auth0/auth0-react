@@ -34,10 +34,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Auth0ProviderWithRedirectCallback
-        domain={process.env.REACT_APP_DOMAIN}
-        clientId={process.env.REACT_APP_CLIENT_ID}
+        domain={import.meta.env.VITE_DOMAIN}
+        clientId={import.meta.env.VITE_CLIENT_ID}
         authorizationParams={{
-          audience: process.env.REACT_APP_AUDIENCE,
+          audience: import.meta.env.VITE_AUDIENCE,
           scope: 'profile email read:users',
           redirect_uri: window.location.origin,
         }}

@@ -27,12 +27,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SKIP_PREFLIGHT_CHECK: true
       CYPRESS_USER_EMAIL: ${{secrets.CYPRESS_USER_EMAIL}}
       CYPRESS_USER_PASSWORD: ${{secrets.CYPRESS_USER_PASSWORD}}
-      REACT_APP_DOMAIN: ${{secrets.TEST_DOMAIN}}
-      REACT_APP_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
-      REACT_APP_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
+      VITE_DOMAIN: ${{secrets.TEST_DOMAIN}}
+      VITE_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
+      VITE_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
       GATSBY_DOMAIN: ${{secrets.TEST_DOMAIN}}
       GATSBY_CLIENT_ID: ${{secrets.TEST_CLIENT_ID}}
       GATSBY_AUDIENCE: ${{secrets.TEST_AUDIENCE}}
@@ -69,11 +68,11 @@ jobs:
       - name: Install examples
         run: npm run install:examples
 
-      - name: Install local SDK into CRA example
-        run: npm install --prefix=examples/cra-react-router $(ls auth0-auth0-react-*.tgz)
+      - name: Install local SDK into Vite example
+        run: npm install --prefix=examples/vite-react-router $(ls auth0-auth0-react-*.tgz)
 
-      - name: Build CRA example (production)
-        run: npm run build --prefix=examples/cra-react-router
+      - name: Build Vite example (production)
+        run: npm run build --prefix=examples/vite-react-router
 
       - name: Build Next.js example (production)
         run: npm run build --prefix=examples/nextjs-app
@@ -81,8 +80,8 @@ jobs:
       - name: Build Gatsby example (production)
         run: npm run build --prefix=examples/gatsby-app
 
-      - name: Run integration test (CRA)
-        run: npm run test:cra
+      - name: Run integration test (Vite)
+        run: npm run test:vite
 
       - name: Run integration test (NextJS)
         run: npm run test:nextjs
