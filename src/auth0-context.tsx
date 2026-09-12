@@ -1,5 +1,4 @@
 import {
-  GetTokenSilentlyOptions,
   GetTokenWithPopupOptions,
   IdToken,
   LogoutOptions as SPALogoutOptions,
@@ -7,7 +6,6 @@ import {
   PopupConfigOptions,
   RedirectLoginResult,
   User,
-  GetTokenSilentlyVerboseResponse,
   RedirectLoginOptions as SPARedirectLoginOptions,
   type Auth0Client,
   RedirectConnectAccountOptions,
@@ -47,7 +45,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * If refresh tokens are used, the token endpoint is called directly with the
    * 'refresh_token' grant. If no refresh token is available to make this call,
-   * the SDK will only fall back to using an iframe to the '/authorize' URL if 
+   * the SDK will only fall back to using an iframe to the '/authorize' URL if
    * the `useRefreshTokensFallback` setting has been set to `true`. By default this
    * setting is `false`.
    *
@@ -60,15 +58,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * Note that in all cases, falling back to an iframe requires access to
    * the `auth0` cookie.
    */
-  getAccessTokenSilently: {
-    (
-      options: GetTokenSilentlyOptions & { detailedResponse: true }
-    ): Promise<GetTokenSilentlyVerboseResponse>;
-    (options?: GetTokenSilentlyOptions): Promise<string>;
-    (options: GetTokenSilentlyOptions): Promise<
-      GetTokenSilentlyVerboseResponse | string
-    >;
-  };
+  getAccessTokenSilently: Auth0Client['getTokenSilently'];
 
   /**
    * ```js
