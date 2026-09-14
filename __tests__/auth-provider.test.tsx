@@ -869,6 +869,17 @@ describe('Auth0Provider', () => {
     expect(returnedToken).toBe(token);
   });
 
+  it('should return undefined from getAccessTokenSilently when spa-js returns undefined (e.g. cache-only miss)', async () => {
+    clientMock.getTokenSilently.mockResolvedValue(undefined);
+    const wrapper = createWrapper();
+    const { result } = renderHook(() => useContext(Auth0Context), { wrapper });
+    let returnedToken: string | undefined = 'initial';
+    await act(async () => {
+      returnedToken = await result.current.getAccessTokenSilently();
+    });
+    expect(returnedToken).toBeUndefined();
+  });
+
   it('should provide a getAccessTokenWithPopup method', async () => {
     clientMock.getTokenWithPopup.mockResolvedValue('token');
     const wrapper = createWrapper();
