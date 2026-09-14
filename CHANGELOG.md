@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.25.0](https://github.com/auth0/auth0-react/tree/v2.25.0) (2026-09-14)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.24.1...v2.25.0)
+
+**⚠️ BREAKING CHANGES**
+- fix: `getAccessTokenSilently()` now returns `Promise<string | undefined>` (was `Promise<string>`) and the verbose overload (`detailedResponse: true`) returns `Promise<GetTokenSilentlyVerboseResponse | undefined>` (was `Promise<GetTokenSilentlyVerboseResponse>`). Guard return values before use. Aligns with the corrected types in `@auth0/auth0-spa-js` v2.25.0. [\#1238](https://github.com/auth0/auth0-react/pull/1238) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.24.1](https://github.com/auth0/auth0-react/tree/v2.24.1) (2026-08-18)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.24.0...v2.24.1)
 
