@@ -51,6 +51,7 @@ const useEnterpriseConnect = (
   ) as Auth0ContextInterface;
 
   const isFederatedDomain = useCallback(
+    // domain is read at call time, not when the callback is memoized
     (emailDomain: string, options?: IsFederatedDomainOptions) =>
       spaIsFederatedDomain(getConfiguration().domain, emailDomain, options),
     [getConfiguration]

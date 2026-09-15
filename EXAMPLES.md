@@ -1996,6 +1996,23 @@ Enterprise Connect layers enterprise SSO on top of your own auth server. The
 discovery against your configured Auth0 domain) and `loginWithSSO` (a
 `loginWithRedirect` that sets `login_hint`).
 
+Set `enterpriseConnect` on `Auth0Provider` to signal that the app runs in
+Enterprise Connect mode. The flag is forwarded to the underlying
+`@auth0/auth0-spa-js` client, which uses it to warn at initialisation when the
+configuration contradicts Enterprise Connect (for example `useRefreshTokens`,
+`offline_access` in `scope`, or a static `organization`).
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  enterpriseConnect={true}
+  authorizationParams={{ redirect_uri: window.location.origin }}
+>
+  <App />
+</Auth0Provider>
+```
+
 Login form: discover the domain, then route to SSO or your own login.
 
 ```jsx
@@ -2014,8 +2031,8 @@ export function LoginForm() {
         appState: { returnTo: window.location.pathname },
       });
     } else {
-      // your existing login flow
-      showPasswordForm(email);
+      // Not a federated domain: hand off to your existing login flow
+      // (e.g. render your password form). Replace with your own routing.
     }
   };
 
@@ -2028,13 +2045,19 @@ export function LoginForm() {
 }
 ```
 
-Callback route: complete the login, validate the organization, then read the
-enriched claims.
+Callback route: complete the login, then read the enriched claims.
+
+Validating the `org_id` claim is an **optional** application-level
+authorization step, not an SDK requirement. Add it only if your app restricts
+access to specific organizations. A federated user on a connection that
+predates `org_id` claims will not have one, so treat a missing `org_id` as "not
+org-scoped" rather than an automatic failure.
 
 ```jsx
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useRef } from 'react';
 
+// Optional: only if your app restricts access to specific organizations.
 const ALLOWED_ORGS = ['org_123'];
 
 export function Callback() {
@@ -2049,12 +2072,17 @@ export function Callback() {
       await handleRedirectCallback();
       const claims = await getIdTokenClaims();
 
-      if (!claims?.org_id || !ALLOWED_ORGS.includes(claims.org_id)) {
-        await logout({ logoutParams: { returnTo: window.location.origin } });
+      // Optional org check. Remove this block if you do not gate on org.
+      if (claims?.org_id && !ALLOWED_ORGS.includes(claims.org_id)) {
+        // Federated logout ends the enterprise IdP session too, so the next
+        // login runs email discovery again instead of silently re-using SSO.
+        await logout({
+          logoutParams: { federated: true, returnTo: window.location.origin },
+        });
         return;
       }
 
-      console.log('Logged in as', claims.email, 'in org', claims.org_id);
+      console.log('Logged in as', claims?.email, 'in org', claims?.org_id);
     })();
   }, [handleRedirectCallback, getIdTokenClaims, logout]);
 
@@ -2069,3 +2097,6 @@ await logout({
   logoutParams: { federated: true, returnTo: window.location.origin },
 });
 ```
+
+The `returnTo` URL must be registered in the application's **Allowed Logout
+URLs** in the Auth0 Dashboard, or the logout redirect will be rejected.

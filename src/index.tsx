@@ -80,6 +80,7 @@ export type {
   RevokeRefreshTokenOptions,
   FetcherConfig,
   InteractiveErrorHandler,
+  IsFederatedDomainOptions,
   // MFA Types
   MfaApiClient,
   Authenticator,
