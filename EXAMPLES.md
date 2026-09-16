@@ -23,6 +23,7 @@
 - [MyAccount API](#myaccount-api)
 - [Session Expiry from Upstream IdP (IPSIE)](#session-expiry-from-upstream-idp-ipsie)
 - [Use Suspense for loading state (React 19+)](#use-suspense-for-loading-state-react-19)
+- [Enterprise Connect](#enterprise-connect)
 
 ## Use with a Class Component
 
@@ -1985,3 +1986,130 @@ for example a `loginWithPopup` triggered from outside the boundary — the SDK
 re-checks the session once. If that check succeeds, retrying your Error Boundary
 renders the subtree normally; if it fails again, the boundary keeps showing the
 error.
+
+## Enterprise Connect
+
+> Enterprise Connect is an Early Access feature. Confirm the tenant-side
+> requirements with your Auth0 contact.
+
+Enterprise Connect layers enterprise SSO on top of your own auth server. The
+`useEnterpriseConnect` hook exposes `isFederatedDomain` (WebFinger domain
+discovery against your configured Auth0 domain) and `loginWithSSO` (a
+`loginWithRedirect` that sets `login_hint`).
+
+`isFederatedDomain` makes a browser-direct cross-origin WebFinger request to
+your Auth0 tenant domain. Configure `domain` to the tenant domain
+(`YOUR_TENANT.auth0.com` or a custom domain with the WebFinger route enabled),
+not a custom domain that omits it: requests to the wrong host will fail and
+`isFederatedDomain` will return `false`.
+
+Set `enterpriseConnect={true}` to put the SDK into this mode.
+
+Enterprise Connect issues no refresh token, so the access token expires at the
+configured token lifetime with no silent renewal. Plan to re-authenticate the
+user through the login flow when the token expires; `getAccessTokenSilently`
+will not refresh it.
+
+Treat Enterprise Connect as identity only: extract the ID token claims after
+login and issue your own application session or API tokens from them. Do not
+rely on the Auth0 access token for long-lived API authorization.
+
+```jsx
+<Auth0Provider
+  domain="YOUR_AUTH0_DOMAIN"
+  clientId="YOUR_AUTH0_CLIENT_ID"
+  enterpriseConnect={true}
+  authorizationParams={{ redirect_uri: window.location.origin }}
+>
+  <App />
+</Auth0Provider>
+```
+
+Login form: discover the domain, then route to SSO or your own login.
+
+```jsx
+import { useEnterpriseConnect } from '@auth0/auth0-react';
+
+export function LoginForm() {
+  const { isFederatedDomain, loginWithSSO } = useEnterpriseConnect();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const emailDomain = email.split('@')[1];
+
+    if (await isFederatedDomain(emailDomain)) {
+      await loginWithSSO(email, {
+        appState: { returnTo: window.location.pathname },
+      });
+    } else {
+      // Not a federated domain: hand off to your existing login flow
+      // (e.g. render your password form). Replace with your own routing.
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="email" type="email" required />
+      <button type="submit">Continue</button>
+    </form>
+  );
+}
+```
+
+After the SSO redirect, `Auth0Provider` completes the token exchange
+automatically. Read the settled auth state in your `App` component to validate
+the session and navigate.
+
+Validating the `org_id` claim is an **optional** application-level
+authorization step, not an SDK requirement. Add it only if your app restricts
+access to specific organizations. A federated user on a connection that
+predates `org_id` claims will not have one, so treat a missing `org_id` as "not
+org-scoped" rather than an automatic failure.
+
+```jsx
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect } from 'react';
+
+// Optional: only if your app restricts access to specific organizations.
+const ALLOWED_ORGS = ['org_123'];
+
+export function App() {
+  const { isLoading, isAuthenticated, getIdTokenClaims, logout } = useAuth0();
+
+  useEffect(() => {
+    if (isLoading || !isAuthenticated) return;
+
+    (async () => {
+      const claims = await getIdTokenClaims();
+
+      // Optional org check. Remove this block if you do not gate on org.
+      if (claims?.org_id && !ALLOWED_ORGS.includes(claims.org_id)) {
+        // Federated logout ends the enterprise IdP session too, so the next
+        // login runs email discovery again instead of silently re-using SSO.
+        await logout({
+          logoutParams: { federated: true, returnTo: window.location.origin },
+        });
+        return;
+      }
+
+      // Session valid. Render your app or navigate to the post-login destination.
+    })();
+  }, [isLoading, isAuthenticated, getIdTokenClaims, logout]);
+
+  if (isLoading) return <p>Loading...</p>;
+
+  return <div>{/* your app */}</div>;
+}
+```
+
+Logout must be federated to end the enterprise IdP session:
+
+```jsx
+await logout({
+  logoutParams: { federated: true, returnTo: window.location.origin },
+});
+```
+
+The `returnTo` URL must be registered in the application's **Allowed Logout
+URLs** in the Auth0 Dashboard, or the logout redirect will be rejected.
