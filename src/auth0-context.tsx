@@ -15,7 +15,8 @@ import {
   type RevokeRefreshTokenOptions,
   type MfaApiClient,
   type PasskeyApiClient,
-  type MyAccountApiClient
+  type MyAccountApiClient,
+  type AnonymousSessionApiClient
 } from '@auth0/auth0-spa-js';
 import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
@@ -466,6 +467,21 @@ export interface Auth0ContextInterface<TUser extends User = User>
   myAccount: MyAccountApiClient;
 
   /**
+   * ```js
+   * const { anonymous } = useAuth0();
+   * const { accessToken } = await anonymous.getTokenSilently({ audience: 'https://api.example.com' });
+   * ```
+   *
+   * Anonymous session client for pre-authentication identity management.
+   *
+   * - `createSession(options?)` - Create a new anonymous session
+   * - `getTokenSilently(options?)` - Get or renew an anonymous access token
+   * - `logout()` - End the anonymous session and clear stored tokens
+   * - `getClaims()` - Always returns `null` in EA
+   */
+  anonymous: AnonymousSessionApiClient;
+
+  /**
    * Internal. A promise that resolves when Auth0 initialization completes and
    * rejects with the initialization error if it fails. Consumed by
    * `useAuth0Suspense`, which also treats its absence as "no provider" — do not
@@ -527,6 +543,12 @@ export const initialContext = {
     enrollmentChallenge: stub,
     enrollmentVerify: stub,
   } as unknown as MyAccountApiClient,
+  anonymous: {
+    createSession: stub,
+    getTokenSilently: stub,
+    logout: stub,
+    getClaims: stub,
+  } as unknown as AnonymousSessionApiClient,
 };
 
 /**

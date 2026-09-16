@@ -75,6 +75,8 @@ export {
   PasskeyGetTokenError,
   // MyAccount Errors
   MyAccountApiError,
+  // Anonymous Session Errors
+  AnonymousSessionError,
 } from '@auth0/auth0-spa-js';
 export type {
   RevokeRefreshTokenOptions,
@@ -109,5 +111,12 @@ export type {
   EnrollmentChallengeOptions,
   EnrollmentChallengeResponse,
   EnrollmentVerifyOptions,
+  // Anonymous Session Types
+  AnonymousSessionApiClient,
+  AnonymousSession,
+  AnonymousSessionClaims,
+  AnonymousSessionErrorCode,
+  CreateAnonymousSessionOptions,
+  GetAnonymousAccessTokenOptions,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';

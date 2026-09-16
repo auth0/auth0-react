@@ -490,6 +490,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
 
   const mfa = useMemo(() => client.mfa, [client]);
   const myAccount = useMemo(() => client.myAccount, [client]);
+  const anonymous = useMemo(() => client.anonymous, [client]);
 
   const passkeySignup = useCallback(
     async (options: PasskeySignupOptions): Promise<TokenEndpointResponse> => {
@@ -555,6 +556,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
       mfa,
       passkey,
       myAccount,
+      anonymous,
       _initPromise: initDeferred.promise,
     };
   }, [
@@ -579,6 +581,7 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     mfa,
     passkey,
     myAccount,
+    anonymous,
     initDeferred,
   ]);
 
