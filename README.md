@@ -153,6 +153,7 @@ Explore public API's available in auth0-react.
 - [useAuth0Suspense](https://auth0.github.io/auth0-react/functions/useAuth0Suspense.html)
 - [withAuth0](https://auth0.github.io/auth0-react/functions/withAuth0.html)
 - [withAuthenticationRequired](https://auth0.github.io/auth0-react/functions/withAuthenticationRequired.html)
+- [useEnterpriseConnect](https://auth0.github.io/auth0-react/functions/useEnterpriseConnect.html)
 
 ## Feedback
 

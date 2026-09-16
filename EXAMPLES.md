@@ -2057,7 +2057,9 @@ export function LoginForm() {
 }
 ```
 
-Callback route: complete the login, then read the enriched claims.
+After the SSO redirect, `Auth0Provider` completes the token exchange
+automatically. Read the settled auth state in your `App` component to validate
+the session and navigate.
 
 Validating the `org_id` claim is an **optional** application-level
 authorization step, not an SDK requirement. Add it only if your app restricts
@@ -2067,21 +2069,18 @@ org-scoped" rather than an automatic failure.
 
 ```jsx
 import { useAuth0 } from '@auth0/auth0-react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 // Optional: only if your app restricts access to specific organizations.
 const ALLOWED_ORGS = ['org_123'];
 
-export function Callback() {
-  const { handleRedirectCallback, getIdTokenClaims, logout } = useAuth0();
-  const handled = useRef(false);
+export function App() {
+  const { isLoading, isAuthenticated, getIdTokenClaims, logout } = useAuth0();
 
   useEffect(() => {
-    if (handled.current) return;
-    handled.current = true;
+    if (isLoading || !isAuthenticated) return;
 
     (async () => {
-      await handleRedirectCallback();
       const claims = await getIdTokenClaims();
 
       // Optional org check. Remove this block if you do not gate on org.
@@ -2094,12 +2093,13 @@ export function Callback() {
         return;
       }
 
-      // Login complete. Navigate to your app's post-login destination.
-      // e.g. window.location.replace(appState?.returnTo ?? '/');
+      // Session valid. Render your app or navigate to the post-login destination.
     })();
-  }, [handleRedirectCallback, getIdTokenClaims, logout]);
+  }, [isLoading, isAuthenticated, getIdTokenClaims, logout]);
 
-  return <p>Completing login...</p>;
+  if (isLoading) return <p>Loading...</p>;
+
+  return <div>{/* your app */}</div>;
 }
 ```
 
