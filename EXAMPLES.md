@@ -23,6 +23,7 @@
 - [MyAccount API](#myaccount-api)
 - [Session Expiry from Upstream IdP (IPSIE)](#session-expiry-from-upstream-idp-ipsie)
 - [Use Suspense for loading state (React 19+)](#use-suspense-for-loading-state-react-19)
+- [Enterprise Connect](#enterprise-connect)
 
 ## Use with a Class Component
 
@@ -1996,11 +1997,22 @@ Enterprise Connect layers enterprise SSO on top of your own auth server. The
 discovery against your configured Auth0 domain) and `loginWithSSO` (a
 `loginWithRedirect` that sets `login_hint`).
 
-Set `enterpriseConnect` on `Auth0Provider` to signal that the app runs in
-Enterprise Connect mode. The flag is forwarded to the underlying
-`@auth0/auth0-spa-js` client, which uses it to warn at initialisation when the
-configuration contradicts Enterprise Connect (for example `useRefreshTokens`,
-`offline_access` in `scope`, or a static `organization`).
+`isFederatedDomain` makes a browser-direct cross-origin WebFinger request to
+your Auth0 tenant domain. Configure `domain` to the tenant domain
+(`YOUR_TENANT.auth0.com` or a custom domain with the WebFinger route enabled),
+not a custom domain that omits it: requests to the wrong host will fail and
+`isFederatedDomain` will return `false`.
+
+Set `enterpriseConnect={true}` to put the SDK into this mode.
+
+Enterprise Connect issues no refresh token, so the access token expires at the
+configured token lifetime with no silent renewal. Plan to re-authenticate the
+user through the login flow when the token expires; `getAccessTokenSilently`
+will not refresh it.
+
+Treat Enterprise Connect as identity only: extract the ID token claims after
+login and issue your own application session or API tokens from them. Do not
+rely on the Auth0 access token for long-lived API authorization.
 
 ```jsx
 <Auth0Provider
@@ -2082,7 +2094,8 @@ export function Callback() {
         return;
       }
 
-      console.log('Logged in as', claims?.email, 'in org', claims?.org_id);
+      // Login complete. Navigate to your app's post-login destination.
+      // e.g. window.location.replace(appState?.returnTo ?? '/');
     })();
   }, [handleRedirectCallback, getIdTokenClaims, logout]);
 
