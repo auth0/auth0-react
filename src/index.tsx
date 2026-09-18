@@ -113,10 +113,10 @@ export type {
   EnrollmentVerifyOptions,
   // Anonymous Session Types
   AnonymousSessionApiClient,
+  AnonymousGetTokenSilentlyOptions,
   AnonymousSession,
   AnonymousSessionClaims,
   AnonymousSessionErrorCode,
   CreateAnonymousSessionOptions,
-  GetAnonymousAccessTokenOptions,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';

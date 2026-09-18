@@ -547,6 +547,7 @@ export const initialContext = {
     createSession: stub,
     getTokenSilently: stub,
     logout: stub,
+    hasSession: stub,
     getClaims: stub,
   } as unknown as AnonymousSessionApiClient,
 };
