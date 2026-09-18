@@ -24,6 +24,7 @@
 - [Session Expiry from Upstream IdP (IPSIE)](#session-expiry-from-upstream-idp-ipsie)
 - [Use Suspense for loading state (React 19+)](#use-suspense-for-loading-state-react-19)
 - [Enterprise Connect](#enterprise-connect)
+- [Anonymous Sessions](#anonymous-sessions)
 
 ## Use with a Class Component
 
@@ -2113,3 +2114,112 @@ await logout({
 
 The `returnTo` URL must be registered in the application's **Allowed Logout
 URLs** in the Auth0 Dashboard, or the logout redirect will be rejected.
+
+## Anonymous Sessions
+
+> **Note:** Anonymous Sessions is a feature currently in Early Access. Contact your Auth0 representative to request access.
+
+Anonymous sessions assign a persistent identity to a visitor before they log in. The visitor gets an access token tied to an anonymous identity. You can write a Post-Login Action to link the anonymous identity to the authenticated user after login.
+
+Access anonymous session operations through the `anonymous` property from `useAuth0()`.
+
+- [Automatic creation on init](#automatic-creation-on-init)
+- [Getting an access token](#getting-an-anonymous-access-token)
+- [Explicit session creation with metadata](#explicit-anonymous-session-creation-with-metadata)
+- [Multiple audiences](#multiple-anonymous-audiences)
+- [Ending the session](#ending-the-anonymous-session)
+- [Storage modes](#anonymous-session-storage-modes)
+
+### Automatic creation on init
+
+Set `createAnonymousSessionOnFailedSilentAuth` on `Auth0Provider` to automatically create an anonymous session when no authenticated user is found on load.
+
+```jsx
+<Auth0Provider
+  domain="<AUTH0_DOMAIN>"
+  clientId="<AUTH0_CLIENT_ID>"
+  authorizationParams={{ redirect_uri: window.location.origin }}
+  createAnonymousSessionOnFailedSilentAuth={true}
+>
+  <App />
+</Auth0Provider>
+```
+
+### Getting an anonymous access token
+
+```jsx
+import { useAuth0 } from '@auth0/auth0-react';
+
+function ApiButton() {
+  const { anonymous } = useAuth0();
+
+  const callApi = async () => {
+    const { accessToken } = await anonymous.getTokenSilently({
+      audience: 'https://api.example.com'
+    });
+
+    await fetch('https://api.example.com/data', {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+  };
+
+  return <button onClick={callApi}>Call API</button>;
+}
+```
+
+The SDK returns a cached token when still fresh and renews it transparently when expired.
+
+### Explicit anonymous session creation with metadata
+
+Call `anonymous.createSession()` directly to attach metadata at creation time.
+
+```jsx
+const { anonymous } = useAuth0();
+
+const session = await anonymous.createSession({
+  metadata: { cart: 'cart-123' }
+});
+```
+
+> **Note:** Metadata can only be set at creation time. Calling `createSession()` again creates a new anonymous identity rather than updating the existing one.
+
+### Multiple anonymous audiences
+
+Each `(audience, scope)` combination gets its own access token. All tokens share the same anonymous identity.
+
+```jsx
+const { anonymous } = useAuth0();
+
+const { accessToken: tokenA } = await anonymous.getTokenSilently({
+  audience: 'https://api-a.example.com'
+});
+
+const { accessToken: tokenB } = await anonymous.getTokenSilently({
+  audience: 'https://api-b.example.com'
+});
+```
+
+### Ending the anonymous session
+
+> **Note:** If you want the anonymous identity to be available for linking during login, call `loginWithRedirect()` before `anonymous.logout()`. Auth0 reads the anonymous session cookie during the login flow. Clearing it first means the identity will not be available in Post-Login Actions.
+
+```jsx
+const { anonymous } = useAuth0();
+
+await anonymous.logout();
+```
+
+### Anonymous session storage modes
+
+By default, the anonymous session is stored in `localStorage` and survives page reloads. Set `anonymousSessionsCacheMode` to `'memory'` for stricter security. The session will not persist across page reloads in this mode.
+
+```jsx
+<Auth0Provider
+  domain="<AUTH0_DOMAIN>"
+  clientId="<AUTH0_CLIENT_ID>"
+  authorizationParams={{ redirect_uri: window.location.origin }}
+  anonymousSessionsCacheMode="memory"
+>
+  <App />
+</Auth0Provider>
+```
