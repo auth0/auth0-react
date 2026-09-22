@@ -11,6 +11,10 @@ export {
   default as useAuth0Suspense,
   Auth0SuspenseContextInterface,
 } from './use-auth0-suspense';
+export {
+  default as useEnterpriseConnect,
+  UseEnterpriseConnect,
+} from './use-enterprise-connect';
 export { default as withAuth0, WithAuth0Props } from './with-auth0';
 export {
   default as withAuthenticationRequired,
@@ -71,11 +75,14 @@ export {
   PasskeyGetTokenError,
   // MyAccount Errors
   MyAccountApiError,
+  // Anonymous Session Errors
+  AnonymousSessionError,
 } from '@auth0/auth0-spa-js';
 export type {
   RevokeRefreshTokenOptions,
   FetcherConfig,
   InteractiveErrorHandler,
+  IsFederatedDomainOptions,
   // MFA Types
   MfaApiClient,
   Authenticator,
@@ -104,5 +111,12 @@ export type {
   EnrollmentChallengeOptions,
   EnrollmentChallengeResponse,
   EnrollmentVerifyOptions,
+  // Anonymous Session Types
+  AnonymousSessionApiClient,
+  AnonymousGetTokenSilentlyOptions,
+  AnonymousSession,
+  AnonymousSessionClaims,
+  AnonymousSessionErrorCode,
+  CreateAnonymousSessionOptions,
 } from '@auth0/auth0-spa-js';
 export { OAuthError } from './errors';

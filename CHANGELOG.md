@@ -1,5 +1,17 @@
 # Change Log
 
+## [v2.27.0](https://github.com/auth0/auth0-react/tree/v2.27.0) (2026-09-18)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.26.0...v2.27.0)
+
+**Added**
+- feat(anonymous): expose anonymous session client via useAuth0 [\#1243](https://github.com/auth0/auth0-react/pull/1243) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
+## [v2.26.0](https://github.com/auth0/auth0-react/tree/v2.26.0) (2026-09-17)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.25.0...v2.26.0)
+
+**Added**
+- feat: add Enterprise Connect support [\#1227](https://github.com/auth0/auth0-react/pull/1227) ([gyaneshgouraw](https://github.com/gyaneshgouraw))
+
 ## [v2.25.0](https://github.com/auth0/auth0-react/tree/v2.25.0) (2026-09-14)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.24.1...v2.25.0)
 

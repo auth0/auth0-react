@@ -39,6 +39,12 @@ const myAccountDeleteAuthenticationMethod = jest.fn(() => Promise.resolve());
 const myAccountEnrollmentChallenge = jest.fn(() => Promise.resolve({ id: 'test-challenge-id', location: 'https://example.auth0.com/enroll', auth_session: 'test-auth-session', type: 'totp', barcode_uri: 'otpauth://totp/...' }));
 const myAccountEnrollmentVerify = jest.fn(() => Promise.resolve({ id: 'test-method-id' }));
 
+const anonymousCreateSession = jest.fn(() => Promise.resolve({ sessionToken: 'anon-session-token', accessToken: 'anon-access-token', expiresAt: 9999999999 }));
+const anonymousGetTokenSilently = jest.fn(() => Promise.resolve({ accessToken: 'anon-access-token', expiresAt: 9999999999 }));
+const anonymousLogout = jest.fn(() => Promise.resolve());
+const anonymousHasSession = jest.fn(() => false);
+const anonymousGetClaims = jest.fn(() => null);
+
 export const Auth0Client = jest.fn(() => {
   return {
     buildAuthorizeUrl,
@@ -83,6 +89,13 @@ export const Auth0Client = jest.fn(() => {
       enrollmentChallenge: myAccountEnrollmentChallenge,
       enrollmentVerify: myAccountEnrollmentVerify,
     },
+    anonymous: {
+      createSession: anonymousCreateSession,
+      getTokenSilently: anonymousGetTokenSilently,
+      logout: anonymousLogout,
+      hasSession: anonymousHasSession,
+      getClaims: anonymousGetClaims,
+    },
   };
 });
 
@@ -103,3 +116,6 @@ export const PasskeyRegisterError = actual.PasskeyRegisterError;
 export const PasskeyChallengeError = actual.PasskeyChallengeError;
 export const PasskeyGetTokenError = actual.PasskeyGetTokenError;
 export const MyAccountApiError = actual.MyAccountApiError;
+export const AnonymousSessionError = actual.AnonymousSessionError;
+
+export const isFederatedDomain = jest.fn();

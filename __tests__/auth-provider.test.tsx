@@ -89,6 +89,27 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should forward the enterpriseConnect flag to Auth0Client', async () => {
+    const opts = {
+      clientId: 'foo',
+      domain: 'bar',
+      enterpriseConnect: true,
+    };
+    const wrapper = createWrapper(opts);
+    renderHook(() => useContext(Auth0Context), {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(Auth0Client).toHaveBeenCalledWith(
+        expect.objectContaining({
+          clientId: 'foo',
+          domain: 'bar',
+          enterpriseConnect: true,
+        })
+      );
+    });
+  });
+
   it('should support redirectUri', async () => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const opts = {
