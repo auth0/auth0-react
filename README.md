@@ -141,6 +141,23 @@ function App() {
 export default App;
 ```
 
+### Forcing an Experiment Center variant
+
+To override the [Experiment Center](https://auth0.com/docs/customize/experiment-center) variant Auth0 assigns for a login, pass `experiment_id`, `variation_id`, and the optional `segment_id` per call in `authorizationParams`. The SDK forwards them to the `/authorize` request:
+
+```jsx
+loginWithRedirect({
+  authorizationParams: {
+    experiment_id: '<EXPERIMENT_ID>',
+    variation_id: '<VARIATION_ID>',
+    // segment_id is optional
+    segment_id: '<SEGMENT_ID>',
+  },
+});
+```
+
+Pass these per call (not on `Auth0Provider`) so the override does not affect silent token-renewal calls. See [EXAMPLES.md](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md#forcing-an-experiment-center-variant) for details.
+
 For more code samples on how to integrate **auth0-react** SDK in your **React** application, have a look at our [examples](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md).
 
 ## API reference
