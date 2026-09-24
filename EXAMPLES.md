@@ -2177,12 +2177,7 @@ function LoginButton() {
 > [!IMPORTANT]
 > Pass these parameters per call on `loginWithRedirect` (or `loginWithPopup`), not on `Auth0Provider`'s `authorizationParams`. Setting them on the provider pins every login including silent `prompt=none` token-renewal calls - to the same variation, which cancels the A/B test. Experiment Center does not run on silent checks.
 
-- **Testing:** drive the IDs from test automation (e.g. Cypress/Playwright)
-  using values from a CI environment variable against a staging tenant. Do not
-  hard-code them in shipped app code.
-- **Production:** pass the variant decision from a feature-flag tool
-  (e.g. LaunchDarkly) that has already decided which variant the user should
-  see for this request.
+- **Testing:** drive the IDs from test automation (e.g. Cypress/Playwright) using values from a CI environment variable against a staging tenant. Do not hard-code them in shipped app code.
+- **Production:** pass the variant decision from a feature-flag tool (e.g. LaunchDarkly) that has already decided which variant the user should see for this request.
 
-The override applies only to this request; the next login without these params
-reverts to normal server-side assignment.
+The override applies only to this request; the next login without these params reverts to normal server-side assignment.
