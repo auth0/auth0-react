@@ -2120,7 +2120,7 @@ URLs** in the Auth0 Dashboard, or the logout redirect will be rejected.
 > [!NOTE]
 > [Experiment Center](https://auth0.com/docs/customize/experiment-center/overview) support via SDKs is currently in Early Access. To request access to this feature, contact your Auth0 representative.
 
-> Experiment Center lets you A/B test your login flow. To force a specific variant - for testing or to apply a decision from a feature-flag service - pass `experiment_id` and `variation_id` via `authorizationParams`. Auth0 will use them instead of its server-side deterministic assignment. Both IDs are obtained from your Auth0 Dashboard or the Management API. You can also pass the optional `segment_id` when the experiment uses segment targeting.
+Experiment Center lets you A/B test your login flow. To force a specific variant - for testing or to apply a decision from a feature-flag service - pass `experiment_id` and `variation_id` via `authorizationParams`. Auth0 will use them instead of its server-side deterministic assignment. Both IDs are obtained from your Auth0 Dashboard or the Management API. You can also pass the optional `segment_id` when the experiment uses segment targeting.
 
 ```jsx
 import { useAuth0 } from '@auth0/auth0-react';
