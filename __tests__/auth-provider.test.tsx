@@ -541,6 +541,60 @@ describe('Auth0Provider', () => {
     });
   });
 
+  it('should forward Experiment Center params through loginWithPopup', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.loginWithPopup).toBeInstanceOf(Function);
+    });
+    await result.current.loginWithPopup({
+      authorizationParams: {
+        experiment_id: '__experiment_id__',
+        variation_id: '__variation_id__',
+        segment_id: '__segment_id__',
+      },
+    });
+    expect(clientMock.loginWithPopup).toHaveBeenCalledWith(
+      {
+        authorizationParams: {
+          experiment_id: '__experiment_id__',
+          variation_id: '__variation_id__',
+          segment_id: '__segment_id__',
+        },
+      },
+      undefined
+    );
+  });
+
+  it('should forward Experiment Center params through loginWithPopup when segment_id is omitted', async () => {
+    const wrapper = createWrapper();
+    const { result } = renderHook(
+      () => useContext(Auth0Context),
+      { wrapper }
+    );
+    await waitFor(() => {
+      expect(result.current.loginWithPopup).toBeInstanceOf(Function);
+    });
+    await result.current.loginWithPopup({
+      authorizationParams: {
+        experiment_id: '__experiment_id__',
+        variation_id: '__variation_id__',
+      },
+    });
+    expect(clientMock.loginWithPopup).toHaveBeenCalledWith(
+      {
+        authorizationParams: {
+          experiment_id: '__experiment_id__',
+          variation_id: '__variation_id__',
+        },
+      },
+      undefined
+    );
+  });
+
   it('should provide a login method supporting redirectUri', async () => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => undefined);
     const wrapper = createWrapper();
