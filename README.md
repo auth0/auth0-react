@@ -156,6 +156,18 @@ loginWithRedirect({
 });
 ```
 
+```jsx
+loginWithPopup({
+  authorizationParams: {
+    experiment_id: '<EXPERIMENT_ID>',
+    variation_id: '<VARIATION_ID>',
+    // segment_id is optional
+    segment_id: '<SEGMENT_ID>',
+  },
+});
+```
+
+
 Pass these per call (not on `Auth0Provider`) so the override does not affect silent token-renewal calls. See [EXAMPLES.md](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md#forcing-an-experiment-center-variant) for details.
 
 For more code samples on how to integrate **auth0-react** SDK in your **React** application, have a look at our [examples](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md).

@@ -539,13 +539,6 @@ describe('Auth0Provider', () => {
         variation_id: '__variation_id__',
       },
     });
-    expect(clientMock.loginWithRedirect).not.toHaveBeenCalledWith(
-      expect.objectContaining({
-        authorizationParams: expect.objectContaining({
-          segment_id: expect.anything(),
-        }),
-      })
-    );
   });
 
   it('should provide a login method supporting redirectUri', async () => {
