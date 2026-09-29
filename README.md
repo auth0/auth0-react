@@ -141,6 +141,19 @@ function App() {
 export default App;
 ```
 
+### Experiment Center
+
+> [!NOTE]
+> [Experiment Center](https://auth0.com/docs/customize/experiment-center) support via SDKs is currently in Early Access. To request access to this feature, contact your Auth0 representative.
+
+You can also force a specific Experiment Center variant per login by passing `experiment_id`, `variation_id`, and the optional `segment_id` in `authorizationParams` - see the [Experiment Center example](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md#forcing-an-experiment-center-variant).
+
+### Anonymous Sessions
+
+> **Note:** Anonymous Sessions is currently in Early Access. Contact your Auth0 representative to request access.
+
+Anonymous sessions assign a persistent identity to a visitor before they log in. Enable automatic creation on load with `createAnonymousSessionOnFailedSilentAuth`, and control token storage with `anonymousSessionsCacheMode` (`'localStorage'` by default, or `'memory'` for session-only storage). Access tokens and session operations are available via `anonymous` from `useAuth0()` - see the [Anonymous Sessions examples](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md#anonymous-sessions).
+
 For more code samples on how to integrate **auth0-react** SDK in your **React** application, have a look at our [examples](https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md).
 
 ## API reference
