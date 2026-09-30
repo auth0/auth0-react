@@ -5,9 +5,8 @@
 // only the JSON artifact that Mintlify consumes.
 //
 // `out`, `cleanOutputDir`, `theme` and `customCss` are dropped deliberately.
-// TypeDoc's CLI renders HTML whenever `out` is set, even alongside `--json`
-// (`if (!json || app.options.isSet("out"))`), so leaving it in would rebuild
-// `docs/` as a side effect of building the Mintlify artifact.
+// TypeDoc emits an HTML output for `out` independently of `--json`, so leaving
+// it in would rebuild `docs/` as a side effect of building the artifact.
 const {
   out,
   cleanOutputDir,
