@@ -4,19 +4,13 @@
  *
  * Two jobs:
  *
- * 1. Categorize every top-level export so the landing page and sidebar read as
- *    "Getting Started / Hooks & HOCs / Context / Errors / Reference" instead of
- *    one flat alphabetical list of ~100 symbols. The symbols this SDK declares
- *    are tagged where they are declared; everything else is placed by two rules
- *    keyed on the symbol's name and declaration file. A symbol declared here
- *    that no rule places fails the build rather than drifting into a default
- *    section, which is how this SDK's own hooks ended up in "Other Types".
+ * 1. Categorize every top-level export into named sections instead of one flat
+ *    alphabetical list. Own symbols carry an `@category` tag; re-exports are
+ *    placed by rule. An own symbol that no rule places fails the build.
  *
- * 2. Put the context interface's members directly in the sidebar, so
- *    `getAccessTokenSilently` or `loginWithRedirect` is one click from anywhere
- *    rather than "click the interface, then scan an index, then click again".
- *    The default theme stops the navigation tree at module level, so we extend
- *    DefaultTheme to add members for the entry-point interfaces only.
+ * 2. Put the context interface's members directly in the sidebar, so a token or
+ *    login method is one click away. The default theme stops the nav tree at
+ *    module level, so we extend DefaultTheme to add them.
  */
 const {
   Comment,
@@ -34,19 +28,15 @@ const {
 const ENTRY_INTERFACES = ['Auth0ContextInterface'];
 
 /**
- * How a re-export is told apart from a symbol this SDK declares: its source
- * file resolves inside `node_modules`. Keying on this rather than on a `src/`
- * prefix is deliberate. The prefix is relative to TypeDoc's derived basePath,
- * so if that anchor ever shifts (a config or layout change), own symbols stop
- * matching and get silently reclassified as `Reference`, skipping the validation
- * that is the whole point of the guardrail. `node_modules` is in the absolute
- * path either way, so the test survives a basePath move. `ownSymbolCount` below
- * is the backstop: if the set of own symbols ever empties, the build fails
- * rather than passing with everything mislabelled.
+ * A re-export is told apart from an own symbol by whether its source resolves
+ * inside `node_modules`. Keyed on this rather than a `src/` prefix: the prefix
+ * is relative to TypeDoc's basePath, so a layout change would silently
+ * reclassify own symbols as `Reference` and skip validation. `ownSymbolCount`
+ * below is the backstop if the discriminator ever matches nothing.
  */
 const DEPENDENCY_SOURCE_MARKER = 'node_modules';
 
-/** Named in diagnostics so the fix is obvious: put an `@category` in `src/`. */
+/** The practical fix named in diagnostics: put an `@category` in `src/`. */
 const OWN_SOURCE_DIR = 'src/';
 
 const SETUP = 'Getting Started';
@@ -55,17 +45,13 @@ const CONTEXT = 'Context';
 const ERRORS = 'Errors';
 const REFERENCE = 'Reference';
 
-/**
- * Where a symbol lands if it escapes every rule. The validation below makes
- * that unreachable, so anything showing up here is a bug in this plugin.
- */
+/** Fallback if a symbol escapes every rule; validation makes it unreachable. */
 const DEFAULT_CATEGORY = 'Other Types';
 
 /**
- * Section order on the landing page and in the sidebar, following the order the
- * reference is read: the provider, then the hooks, then the context, then the
- * errors you catch. `Reference` is last because it is reached from a signature,
- * never by browsing. `*` is where any category not listed here lands.
+ * Section order, following how the reference is read: provider, hooks, context,
+ * errors. `Reference` is last (reached from a signature, not browsed); `*` is
+ * where any unlisted category lands.
  */
 const CATEGORY_ORDER = [
   SETUP,
@@ -77,17 +63,12 @@ const CATEGORY_ORDER = [
   DEFAULT_CATEGORY,
 ];
 
-/**
- * The only categories a top-level export may be tagged with. Anything else is a
- * typo, which would otherwise render as a plausible-looking one-entry section.
- */
+/** Allowed categories for a top-level export; anything else is a typo. */
 const TOP_LEVEL_CATEGORIES = [SETUP, HOOKS, CONTEXT, ERRORS, REFERENCE];
 
 /**
- * Order of the member categories on the `Auth0ContextInterface` page, and the
- * only categories a member may be tagged with. Kept separate from the top-level
- * set so that tagging a member with a section name, or the reverse, is caught
- * rather than silently filed in the wrong place.
+ * Member category order and allowed set for `Auth0ContextInterface`. Kept
+ * separate from the top-level set so a mix-up between the two is caught.
  */
 const MEMBER_CATEGORY_ORDER = [
   'Auth State',
@@ -100,9 +81,8 @@ const MEMBER_CATEGORY_ORDER = [
 ];
 
 /**
- * Context member name -> sidebar position, filled while the `@category` tags
- * still exist. The renderer needs this ordering after TypeDoc's own category
- * plugin has read and stripped the tags, so it cannot recompute it there.
+ * Context member name -> sidebar position. Captured while the `@category` tags
+ * exist, because the renderer runs after TypeDoc has stripped them.
  */
 const memberSidebarOrder = new Map();
 
@@ -161,23 +141,20 @@ function setCategory(reflection, category) {
 }
 
 /**
- * Decide which category a symbol belongs to. Three rules, first match wins:
+ * Decide a symbol's category. Three rules, first match wins:
  *
- * 1. A tag written on a declaration in `src/`, which is kept and validated.
- *    Tags on a declaration outside `src/` are not rule 1: they came from a
- *    dependency, and rule 3 discards them.
- * 2. A name ending in `Error`, which is an error class no matter who declared
- *    it. This precedes rule 3 because every error class is also a re-export, and
- *    it tests the name rather than trusting upstream's tags because upstream
- *    tags only one of its several error modules.
- * 3. Declared outside `src/`, which makes it a supporting type reached from a
- *    signature, so it goes to `Reference`. This *overwrites* any category the
- *    symbol arrived with: TypeDoc reads `@category` out of a dependency's type
- *    declarations, so upstream categories turn up here whether or not we want
- *    them, and leaving them would strand symbols in unlisted sections.
+ * 1. A tag on an own symbol (source outside node_modules): kept and validated.
+ * 2. A name ending in `Error`: an error class whoever declared it. Precedes
+ *    rule 3 because error classes are re-exports too, and tests the name
+ *    because upstream tags only some of its error modules. Note this catches an
+ *    own `FooError` left untagged before the rule-3 build error would.
+ * 3. A re-export: a supporting type reached from a signature, so `Reference`.
+ *    Overwrites any inherited category (TypeDoc reads `@category` out of a
+ *    dependency's .d.ts), which would otherwise strand it in an unlisted
+ *    section.
  *
- * Nothing left over is legitimate: a symbol this SDK declares and no rule places
- * is the drift this plugin exists to catch, so it becomes a build error.
+ * An own symbol that no rule places is the drift this guards against: build
+ * error.
  *
  * @param {import('typedoc').DeclarationReflection} reflection
  * @param {string[]} allowed Categories this reflection may be tagged with.
@@ -225,14 +202,9 @@ function memberCategoryIndex(reflection) {
 }
 
 /**
- * Sidebar order for the context members: by category, then by the order they
- * are declared within that category. Alphabetical would bury the ones most
- * people came for under the DPoP escape hatches.
- *
- * Declaration order means the line the member is written on, so moving a member
- * within the interface moves it in the sidebar. That holds only while every
- * member of a category is declared in one file, which is true today: the auth
- * state is all of `auth-state.tsx` and the rest is all of `auth0-context.tsx`.
+ * Sidebar order for context members: by category, then declaration line within
+ * it (alphabetical would bury the common ones under the DPoP escape hatches).
+ * Line-based ordering holds only while a category lives in one file, true today.
  *
  * @param {import('typedoc').DeclarationReflection} a
  * @param {import('typedoc').DeclarationReflection} b
@@ -265,10 +237,9 @@ function load(app) {
         }
       }
 
-      // Backstop for the `declaredHere` test: this SDK always declares its own
-      // top-level exports, so a count of zero means the discriminator stopped
-      // recognising them and every symbol slipped into `Reference` unvalidated.
-      // Fail loudly rather than ship a reference with no sections.
+      // Backstop for `declaredHere`: this SDK always has own exports, so zero
+      // means the discriminator broke and everything slipped into `Reference`
+      // unchecked. Fail rather than ship a reference with no sections.
       if ((project.children?.length ?? 0) > 0 && ownSymbolCount === 0) {
         problems.push(
           'No top-level export was recognised as declared in this SDK. The ' +
@@ -296,8 +267,7 @@ function load(app) {
         app.logger.error(problem);
       }
 
-      // One summary line, not one per symbol: a jump in this count means a
-      // dependency added exports, which is the only thing worth noticing here.
+      // One summary line: a jump here means a dependency added exports.
       app.logger.info(
         `${REFERENCE} holds ${referenceCount} symbols, ` +
           `${reExportCount} of them re-exported from dependencies.`
@@ -318,13 +288,10 @@ function load(app) {
     }
   );
 
-  // The sidebar is built client-side and every group starts collapsed, so a
-  // first-time reader lands on a list of category names with nothing in sight.
-  // Seed the two groups people arrive for as expanded before the nav script
-  // runs. Reading the key first means a reader who collapses one keeps that
-  // choice. The key is `data-key` on the accordion, which the nav builder sets
-  // to the ancestor titles joined by `$`; the lowercase-dashed variant is the
-  // fallback derivation, seeded too so a change in either direction still works.
+  // Groups start collapsed client-side, so seed the two people arrive for as
+  // expanded. Only seed when unset, so a reader's own collapse sticks. The
+  // accordion key is `data-key` (ancestor titles joined by `$`); the
+  // lowercase-dashed form is TypeDoc's fallback, seeded too.
   const expandKeys = [SETUP, HOOKS].flatMap((title) => [
     title,
     title.replace(/\s+/g, '-').toLowerCase(),
@@ -352,6 +319,8 @@ function load(app) {
  */
 function addEntryMembers(nodes, project, router) {
   for (const node of nodes) {
+    // Recurse into groups; entry-interface nodes are leaves under the current
+    // nav config, so member injection below only fires on leaves.
     if (node.children?.length) {
       addEntryMembers(node.children, project, router);
       continue;
@@ -380,11 +349,9 @@ function addEntryMembers(nodes, project, router) {
         (memberSidebarOrder.get(b.name) ?? Number.MAX_SAFE_INTEGER)
     );
 
-    // Ask the router for the href. TypeDoc 0.28 moved URL assignment out of the
-    // reflections and behind the Router, so `member.url` and `member.anchor` are
-    // both undefined here: building the path by hand produced links reading
-    // `docs/undefined#isLoading`. `getFullUrl` is what TypeDoc's own frontend
-    // uses for nav entries, and it already includes the anchor.
+    // TypeDoc 0.28 moved URLs behind the Router, so `member.url`/`.anchor` are
+    // undefined here. `getFullUrl` (what the frontend uses for nav) includes
+    // the anchor.
     const links = members
       .filter((member) => router.hasUrl(member))
       .map((member) => ({
@@ -401,9 +368,8 @@ function addEntryMembers(nodes, project, router) {
 }
 
 /**
- * `categoryOrder` is a single global setting, so it has to cover both the
- * top-level export categories and the context interface's member categories.
- * The two sets are disjoint, so concatenating them orders each page correctly.
+ * `categoryOrder` is one global setting covering both top-level and member
+ * categories. The sets are disjoint, so concatenating orders each page right.
  */
 const ALL_CATEGORY_ORDER = [...MEMBER_CATEGORY_ORDER, ...CATEGORY_ORDER];
 
