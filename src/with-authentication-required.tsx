@@ -29,6 +29,8 @@ const defaultReturnTo = (): string => {
 
 /**
  * Options for the withAuthenticationRequired Higher Order Component
+ *
+ * @category Hooks & HOCs
  */
 export interface WithAuthenticationRequiredOptions {
   /**
@@ -99,6 +101,8 @@ export interface WithAuthenticationRequiredOptions {
  *
  * When you wrap your components in this Higher Order Component and an anonymous user visits your component
  * they will be redirected to the login page; after login they will be returned to the page they were redirected from.
+ *
+ * @category Hooks & HOCs
  */
 const withAuthenticationRequired = <P extends object>(
   Component: ComponentType<P>,

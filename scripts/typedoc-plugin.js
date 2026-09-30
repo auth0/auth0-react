@@ -5,13 +5,14 @@
  * Two jobs:
  *
  * 1. Categorize every top-level export so the landing page and sidebar read as
- *    "Getting Started / Hooks & HOCs / Context / Errors / ..." instead of one
- *    flat alphabetical list of ~110 symbols. Categories are derived from the
- *    export's name and source path, so new exports get sorted automatically
- *    without anyone having to add an `@category` tag by hand. A tag written in
- *    the source always wins.
+ *    "Getting Started / Hooks & HOCs / Context / Errors / Reference" instead of
+ *    one flat alphabetical list of ~100 symbols. The symbols this SDK declares
+ *    are tagged where they are declared; everything else is placed by two rules
+ *    keyed on the symbol's name and declaration file. A symbol declared here
+ *    that no rule places fails the build rather than drifting into a default
+ *    section, which is how this SDK's own hooks ended up in "Other Types".
  *
- * 2. Put the context interfaces' members directly in the sidebar, so
+ * 2. Put the context interface's members directly in the sidebar, so
  *    `getAccessTokenSilently` or `loginWithRedirect` is one click from anywhere
  *    rather than "click the interface, then scan an index, then click again".
  *    The default theme stops the navigation tree at module level, so we extend
@@ -23,7 +24,7 @@ const {
   Converter,
   DefaultTheme,
   JSX,
-  ReflectionKind
+  ReflectionKind,
 } = require('typedoc');
 
 /**
@@ -32,209 +33,62 @@ const {
  */
 const ENTRY_INTERFACES = ['Auth0ContextInterface'];
 
+/**
+ * How a re-export is told apart from a symbol this SDK declares: its source
+ * file resolves inside `node_modules`. Keying on this rather than on a `src/`
+ * prefix is deliberate. The prefix is relative to TypeDoc's derived basePath,
+ * so if that anchor ever shifts (a config or layout change), own symbols stop
+ * matching and get silently reclassified as `Reference`, skipping the validation
+ * that is the whole point of the guardrail. `node_modules` is in the absolute
+ * path either way, so the test survives a basePath move. `ownSymbolCount` below
+ * is the backstop: if the set of own symbols ever empties, the build fails
+ * rather than passing with everything mislabelled.
+ */
+const DEPENDENCY_SOURCE_MARKER = 'node_modules';
+
+/** Named in diagnostics so the fix is obvious: put an `@category` in `src/`. */
+const OWN_SOURCE_DIR = 'src/';
+
 const SETUP = 'Getting Started';
 const HOOKS = 'Hooks & HOCs';
 const CONTEXT = 'Context';
-const CONFIGURATION = 'Configuration';
-const AUTHENTICATION = 'Login & Logout';
-const TOKENS = 'Tokens & Users';
-const MFA = 'Multi-Factor Authentication';
-const PASSKEYS = 'Passkeys';
-const MY_ACCOUNT = 'My Account';
 const ERRORS = 'Errors';
-const CACHING = 'Caching';
-const OTHER = 'Other Types';
+const REFERENCE = 'Reference';
 
 /**
- * Category order on the landing page and in the sidebar. `*` is where any
- * category not listed here lands.
+ * Where a symbol lands if it escapes every rule. The validation below makes
+ * that unreachable, so anything showing up here is a bug in this plugin.
+ */
+const DEFAULT_CATEGORY = 'Other Types';
+
+/**
+ * Section order on the landing page and in the sidebar, following the order the
+ * reference is read: the provider, then the hooks, then the context, then the
+ * errors you catch. `Reference` is last because it is reached from a signature,
+ * never by browsing. `*` is where any category not listed here lands.
  */
 const CATEGORY_ORDER = [
   SETUP,
   HOOKS,
   CONTEXT,
-  CONFIGURATION,
-  AUTHENTICATION,
-  TOKENS,
-  MFA,
-  PASSKEYS,
-  MY_ACCOUNT,
   ERRORS,
-  CACHING,
+  REFERENCE,
   '*',
-  OTHER
+  DEFAULT_CATEGORY,
 ];
 
-/** The provider and the props you hand it: the first thing anyone reads. */
-const SETUP_EXPORTS = new Set([
-  'Auth0Provider',
-  'Auth0ProviderOptions',
-  'Auth0ProviderWithConfigOptions',
-  'Auth0ProviderWithClientOptions',
-  'AppState'
-]);
-
-/** The consumption surface: hooks and higher-order components. */
-const HOOKS_EXPORTS = new Set([
-  'useAuth0',
-  'useAuth0Suspense',
-  'withAuth0',
-  'WithAuth0Props',
-  'withAuthenticationRequired',
-  'WithAuthenticationRequiredOptions'
-]);
+/**
+ * The only categories a top-level export may be tagged with. Anything else is a
+ * typo, which would otherwise render as a plausible-looking one-entry section.
+ */
+const TOP_LEVEL_CATEGORIES = [SETUP, HOOKS, CONTEXT, ERRORS, REFERENCE];
 
 /**
- * The context object and the shapes it carries. `initialContext` is exported but
- * carries `@ignore`, so it never reaches the reference.
+ * Order of the member categories on the `Auth0ContextInterface` page, and the
+ * only categories a member may be tagged with. Kept separate from the top-level
+ * set so that tagging a member with a section name, or the reverse, is caught
+ * rather than silently filed in the wrong place.
  */
-const CONTEXT_EXPORTS = new Set([
-  'Auth0Context',
-  'Auth0ContextInterface',
-  'Auth0SuspenseContextInterface'
-]);
-
-/** Exports that belong in "Configuration" regardless of kind. */
-const CONFIGURATION_EXPORTS = new Set([
-  'AuthorizationParams',
-  'ClientConfiguration',
-  'CacheLocation',
-  'RefreshTokenMode',
-  'ResponseType',
-  'InteractiveErrorHandler'
-]);
-
-/** Options and results for the login, logout and connect-account flows. */
-const AUTHENTICATION_EXPORTS = new Set([
-  'RedirectLoginOptions',
-  'RedirectLoginResult',
-  'PopupLoginOptions',
-  'PopupConfigOptions',
-  'LogoutOptions',
-  'LogoutUrlOptions',
-  'RedirectConnectAccountOptions',
-  'ConnectAccountRedirectResult',
-  'ConnectedAccount'
-]);
-
-/** Everything about acquiring tokens and reading the resulting identity. */
-const TOKEN_EXPORTS = new Set([
-  'GetTokenSilentlyOptions',
-  'GetTokenWithPopupOptions',
-  'TokenEndpointResponse',
-  'RevokeRefreshTokenOptions',
-  'CustomTokenExchangeOptions',
-  'User',
-  'IdToken',
-  'ActClaim',
-  'FetcherConfig'
-]);
-
-/** Cache implementations and the interface they satisfy. */
-const CACHING_EXPORTS = new Set([
-  'ICache',
-  'InMemoryCache',
-  'LocalStorageCache',
-  'Cacheable'
-]);
-
-/** Names in "My Account" that carry no `MyAccount` prefix to match on. */
-const MY_ACCOUNT_EXPORTS = new Set([
-  'AuthenticationMethod',
-  'AuthenticationMethodType',
-  'Factor',
-  'UpdateAuthenticationMethodRequest',
-  'EnrollmentChallengeOptions',
-  'EnrollmentChallengeResponse',
-  'EnrollmentVerifyOptions'
-]);
-
-/**
- * Decide which category a top-level export belongs to. Driven by name and
- * source path so that new exports land somewhere sensible on their own.
- *
- * @param {import('typedoc').DeclarationReflection} reflection
- * @returns {string}
- */
-function categoryFor(reflection) {
-  const { name } = reflection;
-
-  if (SETUP_EXPORTS.has(name)) return SETUP;
-  if (HOOKS_EXPORTS.has(name)) return HOOKS;
-  if (CONTEXT_EXPORTS.has(name)) return CONTEXT;
-
-  // Errors first: an error's home is the Errors section even when a feature
-  // prefix below would otherwise claim it (MfaVerifyError, PasskeyError, ...).
-  if (/Error$/.test(name) || name === 'MfaRequirements') return ERRORS;
-
-  if (CONFIGURATION_EXPORTS.has(name)) return CONFIGURATION;
-  if (AUTHENTICATION_EXPORTS.has(name)) return AUTHENTICATION;
-  if (TOKEN_EXPORTS.has(name)) return TOKENS;
-  if (CACHING_EXPORTS.has(name)) return CACHING;
-  if (MY_ACCOUNT_EXPORTS.has(name)) return MY_ACCOUNT;
-
-  // Nearly everything else is re-exported from `@auth0/auth0-spa-js`, so there
-  // is no path under `src/` to match on: the name is all we have.
-  if (name.startsWith('MyAccount')) return MY_ACCOUNT;
-  if (name.startsWith('Passkey')) return PASSKEYS;
-  if (name.startsWith('Mfa') || name.startsWith('Enroll')) return MFA;
-  if (
-    name === 'Authenticator' ||
-    name === 'ChallengeAuthenticatorParams' ||
-    name === 'ChallengeResponse' ||
-    name === 'VerifyParams'
-  ) {
-    return MFA;
-  }
-
-  // Source paths are relative to TypeDoc's computed base path, which shifts
-  // depending on which files end up in the program, so match on the directory
-  // segment rather than a prefix.
-  const fileName = reflection.sources?.[0]?.fileName ?? '';
-  const inDir = dir => fileName.includes(`${dir}/`);
-
-  if (inDir('mfa')) return MFA;
-  if (inDir('passkey')) return PASSKEYS;
-  if (inDir('myaccount')) return MY_ACCOUNT;
-  if (inDir('cache')) return CACHING;
-
-  return OTHER;
-}
-
-/**
- * Categories for `Auth0ContextInterface`'s own members, so its page groups 25+
- * entries by task instead of listing them all under one "Properties" heading.
- * Anything not listed here falls into "Advanced".
- */
-const CONTEXT_MEMBER_CATEGORIES = {
-  'Auth State': ['isLoading', 'isAuthenticated', 'user', 'error'],
-  'Sub-clients': ['mfa', 'passkey', 'myAccount'],
-  Authentication: [
-    'loginWithRedirect',
-    'handleRedirectCallback',
-    'loginWithPopup',
-    'logout'
-  ],
-  Tokens: [
-    'getAccessTokenSilently',
-    'getAccessTokenWithPopup',
-    'getIdTokenClaims',
-    'revokeRefreshToken',
-    'loginWithCustomTokenExchange',
-    'customTokenExchange',
-    'exchangeToken'
-  ],
-  'Connected Accounts': ['connectAccountWithRedirect']
-};
-
-/** Reverse lookup: member name -> category title. */
-const CONTEXT_MEMBER_CATEGORY = new Map(
-  Object.entries(CONTEXT_MEMBER_CATEGORIES).flatMap(([title, names]) =>
-    names.map(name => [name, title])
-  )
-);
-
-/** Order of the member categories on the `Auth0ContextInterface` page. */
 const MEMBER_CATEGORY_ORDER = [
   'Auth State',
   'Sub-clients',
@@ -242,60 +96,151 @@ const MEMBER_CATEGORY_ORDER = [
   'Tokens',
   'User Profile',
   'Connected Accounts',
-  'Advanced'
+  'Advanced',
 ];
 
 /**
- * Sidebar position for a context member: category order first, then the order
- * the names are declared within that category. Uncategorized members
- * ("Advanced") sort last, among themselves alphabetically.
+ * Context member name -> sidebar position, filled while the `@category` tags
+ * still exist. The renderer needs this ordering after TypeDoc's own category
+ * plugin has read and stripped the tags, so it cannot recompute it there.
  */
-const MEMBER_RANK = new Map(
-  MEMBER_CATEGORY_ORDER.flatMap((title, categoryIndex) =>
-    (CONTEXT_MEMBER_CATEGORIES[title] ?? []).map((name, index) => [
-      name,
-      categoryIndex * 100 + index
-    ])
-  )
-);
+const memberSidebarOrder = new Map();
 
-/** @param {string} name */
-function memberRank(name) {
-  return MEMBER_RANK.get(name) ?? Number.MAX_SAFE_INTEGER;
+/**
+ * @param {import('typedoc').DeclarationReflection} reflection
+ * @returns {string}
+ */
+function sourceFile(reflection) {
+  return reflection.sources?.[0]?.fileName ?? '';
+}
+
+/** @param {import('typedoc').DeclarationReflection} reflection */
+function declaredHere(reflection) {
+  return !sourceFile(reflection).includes(DEPENDENCY_SOURCE_MARKER);
 }
 
 /**
- * Category tags we ignore rather than honour. `ClientConfiguration` ships an
- * `@category Main` from `@auth0/auth0-spa-js`, which would otherwise strand it
- * in a one-entry "Main" group of its own.
+ * The comment carrying the tags. For an arrow-function export the doc block
+ * attaches to the signature rather than the declaration.
+ *
+ * @param {import('typedoc').DeclarationReflection} reflection
  */
-const IGNORED_TAG_CATEGORIES = new Set(['Main']);
+function commentOf(reflection) {
+  return reflection.comment ?? reflection.signatures?.[0]?.comment;
+}
 
 /**
- * Stamp an `@category` tag on a reflection, unless the source already declares
- * a usable one: a hand-written tag wins, except for the upstream tags above.
+ * The category written in the source, if any.
+ *
+ * @param {import('typedoc').DeclarationReflection} reflection
+ * @returns {string | undefined}
+ */
+function writtenCategory(reflection) {
+  const tag = commentOf(reflection)?.getTag('@category');
+  return tag ? Comment.combineDisplayParts(tag.content).trim() : undefined;
+}
+
+/**
+ * Stamp an `@category` tag on a reflection, replacing whatever is already
+ * there.
  *
  * @param {import('typedoc').DeclarationReflection} reflection
  * @param {string} category
  */
 function setCategory(reflection, category) {
-  const comment = reflection.comment ?? reflection.signatures?.[0]?.comment;
-  const existing = comment?.getTag('@category');
-
-  if (existing) {
-    const text = Comment.combineDisplayParts(existing.content).trim();
-    if (!IGNORED_TAG_CATEGORIES.has(text)) return;
-    comment.removeTags('@category');
-  }
-
+  const comment = commentOf(reflection);
   const tag = new CommentTag('@category', [{ kind: 'text', text: category }]);
 
   if (comment) {
+    comment.removeTags('@category');
     comment.blockTags.push(tag);
   } else {
     // Undocumented symbol: give it a comment so it can still be grouped.
     reflection.comment = new Comment([], [tag]);
   }
+}
+
+/**
+ * Decide which category a symbol belongs to. Three rules, first match wins:
+ *
+ * 1. A tag written on a declaration in `src/`, which is kept and validated.
+ *    Tags on a declaration outside `src/` are not rule 1: they came from a
+ *    dependency, and rule 3 discards them.
+ * 2. A name ending in `Error`, which is an error class no matter who declared
+ *    it. This precedes rule 3 because every error class is also a re-export, and
+ *    it tests the name rather than trusting upstream's tags because upstream
+ *    tags only one of its several error modules.
+ * 3. Declared outside `src/`, which makes it a supporting type reached from a
+ *    signature, so it goes to `Reference`. This *overwrites* any category the
+ *    symbol arrived with: TypeDoc reads `@category` out of a dependency's type
+ *    declarations, so upstream categories turn up here whether or not we want
+ *    them, and leaving them would strand symbols in unlisted sections.
+ *
+ * Nothing left over is legitimate: a symbol this SDK declares and no rule places
+ * is the drift this plugin exists to catch, so it becomes a build error.
+ *
+ * @param {import('typedoc').DeclarationReflection} reflection
+ * @param {string[]} allowed Categories this reflection may be tagged with.
+ * @param {string[]} problems Collects anything that should fail the build.
+ * @returns {string} the category the symbol ended up in
+ */
+function categorize(reflection, allowed, problems) {
+  const here = declaredHere(reflection);
+  const written = here ? writtenCategory(reflection) : undefined;
+
+  if (written) {
+    if (!allowed.includes(written)) {
+      problems.push(
+        `${reflection.name} (${sourceFile(reflection)}) is tagged ` +
+          `"@category ${written}", which is not a category this SDK defines ` +
+          `here. Expected one of: ${allowed.join(', ')}.`
+      );
+    }
+    return written;
+  }
+
+  if (/Error$/.test(reflection.name)) {
+    setCategory(reflection, ERRORS);
+    return ERRORS;
+  }
+
+  if (!here) {
+    setCategory(reflection, REFERENCE);
+    return REFERENCE;
+  }
+
+  problems.push(
+    `${reflection.name} (${sourceFile(reflection)}) has no @category tag. ` +
+      `Every symbol declared in ${OWN_SOURCE_DIR} needs one: ` +
+      `${allowed.join(', ')}.`
+  );
+  return DEFAULT_CATEGORY;
+}
+
+/** @param {import('typedoc').DeclarationReflection} reflection */
+function memberCategoryIndex(reflection) {
+  const written = writtenCategory(reflection) ?? '';
+  const index = MEMBER_CATEGORY_ORDER.indexOf(written);
+  return index === -1 ? MEMBER_CATEGORY_ORDER.length : index;
+}
+
+/**
+ * Sidebar order for the context members: by category, then by the order they
+ * are declared within that category. Alphabetical would bury the ones most
+ * people came for under the DPoP escape hatches.
+ *
+ * Declaration order means the line the member is written on, so moving a member
+ * within the interface moves it in the sidebar. That holds only while every
+ * member of a category is declared in one file, which is true today: the auth
+ * state is all of `auth-state.tsx` and the rest is all of `auth0-context.tsx`.
+ *
+ * @param {import('typedoc').DeclarationReflection} a
+ * @param {import('typedoc').DeclarationReflection} b
+ */
+function compareMembers(a, b) {
+  const byCategory = memberCategoryIndex(a) - memberCategoryIndex(b);
+  if (byCategory !== 0) return byCategory;
+  return (a.sources?.[0]?.line ?? 0) - (b.sources?.[0]?.line ?? 0);
 }
 
 /** @param {import('typedoc').Application} app */
@@ -304,22 +249,59 @@ function load(app) {
   // listens on RESOLVE_END and reads (then strips) `@category` tags.
   app.converter.on(
     Converter.EVENT_RESOLVE_END,
-    context => {
+    (context) => {
       const { project } = context;
+      /** @type {string[]} */
+      const problems = [];
+      let referenceCount = 0;
+      let reExportCount = 0;
+      let ownSymbolCount = 0;
 
       for (const child of project.children ?? []) {
-        setCategory(child, categoryFor(child));
+        if (declaredHere(child)) ownSymbolCount++;
+        if (categorize(child, TOP_LEVEL_CATEGORIES, problems) === REFERENCE) {
+          referenceCount++;
+          if (!declaredHere(child)) reExportCount++;
+        }
+      }
+
+      // Backstop for the `declaredHere` test: this SDK always declares its own
+      // top-level exports, so a count of zero means the discriminator stopped
+      // recognising them and every symbol slipped into `Reference` unvalidated.
+      // Fail loudly rather than ship a reference with no sections.
+      if ((project.children?.length ?? 0) > 0 && ownSymbolCount === 0) {
+        problems.push(
+          'No top-level export was recognised as declared in this SDK. The ' +
+            'test for own symbols (source path outside ' +
+            `"${DEPENDENCY_SOURCE_MARKER}") is matching nothing, so category ` +
+            'validation never ran. This is a plugin bug, not a docs error.'
+        );
       }
 
       for (const name of ENTRY_INTERFACES) {
         const entry = project.getChildByName(name);
-        for (const member of entry?.children ?? []) {
-          setCategory(
-            member,
-            CONTEXT_MEMBER_CATEGORY.get(member.name) ?? 'Advanced'
-          );
+        const members = [...(entry?.children ?? [])];
+
+        for (const member of members) {
+          categorize(member, MEMBER_CATEGORY_ORDER, problems);
         }
+
+        members.sort(compareMembers);
+        members.forEach((member, index) =>
+          memberSidebarOrder.set(member.name, index)
+        );
       }
+
+      for (const problem of problems) {
+        app.logger.error(problem);
+      }
+
+      // One summary line, not one per symbol: a jump in this count means a
+      // dependency added exports, which is the only thing worth noticing here.
+      app.logger.info(
+        `${REFERENCE} holds ${referenceCount} symbols, ` +
+          `${reExportCount} of them re-exported from dependencies.`
+      );
     },
     undefined,
     1000
@@ -343,9 +325,9 @@ function load(app) {
   // choice. The key is `data-key` on the accordion, which the nav builder sets
   // to the ancestor titles joined by `$`; the lowercase-dashed variant is the
   // fallback derivation, seeded too so a change in either direction still works.
-  const expandKeys = [SETUP, HOOKS].flatMap(title => [
+  const expandKeys = [SETUP, HOOKS].flatMap((title) => [
     title,
-    title.replace(/\s+/g, '-').toLowerCase()
+    title.replace(/\s+/g, '-').toLowerCase(),
   ]);
 
   app.renderer.hooks.on('body.begin', () =>
@@ -353,7 +335,9 @@ function load(app) {
       'script',
       null,
       JSX.createElement(JSX.Raw, {
-        html: `try{${JSON.stringify(expandKeys)}.forEach(function(t){var k='tsd-accordion-'+t;if(localStorage.getItem(k)===null)localStorage.setItem(k,'true')})}catch(e){}`
+        html: `try{${JSON.stringify(
+          expandKeys
+        )}.forEach(function(t){var k='tsd-accordion-'+t;if(localStorage.getItem(k)===null)localStorage.setItem(k,'true')})}catch(e){}`,
       })
     )
   );
@@ -379,7 +363,7 @@ function addEntryMembers(nodes, project, router) {
     if (!owner?.children) continue;
 
     const members = owner.children.filter(
-      member =>
+      (member) =>
         member.kindOf(
           ReflectionKind.Method |
             ReflectionKind.Accessor |
@@ -390,10 +374,11 @@ function addEntryMembers(nodes, project, router) {
         member.name !== 'constructor'
     );
 
-    // 25+ members, so list them in the same task order as the page index: auth
-    // state and `loginWithRedirect` first, the DPoP escape hatches last.
-    // Alphabetical would bury the ones most people came for.
-    members.sort((a, b) => memberRank(a.name) - memberRank(b.name));
+    members.sort(
+      (a, b) =>
+        (memberSidebarOrder.get(a.name) ?? Number.MAX_SAFE_INTEGER) -
+        (memberSidebarOrder.get(b.name) ?? Number.MAX_SAFE_INTEGER)
+    );
 
     // Ask the router for the href. TypeDoc 0.28 moved URL assignment out of the
     // reflections and behind the Router, so `member.url` and `member.anchor` are
@@ -401,12 +386,12 @@ function addEntryMembers(nodes, project, router) {
     // `docs/undefined#isLoading`. `getFullUrl` is what TypeDoc's own frontend
     // uses for nav entries, and it already includes the anchor.
     const links = members
-      .filter(member => router.hasUrl(member))
-      .map(member => ({
+      .filter((member) => router.hasUrl(member))
+      .map((member) => ({
         text: member.name,
         path: router.getFullUrl(member),
         kind: member.kind,
-        class: member.isDeprecated() ? 'deprecated' : undefined
+        class: member.isDeprecated() ? 'deprecated' : undefined,
       }));
 
     if (links.length) {
@@ -422,4 +407,8 @@ function addEntryMembers(nodes, project, router) {
  */
 const ALL_CATEGORY_ORDER = [...MEMBER_CATEGORY_ORDER, ...CATEGORY_ORDER];
 
-module.exports = { load, CATEGORY_ORDER: ALL_CATEGORY_ORDER };
+module.exports = {
+  load,
+  CATEGORY_ORDER: ALL_CATEGORY_ORDER,
+  DEFAULT_CATEGORY,
+};
