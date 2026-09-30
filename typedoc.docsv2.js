@@ -19,17 +19,6 @@ const {
 module.exports = {
   ...shared,
 
-  // Mintlify only reads a symbol's comment summary, so cross-type links have to
-  // be injected there as markdown. See `scripts/typedoc-plugin-mintlify.js`.
-  plugin: [...shared.plugin, './scripts/typedoc-plugin-mintlify.js'],
-
-  // Must match `sdk.directory` in the docs-v2 SDK Reference tab and the
-  // `directory` in the docs-content-pipeline's `auth0-react-generation.js`,
-  // which builds the curated sidebar from this artifact. The plugin bakes
-  // absolute hrefs into comment summaries, so a mismatch means every type link
-  // 404s.
-  mintlifyDirectory: 'docs/sdk/auth0-react',
-
   // Staging directory whose layout mirrors docs-v2's `main/`, so publishing is a
   // straight copy of two files with no path rewriting.
   json: './mintlify/docsv2/sdk-artifacts/auth0-react.json',
