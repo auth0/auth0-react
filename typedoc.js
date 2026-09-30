@@ -1,4 +1,7 @@
-const { CATEGORY_ORDER } = require('./scripts/typedoc-plugin.js');
+const {
+  CATEGORY_ORDER,
+  DEFAULT_CATEGORY
+} = require('./scripts/typedoc-plugin.js');
 
 module.exports = {
   // Document what the package actually exports. Pointing TypeDoc at `src/`
@@ -47,7 +50,7 @@ module.exports = {
   // kind, so readers see "Getting Started" before a wall of interfaces.
   categorizeByGroup: false,
   categoryOrder: CATEGORY_ORDER,
-  defaultCategory: 'Other Types',
+  defaultCategory: DEFAULT_CATEGORY,
   navigation: {
     includeCategories: true,
     includeGroups: false
