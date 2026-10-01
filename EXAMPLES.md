@@ -2195,6 +2195,7 @@ Access anonymous session operations through the `anonymous` property from `useAu
 - [Getting an access token](#getting-an-anonymous-access-token)
 - [Explicit session creation with metadata](#explicit-anonymous-session-creation-with-metadata)
 - [Multiple audiences](#multiple-anonymous-audiences)
+- [Linking to an authenticated user](#linking-to-an-authenticated-user)
 - [Ending the session](#ending-the-anonymous-session)
 - [Storage modes](#anonymous-session-storage-modes)
 
@@ -2267,9 +2268,24 @@ const { accessToken: tokenB } = await anonymous.getTokenSilently({
 });
 ```
 
-### Ending the anonymous session
+### Linking to an authenticated user
 
-> **Note:** If you want the anonymous identity to be available for linking during login, call `loginWithRedirect()` before `anonymous.logout()`. Auth0 reads the anonymous session cookie during the login flow. Clearing it first means the identity will not be available in Post-Login Actions.
+When the user logs in, the SDK automatically mints a short-lived transfer ticket from the stored session token and passes it to `/authorize` as `anon_transfer_token`. This works for both `loginWithRedirect()` and `loginWithPopup()` — no extra configuration needed.
+
+Auth0 delivers the anonymous identity to your Post-Login Action as `event.anonymous_session`:
+
+```js
+exports.onExecutePostLogin = async (event, api) => {
+  if (event.anonymous_session) {
+    api.idToken.setCustomClaim('https://anon/metadata', event.anonymous_session.metadata);
+    api.idToken.setCustomClaim('https://anon/user_id', event.anonymous_session.user_id);
+  }
+};
+```
+
+The anonymous session is **not** automatically cleared after login. Call `anonymous.logout()` explicitly once you have finished using the session data.
+
+### Ending the anonymous session
 
 ```jsx
 const { anonymous } = useAuth0();

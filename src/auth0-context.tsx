@@ -549,6 +549,7 @@ export const initialContext = {
     logout: stub,
     hasSession: stub,
     getClaims: stub,
+    mintTransferToken: stub,
   } as unknown as AnonymousSessionApiClient,
 };
 
