@@ -1,4 +1,4 @@
-import { Auth0Client, AnonymousSession } from '@auth0/auth0-spa-js';
+import { Auth0Client, AnonymousSession, AnonymousSessionError } from '@auth0/auth0-spa-js';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import useAuth0 from '../src/use-auth0';
 import { createWrapper } from './helpers';
@@ -63,7 +63,7 @@ describe('Anonymous Session API', () => {
     });
 
     it('should rethrow errors from getTokenSilently', async () => {
-      clientMock.anonymous.getTokenSilently.mockRejectedValueOnce(new Error('session_expired'));
+      clientMock.anonymous.getTokenSilently.mockRejectedValueOnce(new Error('network_error'));
 
       const wrapper = createWrapper();
       const { result } = renderHook(() => useAuth0(), { wrapper });
@@ -74,7 +74,32 @@ describe('Anonymous Session API', () => {
         act(async () => {
           await result.current.anonymous.getTokenSilently({ audience: 'https://api.example.com' });
         })
-      ).rejects.toThrow('session_expired');
+      ).rejects.toThrow('network_error');
+    });
+
+    it('should surface AnonymousSessionError when the session has expired', async () => {
+      const expiredError = new AnonymousSessionError(
+        'session_expired',
+        'The anonymous session has expired'
+      );
+      clientMock.anonymous.getTokenSilently.mockRejectedValueOnce(expiredError);
+
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      let caughtError: unknown;
+      await act(async () => {
+        try {
+          await result.current.anonymous.getTokenSilently({ audience: 'https://api.example.com' });
+        } catch (e) {
+          caughtError = e;
+        }
+      });
+
+      expect(caughtError).toBeInstanceOf(AnonymousSessionError);
+      expect((caughtError as AnonymousSessionError).code).toBe('session_expired');
     });
   });
 
@@ -183,6 +208,47 @@ describe('Anonymous Session API', () => {
       await waitFor(() => expect(result.current.isLoading).toBe(false));
 
       expect(result.current.anonymous.getClaims()).toBeNull();
+    });
+  });
+
+  describe('anonymous.mintTransferToken', () => {
+    it('should be defined', async () => {
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => {
+        expect(result.current.anonymous.mintTransferToken).toBeDefined();
+      });
+    });
+
+    it('should return a transfer ticket when a session exists', async () => {
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      let ticket: string | null | undefined;
+      await act(async () => {
+        ticket = await result.current.anonymous.mintTransferToken();
+      });
+
+      expect(ticket).toBe('transfer-ticket-jwe');
+    });
+
+    it('should return null when no session exists', async () => {
+      clientMock.anonymous.mintTransferToken.mockResolvedValueOnce(null);
+
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      let ticket: string | null | undefined;
+      await act(async () => {
+        ticket = await result.current.anonymous.mintTransferToken();
+      });
+
+      expect(ticket).toBeNull();
     });
   });
 });

@@ -44,6 +44,7 @@ const anonymousGetTokenSilently = jest.fn(() => Promise.resolve({ accessToken: '
 const anonymousLogout = jest.fn(() => Promise.resolve());
 const anonymousHasSession = jest.fn(() => false);
 const anonymousGetClaims = jest.fn(() => null);
+const anonymousMintTransferToken = jest.fn(() => Promise.resolve('transfer-ticket-jwe'));
 
 export const Auth0Client = jest.fn(() => {
   return {
@@ -95,6 +96,7 @@ export const Auth0Client = jest.fn(() => {
       logout: anonymousLogout,
       hasSession: anonymousHasSession,
       getClaims: anonymousGetClaims,
+      mintTransferToken: anonymousMintTransferToken,
     },
   };
 });
