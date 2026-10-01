@@ -17,7 +17,7 @@ and the current short-lived access token (used to call APIs).</p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">AnonymousSession</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#accesstoken">accessToken</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#expiresat">expiresAt</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#scope">scope</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sessionreplaced">sessionReplaced</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sessiontoken">sessionToken</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sessiontokenexpiresat">sessionTokenExpiresAt</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1912</li></ul></aside>
+<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1922</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -41,21 +41,21 @@ and the current short-lived access token (used to call APIs).</p>
 <div class="tsd-comment tsd-typography"><p>Short-lived Bearer token for calling APIs.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1921</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1931</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="expiresat"><span>expires<wbr/>At</span><a href="#expiresat" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">expiresAt</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Unix timestamp (seconds) at which the access token expires.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1925</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1935</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="scope"><code class="tsd-tag">Optional</code><span>scope</span><a href="#scope" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">scope</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Scopes granted to this anonymous session.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1939</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1949</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="sessionreplaced"><code class="tsd-tag">Optional</code><span>session<wbr/>Replaced</span><a href="#sessionreplaced" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sessionReplaced</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -69,7 +69,7 @@ to the old identity are permanently gone.</p>
 is called without a <code>sessionToken</code>.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1952</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1962</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="sessiontoken"><span>session<wbr/>Token</span><a href="#sessiontoken" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sessionToken</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -77,7 +77,7 @@ is called without a <code>sessionToken</code>.</p>
 Never sent to APIs directly. Used by the SDK to re-mint access tokens.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1917</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1927</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="sessiontokenexpiresat"><code class="tsd-tag">Optional</code><span>session<wbr/>Token<wbr/>Expires<wbr/>At</span><a href="#sessiontokenexpiresat" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sessionTokenExpiresAt</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
@@ -88,7 +88,7 @@ does not include <code>session_expires_in</code>.</p>
 <p>Use this — not <code>expiresAt</code> — to drive cookie <code>Max-Age</code> or session expiry UI.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1935</li></ul></aside></section></section></details></div>
+<li>Defined in node_modules/@auth0/auth0-auth-js/dist/index.d.ts:1945</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

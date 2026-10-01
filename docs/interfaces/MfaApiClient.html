@@ -32,7 +32,7 @@ enabling concurrent MFA flows without state conflicts.</p>
 </div></div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">MfaApiClient</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-call-signature" href="#challenge-1">challenge</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">params</span><span class="tsd-signature-symbol">:</span> <a href="ChallengeAuthenticatorParams.html" class="tsd-signature-type tsd-kind-interface">ChallengeAuthenticatorParams</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="ChallengeResponse.html" class="tsd-signature-type tsd-kind-interface">ChallengeResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#enroll-1">enroll</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">params</span><span class="tsd-signature-symbol">:</span> <a href="../types/EnrollParams.html" class="tsd-signature-type tsd-kind-type-alias">EnrollParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/EnrollmentResponse.html" class="tsd-signature-type tsd-kind-type-alias">EnrollmentResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getauthenticators-1">getAuthenticators</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">mfaToken</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="Authenticator.html" class="tsd-signature-type tsd-kind-interface">Authenticator</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getenrollmentfactors-1">getEnrollmentFactors</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">mfaToken</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="EnrollmentFactor.html" class="tsd-signature-type tsd-kind-interface">EnrollmentFactor</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setmfaauthdetails-1">setMFAAuthDetails</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">mfaToken</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">scope</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">audience</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">mfaRequirements</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">MfaRequirements</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#verify-1">verify</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">params</span><span class="tsd-signature-symbol">:</span> <a href="VerifyParams.html" class="tsd-signature-type tsd-kind-interface">VerifyParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/TokenEndpointResponse.html" class="tsd-signature-type tsd-kind-type-alias">TokenEndpointResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:34</li></ul></aside>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:36</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -82,7 +82,7 @@ enabling concurrent MFA flows without state conflicts.</p>
 
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:137</li></ul></aside></div></li></ul></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:139</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="enroll"><span>enroll</span><a href="#enroll" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -115,7 +115,7 @@ enabling concurrent MFA flows without state conflicts.</p>
 
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:107</li></ul></aside></div></li></ul></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:109</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getauthenticators"><span>get<wbr/>Authenticators</span><a href="#getauthenticators" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -144,7 +144,7 @@ enabling concurrent MFA flows without state conflicts.</p>
 
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:78</li></ul></aside></div></li></ul></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:80</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getenrollmentfactors"><span>get<wbr/>Enrollment<wbr/>Factors</span><a href="#getenrollmentfactors" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -178,7 +178,7 @@ mfaRequirements.enroll array, eliminating the need for manual parsing.</p>
 
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:180</li></ul></aside></div></li></ul></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:182</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setmfaauthdetails"><span>set<wbr/>MFA<wbr/>Auth<wbr/>Details</span><a href="#setmfaauthdetails" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -206,7 +206,7 @@ This is automatically called by Auth0Client when an mfa_required error occurs.</
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:55</li></ul></aside></div></li></ul></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:57</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="verify"><span>verify</span><a href="#verify" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -257,7 +257,7 @@ which verification field is provided (otp, oobCode, or recoveryCode).</p>
 
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:224</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/mfa/MfaApiClient.d.ts:226</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
