@@ -11,6 +11,8 @@ import Auth0Context, { Auth0ContextInterface } from './auth0-context';
  * The value returned by `useAuth0Suspense`: the full `useAuth0` interface minus
  * `isLoading` and the internal `_initPromise`. `error` is
  * retained for post-init failures such as `loginWithPopup`.
+ *
+ * @category Context
  */
 export type Auth0SuspenseContextInterface<TUser extends User = User> = Omit<
   Auth0ContextInterface<TUser>,
@@ -39,6 +41,8 @@ export type Auth0SuspenseContextInterface<TUser extends User = User> = Omit<
  * renders if that check succeeded, or throws again if it did not.
  *
  * TUser is an optional type param to provide a type to the `user` field.
+ *
+ * @category Hooks & HOCs
  */
 const useAuth0Suspense = <TUser extends User = User>(
   context = Auth0Context

@@ -10,6 +10,8 @@ import Auth0Context, {
 
 /**
  * The shape returned by the `useEnterpriseConnect` hook.
+ *
+ * @category Hooks & HOCs
  */
 export interface UseEnterpriseConnect {
   /**
@@ -42,6 +44,8 @@ export interface UseEnterpriseConnect {
  * the Auth0 domain from the `Auth0Provider` configuration, so callers pass
  * only the email domain. `loginWithSSO` is sugar over `loginWithRedirect`
  * that sets `login_hint` to the provided email.
+ *
+ * @category Hooks & HOCs
  */
 const useEnterpriseConnect = (
   context = Auth0Context

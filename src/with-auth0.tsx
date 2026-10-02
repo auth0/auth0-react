@@ -3,6 +3,8 @@ import Auth0Context, { Auth0ContextInterface } from './auth0-context';
 
 /**
  * Components wrapped in `withAuth0` will have an additional `auth0` prop
+ *
+ * @category Hooks & HOCs
  */
 export interface WithAuth0Props {
   auth0: Auth0ContextInterface;
@@ -25,6 +27,8 @@ export interface WithAuth0Props {
  *
  * Providing a context as the second argument allows you to configure the Auth0Provider the Auth0Context
  * should come from f you have multiple within your application.
+ *
+ * @category Hooks & HOCs
  */
 const withAuth0 = <P extends WithAuth0Props>(
   Component: ComponentType<P>,
