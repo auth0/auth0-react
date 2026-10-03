@@ -2216,27 +2216,38 @@ Set `createAnonymousSessionOnFailedSilentAuth` on `Auth0Provider` to automatical
 
 ### Getting an anonymous access token
 
+The SDK returns a cached token when still fresh and renews it when the access token expires. If the session itself is expired or invalid, `getTokenSilently()` throws an `AnonymousSessionError` — catch it and call `createSession()` to start a new session.
+
 ```jsx
 import { useAuth0 } from '@auth0/auth0-react';
+import { AnonymousSessionError } from '@auth0/auth0-spa-js';
 
 function ApiButton() {
   const { anonymous } = useAuth0();
 
   const callApi = async () => {
-    const { accessToken } = await anonymous.getTokenSilently({
-      audience: 'https://api.example.com'
-    });
+    try {
+      const { accessToken } = await anonymous.getTokenSilently({
+        audience: 'https://api.example.com'
+      });
 
-    await fetch('https://api.example.com/data', {
-      headers: { Authorization: `Bearer ${accessToken}` }
-    });
+      await fetch('https://api.example.com/data', {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+    } catch (e) {
+      if (
+        e instanceof AnonymousSessionError &&
+        (e.code === 'session_expired' || e.code === 'invalid_session_token')
+      ) {
+        // Session is permanently gone. Start a new one.
+        await anonymous.createSession();
+      }
+    }
   };
 
   return <button onClick={callApi}>Call API</button>;
 }
 ```
-
-The SDK returns a cached token when still fresh and renews it transparently when expired.
 
 ### Explicit anonymous session creation with metadata
 
