@@ -2226,25 +2226,29 @@ function ApiButton() {
   const { anonymous } = useAuth0();
 
   const callApi = async () => {
+    let accessToken;
     try {
-      const { accessToken } = await anonymous.getTokenSilently({
+      ({ accessToken } = await anonymous.getTokenSilently({
         audience: 'https://api.example.com'
-      });
-
-      await fetch('https://api.example.com/data', {
-        headers: { Authorization: `Bearer ${accessToken}` }
-      });
+      }));
     } catch (e) {
       if (
         e instanceof AnonymousSessionError &&
         (e.code === 'session_expired' || e.code === 'invalid_session_token')
       ) {
-        // Session is permanently gone. Start a new one.
+        // Session is permanently gone. Start a new one and retry.
         await anonymous.createSession();
+        ({ accessToken } = await anonymous.getTokenSilently({
+          audience: 'https://api.example.com'
+        }));
       } else {
         throw e;
       }
     }
+
+    await fetch('https://api.example.com/data', {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
   };
 
   return <button onClick={callApi}>Call API</button>;
