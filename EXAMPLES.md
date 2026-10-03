@@ -2241,6 +2241,8 @@ function ApiButton() {
       ) {
         // Session is permanently gone. Start a new one.
         await anonymous.createSession();
+      } else {
+        throw e;
       }
     }
   };
