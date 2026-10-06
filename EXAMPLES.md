@@ -2219,8 +2219,7 @@ Set `createAnonymousSessionOnFailedSilentAuth` on `Auth0Provider` to automatical
 The SDK returns a cached token when still fresh and renews it when the access token expires. If the session itself is expired or invalid, `getTokenSilently()` throws an `AnonymousSessionError` — catch it and call `createSession()` to start a new session.
 
 ```jsx
-import { useAuth0 } from '@auth0/auth0-react';
-import { AnonymousSessionError } from '@auth0/auth0-spa-js';
+import { useAuth0, AnonymousSessionError } from '@auth0/auth0-react';
 
 function ApiButton() {
   const { anonymous } = useAuth0();
