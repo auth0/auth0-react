@@ -52,6 +52,7 @@ jobs:
           PRODSEC_TOOLS_TOKEN: ${{ secrets.PRODSEC_TOOLS_TOKEN }}
           PRODSEC_PYTHON_TOOLS_REPO: ${{ secrets.PRODSEC_PYTHON_TOOLS_REPO }}
   release:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release/'))
     uses: ./.github/workflows/npm-release.yml
     needs: rl-scanner
     with:
