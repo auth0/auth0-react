@@ -108,6 +108,3 @@ test-results
 
 cypress/screenshots
 cypress/videos
-
-# Docs artefact produced by `npm run docs:docsv2` (see typedoc.docsv2.js `json`)
-mintlify/docsv2/sdk-artifacts/
