@@ -65,7 +65,10 @@ rm -rf dist/
 
 ```bash
 npm run docs
-# TypeDoc → docs/ (do not edit the generated output manually)
+# TypeDoc → the HTML site in docs/ and the Mintlify JSON in mintlify/
+# (do not edit the generated output manually)
+npm run docs:html      # HTML site only (cleans docs/ first)
+npm run docs:docsv2    # Mintlify JSON only
 ```
 
 ## Dev server
