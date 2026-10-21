@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import {
   isFederatedDomain as spaIsFederatedDomain,
   IsFederatedDomainOptions,
@@ -47,9 +47,7 @@ export interface UseEnterpriseConnect {
  *
  * @category Hooks & HOCs
  */
-const useEnterpriseConnect = (
-  context = Auth0Context
-): UseEnterpriseConnect => {
+const useEnterpriseConnect = (context = Auth0Context): UseEnterpriseConnect => {
   const { getConfiguration, loginWithRedirect } = useContext(
     context
   ) as Auth0ContextInterface;
@@ -73,7 +71,10 @@ const useEnterpriseConnect = (
     [loginWithRedirect]
   );
 
-  return { isFederatedDomain, loginWithSSO };
+  return useMemo(
+    () => ({ isFederatedDomain, loginWithSSO }),
+    [isFederatedDomain, loginWithSSO]
+  );
 };
 
 export default useEnterpriseConnect;
