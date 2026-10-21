@@ -1,3 +1,14 @@
+/**
+ * @module
+ *
+ * @categoryDescription Reference
+ * Supporting option, claim and parameter types that come from the underlying
+ * `@auth0/auth0-spa-js` SDK. You arrive at one of these from the hook or context
+ * member that uses it, rather than by browsing this section. For deeper
+ * documentation on each, see the
+ * [@auth0/auth0-spa-js reference](https://auth0.github.io/auth0-spa-js/).
+ */
+
 export {
   default as Auth0Provider,
   Auth0ProviderOptions,

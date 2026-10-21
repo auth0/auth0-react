@@ -3,6 +3,8 @@
  * be the error code. And possibly an `error_description` property
  *
  * See: https://openid.net/specs/openid-connect-core-1_0.html#rfc.section.3.1.2.6
+ *
+ * @category Errors
  */
 export class OAuthError extends Error {
   constructor(public error: string, public error_description?: string) {

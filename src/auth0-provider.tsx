@@ -41,12 +41,16 @@ import { initialAuthState, type AuthState } from './auth-state';
 
 /**
  * The account that has been connected during the connect flow.
+ *
+ * @category Reference
  */
 export type ConnectedAccount = Omit<ConnectAccountRedirectResult, 'appState' | 'response_type'>;
 
 /**
  * The state of the application before the user was redirected to the login page
  * and any account that the user may have connected to.
+ *
+ * @category Getting Started
  */
 export type AppState = {
   returnTo?: string;
@@ -103,12 +107,16 @@ type Auth0ProviderBaseOptions<TUser extends User = User> = {
 /**
  * Options for `Auth0Provider` when configuring Auth0 via `domain` and `clientId`.
  * Use this type when building wrapper components around `Auth0Provider`.
+ *
+ * @category Getting Started
  */
 export type Auth0ProviderWithConfigOptions<TUser extends User = User> =
   Auth0ProviderBaseOptions<TUser> & Auth0ClientOptions & { client?: never };
 
 /**
  * Options for `Auth0Provider` when supplying a pre-configured `Auth0Client` instance.
+ *
+ * @category Getting Started
  */
 export type Auth0ProviderWithClientOptions<TUser extends User = User> =
   Auth0ProviderBaseOptions<TUser> & { client: Auth0Client };
@@ -118,6 +126,8 @@ export type Auth0ProviderWithClientOptions<TUser extends User = User> =
  *
  * Either provide `domain` and `clientId` (`Auth0ProviderWithConfigOptions`)
  * or a pre-configured `client` instance (`Auth0ProviderWithClientOptions`).
+ *
+ * @category Getting Started
  */
 export type Auth0ProviderOptions<TUser extends User = User> =
   | Auth0ProviderWithConfigOptions<TUser>
@@ -199,6 +209,8 @@ const createInitDeferred = (): InitDeferred => {
  * `'use client'` directive), so in a Next.js App Router app you can import and render
  * `Auth0Provider` directly from a Server Component such as `app/layout.tsx`.
  * Components that call hooks like `useAuth0` must still be Client Components.
+ *
+ * @category Getting Started
  */
 const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUser>) => {
   const {

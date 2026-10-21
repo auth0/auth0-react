@@ -22,14 +22,33 @@ import { createContext } from 'react';
 import { AuthState, initialAuthState } from './auth-state';
 import { AppState } from './auth0-provider';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+/* eslint-disable @typescript-eslint/no-empty-object-type -- both narrow an
+   upstream type by dropping the SDK-managed `onRedirect`, so they add no members
+   of their own. A disable block rather than per-line comments: an interleaved
+   line comment between the TSDoc and the declaration hides the `@category` tag
+   from TypeDoc. */
+
+/**
+ * Options for {@link Auth0ContextInterface.logout}.
+ *
+ * @category Reference
+ */
 export interface LogoutOptions extends Omit<SPALogoutOptions, 'onRedirect'> {}
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+
+/**
+ * Options for {@link Auth0ContextInterface.loginWithRedirect}.
+ *
+ * @category Reference
+ */
 export interface RedirectLoginOptions<TAppState = AppState>
   extends Omit<SPARedirectLoginOptions<TAppState>, 'onRedirect'> {}
 
+/* eslint-enable @typescript-eslint/no-empty-object-type */
+
 /**
  * Contains the authenticated state and authentication methods provided by the `useAuth0` hook.
+ *
+ * @category Context
  */
 export interface Auth0ContextInterface<TUser extends User = User>
   extends AuthState<TUser> {
@@ -58,6 +77,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * Note that in all cases, falling back to an iframe requires access to
    * the `auth0` cookie.
+   *
+   * @category Tokens
    */
   getAccessTokenSilently: Auth0Client['getTokenSilently'];
 
@@ -72,6 +93,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * provided as arguments. Random and secure `state` and `nonce`
    * parameters will be auto-generated. If the response is successful,
    * results will be valid according to their expiration times.
+   *
+   * @category Tokens
    */
   getAccessTokenWithPopup: (
     options?: GetTokenWithPopupOptions,
@@ -84,6 +107,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * ```
    *
    * Returns all claims from the id_token if available.
+   *
+   * @category User Profile
    */
   getIdTokenClaims: () => Promise<IdToken | undefined>;
 
@@ -134,6 +159,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *   console.error('Token exchange failed:', error);
    * }
    * ```
+   *
+   * @category Tokens
    */
   loginWithCustomTokenExchange: (
     options: CustomTokenExchangeOptions
@@ -161,6 +188,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * @param options - The options required to perform the token exchange.
    * @returns A promise that resolves to the token endpoint response.
+   *
+   * @category Tokens
    */
   customTokenExchange: (
     options: CustomTokenExchangeOptions
@@ -194,6 +223,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * @param options - The options required to perform the token exchange
    * @returns A promise that resolves to the token endpoint response containing Auth0 tokens
+   *
+   * @category Tokens
    */
   exchangeToken: (
     options: CustomTokenExchangeOptions
@@ -207,6 +238,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * Performs a redirect to `/authorize` using the parameters
    * provided as arguments. Random and secure `state` and `nonce`
    * parameters will be auto-generated.
+   *
+   * @category Authentication
    */
   loginWithRedirect: (
     options?: RedirectLoginOptions<AppState>
@@ -225,6 +258,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * IMPORTANT: This method has to be called from an event handler
    * that was started by the user like a button click, for example,
    * otherwise the popup will be blocked in most browsers.
+   *
+   * @category Authentication
    */
   loginWithPopup: (
     options?: PopupLoginOptions,
@@ -248,6 +283,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * If connecting the account is successful `onRedirectCallback` will be called
    * with the details of the connected account.
+   *
+   * @category Connected Accounts
    */
   connectAccountWithRedirect: (
     options: RedirectConnectAccountOptions
@@ -262,6 +299,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * the parameters provided as arguments, to clear the Auth0 session.
    * If the `logoutParams.federated` option is specified, it also clears the Identity Provider session.
    * [Read more about how Logout works at Auth0](https://auth0.com/docs/logout).
+   *
+   * @category Authentication
    */
   logout: (options?: LogoutOptions) => Promise<void>;
 
@@ -291,6 +330,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * @param options - Optional parameters to identify which refresh token to revoke.
    *   Defaults to the audience configured in `authorizationParams`.
+   *
+   * @category Tokens
    */
   revokeRefreshToken: (options?: RevokeRefreshTokenOptions) => Promise<void>;
 
@@ -301,6 +342,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * will be valid according to their expiration times.
    *
    * @param url The URL to that should be used to retrieve the `state` and `code` values. Defaults to `window.location.href` if not given.
+   *
+   * @category Authentication
    */
   handleRedirectCallback: (url?: string) => Promise<RedirectLoginResult | ConnectAccountRedirectResult>;
 
@@ -316,6 +359,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * @param id    The identifier of a nonce: if absent, it will get the nonce
    *              used for requests to Auth0. Otherwise, it will be used to
    *              select a specific non-Auth0 nonce.
+   *
+   * @category Advanced
    */
   getDpopNonce: Auth0Client['getDpopNonce'];
 
@@ -328,6 +373,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * @param id    The identifier of a nonce: if absent, it will set the nonce
    *              used for requests to Auth0. Otherwise, it will be used to
    *              select a specific non-Auth0 nonce.
+   *
+   * @category Advanced
    */
   setDpopNonce: Auth0Client['setDpopNonce'];
 
@@ -336,6 +383,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * key used to cryptographically bind access tokens with DPoP.
    *
    * It requires enabling the {@link Auth0ClientOptions.useDpop} option.
+   *
+   * @category Advanced
    */
   generateDpopProof: Auth0Client['generateDpopProof'];
 
@@ -346,6 +395,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * headers or managing DPoP nonces and retries automatically.
    *
    * Check the `EXAMPLES.md` file for a deeper look into this method.
+   *
+   * @category Advanced
    */
   createFetcher: Auth0Client['createFetcher'];
 
@@ -357,6 +408,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * Returns a readonly copy of the initialization configuration
    * containing the domain and clientId.
+   *
+   * @category Advanced
    */
   getConfiguration: Auth0Client['getConfiguration'];
 
@@ -411,6 +464,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *   }
    * }
    * ```
+   *
+   * @category Sub-clients
    */
   mfa: MfaApiClient;
 
@@ -427,6 +482,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * Both methods exchange the WebAuthn credential for Auth0 tokens and update
    * `isAuthenticated` / `user` in the same way as `loginWithPopup`.
+   *
+   * @category Sub-clients
    */
   passkey: PasskeyApiClient;
 
@@ -463,6 +520,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * // Remove an authentication method
    * await myAccount.deleteAuthenticationMethod('method-id');
    * ```
+   *
+   * @category Sub-clients
    */
   myAccount: MyAccountApiClient;
 
@@ -478,6 +537,8 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * - `getTokenSilently(options?)` - Get or renew an anonymous access token
    * - `logout()` - End the anonymous session and clear stored tokens
    * - `getClaims()` - Always returns `null` in EA
+   *
+   * @category Sub-clients
    */
   anonymous: AnonymousSessionApiClient;
 
@@ -555,6 +616,8 @@ export const initialContext = {
 
 /**
  * The Auth0 Context
+ *
+ * @category Context
  */
 const Auth0Context = createContext<Auth0ContextInterface>(initialContext);
 
