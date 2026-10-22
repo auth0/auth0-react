@@ -479,8 +479,10 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * - `signup(options)` — register a new user and create a passkey credential
    * - `login(options?)` — authenticate an existing user via passkey assertion
+   * - `continueSignup(verification)` — finish a signup that threw
+   *   `PasskeyVerificationRequiredError`, passing the OTP codes the user entered
    *
-   * Both methods exchange the WebAuthn credential for Auth0 tokens and update
+   * These methods exchange the WebAuthn credential for Auth0 tokens and update
    * `isAuthenticated` / `user` in the same way as `loginWithPopup`.
    *
    * @category Sub-clients
@@ -594,6 +596,7 @@ export const initialContext = {
   passkey: {
     signup: stub,
     login: stub,
+    continueSignup: stub,
   } as unknown as PasskeyApiClient,
   myAccount: {
     getFactors: stub,

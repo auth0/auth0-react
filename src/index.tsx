@@ -84,6 +84,7 @@ export {
   PasskeyRegisterError,
   PasskeyChallengeError,
   PasskeyGetTokenError,
+  PasskeyVerificationRequiredError,
   // MyAccount Errors
   MyAccountApiError,
   // Anonymous Session Errors

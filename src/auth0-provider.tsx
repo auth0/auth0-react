@@ -540,9 +540,34 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const passkeyContinueSignup = useCallback(
+    async (
+      verification: Parameters<PasskeyApiClient['continueSignup']>[0]
+    ): Promise<TokenEndpointResponse> => {
+      let tokenResponse;
+      try {
+        tokenResponse = await client.passkey.continueSignup(verification);
+      } catch (error) {
+        throw tokenError(error);
+      } finally {
+        dispatch({
+          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          user: await client.getUser(),
+        });
+      }
+      return tokenResponse;
+    },
+    [client]
+  );
+
   const passkey = useMemo(
-    () => ({ signup: passkeySignup, login: passkeyLogin }) as unknown as PasskeyApiClient,
-    [passkeySignup, passkeyLogin]
+    () =>
+      ({
+        signup: passkeySignup,
+        login: passkeyLogin,
+        continueSignup: passkeyContinueSignup,
+      }) as unknown as PasskeyApiClient,
+    [passkeySignup, passkeyLogin, passkeyContinueSignup]
   );
 
   const contextValue = useMemo<Auth0ContextInterface<TUser>>(() => {
