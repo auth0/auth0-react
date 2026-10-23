@@ -1575,20 +1575,17 @@ Your database connection can ask new users to verify their email or phone number
 import { useState } from 'react';
 import {
   useAuth0,
+  PasskeyError,
   PasskeyVerificationRequiredError,
   PasskeyGetTokenError
 } from '@auth0/auth0-react';
 
-const MAX_ATTEMPTS = 3;
-
 function PasskeySignup() {
   const { passkey } = useAuth0();
   const [required, setRequired] = useState([]); // e.g. ['email']
-  const [attempts, setAttempts] = useState(0);
   const [error, setError] = useState();
 
   const startSignup = async (email) => {
-    setAttempts(0);
     setError(undefined);
     try {
       await passkey.signup({ email });
@@ -1603,17 +1600,25 @@ function PasskeySignup() {
 
   // codes is e.g. { email: '123456' } or { email: '123456', phone: '654321' }
   const submitCodes = async (codes) => {
+    setError(undefined);
     try {
       await passkey.continueSignup(codes);
       // isAuthenticated and user are now updated automatically
     } catch (e) {
-      const attempt = attempts + 1;
-      setAttempts(attempt);
-      if (e instanceof PasskeyGetTokenError && e.isRetryable && attempt < MAX_ATTEMPTS) {
-        setRequired(e.verificationRequired); // ask again for these
+      if (e instanceof PasskeyGetTokenError && e.isRetryable) {
+        // Wrong code and the session is still active: ask again for these
+        setRequired(e.verificationRequired);
+        setError(e);
+      } else if (
+        e instanceof PasskeyError &&
+        e.code === 'missing_verification_code'
+      ) {
+        // A code was missing: nothing was sent, so keep the same inputs
+        setError(e);
       } else {
+        // The session has ended: start the signup again
         setRequired([]);
-        setError(e); // start the signup again
+        setError(e);
       }
     }
   };
@@ -1634,9 +1639,16 @@ The first `continueSignup()` call shows the passkey prompt. Retries reuse the sa
 | `PasskeyGetTokenError` with `isRetryable: true` (wrong code, session still active) | Yes | Ask for new codes for `error.verificationRequired` and call `continueSignup()` again |
 | `PasskeyError` with code `missing_verification_code` (a code is missing or empty) | Yes | Call `continueSignup()` again with a code for each identifier. Nothing was sent, so the session is still active |
 | `MfaRequiredError` | No | Finish with MFA using `error.mfa_token`. See [Multi-Factor Authentication](#multi-factor-authentication-mfa) |
-| Any other error, for example an expired code or session | No | Start the signup again with `signup()` |
+| Any other error, for example an expired code or session, or a `PasskeyGetTokenError` with `isRetryable: false` | No | Start the signup again with `signup()` |
 
-Always cap retries in your app, like `MAX_ATTEMPTS` above.
+A retryable `PasskeyGetTokenError` gives you:
+
+- `code` — `'passkey_get_token_error'`. The server's error code is in `cause.error` (for example `'invalid_grant'`)
+- `isRetryable` — `true` only while the error response includes an auth session
+- `authSession` — the auth session to retry with. `continueSignup()` uses it for you
+- `verificationRequired` — the identifiers that still need a valid code
+
+The server decides how many attempts are allowed, so don't keep your own retry count. Retry for as long as `isRetryable` is `true`. Once the server ends the session, the error no longer has an `authSession`, `isRetryable` is `false`, and you need to call `signup()` again.
 
 #### Phone delivery method
 
@@ -1652,7 +1664,12 @@ await passkey.signup({
 ### Complete Passkey Flow Example
 
 ```jsx
-import { useAuth0, PasskeyError, PasskeyRegisterError } from '@auth0/auth0-react';
+import {
+  useAuth0,
+  PasskeyError,
+  PasskeyRegisterError,
+  PasskeyVerificationRequiredError
+} from '@auth0/auth0-react';
 
 function PasskeyAuth() {
   const { passkey, isAuthenticated, user } = useAuth0();
@@ -1662,7 +1679,10 @@ function PasskeyAuth() {
       await passkey.signup({ email: 'user@example.com' });
       // isAuthenticated and user are now updated automatically
     } catch (error) {
-      if (error instanceof PasskeyRegisterError) {
+      if (error instanceof PasskeyVerificationRequiredError) {
+        // Collect OTP codes for error.verificationRequired, then call
+        // passkey.continueSignup(codes). See Identifier Verification above.
+      } else if (error instanceof PasskeyRegisterError) {
         console.error('Registration failed:', error.message);
       } else if (error instanceof PasskeyError) {
         console.error('Passkey error:', error.message);
