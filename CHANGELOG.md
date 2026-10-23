@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.29.0](https://github.com/auth0/auth0-react/tree/v2.29.0) (2026-10-23)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.28.2...v2.29.0)
+
+**Added**
+- feat: add passkey identifier verification with step-up pattern [\#1299](https://github.com/auth0/auth0-react/pull/1299) ([siddhikotak](https://github.com/siddhikotak))
+- docs(anonymous-sessions): handle session expiry error in getTokenSilently example [\#1274](https://github.com/auth0/auth0-react/pull/1274) ([yogeshchoudhary147](https://github.com/yogeshchoudhary147))
+
 ## [v2.28.2](https://github.com/auth0/auth0-react/tree/v2.28.2) (2026-10-02)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.28.1...v2.28.2)
 
