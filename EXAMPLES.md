@@ -1498,6 +1498,7 @@ Passkeys provide password-less authentication using platform biometrics (Face ID
 - [Important: Use Refresh Tokens with Passkeys](#important-use-refresh-tokens-with-passkeys)
 - [Signup with Passkey](#signup-with-passkey)
 - [Login with Passkey](#login-with-passkey)
+- [Identifier Verification](#identifier-verification)
 - [Complete Passkey Flow Example](#complete-passkey-flow-example)
 - [Error Handling](#passkey-error-handling)
 
@@ -1564,10 +1565,106 @@ const tokens = await passkey.login();
 const tokens = await passkey.login({ realm, organization, scope, audience });
 ```
 
+### Identifier Verification
+
+Your database connection can ask new users to verify their email or phone number with a one-time code (OTP) during passkey signup. This is off by default and is turned on from the server side. When it's on, the server sends the codes and gives tokens only after they are correct. The user sees the passkey prompt only once, even if they type a wrong code.
+
+`signup()` stops **before** the passkey prompt and throws `PasskeyVerificationRequiredError`. Its `verificationRequired` property lists the identifiers to verify (for example `['email']`). Ask the user for the codes, then call `continueSignup()` with them:
+
+```jsx
+import { useState } from 'react';
+import {
+  useAuth0,
+  PasskeyError,
+  PasskeyVerificationRequiredError,
+  PasskeyGetTokenError
+} from '@auth0/auth0-react';
+
+function PasskeySignup() {
+  const { passkey } = useAuth0();
+  const [required, setRequired] = useState([]); // e.g. ['email']
+  const [error, setError] = useState();
+
+  const startSignup = async (email) => {
+    setError(undefined);
+    try {
+      await passkey.signup({ email });
+    } catch (e) {
+      if (e instanceof PasskeyVerificationRequiredError) {
+        setRequired(e.verificationRequired); // show the OTP inputs
+      } else {
+        setError(e);
+      }
+    }
+  };
+
+  // codes is e.g. { email: '123456' } or { email: '123456', phone: '654321' }
+  const submitCodes = async (codes) => {
+    setError(undefined);
+    try {
+      await passkey.continueSignup(codes);
+      // isAuthenticated and user are now updated automatically
+    } catch (e) {
+      if (e instanceof PasskeyGetTokenError && e.isRetryable) {
+        // Wrong code and the session is still active: ask again for these
+        setRequired(e.verificationRequired);
+        setError(e);
+      } else if (
+        e instanceof PasskeyError &&
+        e.code === 'missing_verification_code'
+      ) {
+        // A code was missing: nothing was sent, so keep the same inputs
+        setError(e);
+      } else {
+        // The session has ended: start the signup again
+        setRequired([]);
+        setError(e);
+      }
+    }
+  };
+
+  // ...render an email form, then one OTP input per entry in `required`
+}
+```
+
+The first `continueSignup()` call shows the passkey prompt. Retries reuse the same passkey.
+
+> [!NOTE]
+> The pending signup is kept in memory only. If the page reloads, `continueSignup()` throws a `PasskeyError` with code `no_pending_signup`. Call `signup()` again to start over.
+
+#### Which errors can be retried
+
+| Error | Retry? | What to do |
+|---|---|---|
+| `PasskeyGetTokenError` with `isRetryable: true` (wrong code, session still active) | Yes | The error has `code`, `authSession` and `verificationRequired`. Ask for new codes for `error.verificationRequired` and call `continueSignup()` again |
+| `PasskeyError` with code `missing_verification_code` (a code is missing or empty) | Yes | Call `continueSignup()` again with a code for each identifier. Nothing was sent, so the session is still active |
+| `MfaRequiredError` | No | Finish with MFA using `error.mfa_token`. See [Multi-Factor Authentication](#multi-factor-authentication-mfa) |
+| Any other error, for example an expired code or session, or a `PasskeyGetTokenError` with `isRetryable: false` | No | Start the signup again with `signup()` |
+
+
+
+The server decides how many attempts are allowed, so don't keep your own retry count. Retry for as long as `isRetryable` is `true`. Once the server ends the session, the error no longer has an `authSession`, `isRetryable` is `false`, and you need to call `signup()` again.
+
+#### Phone delivery method
+
+For phone verification, pass `deliveryMethod: 'text'` (SMS) or `'voice'` to `signup()` to choose how the code is sent:
+
+```jsx
+await passkey.signup({
+  phoneNumber: '+14155550100',
+  deliveryMethod: 'voice'
+});
+```
+
 ### Complete Passkey Flow Example
 
 ```jsx
-import { useAuth0, PasskeyError, PasskeyRegisterError } from '@auth0/auth0-react';
+import {
+  useAuth0,
+  PasskeyError,
+  PasskeyRegisterError,
+  PasskeyVerificationRequiredError
+} from '@auth0/auth0-react';
 
 function PasskeyAuth() {
   const { passkey, isAuthenticated, user } = useAuth0();
@@ -1577,7 +1674,10 @@ function PasskeyAuth() {
       await passkey.signup({ email: 'user@example.com' });
       // isAuthenticated and user are now updated automatically
     } catch (error) {
-      if (error instanceof PasskeyRegisterError) {
+      if (error instanceof PasskeyVerificationRequiredError) {
+        // Collect OTP codes for error.verificationRequired, then call
+        // passkey.continueSignup(codes). See Identifier Verification above.
+      } else if (error instanceof PasskeyRegisterError) {
         console.error('Registration failed:', error.message);
       } else if (error instanceof PasskeyError) {
         console.error('Passkey error:', error.message);
@@ -1629,6 +1729,8 @@ try {
 
 > [!TIP]
 > Both `signup()` and `login()` throw an error if the user cancels the biometric prompt. Wrap calls in `try/catch` to handle cancellation, network failures, or misconfigured connections.
+
+When identifier verification is on, `signup()` throws `PasskeyVerificationRequiredError` instead of showing the passkey prompt, and a wrong OTP code makes `continueSignup()` throw a `PasskeyGetTokenError` with `isRetryable: true`. Collect new codes for `error.verificationRequired` and call `continueSignup()` again (the same passkey is reused). See [Identifier Verification](#identifier-verification). Other token exchange failures throw a `GenericError` as before (or an `MfaRequiredError` for `mfa_required`).
 
 ## MyAccount API
 

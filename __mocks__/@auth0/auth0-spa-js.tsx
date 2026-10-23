@@ -30,6 +30,7 @@ const mfaGetEnrollmentFactors = jest.fn(() => Promise.resolve([]));
 
 const passkeySignup = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
 const passkeyLogin = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
+const passkeyContinueSignup = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
 
 const myAccountGetFactors = jest.fn(() => Promise.resolve([]));
 const myAccountGetAuthenticationMethods = jest.fn(() => Promise.resolve([]));
@@ -80,6 +81,7 @@ export const Auth0Client = jest.fn(() => {
     passkey: {
       signup: passkeySignup,
       login: passkeyLogin,
+      continueSignup: passkeyContinueSignup,
     },
     myAccount: {
       getFactors: myAccountGetFactors,
@@ -117,6 +119,7 @@ export const PasskeyError = actual.PasskeyError;
 export const PasskeyRegisterError = actual.PasskeyRegisterError;
 export const PasskeyChallengeError = actual.PasskeyChallengeError;
 export const PasskeyGetTokenError = actual.PasskeyGetTokenError;
+export const PasskeyVerificationRequiredError = actual.PasskeyVerificationRequiredError;
 export const MyAccountApiError = actual.MyAccountApiError;
 export const AnonymousSessionError = actual.AnonymousSessionError;
 
