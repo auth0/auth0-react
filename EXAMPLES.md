@@ -1636,17 +1636,12 @@ The first `continueSignup()` call shows the passkey prompt. Retries reuse the sa
 
 | Error | Retry? | What to do |
 |---|---|---|
-| `PasskeyGetTokenError` with `isRetryable: true` (wrong code, session still active) | Yes | Ask for new codes for `error.verificationRequired` and call `continueSignup()` again |
+| `PasskeyGetTokenError` with `isRetryable: true` (wrong code, session still active) | Yes | The error has `code`, `authSession` and `verificationRequired`. Ask for new codes for `error.verificationRequired` and call `continueSignup()` again |
 | `PasskeyError` with code `missing_verification_code` (a code is missing or empty) | Yes | Call `continueSignup()` again with a code for each identifier. Nothing was sent, so the session is still active |
 | `MfaRequiredError` | No | Finish with MFA using `error.mfa_token`. See [Multi-Factor Authentication](#multi-factor-authentication-mfa) |
 | Any other error, for example an expired code or session, or a `PasskeyGetTokenError` with `isRetryable: false` | No | Start the signup again with `signup()` |
 
-A retryable `PasskeyGetTokenError` gives you:
 
-- `code` — `'passkey_get_token_error'`. The server's error code is in `cause.error` (for example `'invalid_grant'`)
-- `isRetryable` — `true` only while the error response includes an auth session
-- `authSession` — the auth session to retry with. `continueSignup()` uses it for you
-- `verificationRequired` — the identifiers that still need a valid code
 
 The server decides how many attempts are allowed, so don't keep your own retry count. Retry for as long as `isRetryable` is `true`. Once the server ends the session, the error no longer has an `authSession`, `isRetryable` is `false`, and you need to call `signup()` again.
 
