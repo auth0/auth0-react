@@ -1759,7 +1759,7 @@ function GranularPasskeySignup() {
 }
 ```
 
-In TypeScript, `error.authSession` and `error.verificationRequired` are typed as optional. Both are set whenever `isRetryable` is `true`, so you can use `error.authSession!` inside the retry branch.
+In TypeScript, cast the `navigator.credentials.create()` result to `PublicKeyCredential | null`, as described in [Granular Passkey APIs](#granular-passkey-apis). `error.authSession` and `error.verificationRequired` are typed as optional. Both are set whenever `isRetryable` is `true`, so you can use `error.authSession!` inside the retry branch.
 
 #### Which errors can be retried
 
