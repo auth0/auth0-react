@@ -481,9 +481,13 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * - `login(options?)` — authenticate an existing user via passkey assertion
    * - `continueSignup(verification)` — finish a signup that threw
    *   `PasskeyVerificationRequiredError`, passing the OTP codes the user entered
+   * - `getSignupChallenge(options)` / `getLoginChallenge(options?)` — request
+   *   a challenge so you can run the WebAuthn ceremony yourself
+   * - `getTokenWithPasskey(options)` — exchange the credential from that
+   *   ceremony for tokens
    *
-   * These methods exchange the WebAuthn credential for Auth0 tokens and update
-   * `isAuthenticated` / `user` in the same way as `loginWithPopup`.
+   * The methods that return tokens update `isAuthenticated` / `user` in the
+   * same way as `loginWithPopup`.
    *
    * @category Sub-clients
    */
@@ -597,6 +601,9 @@ export const initialContext = {
     signup: stub,
     login: stub,
     continueSignup: stub,
+    getSignupChallenge: stub,
+    getLoginChallenge: stub,
+    getTokenWithPasskey: stub,
   } as unknown as PasskeyApiClient,
   myAccount: {
     getFactors: stub,

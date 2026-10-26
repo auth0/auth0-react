@@ -560,14 +560,52 @@ const Auth0Provider = <TUser extends User = User>(opts: Auth0ProviderOptions<TUs
     [client]
   );
 
+  const passkeyGetSignupChallenge = useCallback<
+    PasskeyApiClient['getSignupChallenge']
+  >((options) => client.passkey.getSignupChallenge(options), [client]);
+
+  const passkeyGetLoginChallenge = useCallback<
+    PasskeyApiClient['getLoginChallenge']
+  >((options) => client.passkey.getLoginChallenge(options), [client]);
+
+  const passkeyGetTokenWithPasskey = useCallback(
+    async (
+      options: Parameters<PasskeyApiClient['getTokenWithPasskey']>[0]
+    ): Promise<TokenEndpointResponse> => {
+      let tokenResponse;
+      try {
+        tokenResponse = await client.passkey.getTokenWithPasskey(options);
+      } catch (error) {
+        throw tokenError(error);
+      } finally {
+        dispatch({
+          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          user: await client.getUser(),
+        });
+      }
+      return tokenResponse;
+    },
+    [client]
+  );
+
   const passkey = useMemo(
     () =>
       ({
         signup: passkeySignup,
         login: passkeyLogin,
         continueSignup: passkeyContinueSignup,
+        getSignupChallenge: passkeyGetSignupChallenge,
+        getLoginChallenge: passkeyGetLoginChallenge,
+        getTokenWithPasskey: passkeyGetTokenWithPasskey,
       }) as unknown as PasskeyApiClient,
-    [passkeySignup, passkeyLogin, passkeyContinueSignup]
+    [
+      passkeySignup,
+      passkeyLogin,
+      passkeyContinueSignup,
+      passkeyGetSignupChallenge,
+      passkeyGetLoginChallenge,
+      passkeyGetTokenWithPasskey,
+    ]
   );
 
   const contextValue = useMemo<Auth0ContextInterface<TUser>>(() => {

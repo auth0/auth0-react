@@ -627,4 +627,99 @@ describe('Passkey API', () => {
       ).rejects.toThrow('User cancelled');
     });
   });
+
+  describe('passkey granular flow', () => {
+    const credential = {} as PublicKeyCredential;
+
+    it('should forward getSignupChallenge to the underlying client', async () => {
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      const challenge = await result.current.passkey.getSignupChallenge({
+        email: 'user@example.com',
+      });
+
+      expect(clientMock.passkey.getSignupChallenge).toHaveBeenCalledWith({
+        email: 'user@example.com',
+      });
+      expect(challenge.authSession).toBe('signup-auth-session');
+    });
+
+    it('should forward getLoginChallenge to the underlying client', async () => {
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      const challenge = await result.current.passkey.getLoginChallenge({
+        realm: 'Username-Password-Authentication',
+      });
+
+      expect(clientMock.passkey.getLoginChallenge).toHaveBeenCalledWith({
+        realm: 'Username-Password-Authentication',
+      });
+      expect(challenge.authSession).toBe('login-auth-session');
+    });
+
+    it('should update isAuthenticated and user after getTokenWithPasskey', async () => {
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+      expect(result.current.isAuthenticated).toBe(false);
+
+      clientMock.getUser.mockResolvedValue(user);
+      let tokenResponse: TokenEndpointResponse | undefined;
+      await act(async () => {
+        tokenResponse = await result.current.passkey.getTokenWithPasskey({
+          authSession: 'login-auth-session',
+          credential,
+        });
+      });
+
+      expect(clientMock.passkey.getTokenWithPasskey).toHaveBeenCalledWith({
+        authSession: 'login-auth-session',
+        credential,
+      });
+      expect(tokenResponse?.access_token).toBe('passkey-token');
+      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.user).toEqual(user);
+    });
+
+    it('should rethrow errors from getTokenWithPasskey', async () => {
+      clientMock.passkey.getTokenWithPasskey.mockRejectedValueOnce(
+        new PasskeyError('passkey_invalid_credential', 'Invalid credential')
+      );
+
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      await expect(
+        act(async () => {
+          await result.current.passkey.getTokenWithPasskey({
+            authSession: 'login-auth-session',
+            credential,
+          });
+        })
+      ).rejects.toThrow('Invalid credential');
+    });
+
+    it('should throw when the granular methods are used outside Auth0Provider', () => {
+      const { result } = renderHook(() => useAuth0());
+
+      expect(result.current.passkey.getSignupChallenge).toThrow(
+        'You forgot to wrap your component in <Auth0Provider>.'
+      );
+      expect(result.current.passkey.getLoginChallenge).toThrow(
+        'You forgot to wrap your component in <Auth0Provider>.'
+      );
+      expect(result.current.passkey.getTokenWithPasskey).toThrow(
+        'You forgot to wrap your component in <Auth0Provider>.'
+      );
+    });
+  });
 });

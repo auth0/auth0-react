@@ -31,6 +31,9 @@ const mfaGetEnrollmentFactors = jest.fn(() => Promise.resolve([]));
 const passkeySignup = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
 const passkeyLogin = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
 const passkeyContinueSignup = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
+const passkeyGetSignupChallenge = jest.fn(() => Promise.resolve({ authSession: 'signup-auth-session', publicKey: {} }));
+const passkeyGetLoginChallenge = jest.fn(() => Promise.resolve({ authSession: 'login-auth-session', publicKey: {} }));
+const passkeyGetTokenWithPasskey = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
 
 const myAccountGetFactors = jest.fn(() => Promise.resolve([]));
 const myAccountGetAuthenticationMethods = jest.fn(() => Promise.resolve([]));
@@ -82,6 +85,9 @@ export const Auth0Client = jest.fn(() => {
       signup: passkeySignup,
       login: passkeyLogin,
       continueSignup: passkeyContinueSignup,
+      getSignupChallenge: passkeyGetSignupChallenge,
+      getLoginChallenge: passkeyGetLoginChallenge,
+      getTokenWithPasskey: passkeyGetTokenWithPasskey,
     },
     myAccount: {
       getFactors: myAccountGetFactors,
