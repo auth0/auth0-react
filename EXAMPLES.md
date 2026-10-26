@@ -1700,7 +1700,11 @@ The first `continueSignup()` call shows the passkey prompt. Retries reuse the sa
 Check `verificationRequired` on the challenge and collect the codes **before** calling `navigator.credentials.create()`. Pass them as `verification` to `getTokenWithPasskey()`. On a retry, send the **same** `credential` with `error.authSession` and new codes for `error.verificationRequired`:
 
 ```jsx
-import { useAuth0, PasskeyGetTokenError } from '@auth0/auth0-react';
+import {
+  useAuth0,
+  PasskeyError,
+  PasskeyGetTokenError
+} from '@auth0/auth0-react';
 
 function GranularPasskeySignup() {
   const { passkey } = useAuth0();
@@ -1709,8 +1713,9 @@ function GranularPasskeySignup() {
     const challenge = await passkey.getSignupChallenge({ email });
 
     // Collect codes first, so the passkey prompt shows only once
-    let codes = challenge.verificationRequired
-      ? await askUserForCodes(challenge.verificationRequired) // your UI, e.g. { email: '123456' }
+    let required = challenge.verificationRequired;
+    let codes = required
+      ? await askUserForCodes(required) // your UI, e.g. { email: '123456' }
       : undefined;
 
     const credential = await navigator.credentials.create({
@@ -1732,11 +1737,20 @@ function GranularPasskeySignup() {
           verification: codes
         });
       } catch (error) {
-        if (!(error instanceof PasskeyGetTokenError && error.isRetryable)) {
+        if (error instanceof PasskeyGetTokenError && error.isRetryable) {
+          // Wrong code: use the new session and ask for these identifiers
+          authSession = error.authSession;
+          required = error.verificationRequired;
+        } else if (
+          !(
+            error instanceof PasskeyError &&
+            error.code === 'missing_verification_code'
+          )
+        ) {
           throw error;
         }
-        authSession = error.authSession;
-        codes = await askUserForCodes(error.verificationRequired);
+        // An empty code is never sent, so the same session is still active
+        codes = await askUserForCodes(required);
       }
     }
   };
@@ -1752,7 +1766,7 @@ In TypeScript, `error.authSession` and `error.verificationRequired` are typed as
 | Error | Retry? | What to do |
 |---|---|---|
 | `PasskeyGetTokenError` with `isRetryable: true` (wrong code, session still active) | Yes | The error has `code`, `authSession` and `verificationRequired`. Ask for new codes for `error.verificationRequired` and call `continueSignup()` again. With the granular APIs, call `getTokenWithPasskey()` again with `error.authSession` and the same `credential` |
-| `PasskeyError` with code `missing_verification_code` (a code is missing or empty) | Yes | Call the same method again with a code for each identifier. Nothing was sent, so the session is still active |
+| `PasskeyError` with code `missing_verification_code` | Yes | Nothing was sent, so the session is still active. Call the same method again with a code for each identifier. `continueSignup()` throws this when a code is missing or empty. `getTokenWithPasskey()` throws it only for an empty code. If you leave out a required identifier, the request is sent and the server's error is handled as in the other rows |
 | `MfaRequiredError` | No | Finish with MFA using `error.mfa_token`. See [Multi-Factor Authentication](#multi-factor-authentication-mfa) |
 | Any other error, for example an expired code or session, or a `PasskeyGetTokenError` with `isRetryable: false` | No | Start the signup again with `signup()` |
 
