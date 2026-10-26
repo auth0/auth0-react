@@ -1494,10 +1494,13 @@ Passkeys provide password-less authentication using platform biometrics (Face ID
 - **Signup**: Register a new user with a passkey
 - **Login**: Authenticate an existing user with a passkey
 
+For full control over the WebAuthn ceremony, you can also use the [granular passkey APIs](#granular-passkey-apis).
+
 - [Setup](#setup)
 - [Important: Use Refresh Tokens with Passkeys](#important-use-refresh-tokens-with-passkeys)
 - [Signup with Passkey](#signup-with-passkey)
 - [Login with Passkey](#login-with-passkey)
+- [Granular Passkey APIs](#granular-passkey-apis)
 - [Identifier Verification](#identifier-verification)
 - [Complete Passkey Flow Example](#complete-passkey-flow-example)
 - [Error Handling](#passkey-error-handling)
@@ -1565,9 +1568,69 @@ const tokens = await passkey.login();
 const tokens = await passkey.login({ realm, organization, scope, audience });
 ```
 
+### Granular Passkey APIs
+
+If you need control over the WebAuthn ceremony (for example, to show your own UI between steps), use the granular APIs. Get a challenge, run `navigator.credentials.create()` or `navigator.credentials.get()` yourself, then exchange the credential for tokens with `getTokenWithPasskey()`.
+
+```jsx
+import { useAuth0 } from '@auth0/auth0-react';
+
+function GranularPasskey() {
+  const { passkey } = useAuth0();
+
+  const granularSignup = async (email) => {
+    const challenge = await passkey.getSignupChallenge({ email });
+
+    const credential = await navigator.credentials.create({
+      publicKey: challenge.publicKey
+    });
+
+    if (!credential) {
+      throw new Error('Credential creation cancelled');
+    }
+
+    await passkey.getTokenWithPasskey({
+      authSession: challenge.authSession,
+      credential
+    });
+    // isAuthenticated and user are now updated automatically
+  };
+
+  const granularLogin = async () => {
+    const challenge = await passkey.getLoginChallenge();
+
+    const credential = await navigator.credentials.get({
+      publicKey: challenge.publicKey
+    });
+
+    if (!credential) {
+      throw new Error('Credential request cancelled');
+    }
+
+    await passkey.getTokenWithPasskey({
+      authSession: challenge.authSession,
+      credential
+    });
+  };
+
+  // ...
+}
+```
+
+`getSignupChallenge()` takes the same identifier and context options as `signup()`, and `getLoginChallenge()` the same as `login()`. Pass `realm`, `organization`, `scope` and `audience` to `getTokenWithPasskey()`.
+
+> [!NOTE]
+> `getTokenWithPasskey()` updates `isAuthenticated` and `user` just like `signup()` and `login()`. `getSignupChallenge()` and `getLoginChallenge()` do not change the auth state.
+
+In TypeScript, `navigator.credentials.create()` and `navigator.credentials.get()` return `Credential | null`. Cast the result to `PublicKeyCredential` before passing it to `getTokenWithPasskey()`. The challenge and options types (`PasskeySignupChallenge`, `PasskeyLoginChallenge`, `PasskeySignupChallengeOptions`, `PasskeyLoginChallengeOptions`, `PasskeyGetTokenOptions`) are exported from `@auth0/auth0-react`.
+
 ### Identifier Verification
 
-Your database connection can ask new users to verify their email or phone number with a one-time code (OTP) during passkey signup. This is off by default and is turned on from the server side. When it's on, the server sends the codes and gives tokens only after they are correct. The user sees the passkey prompt only once, even if they type a wrong code.
+Your database connection can ask new users to verify their email or phone number with a one-time code (OTP) during passkey signup. This is off by default and is turned on from the server side. When it's on, the server sends the codes and gives tokens only after they are correct.
+
+The SDK supports this in both signup flows. The codes are collected **before** the passkey prompt, and the user sees the passkey prompt only once, even if they type a wrong code.
+
+#### With `signup()`
 
 `signup()` stops **before** the passkey prompt and throws `PasskeyVerificationRequiredError`. Its `verificationRequired` property lists the identifiers to verify (for example `['email']`). Ask the user for the codes, then call `continueSignup()` with them:
 
@@ -1632,12 +1695,64 @@ The first `continueSignup()` call shows the passkey prompt. Retries reuse the sa
 > [!NOTE]
 > The pending signup is kept in memory only. If the page reloads, `continueSignup()` throws a `PasskeyError` with code `no_pending_signup`. Call `signup()` again to start over.
 
+#### With the granular APIs
+
+Check `verificationRequired` on the challenge and collect the codes **before** calling `navigator.credentials.create()`. Pass them as `verification` to `getTokenWithPasskey()`. On a retry, send the **same** `credential` with `error.authSession` and new codes for `error.verificationRequired`:
+
+```jsx
+import { useAuth0, PasskeyGetTokenError } from '@auth0/auth0-react';
+
+function GranularPasskeySignup() {
+  const { passkey } = useAuth0();
+
+  const granularSignupWithVerification = async (email) => {
+    const challenge = await passkey.getSignupChallenge({ email });
+
+    // Collect codes first, so the passkey prompt shows only once
+    let codes = challenge.verificationRequired
+      ? await askUserForCodes(challenge.verificationRequired) // your UI, e.g. { email: '123456' }
+      : undefined;
+
+    const credential = await navigator.credentials.create({
+      publicKey: challenge.publicKey
+    });
+
+    if (!credential) {
+      throw new Error('Credential creation cancelled');
+    }
+
+    let authSession = challenge.authSession;
+    // The server limits the attempts. Retry only while the error is retryable
+    for (;;) {
+      try {
+        // On success, isAuthenticated and user are updated automatically
+        return await passkey.getTokenWithPasskey({
+          authSession,
+          credential, // same credential on every retry
+          verification: codes
+        });
+      } catch (error) {
+        if (!(error instanceof PasskeyGetTokenError && error.isRetryable)) {
+          throw error;
+        }
+        authSession = error.authSession;
+        codes = await askUserForCodes(error.verificationRequired);
+      }
+    }
+  };
+
+  // ...
+}
+```
+
+In TypeScript, `error.authSession` and `error.verificationRequired` are typed as optional. Both are set whenever `isRetryable` is `true`, so you can use `error.authSession!` inside the retry branch.
+
 #### Which errors can be retried
 
 | Error | Retry? | What to do |
 |---|---|---|
-| `PasskeyGetTokenError` with `isRetryable: true` (wrong code, session still active) | Yes | The error has `code`, `authSession` and `verificationRequired`. Ask for new codes for `error.verificationRequired` and call `continueSignup()` again |
-| `PasskeyError` with code `missing_verification_code` (a code is missing or empty) | Yes | Call `continueSignup()` again with a code for each identifier. Nothing was sent, so the session is still active |
+| `PasskeyGetTokenError` with `isRetryable: true` (wrong code, session still active) | Yes | The error has `code`, `authSession` and `verificationRequired`. Ask for new codes for `error.verificationRequired` and call `continueSignup()` again. With the granular APIs, call `getTokenWithPasskey()` again with `error.authSession` and the same `credential` |
+| `PasskeyError` with code `missing_verification_code` (a code is missing or empty) | Yes | Call the same method again with a code for each identifier. Nothing was sent, so the session is still active |
 | `MfaRequiredError` | No | Finish with MFA using `error.mfa_token`. See [Multi-Factor Authentication](#multi-factor-authentication-mfa) |
 | Any other error, for example an expired code or session, or a `PasskeyGetTokenError` with `isRetryable: false` | No | Start the signup again with `signup()` |
 
@@ -1647,7 +1762,7 @@ The server decides how many attempts are allowed, so don't keep your own retry c
 
 #### Phone delivery method
 
-For phone verification, pass `deliveryMethod: 'text'` (SMS) or `'voice'` to `signup()` to choose how the code is sent:
+For phone verification, pass `deliveryMethod: 'text'` (SMS) or `'voice'` to `signup()` or `getSignupChallenge()` to choose how the code is sent:
 
 ```jsx
 await passkey.signup({
@@ -1728,9 +1843,9 @@ try {
 ```
 
 > [!TIP]
-> Both `signup()` and `login()` throw an error if the user cancels the biometric prompt. Wrap calls in `try/catch` to handle cancellation, network failures, or misconfigured connections.
+> Both `signup()` and `login()` throw an error if the user cancels the biometric prompt. Wrap calls in `try/catch` to handle cancellation, network failures, or misconfigured connections. With the granular APIs, the browser's `navigator.credentials` call throws on cancellation instead (usually a `NotAllowedError` `DOMException`).
 
-When identifier verification is on, `signup()` throws `PasskeyVerificationRequiredError` instead of showing the passkey prompt, and a wrong OTP code makes `continueSignup()` throw a `PasskeyGetTokenError` with `isRetryable: true`. Collect new codes for `error.verificationRequired` and call `continueSignup()` again (the same passkey is reused). See [Identifier Verification](#identifier-verification). Other token exchange failures throw a `GenericError` as before (or an `MfaRequiredError` for `mfa_required`).
+When identifier verification is on, `signup()` throws `PasskeyVerificationRequiredError` instead of showing the passkey prompt, and a wrong OTP code makes `continueSignup()` or `getTokenWithPasskey()` throw a `PasskeyGetTokenError` with `isRetryable: true`. Collect new codes for `error.verificationRequired` and call `continueSignup()` again (the same passkey is reused), or call `getTokenWithPasskey()` again with `error.authSession` and the same `credential`. See [Identifier Verification](#identifier-verification). Other token exchange failures throw a `GenericError` as before (or an `MfaRequiredError` for `mfa_required`).
 
 ## MyAccount API
 
