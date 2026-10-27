@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.29.0](https://github.com/auth0/auth0-react/tree/v2.29.0) (2026-10-27)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.28.2...v2.29.0)
+
+**Added**
+- feat(passkey): update documentation for passkeys with granular APIs [\#1306](https://github.com/auth0/auth0-react/pull/1306) ([siddhikotak](https://github.com/siddhikotak))
+- fix(passkey): expose granular passkey methods on useAuth0().passkey [\#1303](https://github.com/auth0/auth0-react/pull/1303) ([RaphaelFakhri](https://github.com/RaphaelFakhri))
+- feat: add passkey identifier verification with step-up pattern [\#1299](https://github.com/auth0/auth0-react/pull/1299) ([siddhikotak](https://github.com/siddhikotak))
+
 ## [v2.28.2](https://github.com/auth0/auth0-react/tree/v2.28.2) (2026-10-02)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.28.1...v2.28.2)
 
