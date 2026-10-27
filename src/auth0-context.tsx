@@ -489,6 +489,13 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * The methods that return tokens update `isAuthenticated` / `user` in the
    * same way as `loginWithPopup`.
    *
+   * With the granular APIs, if the signup challenge has
+   * `verificationRequired`, collect the OTP codes before the WebAuthn
+   * ceremony and pass them as `verification` to `getTokenWithPasskey()`. A
+   * wrong code throws a `PasskeyGetTokenError` with `isRetryable: true`; call
+   * `getTokenWithPasskey()` again with `error.authSession`, the same
+   * `credential`, and new codes.
+   *
    * @category Sub-clients
    */
   passkey: PasskeyApiClient;

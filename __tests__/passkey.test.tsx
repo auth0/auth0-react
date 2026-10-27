@@ -721,5 +721,99 @@ describe('Passkey API', () => {
         'You forgot to wrap your component in <Auth0Provider>.'
       );
     });
+
+    it('should not change auth state when requesting a challenge', async () => {
+      clientMock.passkey.getSignupChallenge.mockResolvedValueOnce({
+        authSession: 'signup-auth-session',
+        publicKey: {} as PublicKeyCredentialCreationOptions,
+        verificationRequired: ['email'],
+      });
+
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      clientMock.getUser.mockResolvedValue(user);
+      let challenge;
+      await act(async () => {
+        challenge = await result.current.passkey.getSignupChallenge({
+          email: 'user@example.com',
+        });
+      });
+
+      expect(challenge).toMatchObject({ verificationRequired: ['email'] });
+      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.user).toBeUndefined();
+    });
+
+    it('should forward verification codes to getTokenWithPasskey', async () => {
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      await act(async () => {
+        await result.current.passkey.getTokenWithPasskey({
+          authSession: 'signup-auth-session',
+          credential,
+          verification: { email: '123456', phone: '654321' },
+        });
+      });
+
+      expect(clientMock.passkey.getTokenWithPasskey).toHaveBeenCalledWith({
+        authSession: 'signup-auth-session',
+        credential,
+        verification: { email: '123456', phone: '654321' },
+      });
+    });
+
+    it('should rethrow a retryable PasskeyGetTokenError unchanged so the same credential can be retried', async () => {
+      clientMock.passkey.getTokenWithPasskey.mockRejectedValueOnce(
+        retryableError(['email'])
+      );
+
+      const wrapper = createWrapper();
+      const { result } = renderHook(() => useAuth0(), { wrapper });
+
+      await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+      let error: unknown;
+      await act(async () => {
+        try {
+          await result.current.passkey.getTokenWithPasskey({
+            authSession: 'signup-auth-session',
+            credential,
+            verification: { email: '000000' },
+          });
+        } catch (e) {
+          error = e;
+        }
+      });
+
+      expect(error).toBeInstanceOf(PasskeyGetTokenError);
+      const tokenError = error as PasskeyGetTokenError;
+      expect(tokenError.isRetryable).toBe(true);
+      expect(tokenError.authSession).toBe('auth-session-a');
+      expect(tokenError.verificationRequired).toEqual(['email']);
+      expect(result.current.isAuthenticated).toBe(false);
+
+      clientMock.getUser.mockResolvedValue(user);
+      await act(async () => {
+        await result.current.passkey.getTokenWithPasskey({
+          authSession: tokenError.authSession!,
+          credential,
+          verification: { email: '123456' },
+        });
+      });
+
+      expect(clientMock.passkey.getTokenWithPasskey).toHaveBeenLastCalledWith({
+        authSession: 'auth-session-a',
+        credential,
+        verification: { email: '123456' },
+      });
+      expect(result.current.isAuthenticated).toBe(true);
+      expect(result.current.user).toEqual(user);
+    });
   });
 });

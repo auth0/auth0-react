@@ -114,6 +114,11 @@ export type {
   PasskeyApiClient,
   PasskeySignupOptions,
   PasskeyLoginOptions,
+  PasskeySignupChallengeOptions,
+  PasskeyLoginChallengeOptions,
+  PasskeySignupChallenge,
+  PasskeyLoginChallenge,
+  PasskeyGetTokenOptions,
   // MyAccount Types
   MyAccountApiClient,
   AuthenticationMethod,
