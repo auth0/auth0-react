@@ -1580,6 +1580,8 @@ function GranularPasskey() {
 
   const granularSignup = async (email) => {
     const challenge = await passkey.getSignupChallenge({ email });
+    // If challenge.verificationRequired is set, collect the OTP codes first.
+    // See Identifier Verification below
 
     const credential = await navigator.credentials.create({
       publicKey: challenge.publicKey
@@ -1766,13 +1768,13 @@ In TypeScript, cast the `navigator.credentials.create()` result to `PublicKeyCre
 | Error | Retry? | What to do |
 |---|---|---|
 | `PasskeyGetTokenError` with `isRetryable: true` (wrong code, session still active) | Yes | The error has `code`, `authSession` and `verificationRequired`. Ask for new codes for `error.verificationRequired` and call `continueSignup()` again. With the granular APIs, call `getTokenWithPasskey()` again with `error.authSession` and the same `credential` |
-| `PasskeyError` with code `missing_verification_code` | Yes | Nothing was sent, so the session is still active. Call the same method again with a code for each identifier. `continueSignup()` throws this when a code is missing or empty. `getTokenWithPasskey()` throws it only for an empty code. If you leave out a required identifier, the request is sent and the server's error is handled as in the other rows |
+| `PasskeyError` with code `missing_verification_code` | Yes | Nothing was sent, so the session is still active. Call the same method again with a code for each identifier. Always send a code for every identifier in `verificationRequired`: `continueSignup()` checks for missing and empty codes, but `getTokenWithPasskey()` only checks for empty ones. If you leave out an identifier, the call goes to the server and the user may have to start over |
 | `MfaRequiredError` | No | Finish with MFA using `error.mfa_token`. See [Multi-Factor Authentication](#multi-factor-authentication-mfa) |
-| Any other error, for example an expired code or session, or a `PasskeyGetTokenError` with `isRetryable: false` | No | Start the signup again with `signup()` |
+| Any other error, for example an expired code or session, or a `PasskeyGetTokenError` with `isRetryable: false` | No | Start the signup again with `signup()`, or with `getSignupChallenge()` for the granular flow |
 
 
 
-The server decides how many attempts are allowed, so don't keep your own retry count. Retry for as long as `isRetryable` is `true`. Once the server ends the session, the error no longer has an `authSession`, `isRetryable` is `false`, and you need to call `signup()` again.
+The server decides how many attempts are allowed, so don't keep your own retry count. Retry for as long as `isRetryable` is `true`. Once the server ends the session, the error no longer has an `authSession`, `isRetryable` is `false`, and you need to call `signup()` (or `getSignupChallenge()`) again.
 
 #### Phone delivery method
 
