@@ -1580,7 +1580,7 @@ function GranularPasskey() {
 
   const granularSignup = async (email) => {
     const challenge = await passkey.getSignupChallenge({ email });
-    // If challenge.verificationRequired is set, collect the OTP codes first.
+    // If challenge.verificationRequired is set, collect the OTP codes first and pass them as `verification` to getTokenWithPasskey().
     // See Identifier Verification below
 
     const credential = await navigator.credentials.create({
