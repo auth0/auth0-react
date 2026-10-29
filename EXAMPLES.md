@@ -1865,7 +1865,7 @@ When identifier verification is on, `signup()` throws `PasskeyVerificationRequir
 
 ## MyAccount API
 
-The MyAccount API lets you manage the current user's authentication methods, factors, and connected accounts directly from the SPA.
+The MyAccount API lets you manage the current user's profile, authentication methods, factors, and connected accounts directly from the SPA.
 
 > [!NOTE]
 > The MyAccount API requires refresh tokens and MRRT if your app is configured with a custom API audience. DPoP is supported but optional.
@@ -2067,6 +2067,79 @@ await myAccount.enrollmentVerify({
   auth_session: challenge.auth_session,
   new_password: 'newSecurePassword123!'
 });
+```
+
+### Profile
+
+Read and update the current user's profile. `getUserProfile()` needs the `read:me:profile` scope, and `updateUserProfile()` needs `update:me:profile`.
+
+> [!NOTE]
+> The profile endpoints must be enabled for your tenant. If they aren't, or the scopes weren't granted, both methods fail: with a `MyAccountApiError` with `status` `403`, or with a `MissingScopesError` if you use refresh tokens with MRRT.
+
+#### Get Profile
+
+```jsx
+const { myAccount } = useAuth0();
+
+const profile = await myAccount.getUserProfile();
+// profile.given_name, profile.email, ...
+```
+
+The response includes `profile_policy`, which describes each field. Use it to decide which fields the user can edit:
+
+```jsx
+for (const [pointer, policy] of Object.entries(profile.profile_policy ?? {})) {
+  const field = pointer.slice(1); // '/given_name' -> 'given_name'
+  const editable = policy.access === 'read_write';
+  // policy.reason — why the field is read-only, e.g. 'managed_by_identity_provider'
+}
+```
+
+#### Select Fields
+
+When you pass `fields`, `profile_policy` is only returned if you include it, and then only for the selected fields. Call `getUserProfile()` without `fields` to get the full policy.
+
+```jsx
+// Only these fields, without profile_policy
+const basic = await myAccount.getUserProfile({
+  fields: ['given_name', 'family_name', 'picture']
+});
+
+// These fields, with profile_policy for just these fields (for an edit form)
+const editable = await myAccount.getUserProfile({
+  fields: ['given_name', 'family_name', 'profile_policy']
+});
+
+// Everything except profile_policy
+const withoutPolicy = await myAccount.getUserProfile({
+  fields: ['profile_policy'],
+  includeFields: false
+});
+```
+
+#### Update Profile
+
+Only the fields you send are changed. The response is the full updated profile. You can update `given_name`, `family_name`, `name`, `nickname` and `picture`. `email`, `phone_number` and `username` can't be changed here, and `null` isn't accepted for any field.
+
+```jsx
+const updated = await myAccount.updateUserProfile({
+  given_name: 'Alice',
+  nickname: 'wonderland_alice'
+});
+```
+
+If a field is read-only for this user (for example, `given_name` for a social login user), the request fails with a `MyAccountApiError` and nothing is saved. `err.validation_errors` says which field was rejected:
+
+```jsx
+import { MyAccountApiError } from '@auth0/auth0-react';
+
+try {
+  await myAccount.updateUserProfile({ given_name: 'Alice' });
+} catch (err) {
+  if (err instanceof MyAccountApiError) {
+    err.validation_errors?.forEach(e => console.error(e.pointer, e.detail));
+  }
+}
 ```
 
 ### Error Handling

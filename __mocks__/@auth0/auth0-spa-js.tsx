@@ -35,6 +35,8 @@ const passkeyGetSignupChallenge = jest.fn(() => Promise.resolve({ authSession: '
 const passkeyGetLoginChallenge = jest.fn(() => Promise.resolve({ authSession: 'login-auth-session', publicKey: {} }));
 const passkeyGetTokenWithPasskey = jest.fn(() => Promise.resolve({ access_token: 'passkey-token', id_token: 'passkey-id-token' }));
 
+const myAccountGetUserProfile = jest.fn(() => Promise.resolve({ user_id: 'auth0|123', given_name: 'Alice', profile_policy: { '/given_name': { access: 'read_write', source: 'user' } } }));
+const myAccountUpdateUserProfile = jest.fn(() => Promise.resolve({ user_id: 'auth0|123', given_name: 'Alice', nickname: 'wonderland_alice' }));
 const myAccountGetFactors = jest.fn(() => Promise.resolve([]));
 const myAccountGetAuthenticationMethods = jest.fn(() => Promise.resolve([]));
 const myAccountGetAuthenticationMethod = jest.fn(() => Promise.resolve({ id: 'test-method-id' }));
@@ -90,6 +92,8 @@ export const Auth0Client = jest.fn(() => {
       getTokenWithPasskey: passkeyGetTokenWithPasskey,
     },
     myAccount: {
+      getUserProfile: myAccountGetUserProfile,
+      updateUserProfile: myAccountUpdateUserProfile,
       getFactors: myAccountGetFactors,
       getAuthenticationMethods: myAccountGetAuthenticationMethods,
       getAuthenticationMethod: myAccountGetAuthenticationMethod,

@@ -128,6 +128,10 @@ export type {
   EnrollmentChallengeOptions,
   EnrollmentChallengeResponse,
   EnrollmentVerifyOptions,
+  UserProfile,
+  ProfileFieldPolicy,
+  GetUserProfileOptions,
+  UpdateUserProfileRequest,
   // Anonymous Session Types
   AnonymousSessionApiClient,
   AnonymousGetTokenSilentlyOptions,
