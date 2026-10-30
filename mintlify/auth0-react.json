@@ -39,7 +39,7 @@
 					"fileName": "src/auth0-provider.tsx",
 					"line": 215,
 					"character": 6,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L215"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L215"
 				}
 			],
 			"signatures": [
@@ -109,7 +109,7 @@
 							"fileName": "src/auth0-provider.tsx",
 							"line": 215,
 							"character": 22,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L215"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L215"
 						}
 					],
 					"typeParameters": [
@@ -182,7 +182,7 @@
 					"fileName": "src/use-auth0.tsx",
 					"line": 26,
 					"character": 6,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-auth0.tsx#L26"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-auth0.tsx#L26"
 				}
 			],
 			"signatures": [
@@ -322,7 +322,7 @@
 							"fileName": "src/use-auth0.tsx",
 							"line": 26,
 							"character": 17,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-auth0.tsx#L26"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-auth0.tsx#L26"
 						}
 					],
 					"typeParameters": [
@@ -412,7 +412,7 @@
 					"fileName": "src/use-auth0-suspense.tsx",
 					"line": 47,
 					"character": 6,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-auth0-suspense.tsx#L47"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-auth0-suspense.tsx#L47"
 				}
 			],
 			"signatures": [
@@ -474,7 +474,7 @@
 							"fileName": "src/use-auth0-suspense.tsx",
 							"line": 47,
 							"character": 25,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-auth0-suspense.tsx#L47"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-auth0-suspense.tsx#L47"
 						}
 					],
 					"typeParameters": [
@@ -564,7 +564,7 @@
 					"fileName": "src/use-enterprise-connect.tsx",
 					"line": 50,
 					"character": 6,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-enterprise-connect.tsx#L50"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-enterprise-connect.tsx#L50"
 				}
 			],
 			"signatures": [
@@ -642,7 +642,7 @@
 							"fileName": "src/use-enterprise-connect.tsx",
 							"line": 50,
 							"character": 29,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-enterprise-connect.tsx#L50"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-enterprise-connect.tsx#L50"
 						}
 					],
 					"parameters": [
@@ -702,7 +702,7 @@
 					"fileName": "src/with-auth0.tsx",
 					"line": 33,
 					"character": 6,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-auth0.tsx#L33"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-auth0.tsx#L33"
 				}
 			],
 			"signatures": [
@@ -740,7 +740,7 @@
 							"fileName": "src/with-auth0.tsx",
 							"line": 33,
 							"character": 18,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-auth0.tsx#L33"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-auth0.tsx#L33"
 						}
 					],
 					"typeParameters": [
@@ -872,7 +872,7 @@
 					"fileName": "src/with-authentication-required.tsx",
 					"line": 107,
 					"character": 6,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-authentication-required.tsx#L107"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-authentication-required.tsx#L107"
 				}
 			],
 			"signatures": [
@@ -910,7 +910,7 @@
 							"fileName": "src/with-authentication-required.tsx",
 							"line": 107,
 							"character": 35,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-authentication-required.tsx#L107"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-authentication-required.tsx#L107"
 						}
 					],
 					"typeParameters": [
@@ -6750,7 +6750,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
-							"line": 110,
+							"line": 124,
 							"character": 4
 						}
 					],
@@ -6764,7 +6764,7 @@
 							"sources": [
 								{
 									"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
-									"line": 110,
+									"line": 124,
 									"character": 4
 								}
 							],
@@ -6827,7 +6827,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
-							"line": 107,
+							"line": 121,
 							"character": 13
 						}
 					],
@@ -6855,7 +6855,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
-							"line": 103,
+							"line": 117,
 							"character": 13
 						}
 					],
@@ -6883,7 +6883,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
-							"line": 105,
+							"line": 119,
 							"character": 13
 						}
 					],
@@ -6911,7 +6911,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
-							"line": 101,
+							"line": 115,
 							"character": 13
 						}
 					],
@@ -6940,7 +6940,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
-							"line": 109,
+							"line": 123,
 							"character": 13
 						}
 					],
@@ -7071,7 +7071,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
-					"line": 99,
+					"line": 113,
 					"character": 21
 				}
 			],
@@ -7089,7 +7089,7 @@
 			]
 		},
 		{
-			"id": 1040,
+			"id": 1074,
 			"name": "OAuthError",
 			"variant": "declaration",
 			"kind": 128,
@@ -7131,7 +7131,7 @@
 			},
 			"children": [
 				{
-					"id": 1041,
+					"id": 1075,
 					"name": "constructor",
 					"variant": "declaration",
 					"kind": 512,
@@ -7141,12 +7141,12 @@
 							"fileName": "src/errors.tsx",
 							"line": 10,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/errors.tsx#L10"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/errors.tsx#L10"
 						}
 					],
 					"signatures": [
 						{
-							"id": 1042,
+							"id": 1076,
 							"name": "OAuthError",
 							"variant": "signature",
 							"kind": 16384,
@@ -7156,12 +7156,12 @@
 									"fileName": "src/errors.tsx",
 									"line": 10,
 									"character": 2,
-									"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/errors.tsx#L10"
+									"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/errors.tsx#L10"
 								}
 							],
 							"parameters": [
 								{
-									"id": 1043,
+									"id": 1077,
 									"name": "error",
 									"variant": "param",
 									"kind": 32768,
@@ -7172,7 +7172,7 @@
 									}
 								},
 								{
-									"id": 1044,
+									"id": 1078,
 									"name": "error_description",
 									"variant": "param",
 									"kind": 32768,
@@ -7187,7 +7187,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 1040,
+								"target": 1074,
 								"name": "OAuthError",
 								"package": "@auth0/auth0-react"
 							},
@@ -7207,7 +7207,7 @@
 					}
 				},
 				{
-					"id": 1045,
+					"id": 1079,
 					"name": "error",
 					"variant": "declaration",
 					"kind": 1024,
@@ -7219,7 +7219,7 @@
 							"fileName": "src/errors.tsx",
 							"line": 10,
 							"character": 21,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/errors.tsx#L10"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/errors.tsx#L10"
 						}
 					],
 					"type": {
@@ -7228,7 +7228,7 @@
 					}
 				},
 				{
-					"id": 1046,
+					"id": 1080,
 					"name": "error_description",
 					"variant": "declaration",
 					"kind": 1024,
@@ -7241,7 +7241,7 @@
 							"fileName": "src/errors.tsx",
 							"line": 10,
 							"character": 43,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/errors.tsx#L10"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/errors.tsx#L10"
 						}
 					],
 					"type": {
@@ -7254,14 +7254,14 @@
 				{
 					"title": "Constructors",
 					"children": [
-						1041
+						1075
 					]
 				},
 				{
 					"title": "Properties",
 					"children": [
-						1045,
-						1046
+						1079,
+						1080
 					]
 				}
 			],
@@ -7270,7 +7270,7 @@
 					"fileName": "src/errors.tsx",
 					"line": 9,
 					"character": 13,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/errors.tsx#L9"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/errors.tsx#L9"
 				}
 			],
 			"extendedTypes": [
@@ -10909,7 +10909,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 971,
+							"line": 973,
 							"character": 4
 						}
 					],
@@ -10931,7 +10931,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 968,
+							"line": 970,
 							"character": 4
 						}
 					],
@@ -10951,7 +10951,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 963,
+							"line": 965,
 							"character": 4
 						}
 					],
@@ -10971,7 +10971,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 960,
+							"line": 962,
 							"character": 4
 						}
 					],
@@ -10991,7 +10991,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 961,
+							"line": 963,
 							"character": 4
 						}
 					],
@@ -11011,7 +11011,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 953,
+							"line": 955,
 							"character": 4
 						}
 					],
@@ -11031,7 +11031,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 962,
+							"line": 964,
 							"character": 4
 						}
 					],
@@ -11051,7 +11051,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 952,
+							"line": 954,
 							"character": 4
 						}
 					],
@@ -11071,7 +11071,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 965,
+							"line": 967,
 							"character": 4
 						}
 					],
@@ -11091,7 +11091,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 954,
+							"line": 956,
 							"character": 4
 						}
 					],
@@ -11111,7 +11111,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 951,
+							"line": 953,
 							"character": 4
 						}
 					],
@@ -11131,7 +11131,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 955,
+							"line": 957,
 							"character": 4
 						}
 					],
@@ -11151,7 +11151,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 966,
+							"line": 968,
 							"character": 4
 						}
 					],
@@ -11171,7 +11171,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 967,
+							"line": 969,
 							"character": 4
 						}
 					],
@@ -11191,7 +11191,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 958,
+							"line": 960,
 							"character": 4
 						}
 					],
@@ -11211,7 +11211,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 956,
+							"line": 958,
 							"character": 4
 						}
 					],
@@ -11231,7 +11231,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 957,
+							"line": 959,
 							"character": 4
 						}
 					],
@@ -11251,7 +11251,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 970,
+							"line": 972,
 							"character": 4
 						}
 					],
@@ -11271,7 +11271,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 969,
+							"line": 971,
 							"character": 4
 						}
 					],
@@ -11291,7 +11291,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 959,
+							"line": 961,
 							"character": 4
 						}
 					],
@@ -11311,7 +11311,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 964,
+							"line": 966,
 							"character": 4
 						}
 					],
@@ -11358,7 +11358,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 950,
+					"line": 952,
 					"character": 21
 				}
 			],
@@ -11372,7 +11372,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 972,
+							"line": 974,
 							"character": 4
 						}
 					],
@@ -11476,7 +11476,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 889,
+							"line": 891,
 							"character": 4
 						}
 					],
@@ -11497,7 +11497,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 887,
+					"line": 889,
 					"character": 17
 				}
 			],
@@ -11511,7 +11511,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 890,
+							"line": 892,
 							"character": 4
 						}
 					],
@@ -11536,7 +11536,7 @@
 			]
 		},
 		{
-			"id": 1021,
+			"id": 1055,
 			"name": "AnonymousSession",
 			"variant": "declaration",
 			"kind": 256,
@@ -11562,7 +11562,7 @@
 			},
 			"children": [
 				{
-					"id": 1023,
+					"id": 1057,
 					"name": "accessToken",
 					"variant": "declaration",
 					"kind": 1024,
@@ -11588,7 +11588,7 @@
 					}
 				},
 				{
-					"id": 1024,
+					"id": 1058,
 					"name": "expiresAt",
 					"variant": "declaration",
 					"kind": 1024,
@@ -11614,7 +11614,7 @@
 					}
 				},
 				{
-					"id": 1026,
+					"id": 1060,
 					"name": "scope",
 					"variant": "declaration",
 					"kind": 1024,
@@ -11642,7 +11642,7 @@
 					}
 				},
 				{
-					"id": 1022,
+					"id": 1056,
 					"name": "sessionToken",
 					"variant": "declaration",
 					"kind": 1024,
@@ -11668,7 +11668,7 @@
 					}
 				},
 				{
-					"id": 1025,
+					"id": 1059,
 					"name": "sessionTokenExpiresAt",
 					"variant": "declaration",
 					"kind": 1024,
@@ -11724,11 +11724,11 @@
 				{
 					"title": "Properties",
 					"children": [
-						1023,
-						1024,
-						1026,
-						1022,
-						1025
+						1057,
+						1058,
+						1060,
+						1056,
+						1059
 					]
 				}
 			],
@@ -11741,7 +11741,7 @@
 			]
 		},
 		{
-			"id": 1001,
+			"id": 1035,
 			"name": "AnonymousSessionApiClient",
 			"variant": "declaration",
 			"kind": 256,
@@ -11799,7 +11799,7 @@
 			},
 			"children": [
 				{
-					"id": 1006,
+					"id": 1040,
 					"name": "createSession",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11813,7 +11813,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1007,
+							"id": 1041,
 							"name": "createSession",
 							"variant": "signature",
 							"kind": 4096,
@@ -11835,7 +11835,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1008,
+									"id": 1042,
 									"name": "options",
 									"variant": "param",
 									"kind": 32768,
@@ -11844,7 +11844,7 @@
 									},
 									"type": {
 										"type": "reference",
-										"target": 1036,
+										"target": 1070,
 										"name": "CreateAnonymousSessionOptions",
 										"package": "@auth0/auth0-auth-js"
 									}
@@ -11860,7 +11860,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"target": 1021,
+										"target": 1055,
 										"name": "AnonymousSession",
 										"package": "@auth0/auth0-auth-js"
 									}
@@ -11872,7 +11872,7 @@
 					]
 				},
 				{
-					"id": 1018,
+					"id": 1052,
 					"name": "getClaims",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11886,7 +11886,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1019,
+							"id": 1053,
 							"name": "getClaims",
 							"variant": "signature",
 							"kind": 4096,
@@ -11922,7 +11922,7 @@
 					]
 				},
 				{
-					"id": 1009,
+					"id": 1043,
 					"name": "getTokenSilently",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11936,7 +11936,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1010,
+							"id": 1044,
 							"name": "getTokenSilently",
 							"variant": "signature",
 							"kind": 4096,
@@ -12001,7 +12001,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1011,
+									"id": 1045,
 									"name": "options",
 									"variant": "param",
 									"kind": 32768,
@@ -12010,7 +12010,7 @@
 									},
 									"type": {
 										"type": "reference",
-										"target": 1020,
+										"target": 1054,
 										"name": "AnonymousGetTokenSilentlyOptions",
 										"package": "@auth0/auth0-spa-js"
 									}
@@ -12042,7 +12042,7 @@
 					]
 				},
 				{
-					"id": 1016,
+					"id": 1050,
 					"name": "hasSession",
 					"variant": "declaration",
 					"kind": 2048,
@@ -12056,7 +12056,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1017,
+							"id": 1051,
 							"name": "hasSession",
 							"variant": "signature",
 							"kind": 4096,
@@ -12084,7 +12084,7 @@
 					]
 				},
 				{
-					"id": 1014,
+					"id": 1048,
 					"name": "logout",
 					"variant": "declaration",
 					"kind": 2048,
@@ -12098,7 +12098,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1015,
+							"id": 1049,
 							"name": "logout",
 							"variant": "signature",
 							"kind": 4096,
@@ -12138,7 +12138,7 @@
 					]
 				},
 				{
-					"id": 1012,
+					"id": 1046,
 					"name": "mintTransferToken",
 					"variant": "declaration",
 					"kind": 2048,
@@ -12152,7 +12152,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1013,
+							"id": 1047,
 							"name": "mintTransferToken",
 							"variant": "signature",
 							"kind": 4096,
@@ -12221,12 +12221,12 @@
 				{
 					"title": "Methods",
 					"children": [
-						1006,
-						1018,
-						1009,
-						1016,
-						1014,
-						1012
+						1040,
+						1052,
+						1043,
+						1050,
+						1048,
+						1046
 					]
 				}
 			],
@@ -12239,7 +12239,7 @@
 			]
 		},
 		{
-			"id": 1027,
+			"id": 1061,
 			"name": "AnonymousSessionClaims",
 			"variant": "declaration",
 			"kind": 256,
@@ -12265,7 +12265,7 @@
 			},
 			"children": [
 				{
-					"id": 1030,
+					"id": 1064,
 					"name": "aud",
 					"variant": "declaration",
 					"kind": 1024,
@@ -12303,7 +12303,7 @@
 					}
 				},
 				{
-					"id": 1032,
+					"id": 1066,
 					"name": "exp",
 					"variant": "declaration",
 					"kind": 1024,
@@ -12329,7 +12329,7 @@
 					}
 				},
 				{
-					"id": 1031,
+					"id": 1065,
 					"name": "iat",
 					"variant": "declaration",
 					"kind": 1024,
@@ -12355,7 +12355,7 @@
 					}
 				},
 				{
-					"id": 1028,
+					"id": 1062,
 					"name": "iss",
 					"variant": "declaration",
 					"kind": 1024,
@@ -12381,7 +12381,7 @@
 					}
 				},
 				{
-					"id": 1034,
+					"id": 1068,
 					"name": "metadata",
 					"variant": "declaration",
 					"kind": 1024,
@@ -12425,7 +12425,7 @@
 					}
 				},
 				{
-					"id": 1033,
+					"id": 1067,
 					"name": "sid",
 					"variant": "declaration",
 					"kind": 1024,
@@ -12451,7 +12451,7 @@
 					}
 				},
 				{
-					"id": 1029,
+					"id": 1063,
 					"name": "sub",
 					"variant": "declaration",
 					"kind": 1024,
@@ -12489,13 +12489,13 @@
 				{
 					"title": "Properties",
 					"children": [
-						1030,
-						1032,
-						1031,
-						1028,
-						1034,
-						1033,
-						1029
+						1064,
+						1066,
+						1065,
+						1062,
+						1068,
+						1067,
+						1063
 					]
 				}
 			],
@@ -12613,14 +12613,14 @@
 					"sources": [
 						{
 							"fileName": "src/auth0-context.tsx",
-							"line": 556,
+							"line": 562,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L556"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L562"
 						}
 					],
 					"type": {
 						"type": "reference",
-						"target": 1001,
+						"target": 1035,
 						"name": "AnonymousSessionApiClient",
 						"package": "@auth0/auth0-spa-js"
 					}
@@ -12675,7 +12675,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 289,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L289"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L289"
 						}
 					],
 					"type": {
@@ -12791,7 +12791,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 401,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L401"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L401"
 						}
 					],
 					"type": {
@@ -13013,7 +13013,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 194,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L194"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L194"
 						}
 					],
 					"type": {
@@ -13123,7 +13123,7 @@
 							"fileName": "src/auth-state.tsx",
 							"line": 35,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth-state.tsx#L35"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth-state.tsx#L35"
 						}
 					],
 					"type": {
@@ -13213,7 +13213,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 229,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L229"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L229"
 						}
 					],
 					"type": {
@@ -13330,7 +13330,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 389,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L389"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L389"
 						}
 					],
 					"type": {
@@ -13606,7 +13606,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 83,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L83"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L83"
 						}
 					],
 					"type": {
@@ -13863,7 +13863,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 99,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L99"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L99"
 						}
 					],
 					"type": {
@@ -13977,7 +13977,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 414,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L414"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L414"
 						}
 					],
 					"type": {
@@ -14122,7 +14122,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 365,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L365"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L365"
 						}
 					],
 					"type": {
@@ -14268,7 +14268,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 113,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L113"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L113"
 						}
 					],
 					"type": {
@@ -14356,7 +14356,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 348,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L348"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L348"
 						}
 					],
 					"type": {
@@ -14501,7 +14501,7 @@
 							"fileName": "src/auth-state.tsx",
 							"line": 21,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth-state.tsx#L21"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth-state.tsx#L21"
 						}
 					],
 					"type": {
@@ -14566,7 +14566,7 @@
 							"fileName": "src/auth-state.tsx",
 							"line": 14,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth-state.tsx#L14"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth-state.tsx#L14"
 						}
 					],
 					"type": {
@@ -14637,7 +14637,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 165,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L165"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L165"
 						}
 					],
 					"type": {
@@ -14825,7 +14825,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 264,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L264"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L264"
 						}
 					],
 					"type": {
@@ -14954,7 +14954,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 244,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L244"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L244"
 						}
 					],
 					"type": {
@@ -15068,7 +15068,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 305,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L305"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L305"
 						}
 					],
 					"type": {
@@ -15207,7 +15207,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 470,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L470"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L470"
 						}
 					],
 					"type": {
@@ -15231,7 +15231,39 @@
 							},
 							{
 								"kind": "text",
-								"text": "\n\nMyAccount API client for self-service account management operations.\n\nProvides access to methods for managing the authenticated user's authentication\nmethods and factors:\n- "
+								"text": "\n\nMyAccount API client for self-service account management operations.\n\nProvides access to methods for managing the authenticated user's profile,\nauthentication methods and factors:\n- "
+							},
+							{
+								"kind": "code",
+								"text": "`getUserProfile(options?)`"
+							},
+							{
+								"kind": "text",
+								"text": " - Get the user's profile, optionally selecting fields (scope "
+							},
+							{
+								"kind": "code",
+								"text": "`read:me:profile`"
+							},
+							{
+								"kind": "text",
+								"text": ")\n- "
+							},
+							{
+								"kind": "code",
+								"text": "`updateUserProfile(data)`"
+							},
+							{
+								"kind": "text",
+								"text": " - Update the user's profile; only the fields sent are changed (scope "
+							},
+							{
+								"kind": "code",
+								"text": "`update:me:profile`"
+							},
+							{
+								"kind": "text",
+								"text": ")\n- "
 							},
 							{
 								"kind": "code",
@@ -15296,7 +15328,7 @@
 								"content": [
 									{
 										"kind": "code",
-										"text": "```js\nconst { myAccount } = useAuth0();\n\n// List all enrolled authentication methods\nconst methods = await myAccount.getAuthenticationMethods();\n\n// Enroll a new passkey\nconst challenge = await myAccount.enrollmentChallenge({ type: 'passkey' });\nconst credential = await navigator.credentials.create({ publicKey: challenge.authn_params_public_key });\nawait myAccount.enrollmentVerify({ type: 'passkey', auth_session: challenge.auth_session, location: challenge.location, authn_response: credential });\n\n// Remove an authentication method\nawait myAccount.deleteAuthenticationMethod('method-id');\n```"
+										"text": "```js\nconst { myAccount } = useAuth0();\n\n// Read and update the user's profile\nconst profile = await myAccount.getUserProfile();\nawait myAccount.updateUserProfile({ given_name: 'Alice' });\n\n// List all enrolled authentication methods\nconst methods = await myAccount.getAuthenticationMethods();\n\n// Enroll a new passkey\nconst challenge = await myAccount.enrollmentChallenge({ type: 'passkey' });\nconst credential = await navigator.credentials.create({ publicKey: challenge.authn_params_public_key });\nawait myAccount.enrollmentVerify({ type: 'passkey', auth_session: challenge.auth_session, location: challenge.location, authn_response: credential });\n\n// Remove an authentication method\nawait myAccount.deleteAuthenticationMethod('method-id');\n```"
 									}
 								]
 							},
@@ -15314,9 +15346,9 @@
 					"sources": [
 						{
 							"fileName": "src/auth0-context.tsx",
-							"line": 539,
+							"line": 545,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L539"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L545"
 						}
 					],
 					"type": {
@@ -15504,7 +15536,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 501,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L501"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L501"
 						}
 					],
 					"type": {
@@ -15612,7 +15644,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 336,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L336"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L336"
 						}
 					],
 					"type": {
@@ -15743,7 +15775,7 @@
 							"fileName": "src/auth0-context.tsx",
 							"line": 379,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L379"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L379"
 						}
 					],
 					"type": {
@@ -15897,7 +15929,7 @@
 							"fileName": "src/auth-state.tsx",
 							"line": 28,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth-state.tsx#L28"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth-state.tsx#L28"
 						}
 					],
 					"type": {
@@ -16024,7 +16056,7 @@
 					"fileName": "src/auth0-context.tsx",
 					"line": 53,
 					"character": 17,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L53"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L53"
 				}
 			],
 			"typeParameters": [
@@ -17545,7 +17577,7 @@
 			]
 		},
 		{
-			"id": 1036,
+			"id": 1070,
 			"name": "CreateAnonymousSessionOptions",
 			"variant": "declaration",
 			"kind": 256,
@@ -17571,7 +17603,7 @@
 			},
 			"children": [
 				{
-					"id": 1037,
+					"id": 1071,
 					"name": "audience",
 					"variant": "declaration",
 					"kind": 1024,
@@ -17607,7 +17639,7 @@
 					}
 				},
 				{
-					"id": 1039,
+					"id": 1073,
 					"name": "metadata",
 					"variant": "declaration",
 					"kind": 1024,
@@ -17651,7 +17683,7 @@
 					}
 				},
 				{
-					"id": 1038,
+					"id": 1072,
 					"name": "scope",
 					"variant": "declaration",
 					"kind": 1024,
@@ -17683,9 +17715,9 @@
 				{
 					"title": "Properties",
 					"children": [
-						1037,
-						1039,
-						1038
+						1071,
+						1073,
+						1072
 					]
 				}
 			],
@@ -18425,7 +18457,7 @@
 			]
 		},
 		{
-			"id": 992,
+			"id": 998,
 			"name": "Factor",
 			"variant": "declaration",
 			"kind": 256,
@@ -18446,7 +18478,7 @@
 			},
 			"children": [
 				{
-					"id": 993,
+					"id": 999,
 					"name": "type",
 					"variant": "declaration",
 					"kind": 1024,
@@ -18460,13 +18492,13 @@
 					],
 					"type": {
 						"type": "reference",
-						"target": 991,
+						"target": 997,
 						"name": "AuthenticationMethodType",
 						"package": "@auth0/auth0-spa-js"
 					}
 				},
 				{
-					"id": 994,
+					"id": 1000,
 					"name": "usage",
 					"variant": "declaration",
 					"kind": 1024,
@@ -18502,8 +18534,8 @@
 				{
 					"title": "Properties",
 					"children": [
-						993,
-						994
+						999,
+						1000
 					]
 				}
 			],
@@ -18555,7 +18587,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 600,
+							"line": 602,
 							"character": 4
 						}
 					],
@@ -18587,7 +18619,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 617,
+											"line": 619,
 											"character": 8
 										}
 									],
@@ -18647,7 +18679,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 609,
+											"line": 611,
 											"character": 8
 										}
 									],
@@ -18675,7 +18707,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 613,
+											"line": 615,
 											"character": 8
 										}
 									],
@@ -18760,7 +18792,23 @@
 							},
 							{
 								"kind": "text",
-								"text": " calls are not deduplicated — each makes its own request.\r\nWhen "
+								"text": " calls for the same audience and scope\r\nshare a single request, but never share a request with "
+							},
+							{
+								"kind": "code",
+								"text": "`on`"
+							},
+							{
+								"kind": "text",
+								"text": " or\r\n"
+							},
+							{
+								"kind": "code",
+								"text": "`cache-only`"
+							},
+							{
+								"kind": "text",
+								"text": " calls.\r\nWhen "
 							},
 							{
 								"kind": "code",
@@ -18783,7 +18831,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 596,
+							"line": 598,
 							"character": 4
 						}
 					],
@@ -18840,7 +18888,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 634,
+							"line": 636,
 							"character": 4
 						}
 					],
@@ -18868,7 +18916,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 627,
+							"line": 629,
 							"character": 4
 						}
 					],
@@ -18997,7 +19045,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 645,
+							"line": 647,
 							"character": 4
 						}
 					],
@@ -19032,7 +19080,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 639,
+					"line": 641,
 					"character": 17
 				}
 			],
@@ -19042,6 +19090,88 @@
 					"target": 271,
 					"name": "PopupLoginOptions",
 					"package": "@auth0/auth0-spa-js"
+				}
+			]
+		},
+		{
+			"id": 1026,
+			"name": "GetUserProfileOptions",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [],
+				"blockTags": [
+					{
+						"tag": "@category",
+						"content": [
+							{
+								"kind": "text",
+								"text": "Reference"
+							}
+						]
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 1027,
+					"name": "fields",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 221,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "intrinsic",
+							"name": "string"
+						}
+					}
+				},
+				{
+					"id": 1028,
+					"name": "includeFields",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 222,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						1027,
+						1028
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+					"line": 220,
+					"character": 17
 				}
 			]
 		},
@@ -19407,7 +19537,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 896,
+							"line": 898,
 							"character": 4
 						}
 					],
@@ -19427,7 +19557,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 927,
+							"line": 929,
 							"character": 4
 						}
 					],
@@ -19463,7 +19593,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 944,
+							"line": 946,
 							"character": 4
 						}
 					],
@@ -19485,7 +19615,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 914,
+							"line": 916,
 							"character": 4
 						}
 					],
@@ -19505,7 +19635,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 928,
+							"line": 930,
 							"character": 4
 						}
 					],
@@ -19528,7 +19658,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 925,
+							"line": 927,
 							"character": 4
 						}
 					],
@@ -19548,7 +19678,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 917,
+							"line": 919,
 							"character": 4
 						}
 					],
@@ -19568,7 +19698,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 924,
+							"line": 926,
 							"character": 4
 						}
 					],
@@ -19588,7 +19718,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 922,
+							"line": 924,
 							"character": 4
 						}
 					],
@@ -19608,7 +19738,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 909,
+							"line": 911,
 							"character": 4
 						}
 					],
@@ -19628,7 +19758,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 926,
+							"line": 928,
 							"character": 4
 						}
 					],
@@ -19648,7 +19778,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 930,
+							"line": 932,
 							"character": 4
 						}
 					],
@@ -19668,7 +19798,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 906,
+							"line": 908,
 							"character": 4
 						}
 					],
@@ -19688,7 +19818,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 907,
+							"line": 909,
 							"character": 4
 						}
 					],
@@ -19708,7 +19838,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 918,
+							"line": 920,
 							"character": 4
 						}
 					],
@@ -19728,7 +19858,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 899,
+							"line": 901,
 							"character": 4
 						}
 					],
@@ -19748,7 +19878,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 908,
+							"line": 910,
 							"character": 4
 						}
 					],
@@ -19768,7 +19898,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 898,
+							"line": 900,
 							"character": 4
 						}
 					],
@@ -19788,7 +19918,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 920,
+							"line": 922,
 							"character": 4
 						}
 					],
@@ -19808,7 +19938,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 916,
+							"line": 918,
 							"character": 4
 						}
 					],
@@ -19828,7 +19958,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 921,
+							"line": 923,
 							"character": 4
 						}
 					],
@@ -19848,7 +19978,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 911,
+							"line": 913,
 							"character": 4
 						}
 					],
@@ -19868,7 +19998,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 900,
+							"line": 902,
 							"character": 4
 						}
 					],
@@ -19888,7 +20018,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 897,
+							"line": 899,
 							"character": 4
 						}
 					],
@@ -19908,7 +20038,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 919,
+							"line": 921,
 							"character": 4
 						}
 					],
@@ -19928,7 +20058,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 901,
+							"line": 903,
 							"character": 4
 						}
 					],
@@ -19948,7 +20078,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 923,
+							"line": 925,
 							"character": 4
 						}
 					],
@@ -19968,7 +20098,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 932,
+							"line": 934,
 							"character": 4
 						}
 					],
@@ -19988,7 +20118,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 933,
+							"line": 935,
 							"character": 4
 						}
 					],
@@ -20008,7 +20138,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 912,
+							"line": 914,
 							"character": 4
 						}
 					],
@@ -20028,7 +20158,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 913,
+							"line": 915,
 							"character": 4
 						}
 					],
@@ -20048,7 +20178,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 904,
+							"line": 906,
 							"character": 4
 						}
 					],
@@ -20068,7 +20198,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 902,
+							"line": 904,
 							"character": 4
 						}
 					],
@@ -20088,7 +20218,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 903,
+							"line": 905,
 							"character": 4
 						}
 					],
@@ -20116,7 +20246,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 938,
+							"line": 940,
 							"character": 4
 						}
 					],
@@ -20136,7 +20266,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 931,
+							"line": 933,
 							"character": 4
 						}
 					],
@@ -20156,7 +20286,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 929,
+							"line": 931,
 							"character": 4
 						}
 					],
@@ -20176,7 +20306,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 915,
+							"line": 917,
 							"character": 4
 						}
 					],
@@ -20196,7 +20326,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 905,
+							"line": 907,
 							"character": 4
 						}
 					],
@@ -20216,7 +20346,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 910,
+							"line": 912,
 							"character": 4
 						}
 					],
@@ -20276,7 +20406,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 895,
+					"line": 897,
 					"character": 17
 				}
 			],
@@ -20290,7 +20420,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 945,
+							"line": 947,
 							"character": 4
 						}
 					],
@@ -20671,7 +20801,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 660,
+							"line": 662,
 							"character": 4
 						}
 					],
@@ -20716,7 +20846,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 665,
+							"line": 667,
 							"character": 4
 						}
 					],
@@ -20748,7 +20878,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 672,
+											"line": 674,
 											"character": 8
 										}
 									],
@@ -20808,7 +20938,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 685,
+											"line": 687,
 											"character": 8
 										}
 									],
@@ -20919,7 +21049,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 729,
+							"line": 731,
 							"character": 4
 						}
 					],
@@ -21012,7 +21142,7 @@
 					"fileName": "src/auth0-context.tsx",
 					"line": 36,
 					"character": 17,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L36"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L36"
 				}
 			],
 			"extendedTypes": [
@@ -21109,7 +21239,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 660,
+							"line": 662,
 							"character": 4
 						}
 					],
@@ -21146,7 +21276,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 665,
+							"line": 667,
 							"character": 4
 						}
 					],
@@ -21178,7 +21308,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 672,
+											"line": 674,
 											"character": 8
 										}
 									],
@@ -21238,7 +21368,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 685,
+											"line": 687,
 											"character": 8
 										}
 									],
@@ -21307,7 +21437,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 650,
+					"line": 652,
 					"character": 17
 				}
 			]
@@ -22354,7 +22484,7 @@
 									},
 									"type": {
 										"type": "reference",
-										"target": 998,
+										"target": 1004,
 										"name": "EnrollmentChallengeOptions",
 										"package": "@auth0/auth0-spa-js"
 									}
@@ -22370,7 +22500,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"target": 999,
+										"target": 1005,
 										"name": "EnrollmentChallengeResponse",
 										"package": "@auth0/auth0-spa-js"
 									}
@@ -22444,7 +22574,7 @@
 									},
 									"type": {
 										"type": "reference",
-										"target": 1000,
+										"target": 1006,
 										"name": "EnrollmentVerifyOptions",
 										"package": "@auth0/auth0-spa-js"
 									}
@@ -22460,7 +22590,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"target": 990,
+										"target": 996,
 										"name": "AuthenticationMethod",
 										"package": "@auth0/auth0-spa-js"
 									}
@@ -22548,7 +22678,7 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"target": 990,
+										"target": 996,
 										"name": "AuthenticationMethod",
 										"package": "@auth0/auth0-spa-js"
 									}
@@ -22624,7 +22754,7 @@
 									},
 									"type": {
 										"type": "reference",
-										"target": 991,
+										"target": 997,
 										"name": "AuthenticationMethodType",
 										"package": "@auth0/auth0-spa-js"
 									}
@@ -22642,7 +22772,7 @@
 										"type": "array",
 										"elementType": {
 											"type": "reference",
-											"target": 990,
+											"target": 996,
 											"name": "AuthenticationMethod",
 											"package": "@auth0/auth0-spa-js"
 										}
@@ -22712,10 +22842,126 @@
 										"type": "array",
 										"elementType": {
 											"type": "reference",
-											"target": 992,
+											"target": 998,
 											"name": "Factor",
 											"package": "@auth0/auth0-spa-js"
 										}
+									}
+								],
+								"name": "Promise",
+								"package": "typescript"
+							}
+						}
+					]
+				},
+				{
+					"id": 989,
+					"name": "getUserProfile",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
+							"line": 89,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 990,
+							"name": "getUserProfile",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Get the current user's profile, including "
+									},
+									{
+										"kind": "code",
+										"text": "`profile_policy`"
+									},
+									{
+										"kind": "text",
+										"text": " with per-field edit permissions."
+									}
+								],
+								"blockTags": [
+									{
+										"tag": "@returns",
+										"content": [
+											{
+												"kind": "text",
+												"text": "A promise that resolves to the user's profile"
+											}
+										]
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
+									"line": 89,
+									"character": 4
+								}
+							],
+							"parameters": [
+								{
+									"id": 991,
+									"name": "options",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {
+										"isOptional": true
+									},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Optional "
+											},
+											{
+												"kind": "code",
+												"text": "`fields`"
+											},
+											{
+												"kind": "text",
+												"text": " to return, or set "
+											},
+											{
+												"kind": "code",
+												"text": "`includeFields: false`"
+											},
+											{
+												"kind": "text",
+												"text": " to exclude them instead"
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"target": 1026,
+										"name": "GetUserProfileOptions",
+										"package": "@auth0/auth0-spa-js"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"packageName": "typescript",
+									"packagePath": "lib/lib.es5.d.ts",
+									"qualifiedName": "Promise"
+								},
+								"typeArguments": [
+									{
+										"type": "reference",
+										"target": 1007,
+										"name": "UserProfile",
+										"package": "@auth0/auth0-spa-js"
 									}
 								],
 								"name": "Promise",
@@ -22806,7 +23052,7 @@
 									},
 									"type": {
 										"type": "reference",
-										"target": 995,
+										"target": 1001,
 										"name": "UpdateAuthenticationMethodRequest",
 										"package": "@auth0/auth0-spa-js"
 									}
@@ -22822,8 +23068,98 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"target": 990,
+										"target": 996,
 										"name": "AuthenticationMethod",
+										"package": "@auth0/auth0-spa-js"
+									}
+								],
+								"name": "Promise",
+								"package": "typescript"
+							}
+						}
+					]
+				},
+				{
+					"id": 992,
+					"name": "updateUserProfile",
+					"variant": "declaration",
+					"kind": 2048,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
+							"line": 96,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 993,
+							"name": "updateUserProfile",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Update the current user's profile. Only the fields you send are changed."
+									}
+								],
+								"blockTags": [
+									{
+										"tag": "@returns",
+										"content": [
+											{
+												"kind": "text",
+												"text": "A promise that resolves to the full updated profile"
+											}
+										]
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/MyAccountApiClient.d.ts",
+									"line": 96,
+									"character": 4
+								}
+							],
+							"parameters": [
+								{
+									"id": 994,
+									"name": "data",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "The profile fields to update"
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"target": 1029,
+										"name": "UpdateUserProfileRequest",
+										"package": "@auth0/auth0-spa-js"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"packageName": "typescript",
+									"packagePath": "lib/lib.es5.d.ts",
+									"qualifiedName": "Promise"
+								},
+								"typeArguments": [
+									{
+										"type": "reference",
+										"target": 1007,
+										"name": "UserProfile",
 										"package": "@auth0/auth0-spa-js"
 									}
 								],
@@ -22846,7 +23182,9 @@
 						973,
 						970,
 						968,
-						979
+						989,
+						979,
+						992
 					]
 				}
 			],
@@ -24277,6 +24615,124 @@
 			]
 		},
 		{
+			"id": 1022,
+			"name": "ProfileFieldPolicy",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [],
+				"blockTags": [
+					{
+						"tag": "@category",
+						"content": [
+							{
+								"kind": "text",
+								"text": "Reference"
+							}
+						]
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 1023,
+					"name": "access",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 200,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "literal",
+								"value": "read_only"
+							},
+							{
+								"type": "literal",
+								"value": "read_write"
+							}
+						]
+					}
+				},
+				{
+					"id": 1025,
+					"name": "reason",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 202,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1024,
+					"name": "source",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 201,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "literal",
+								"value": "user"
+							},
+							{
+								"type": "literal",
+								"value": "idp"
+							},
+							{
+								"type": "literal",
+								"value": "system"
+							}
+						]
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						1023,
+						1025,
+						1024
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+					"line": 199,
+					"character": 17
+				}
+			]
+		},
+		{
 			"id": 570,
 			"name": "RedirectConnectAccountOptions",
 			"variant": "declaration",
@@ -24327,7 +24783,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 774,
+							"line": 776,
 							"character": 4
 						}
 					],
@@ -24370,7 +24826,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 760,
+							"line": 762,
 							"character": 4
 						}
 					],
@@ -24398,7 +24854,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 738,
+							"line": 740,
 							"character": 4
 						}
 					],
@@ -24437,7 +24893,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 784,
+							"line": 786,
 							"character": 4
 						}
 					],
@@ -24509,7 +24965,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 764,
+							"line": 766,
 							"character": 4
 						}
 					],
@@ -24548,7 +25004,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 748,
+							"line": 750,
 							"character": 4
 						}
 					],
@@ -24577,7 +25033,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 734,
+					"line": 736,
 					"character": 17
 				}
 			],
@@ -24868,7 +25324,7 @@
 					"fileName": "src/auth0-context.tsx",
 					"line": 43,
 					"character": 17,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L43"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L43"
 				}
 			],
 			"typeParameters": [
@@ -24971,7 +25427,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 1003,
+							"line": 1005,
 							"character": 4
 						}
 					],
@@ -24992,13 +25448,13 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 1001,
+					"line": 1003,
 					"character": 17
 				}
 			]
 		},
 		{
-			"id": 995,
+			"id": 1001,
 			"name": "UpdateAuthenticationMethodRequest",
 			"variant": "declaration",
 			"kind": 256,
@@ -25019,7 +25475,7 @@
 			},
 			"children": [
 				{
-					"id": 996,
+					"id": 1002,
 					"name": "name",
 					"variant": "declaration",
 					"kind": 1024,
@@ -25039,7 +25495,7 @@
 					}
 				},
 				{
-					"id": 997,
+					"id": 1003,
 					"name": "preferred_authentication_method",
 					"variant": "declaration",
 					"kind": 1024,
@@ -25080,8 +25536,8 @@
 				{
 					"title": "Properties",
 					"children": [
-						996,
-						997
+						1002,
+						1003
 					]
 				}
 			],
@@ -25089,6 +25545,148 @@
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
 					"line": 109,
+					"character": 17
+				}
+			]
+		},
+		{
+			"id": 1029,
+			"name": "UpdateUserProfileRequest",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [],
+				"blockTags": [
+					{
+						"tag": "@category",
+						"content": [
+							{
+								"kind": "text",
+								"text": "Reference"
+							}
+						]
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 1031,
+					"name": "family_name",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 226,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1030,
+					"name": "given_name",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 225,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1032,
+					"name": "name",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 227,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1033,
+					"name": "nickname",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 228,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1034,
+					"name": "picture",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 229,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						1031,
+						1030,
+						1032,
+						1033,
+						1034
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+					"line": 224,
 					"character": 17
 				}
 			]
@@ -25170,7 +25768,7 @@
 							"fileName": "src/use-enterprise-connect.tsx",
 							"line": 23,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-enterprise-connect.tsx#L23"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-enterprise-connect.tsx#L23"
 						}
 					],
 					"type": {
@@ -25272,7 +25870,7 @@
 							"fileName": "src/use-enterprise-connect.tsx",
 							"line": 32,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-enterprise-connect.tsx#L32"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-enterprise-connect.tsx#L32"
 						}
 					],
 					"type": {
@@ -25362,7 +25960,356 @@
 					"fileName": "src/use-enterprise-connect.tsx",
 					"line": 16,
 					"character": 17,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-enterprise-connect.tsx#L16"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-enterprise-connect.tsx#L16"
+				}
+			]
+		},
+		{
+			"id": 1007,
+			"name": "UserProfile",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [],
+				"blockTags": [
+					{
+						"tag": "@category",
+						"content": [
+							{
+								"kind": "text",
+								"text": "Reference"
+							}
+						]
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 1009,
+					"name": "created_at",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 206,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1016,
+					"name": "email",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 213,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1017,
+					"name": "email_verified",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 214,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 1012,
+					"name": "family_name",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 209,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1011,
+					"name": "given_name",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 208,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1013,
+					"name": "name",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 210,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1014,
+					"name": "nickname",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 211,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1018,
+					"name": "phone_number",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 215,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1019,
+					"name": "phone_verified",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 216,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 1015,
+					"name": "picture",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 212,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1021,
+					"name": "profile_policy",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 218,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "typescript",
+							"packagePath": "lib/lib.es5.d.ts",
+							"qualifiedName": "Record"
+						},
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "reference",
+								"target": 1022,
+								"name": "ProfileFieldPolicy",
+								"package": "@auth0/auth0-spa-js"
+							}
+						],
+						"name": "Record",
+						"package": "typescript"
+					}
+				},
+				{
+					"id": 1010,
+					"name": "updated_at",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 207,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1008,
+					"name": "user_id",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 205,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 1020,
+					"name": "username",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+							"line": 217,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						1009,
+						1016,
+						1017,
+						1012,
+						1011,
+						1013,
+						1014,
+						1018,
+						1019,
+						1015,
+						1021,
+						1010,
+						1008,
+						1020
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
+					"line": 204,
+					"character": 17
 				}
 			]
 		},
@@ -25628,7 +26575,7 @@
 							"fileName": "src/with-auth0.tsx",
 							"line": 10,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-auth0.tsx#L10"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-auth0.tsx#L10"
 						}
 					],
 					"type": {
@@ -25652,7 +26599,7 @@
 					"fileName": "src/with-auth0.tsx",
 					"line": 9,
 					"character": 17,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-auth0.tsx#L9"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-auth0.tsx#L9"
 				}
 			]
 		},
@@ -25703,7 +26650,7 @@
 							"fileName": "src/with-authentication-required.tsx",
 							"line": 94,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-authentication-required.tsx#L94"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-authentication-required.tsx#L94"
 						}
 					],
 					"type": {
@@ -25783,7 +26730,7 @@
 							"fileName": "src/with-authentication-required.tsx",
 							"line": 88,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-authentication-required.tsx#L88"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-authentication-required.tsx#L88"
 						}
 					],
 					"type": {
@@ -25826,7 +26773,7 @@
 							"fileName": "src/with-authentication-required.tsx",
 							"line": 73,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-authentication-required.tsx#L73"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-authentication-required.tsx#L73"
 						}
 					],
 					"type": {
@@ -25890,7 +26837,7 @@
 							"fileName": "src/with-authentication-required.tsx",
 							"line": 63,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-authentication-required.tsx#L63"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-authentication-required.tsx#L63"
 						}
 					],
 					"type": {
@@ -25965,7 +26912,7 @@
 							"fileName": "src/with-authentication-required.tsx",
 							"line": 53,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-authentication-required.tsx#L53"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-authentication-required.tsx#L53"
 						}
 					],
 					"type": {
@@ -26019,12 +26966,12 @@
 					"fileName": "src/with-authentication-required.tsx",
 					"line": 35,
 					"character": 17,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/with-authentication-required.tsx#L35"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/with-authentication-required.tsx#L35"
 				}
 			]
 		},
 		{
-			"id": 1020,
+			"id": 1054,
 			"name": "AnonymousGetTokenSilentlyOptions",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -26078,7 +27025,7 @@
 			}
 		},
 		{
-			"id": 1035,
+			"id": 1069,
 			"name": "AnonymousSessionErrorCode",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -26276,7 +27223,7 @@
 							"fileName": "src/auth0-provider.tsx",
 							"line": 57,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L57"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L57"
 						}
 					],
 					"type": {
@@ -26299,7 +27246,7 @@
 							"fileName": "src/auth0-provider.tsx",
 							"line": 58,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L58"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L58"
 						}
 					],
 					"type": {
@@ -26322,7 +27269,7 @@
 							"fileName": "src/auth0-provider.tsx",
 							"line": 56,
 							"character": 2,
-							"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L56"
+							"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L56"
 						}
 					],
 					"type": {
@@ -26346,7 +27293,7 @@
 					"fileName": "src/auth0-provider.tsx",
 					"line": 55,
 					"character": 12,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L55"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L55"
 				}
 			],
 			"indexSignatures": [
@@ -26454,7 +27401,7 @@
 					"fileName": "src/auth0-provider.tsx",
 					"line": 132,
 					"character": 12,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L132"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L132"
 				}
 			],
 			"typeParameters": [
@@ -26560,7 +27507,7 @@
 					"fileName": "src/auth0-provider.tsx",
 					"line": 121,
 					"character": 12,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L121"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L121"
 				}
 			],
 			"typeParameters": [
@@ -26626,7 +27573,7 @@
 											"fileName": "src/auth0-provider.tsx",
 											"line": 122,
 											"character": 38,
-											"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L122"
+											"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L122"
 										}
 									],
 									"type": {
@@ -26716,7 +27663,7 @@
 					"fileName": "src/auth0-provider.tsx",
 					"line": 113,
 					"character": 12,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L113"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L113"
 				}
 			],
 			"typeParameters": [
@@ -26794,7 +27741,7 @@
 											"fileName": "src/auth0-provider.tsx",
 											"line": 114,
 											"character": 59,
-											"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L114"
+											"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L114"
 										}
 									],
 									"type": {
@@ -26894,7 +27841,7 @@
 					"fileName": "src/use-auth0-suspense.tsx",
 					"line": 17,
 					"character": 12,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/use-auth0-suspense.tsx#L17"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/use-auth0-suspense.tsx#L17"
 				}
 			],
 			"typeParameters": [
@@ -26960,7 +27907,7 @@
 			}
 		},
 		{
-			"id": 990,
+			"id": 996,
 			"name": "AuthenticationMethod",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -27083,7 +28030,7 @@
 			}
 		},
 		{
-			"id": 991,
+			"id": 997,
 			"name": "AuthenticationMethodType",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -27287,7 +28234,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 801,
+					"line": 803,
 					"character": 12
 				}
 			],
@@ -27353,7 +28300,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 805,
+											"line": 807,
 											"character": 4
 										}
 									],
@@ -27386,7 +28333,7 @@
 									"sources": [
 										{
 											"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-											"line": 809,
+											"line": 811,
 											"character": 4
 										}
 									],
@@ -27442,7 +28389,7 @@
 					"fileName": "src/auth0-provider.tsx",
 					"line": 47,
 					"character": 12,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-provider.tsx#L47"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-provider.tsx#L47"
 				}
 			],
 			"type": {
@@ -27944,7 +28891,7 @@
 			]
 		},
 		{
-			"id": 998,
+			"id": 1004,
 			"name": "EnrollmentChallengeOptions",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -28047,7 +28994,7 @@
 			}
 		},
 		{
-			"id": 999,
+			"id": 1005,
 			"name": "EnrollmentChallengeResponse",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -28208,7 +29155,7 @@
 			}
 		},
 		{
-			"id": 1000,
+			"id": 1006,
 			"name": "EnrollmentVerifyOptions",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -28230,7 +29177,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/myaccount/types.d.ts",
-					"line": 229,
+					"line": 261,
 					"character": 12
 				}
 			],
@@ -29846,7 +30793,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 843,
+							"line": 845,
 							"character": 4
 						}
 					],
@@ -29864,7 +30811,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 845,
+							"line": 847,
 							"character": 4
 						}
 					],
@@ -29882,7 +30829,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 841,
+							"line": 843,
 							"character": 4
 						}
 					],
@@ -29902,7 +30849,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 844,
+							"line": 846,
 							"character": 4
 						}
 					],
@@ -29922,7 +30869,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 846,
+							"line": 848,
 							"character": 4
 						}
 					],
@@ -29940,7 +30887,7 @@
 					"sources": [
 						{
 							"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-							"line": 842,
+							"line": 844,
 							"character": 4
 						}
 					],
@@ -29966,7 +30913,7 @@
 			"sources": [
 				{
 					"fileName": "node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts",
-					"line": 840,
+					"line": 842,
 					"character": 12
 				}
 			]
@@ -30097,9 +31044,9 @@
 			"sources": [
 				{
 					"fileName": "src/auth0-context.tsx",
-					"line": 639,
+					"line": 647,
 					"character": 6,
-					"url": "https://github.com/auth0/auth0-react/blob/ea4a4e990211faccdfde078e6a3367cb77513593/src/auth0-context.tsx#L639"
+					"url": "https://github.com/auth0/auth0-react/blob/b477c69e5131b7c59a4ef4ddcf2707477f1f360b/src/auth0-context.tsx#L647"
 				}
 			],
 			"type": {
@@ -30288,7 +31235,7 @@
 				494,
 				510,
 				779,
-				1040,
+				1074,
 				742,
 				724,
 				752,
@@ -30306,25 +31253,26 @@
 			"title": "Interfaces",
 			"children": [
 				628,
-				1021,
-				1001,
-				1027,
+				1055,
+				1035,
+				1061,
 				72,
 				846,
 				250,
 				875,
 				879,
 				632,
-				1036,
+				1070,
 				867,
 				889,
 				856,
 				871,
 				859,
 				863,
-				992,
+				998,
 				289,
 				277,
+				1026,
 				369,
 				300,
 				811,
@@ -30336,11 +31284,14 @@
 				935,
 				273,
 				271,
+				1022,
 				570,
 				241,
 				801,
-				995,
+				1001,
+				1029,
 				36,
+				1007,
 				883,
 				52,
 				59
@@ -30349,24 +31300,24 @@
 		{
 			"title": "Type Aliases",
 			"children": [
-				1020,
-				1035,
+				1054,
+				1069,
 				15,
 				5,
 				11,
 				7,
 				31,
-				990,
-				991,
+				996,
+				997,
 				405,
 				288,
 				581,
 				22,
 				609,
-				998,
-				999,
+				1004,
+				1005,
 				874,
-				1000,
+				1006,
 				855,
 				803,
 				810,
@@ -30450,7 +31401,7 @@
 				494,
 				510,
 				779,
-				1040,
+				1074,
 				742,
 				724,
 				752,
@@ -30484,24 +31435,25 @@
 				388,
 				343,
 				628,
-				1021,
-				1001,
-				1027,
+				1055,
+				1035,
+				1061,
 				846,
 				250,
 				875,
 				879,
 				632,
-				1036,
+				1070,
 				867,
 				889,
 				856,
 				871,
 				859,
 				863,
-				992,
+				998,
 				289,
 				277,
+				1026,
 				369,
 				300,
 				811,
@@ -30513,24 +31465,27 @@
 				935,
 				273,
 				271,
+				1022,
 				570,
 				241,
 				801,
-				995,
+				1001,
+				1029,
+				1007,
 				883,
-				1020,
-				1035,
-				990,
-				991,
+				1054,
+				1069,
+				996,
+				997,
 				405,
 				288,
 				581,
 				22,
 				609,
-				998,
-				999,
+				1004,
+				1005,
 				874,
-				1000,
+				1006,
 				855,
 				803,
 				810,
@@ -35199,267 +36154,437 @@
 			"packagePath": "dist/typings/myaccount/MyAccountApiClient.d.ts",
 			"qualifiedName": "options"
 		},
+		"989": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/MyAccountApiClient.d.ts",
+			"qualifiedName": "MyAccountApiClient.getUserProfile"
+		},
 		"990": {
 			"packageName": "@auth0/auth0-spa-js",
-			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "AuthenticationMethod"
+			"packagePath": "dist/typings/myaccount/MyAccountApiClient.d.ts",
+			"qualifiedName": "MyAccountApiClient.getUserProfile"
 		},
 		"991": {
 			"packageName": "@auth0/auth0-spa-js",
-			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "AuthenticationMethodType"
+			"packagePath": "dist/typings/myaccount/MyAccountApiClient.d.ts",
+			"qualifiedName": "options"
 		},
 		"992": {
 			"packageName": "@auth0/auth0-spa-js",
-			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "Factor"
+			"packagePath": "dist/typings/myaccount/MyAccountApiClient.d.ts",
+			"qualifiedName": "MyAccountApiClient.updateUserProfile"
 		},
 		"993": {
 			"packageName": "@auth0/auth0-spa-js",
-			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "Factor.type"
+			"packagePath": "dist/typings/myaccount/MyAccountApiClient.d.ts",
+			"qualifiedName": "MyAccountApiClient.updateUserProfile"
 		},
 		"994": {
 			"packageName": "@auth0/auth0-spa-js",
-			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "Factor.usage"
-		},
-		"995": {
-			"packageName": "@auth0/auth0-spa-js",
-			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "UpdateAuthenticationMethodRequest"
+			"packagePath": "dist/typings/myaccount/MyAccountApiClient.d.ts",
+			"qualifiedName": "data"
 		},
 		"996": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "UpdateAuthenticationMethodRequest.name"
+			"qualifiedName": "AuthenticationMethod"
 		},
 		"997": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "UpdateAuthenticationMethodRequest.preferred_authentication_method"
+			"qualifiedName": "AuthenticationMethodType"
 		},
 		"998": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "EnrollmentChallengeOptions"
+			"qualifiedName": "Factor"
 		},
 		"999": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "EnrollmentChallengeResponse"
+			"qualifiedName": "Factor.type"
 		},
 		"1000": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/myaccount/types.d.ts",
-			"qualifiedName": "EnrollmentVerifyOptions"
+			"qualifiedName": "Factor.usage"
 		},
 		"1001": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateAuthenticationMethodRequest"
+		},
+		"1002": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateAuthenticationMethodRequest.name"
+		},
+		"1003": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateAuthenticationMethodRequest.preferred_authentication_method"
+		},
+		"1004": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "EnrollmentChallengeOptions"
+		},
+		"1005": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "EnrollmentChallengeResponse"
+		},
+		"1006": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "EnrollmentVerifyOptions"
+		},
+		"1007": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile"
+		},
+		"1008": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.user_id"
+		},
+		"1009": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.created_at"
+		},
+		"1010": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.updated_at"
+		},
+		"1011": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.given_name"
+		},
+		"1012": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.family_name"
+		},
+		"1013": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.name"
+		},
+		"1014": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.nickname"
+		},
+		"1015": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.picture"
+		},
+		"1016": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.email"
+		},
+		"1017": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.email_verified"
+		},
+		"1018": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.phone_number"
+		},
+		"1019": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.phone_verified"
+		},
+		"1020": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.username"
+		},
+		"1021": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UserProfile.profile_policy"
+		},
+		"1022": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "ProfileFieldPolicy"
+		},
+		"1023": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "ProfileFieldPolicy.access"
+		},
+		"1024": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "ProfileFieldPolicy.source"
+		},
+		"1025": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "ProfileFieldPolicy.reason"
+		},
+		"1026": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "GetUserProfileOptions"
+		},
+		"1027": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "GetUserProfileOptions.fields"
+		},
+		"1028": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "GetUserProfileOptions.includeFields"
+		},
+		"1029": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateUserProfileRequest"
+		},
+		"1030": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateUserProfileRequest.given_name"
+		},
+		"1031": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateUserProfileRequest.family_name"
+		},
+		"1032": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateUserProfileRequest.name"
+		},
+		"1033": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateUserProfileRequest.nickname"
+		},
+		"1034": {
+			"packageName": "@auth0/auth0-spa-js",
+			"packagePath": "dist/typings/myaccount/types.d.ts",
+			"qualifiedName": "UpdateUserProfileRequest.picture"
+		},
+		"1035": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient"
 		},
-		"1006": {
+		"1040": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.createSession"
 		},
-		"1007": {
+		"1041": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.createSession"
 		},
-		"1008": {
+		"1042": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "options"
 		},
-		"1009": {
+		"1043": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.getTokenSilently"
 		},
-		"1010": {
+		"1044": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.getTokenSilently"
 		},
-		"1011": {
+		"1045": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "options"
 		},
-		"1012": {
+		"1046": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.mintTransferToken"
 		},
-		"1013": {
+		"1047": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.mintTransferToken"
 		},
-		"1014": {
+		"1048": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.logout"
 		},
-		"1015": {
+		"1049": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.logout"
 		},
-		"1016": {
+		"1050": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.hasSession"
 		},
-		"1017": {
+		"1051": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.hasSession"
 		},
-		"1018": {
+		"1052": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.getClaims"
 		},
-		"1019": {
+		"1053": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousSessionApiClient.getClaims"
 		},
-		"1020": {
+		"1054": {
 			"packageName": "@auth0/auth0-spa-js",
 			"packagePath": "dist/typings/anonymous/AnonymousSessionApiClient.d.ts",
 			"qualifiedName": "AnonymousGetTokenSilentlyOptions"
 		},
-		"1021": {
+		"1055": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSession"
 		},
-		"1022": {
+		"1056": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSession.sessionToken"
 		},
-		"1023": {
+		"1057": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSession.accessToken"
 		},
-		"1024": {
+		"1058": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSession.expiresAt"
 		},
-		"1025": {
+		"1059": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSession.sessionTokenExpiresAt"
 		},
-		"1026": {
+		"1060": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSession.scope"
 		},
-		"1027": {
+		"1061": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionClaims"
 		},
-		"1028": {
+		"1062": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionClaims.iss"
 		},
-		"1029": {
+		"1063": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionClaims.sub"
 		},
-		"1030": {
+		"1064": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionClaims.aud"
 		},
-		"1031": {
+		"1065": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionClaims.iat"
 		},
-		"1032": {
+		"1066": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionClaims.exp"
 		},
-		"1033": {
+		"1067": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionClaims.sid"
 		},
-		"1034": {
+		"1068": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionClaims.metadata"
 		},
-		"1035": {
+		"1069": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "AnonymousSessionErrorCode"
 		},
-		"1036": {
+		"1070": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "CreateAnonymousSessionOptions"
 		},
-		"1037": {
+		"1071": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "CreateAnonymousSessionOptions.audience"
 		},
-		"1038": {
+		"1072": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "CreateAnonymousSessionOptions.scope"
 		},
-		"1039": {
+		"1073": {
 			"packageName": "@auth0/auth0-auth-js",
 			"packagePath": "dist/index.d.ts",
 			"qualifiedName": "CreateAnonymousSessionOptions.metadata"
 		},
-		"1040": {
+		"1074": {
 			"packageName": "@auth0/auth0-react",
 			"packagePath": "src/errors.tsx",
 			"qualifiedName": "OAuthError"
 		},
-		"1041": {
+		"1075": {
 			"packageName": "@auth0/auth0-react",
 			"packagePath": "src/errors.tsx",
 			"qualifiedName": "OAuthError.__constructor"
 		},
-		"1042": {
+		"1076": {
 			"packageName": "@auth0/auth0-react",
 			"packagePath": "src/errors.tsx",
 			"qualifiedName": "OAuthError"
 		},
-		"1043": {
+		"1077": {
 			"packageName": "@auth0/auth0-react",
 			"packagePath": "src/errors.tsx",
 			"qualifiedName": "error"
 		},
-		"1044": {
+		"1078": {
 			"packageName": "@auth0/auth0-react",
 			"packagePath": "src/errors.tsx",
 			"qualifiedName": "error_description"
 		},
-		"1045": {
+		"1079": {
 			"packageName": "@auth0/auth0-react",
 			"packagePath": "src/errors.tsx",
 			"qualifiedName": "OAuthError.error"
 		},
-		"1046": {
+		"1080": {
 			"packageName": "@auth0/auth0-react",
 			"packagePath": "src/errors.tsx",
 			"qualifiedName": "OAuthError.error_description"

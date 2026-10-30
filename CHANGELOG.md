@@ -1,5 +1,11 @@
 # Change Log
 
+## [v2.30.0](https://github.com/auth0/auth0-react/tree/v2.30.0) (2026-10-30)
+[Full Changelog](https://github.com/auth0/auth0-react/compare/v2.29.0...v2.30.0)
+
+**Added**
+- feat(myaccount): add getUserProfile and updateUserProfile methods [\#1315](https://github.com/auth0/auth0-react/pull/1315) ([siddhikotak](https://github.com/siddhikotak))
+
 ## [v2.29.0](https://github.com/auth0/auth0-react/tree/v2.29.0) (2026-10-27)
 [Full Changelog](https://github.com/auth0/auth0-react/compare/v2.28.2...v2.29.0)
 
