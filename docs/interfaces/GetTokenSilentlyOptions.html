@@ -59,17 +59,19 @@ Auth0 Application's settings.</p>
 <div class="tsd-comment tsd-typography"><p>The scope that was used in the authentication request</p>
 </div></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:600</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:602</li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="cachemode"><code class="tsd-tag">Optional</code><span>cache<wbr/>Mode</span><a href="#cachemode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">cacheMode</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;on&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;off&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;cache-only&quot;</span></div>
 <div class="tsd-comment tsd-typography"><p>When <code>off</code>, ignores the cache and always sends a
-request to Auth0. Concurrent <code>off</code> calls are not deduplicated — each makes its own request.
+request to Auth0. Concurrent <code>off</code> calls for the same audience and scope
+share a single request, but never share a request with <code>on</code> or
+<code>cache-only</code> calls.
 When <code>cache-only</code>, only reads from the cache and never sends a request to Auth0.
 Defaults to <code>on</code>, where it both reads from the cache and sends a request to Auth0 as needed.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:596</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:598</li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="detailedresponse"><code class="tsd-tag">Optional</code><span>detailed<wbr/>Response</span><a href="#detailedresponse" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">detailedResponse</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -78,7 +80,7 @@ Defaults to <code>on</code>, where it both reads from the cache and sends a requ
 <p>The default is <code>false</code>.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:634</li></ul></aside></section>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:636</li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="timeoutinseconds"><code class="tsd-tag">Optional</code><span>timeout<wbr/>In<wbr/>Seconds</span><a href="#timeoutinseconds" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">timeoutInSeconds</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
@@ -86,7 +88,7 @@ Defaults to <code>on</code>, where it both reads from the cache and sends a requ
 Defaults to 60s.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:627</li></ul></aside></section></section></details></div>
+<li>Defined in node_modules/@auth0/auth0-spa-js/dist/typings/global.d.ts:629</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
