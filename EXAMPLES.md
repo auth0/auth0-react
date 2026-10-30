@@ -2071,6 +2071,9 @@ await myAccount.enrollmentVerify({
 
 ### Profile
 
+> [!NOTE]
+> My Account Profile API support via SDKs is currently in Early Access. To request access to this feature, contact your Auth0 representative.
+
 Read and update the current user's profile. `getUserProfile()` needs the `read:me:profile` scope, and `updateUserProfile()` needs `update:me:profile`.
 
 > [!NOTE]
@@ -2140,6 +2143,18 @@ try {
     err.validation_errors?.forEach(e => console.error(e.pointer, e.detail));
   }
 }
+```
+
+`updateUserProfile()` doesn't change `user` from `useAuth0()`. `user` comes from the ID token, so it keeps the old values until the SDK gets a new ID token. To show the new values right away, use the profile that `updateUserProfile()` returns. To update `user`, get new tokens with `getAccessTokenSilently({ cacheMode: 'off' })`:
+
+```jsx
+const { myAccount, getAccessTokenSilently } = useAuth0();
+
+const updated = await myAccount.updateUserProfile({ given_name: 'Alice' });
+// updated.given_name is 'Alice', but user.given_name still has the old value
+
+await getAccessTokenSilently({ cacheMode: 'off' });
+// useAuth0() now returns user from the new ID token
 ```
 
 ### Error Handling
