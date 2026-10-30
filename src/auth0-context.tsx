@@ -508,8 +508,10 @@ export interface Auth0ContextInterface<TUser extends User = User>
    *
    * MyAccount API client for self-service account management operations.
    *
-   * Provides access to methods for managing the authenticated user's authentication
-   * methods and factors:
+   * Provides access to methods for managing the authenticated user's profile,
+   * authentication methods and factors:
+   * - `getUserProfile(options?)` - Get the user's profile, optionally selecting fields (scope `read:me:profile`)
+   * - `updateUserProfile(data)` - Update the user's profile; only the fields sent are changed (scope `update:me:profile`)
    * - `getFactors()` - List available authentication factors
    * - `getAuthenticationMethods(type?)` - List enrolled authentication methods, optionally filtered by type
    * - `getAuthenticationMethod(id)` - Get a specific authentication method by ID
@@ -521,6 +523,10 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * @example
    * ```js
    * const { myAccount } = useAuth0();
+   *
+   * // Read and update the user's profile
+   * const profile = await myAccount.getUserProfile();
+   * await myAccount.updateUserProfile({ given_name: 'Alice' });
    *
    * // List all enrolled authentication methods
    * const methods = await myAccount.getAuthenticationMethods();
@@ -613,6 +619,8 @@ export const initialContext = {
     getTokenWithPasskey: stub,
   } as unknown as PasskeyApiClient,
   myAccount: {
+    getUserProfile: stub,
+    updateUserProfile: stub,
     getFactors: stub,
     getAuthenticationMethods: stub,
     getAuthenticationMethod: stub,
