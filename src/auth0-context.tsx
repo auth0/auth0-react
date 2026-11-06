@@ -520,6 +520,11 @@ export interface Auth0ContextInterface<TUser extends User = User>
    * - `enrollmentChallenge(options)` - Initiate a two-step enrollment challenge
    * - `enrollmentVerify(options)` - Complete a two-step enrollment by verifying the challenge
    *
+   * The profile methods (`getUserProfile` and `updateUserProfile`) are currently in
+   * [Beta](https://auth0.com/docs/troubleshoot/product-lifecycle/product-release-stages#beta).
+   * They might change before General Availability, and Auth0 does not support beta
+   * functionality for production use. The feature must be enabled for your tenant.
+   *
    * @example
    * ```js
    * const { myAccount } = useAuth0();
