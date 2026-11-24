@@ -40,7 +40,9 @@ export type Auth0SuspenseContextInterface<TUser extends User = User> = Omit<
  * means, the session is re-checked once; retrying the Error Boundary then
  * renders if that check succeeded, or throws again if it did not.
  *
- * TUser is an optional type param to provide a type to the `user` field.
+ * @typeParam TUser - The type of the `user` field. It defaults to `User`.
+ * @param context - The context to read from. Only provide it if you use multiple `Auth0Provider`s and want this component tied to a provider other than the one for the default `Auth0Context`.
+ * @returns The auth state and methods of the nearest `Auth0Provider`, available once initialization has completed.
  *
  * @category Hooks & HOCs
  */

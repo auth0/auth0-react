@@ -45,6 +45,9 @@ export interface UseEnterpriseConnect {
  * only the email domain. `loginWithSSO` is sugar over `loginWithRedirect`
  * that sets `login_hint` to the provided email.
  *
+ * @param context - The context to read from. Only provide it if you use multiple `Auth0Provider`s and want this component tied to a provider other than the one for the default `Auth0Context`.
+ * @returns The `isFederatedDomain` and `loginWithSSO` functions.
+ *
  * @category Hooks & HOCs
  */
 const useEnterpriseConnect = (
