@@ -84,7 +84,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
 
   /**
    * ```js
-   * const token = await getTokenWithPopup(options, config);
+   * const token = await getAccessTokenWithPopup(options, config);
    * ```
    *
    * Get an access token interactively.
@@ -292,7 +292,7 @@ export interface Auth0ContextInterface<TUser extends User = User>
 
   /**
    * ```js
-   * auth0.logout({ logoutParams: { returnTo: window.location.origin } });
+   * logout({ logoutParams: { returnTo: window.location.origin } });
    * ```
    *
    * Clears the application session and performs a redirect to `/v2/logout`, using
