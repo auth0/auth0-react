@@ -102,6 +102,11 @@ export interface WithAuthenticationRequiredOptions {
  * When you wrap your components in this Higher Order Component and an anonymous user visits your component
  * they will be redirected to the login page; after login they will be returned to the page they were redirected from.
  *
+ * @typeParam P - The props of the wrapped component.
+ * @param Component - The component to protect.
+ * @param options - Options that control the redirect to the login page. See {@link WithAuthenticationRequiredOptions}.
+ * @returns A component that renders `Component` once the user is authenticated, and `onRedirecting` while the user is sent to log in.
+ *
  * @category Hooks & HOCs
  */
 const withAuthenticationRequired = <P extends object>(

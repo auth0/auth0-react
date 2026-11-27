@@ -26,7 +26,12 @@ export interface WithAuth0Props {
  * Wrap your class components in this Higher Order Component to give them access to the Auth0Context.
  *
  * Providing a context as the second argument allows you to configure the Auth0Provider the Auth0Context
- * should come from f you have multiple within your application.
+ * should come from if you have multiple within your application.
+ *
+ * @typeParam P - The props of the wrapped component. They must include {@link WithAuth0Props}.
+ * @param Component - The class component to wrap.
+ * @param context - The context to read from. Only provide it if you use multiple `Auth0Provider`s.
+ * @returns A component that renders `Component` with the `auth0` prop, and without that prop in its own props type.
  *
  * @category Hooks & HOCs
  */

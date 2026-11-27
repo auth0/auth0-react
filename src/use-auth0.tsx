@@ -19,7 +19,9 @@ import Auth0Context, { Auth0ContextInterface } from './auth0-context';
  * {@link Auth0ContextInterface.anonymous | anonymous}. See that interface for
  * the full set of members.
  *
- * TUser is an optional type param to provide a type to the `user` field.
+ * @typeParam TUser - The type of the `user` field. It defaults to `User`.
+ * @param context - The context to read from. Only provide it if you use multiple `Auth0Provider`s and want this component tied to a provider other than the one for the default `Auth0Context`.
+ * @returns The auth state and methods of the nearest `Auth0Provider`.
  *
  * @category Hooks & HOCs
  */
